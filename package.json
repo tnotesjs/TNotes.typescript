@@ -4,5 +4,11 @@
         "update": "     node ./node_modules/tnotes   --updateREADME        --repoName=typescript",
         "distribute": " node ./node_modules/tnotes   --distributeREADME    --repoName=typescript",
         "sync": "       node ./node_modules/tnotes   --syncREADME          --repoName=typescript"
+    },
+    "tnotesConfig": {
+      "ignoreDirs": [
+        ".vscode",
+        ".git"
+      ]
     }
 }
