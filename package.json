@@ -1,14 +1,55 @@
 {
-    "scripts": {
-        "merge": "      node ./node_modules/tnotes   --mergeREADME         --repoName=typescript",
-        "update": "     node ./node_modules/tnotes   --updateREADME        --repoName=typescript",
-        "distribute": " node ./node_modules/tnotes   --distributeREADME    --repoName=typescript",
-        "sync": "       node ./node_modules/tnotes   --syncREADME          --repoName=typescript"
-    },
-    "tnotesConfig": {
-      "ignoreDirs": [
-        ".vscode",
-        ".git"
-      ]
+  "scripts": {
+    "distribute": "      node ./node_modules/tnotes   --distributeREADME    --repoName=typescript",
+    "docs:publish": "    node ./node_modules/tnotes/scripts/docs-publish.js",
+    "merge": "           node ./node_modules/tnotes   --mergeREADME         --repoName=typescript",
+    "sync": "            node ./node_modules/tnotes   --syncREADME          --repoName=typescript",
+    "update": "          node ./node_modules/tnotes   --updateREADME        --repoName=typescript"
+  },
+  "tnotesConfig": {
+    "dirList": {
+      ".git": {
+        "ignore": true
+      },
+      ".vscode": {
+        "ignore": true
+      },
+      "0001": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0002": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0003": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0004": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0005": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "0006": {
+        "bilibili": [],
+        "done": false,
+        "ignore": false
+      },
+      "assets": {
+        "ignore": true
+      },
+      "md-imgs": {
+        "ignore": true
+      }
     }
+  }
 }

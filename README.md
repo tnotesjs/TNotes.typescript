@@ -1,13 +1,11 @@
 # typescript
 
-- 📝 summary
-  - typescript 学习笔记。
-- ⏰ TODO
-  - 搬运语雀笔记
-  - 整理 github 仓库 typescript 笔记结构。
+<!-- region:toc -->
+- [typescript](#typescript)
+  - [1. ⏰ 待分组](#1--待分组)
+<!-- endregion:toc -->
 
-
-## ⏰ 待分组
+## 1. ⏰ 待分组
 
 - [ ] [0001. 泛型工具](https://github.com/Tdahuyou/typescript/tree/main/0001.%20%E6%B3%9B%E5%9E%8B%E5%B7%A5%E5%85%B7/README.md) <!-- [locale](./0001.%20%E6%B3%9B%E5%9E%8B%E5%B7%A5%E5%85%B7/README.md) -->  
   - ⏰ TODO
