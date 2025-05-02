@@ -9,13 +9,13 @@
 
 ## 1. ⏰ pending
 
-- [ ] [0001. 泛型工具](https://github.com/Tdahuyou/TNotes.typescript/tree/main/notes/0001.%20%E6%B3%9B%E5%9E%8B%E5%B7%A5%E5%85%B7/README.md)
-  - ⏰ TODO
 - [ ] [0002. 核心概念](https://github.com/Tdahuyou/TNotes.typescript/tree/main/notes/0002.%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md)
   - [1. 📝 概述](https://github.com/Tdahuyou/TNotes.typescript/tree/main/notes/0002.%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#1--概述)
   - [2. 💻 demos.1 - 类型 vs. 值](https://github.com/Tdahuyou/TNotes.typescript/tree/main/notes/0002.%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#2--demos1---类型-vs-值)
   - [3. 💻 demos.2 - 类型声明](https://github.com/Tdahuyou/TNotes.typescript/tree/main/notes/0002.%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#3--demos2---类型声明)
   - [4. 💻 demos.3 - 类型推断](https://github.com/Tdahuyou/TNotes.typescript/tree/main/notes/0002.%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/README.md#4--demos3---类型推断)
+- [ ] [0001. 泛型工具](https://github.com/Tdahuyou/TNotes.typescript/tree/main/notes/0001.%20%E6%B3%9B%E5%9E%8B%E5%B7%A5%E5%85%B7/README.md)
+  - ⏰ TODO
 - [ ] [0003. 简介](https://github.com/Tdahuyou/TNotes.typescript/tree/main/notes/0003.%20%E7%AE%80%E4%BB%8B/README.md)
   - ⏰ TODO
 - [ ] [0004. 特殊类型](https://github.com/Tdahuyou/TNotes.typescript/tree/main/notes/0004.%20%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B/README.md)
