@@ -13,7 +13,7 @@
     "demos",
     "assets"
   ],
-  "rootSidebarDir": "../_/sidebars",
+  "rootSidebarDir": "../TNotes/sidebars",
   "root_item": {
     "icon": {
       "src": "https://cdn.jsdelivr.net/gh/Tdahuyou/imgs@main/assets/icon--typescript.svg"
@@ -23,7 +23,7 @@
     "details": "TS 笔记",
     "link": "https://tdahuyou.github.io/TNotes.typescript/",
     "created_at": 1727046787000,
-    "updated_at": 1754494586829,
+    "updated_at": 1757163553060,
     "days_since_birth": 9219
   },
   "port": 9219,
@@ -62,7 +62,7 @@
     },
     {
       "ariaLabel": "TNotes.typescript github 仓库链接",
-      "link": "https://github.com/Tdahuyou/TNotes.typescript",
+      "link": "https://github.com/tnotesjs/TNotes.typescript",
       "icon": "github"
     }
   ],
