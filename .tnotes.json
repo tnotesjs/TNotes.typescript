@@ -1,7 +1,9 @@
 {
   "author": "tnotesjs",
   "repoName": "TNotes.typescript",
-  "keywords": ["TNotes.typescript"],
+  "keywords": [
+    "TNotes.typescript"
+  ],
   "ignore_dirs": [
     ".vscode",
     "0000",
@@ -21,7 +23,7 @@
     "details": "TS 笔记",
     "link": "https://tnotesjs.github.io/TNotes.typescript/",
     "created_at": 1727046787000,
-    "updated_at": 1757163553060,
+    "updated_at": 1757172136738,
     "days_since_birth": 9219
   },
   "port": 9219,

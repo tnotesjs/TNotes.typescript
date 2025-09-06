@@ -1,4 +1,4 @@
-# [0002. 核心概念](https://github.com/Tdahuyou/TNotes.typescript/tree/main/notes/0002.%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5)
+# [0002. 核心概念](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0002.%20%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5)
 
 <!-- region:toc -->
 

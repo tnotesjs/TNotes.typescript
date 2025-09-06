@@ -1,4 +1,4 @@
-# [0007. typescript v7](https://github.com/Tdahuyou/TNotes.typescript/tree/main/notes/0007.%20typescript%20v7)
+# [0007. typescript v7](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0007.%20typescript%20v7)
 
 <!-- region:toc -->
 
