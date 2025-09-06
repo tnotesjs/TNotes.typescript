@@ -1,5 +1,5 @@
 {
-  "author": "Tdahuyou",
+  "author": "tnotesjs",
   "repoName": "TNotes.typescript",
   "keywords": ["TNotes.typescript"],
   "ignore_dirs": [
@@ -19,7 +19,7 @@
     "title": "typescript",
     "completed_notes_count": 0,
     "details": "TS 笔记",
-    "link": "https://tdahuyou.github.io/TNotes.typescript/",
+    "link": "https://tnotesjs.github.io/TNotes.typescript/",
     "created_at": 1727046787000,
     "updated_at": 1757163553060,
     "days_since_birth": 9219
@@ -36,7 +36,7 @@
     },
     {
       "text": "📒 TNotes",
-      "link": "https://tdahuyou.github.io/notes"
+      "link": "https://tnotesjs.github.io/notes"
     },
     {
       "text": "📂 TNotes.yuque",
