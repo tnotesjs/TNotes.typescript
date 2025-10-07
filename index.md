@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: 'TS 笔记'
+  name: 'TypeScript 笔记'
   image:
     src: /logo.png
     alt: TNotes logo
