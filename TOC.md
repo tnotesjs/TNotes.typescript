@@ -10,7 +10,8 @@
 - [x] [0001. TypeScript 简介](https://tnotesjs.github.io/TNotes.typescript/notes/0001.%20TypeScript%20%E7%AE%80%E4%BB%8B/README)
 - [x] [0003. TypeScript 发展简史](https://tnotesjs.github.io/TNotes.typescript/notes/0003.%20TypeScript%20%E5%8F%91%E5%B1%95%E7%AE%80%E5%8F%B2/README)
 - [x] [0005. TypeScript 博客](https://tnotesjs.github.io/TNotes.typescript/notes/0005.%20TypeScript%20%E5%8D%9A%E5%AE%A2/README)
-- [ ] [0004. 理解类型](https://tnotesjs.github.io/TNotes.typescript/notes/0004.%20%E7%90%86%E8%A7%A3%E7%B1%BB%E5%9E%8B/README)
+- [x] [0004. 类型 vs. 值](https://tnotesjs.github.io/TNotes.typescript/notes/0004.%20%E7%B1%BB%E5%9E%8B%20vs.%20%E5%80%BC/README)
+- [ ] [0007. 动态类型 vs. 静态类型](https://tnotesjs.github.io/TNotes.typescript/notes/0007.%20%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B%20vs.%20%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B/README)
 - [ ] [0006. 面向对象的思维方式](https://tnotesjs.github.io/TNotes.typescript/notes/0006.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%80%9D%E7%BB%B4%E6%96%B9%E5%BC%8F/README)
 
 ## 3. 基本用法
