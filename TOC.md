@@ -18,7 +18,7 @@
 ## 3. 基本用法
 
 - [x] [0009. 类型声明和类型推断](https://tnotesjs.github.io/TNotes.typescript/notes/0009.%20%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E5%92%8C%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD/README)
-- [ ] [0010. TS 的编译](https://tnotesjs.github.io/TNotes.typescript/notes/0010.%20TS%20%E7%9A%84%E7%BC%96%E8%AF%91/README)
+- [x] [0010. TS 的编译](https://tnotesjs.github.io/TNotes.typescript/notes/0010.%20TS%20%E7%9A%84%E7%BC%96%E8%AF%91/README)
 - [ ] [0011. TS Playground](https://tnotesjs.github.io/TNotes.typescript/notes/0011.%20TS%20Playground/README)
 - [ ] [0012. tsc 基本使用](https://tnotesjs.github.io/TNotes.typescript/notes/0012.%20tsc%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README)
 - [ ] [0013. ts-node 基本使用](https://tnotesjs.github.io/TNotes.typescript/notes/0013.%20ts-node%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README)
