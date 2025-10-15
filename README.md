@@ -30,6 +30,7 @@
   - [25. 注释指令](#25-注释指令)
   - [26. tsconfig.json 文件](#26-tsconfigjson-文件)
   - [27. tsc 命令](#27-tsc-命令)
+  - [28. 空](#28-空)
 
 <!-- endregion:toc -->
 
@@ -43,8 +44,9 @@
 - [x] [0003. TypeScript 发展简史](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0003.%20TypeScript%20%E5%8F%91%E5%B1%95%E7%AE%80%E5%8F%B2/README.md)
 - [x] [0005. TypeScript 博客](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0005.%20TypeScript%20%E5%8D%9A%E5%AE%A2/README.md)
 - [x] [0004. 类型 vs. 值](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0004.%20%E7%B1%BB%E5%9E%8B%20vs.%20%E5%80%BC/README.md)
+- [x] [0006. 面向对象的思维方式](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0006.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%80%9D%E7%BB%B4%E6%96%B9%E5%BC%8F/README.md)
 - [ ] [0007. 动态类型 vs. 静态类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0007.%20%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B%20vs.%20%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B/README.md)
-- [ ] [0006. 面向对象的思维方式](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0006.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%80%9D%E7%BB%B4%E6%96%B9%E5%BC%8F/README.md)
+- [ ] [0008. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0008.%20xxx/README.md)
 
 ## 3. 基本用法
 
@@ -95,3 +97,19 @@
 ## 26. tsconfig.json 文件
 
 ## 27. tsc 命令
+
+## 28. 空
+
+- [ ] [0009. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0009.%20xxx/README.md)
+- [ ] [0010. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0010.%20xxx/README.md)
+- [ ] [0011. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0011.%20xxx/README.md)
+- [ ] [0012. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0012.%20xxx/README.md)
+- [ ] [0013. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0013.%20xxx/README.md)
+- [ ] [0014. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0014.%20xxx/README.md)
+- [ ] [0015. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0015.%20xxx/README.md)
+- [ ] [0016. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0016.%20xxx/README.md)
+- [ ] [0017. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0017.%20xxx/README.md)
+- [ ] [0018. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0018.%20xxx/README.md)
+- [ ] [0019. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0019.%20xxx/README.md)
+- [ ] [0020. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0020.%20xxx/README.md)
+- [ ] [0021. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0021.%20xxx/README.md)
