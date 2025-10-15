@@ -7,13 +7,14 @@
 - [3. 🤔 TypeScript 是什么？「民间定义」](#3--typescript-是什么民间定义)
 - [4. 🤔 TypeScript 是什么？「官方定义」](#4--typescript-是什么官方定义)
 - [5. 🤔 学习 TS 都有哪些前置知识？](#5--学习-ts-都有哪些前置知识)
-- [6. 🤔 TypeScript 跟 JavaScript 是什么关系？](#6--typescript-跟-javascript-是什么关系)
-- [7. 🤔 TypeScript 的出现是为了解决什么问题？](#7--typescript-的出现是为了解决什么问题)
-- [8. 🤔 TypeScript 的作者是谁？](#8--typescript-的作者是谁)
-- [9. 🤔 TypeScript 的仓库地址是？](#9--typescript-的仓库地址是)
-- [10. 🤔 TypeScript 的官网是？](#10--typescript-的官网是)
-- [11. 🤖 「Top 10 JavaScript errors from 1000+ projects (and how to avoid them)」这篇文章讲了什么？](#11--top-10-javascript-errors-from-1000-projects-and-how-to-avoid-them这篇文章讲了什么)
-- [12. 🔗 引用](#12--引用)
+- [6. 🤔 TypeScript 跟 JavaScript 是什么关系？「面试题」](#6--typescript-跟-javascript-是什么关系面试题)
+- [7. 🤔 TypeScript 的出现是为了解决什么问题？「面试题」](#7--typescript-的出现是为了解决什么问题面试题)
+- [8. 🤔 你学习 TS 的原因是？](#8--你学习-ts-的原因是)
+- [9. 🤔 TypeScript 的作者是谁？](#9--typescript-的作者是谁)
+- [10. 🤔 TypeScript 的仓库地址是？](#10--typescript-的仓库地址是)
+- [11. 🤔 TypeScript 的官网是？](#11--typescript-的官网是)
+- [12. 🤖 「Top 10 JavaScript errors from 1000+ projects (and how to avoid them)」这篇文章讲了什么？](#12--top-10-javascript-errors-from-1000-projects-and-how-to-avoid-them这篇文章讲了什么)
+- [13. 🔗 引用](#13--引用)
 
 <!-- endregion:toc -->
 
@@ -37,7 +38,7 @@
 
 - ![图 2](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-07-21-31-55.png)
 - TypeScript is JavaScript with syntax for types.
-- 译：TypeScript 是具有 **类型语法** 的 JavaScript。
+- 译：TypeScript 是具有 类型语法 的 JavaScript。
 - ![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-07-21-30-16.png)
 - JavaScript and More：TypeScript adds additional syntax to JavaScript to support a tighter integration with your editor. Catch errors early in your editor.
 - 译：使用 TypeScript 可以让你在 IDE 中更早发现那些很 low 的错误。
@@ -53,7 +54,7 @@
 - 后续内容不会对 JS 的相关知识加以介绍，必要的时候简单提一嘴即可，重点介绍 TypeScript 引入的新语法，主要是类型系统。
 - 如果你对 JavaScript 还不熟悉，掌握好 JS。
 
-## 6. 🤔 TypeScript 跟 JavaScript 是什么关系？
+## 6. 🤔 TypeScript 跟 JavaScript 是什么关系？「面试题」
 
 ![svg](./assets/1.svg)
 
@@ -68,41 +69,70 @@
     - 回答出“类型系统”，表示你知道多出的这部分东西是 TS 的“类型系统”；
   - 其实对于这类比较宽泛的问题，能唠的点有很多，只管往深了说，深不下去就展开来说，能想起啥说啥，单是这一个问题想必就能唠不少时间。
 
-## 7. 🤔 TypeScript 的出现是为了解决什么问题？
+## 7. 🤔 TypeScript 的出现是为了解决什么问题？「面试题」
 
-- Q：TypeScript 的出现是为了解决什么问题？
-- A：那肯定是解决 JS 无法解决或解决成本过高的问题啊！
-- Q：废话，那具体是什么问题呢？
+- 面试官：TypeScript 的出现是为了解决什么问题？
+- 你：那肯定是解决 JS 无法解决或解决成本过高的问题啊！如果 JS 就能轻松解决，还要 TS 干啥！
+- 面试官：那具体是哪些问题呢？
 
 ---
 
-- 下面一些回答该问题的切入点：
+- 下面一些回答该问题的思考切入点：
 - 可以列出一些 JS 类型上的问题，比如使用 var、let 定义的变量可以被赋予任意类型、函数参数可以接受任意类型、访问对象身上不存在的成员不会抛出错误、…… 等等。
 - 也可以把问题往 TS 和 JS 之间的差异上来引，指出 JS 是弱类型，TS 是强类型，然后去指出弱类型的一些缺点，强类型的一些优点
 - ……
 
 ---
 
+- JS 自身的一些问题
 - TypeScript 的出现是为了解决 JavaScript 因自身特性而无法解决的一系列类型方面的“问题”。
   - 这里的问题刻意加上了引号，是因为在大多数小型项目中，JavaScript 中的这些“问题”，被很多开发者视作是 JavaScript 的优势，这显得 JavaScript 及其灵活，写起来很爽，几乎不报错（注：这里的不报错是指开发阶段 JS 语言服务不报错）。
   - 可是，当项目规模上去后，也许这些被视作 JavaScript 优势的，灵活行为，会让你犯很多非常低级的类型上的错误，并且大多数这样的低级类型上的错误，需要等到程序运行的时候才会被抛出。
 - 根据文章 [rollbar，Top 10 JavaScript errors from 1000+ projects (and how to avoid them)，从 1000 个 JavaScript 项目中，统计出的 JavaScript 报错最多的前 10 个错误][5] 内容得出的结论：在 JavaScript 中最常见的报错主要都是一些很低级的类型上的错误，而 TypeScript 所弥补的正是 JavaScript 灵活（“随意”）的类型问题。
   - ![图 3](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-15-09-08-38.png)
 
-## 8. 🤔 TypeScript 的作者是谁？
+---
+
+- 参考回答：
+- TypeScript 主要是为了解决 JavaScript 在大型项目开发中的类型安全问题
+- JavaScript 是动态弱类型语言，变量类型随意切换，容易在运行时出现类型错误
+- 很多常见的错误，比如"Cannot read property of undefined"，都是因为缺乏类型检查导致的
+- TypeScript 通过静态类型系统，让我们在写代码的时候就能发现这些低级错误，而不是等到运行时
+- 同时还提供了更好的 IDE 支持，比如智能提示、自动补全、重构等，提高开发效率
+- 特别是在团队协作和大型项目中，TypeScript 的类型定义让代码更易维护和理解
+
+## 8. 🤔 你学习 TS 的原因是？
+
+::: tip 备注
+
+- 这一部分单纯用来记录一下个人的足迹 👣 -> 学习 TS 是因何而起的。
+
+:::
+
+- 以下是驱动自己去学习 TS 的一些原因……
+- 开始是「被动」的。原因只有一个 -> 工作需要。
+  - 22 年的年底，当时所在的公司要求上了一个“传秤工具”的桌面端项目，技术栈主要用到了 electron、node.js、vue3、vite、TS、TypeORM…… 老大在规划技术栈的时候，把 TS 给加进去了。
+  - 之前写的项目都是 JS 的，然后突然说要起一个 TS 的项目，于是就屁颠儿屁颠儿地跑去学习 TS 了。
+  - 想必“工作需要”也是大部分人学习这门技术的“初衷”吧！
+  - 但是，随着学习地深入，开始意识到 TS 这玩意儿还挺香，于是就主动去学习有关 TS 的更多知识点。
+- 后来是「主动」的 -> 这玩意儿确实对开发有帮助 + 喜欢记录和分享的习惯驱动
+  - 首先，体验一段时间的 TS 编程后，发现 TS 是真的香，很多时候它确实能够帮我规避掉那些在 JS 中显得很 low 的错误，这些错误在开发传统的 JS 项目时很难被提前发现，非得等到代码跑起来了才抛出错误 ～ 除此之外，TS 还有不少其他优点，后续笔记慢慢唠……
+  - 其次，想要和大伙分享一下自己学习 TS 的一些学习笔记和心得，学点儿东西，做点儿贡献嘛，如果能帮到有需要的小伙伴，那就再好不过了。
+
+## 9. 🤔 TypeScript 的作者是谁？
 
 - [Anders Hejlsberg][1]
 - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-07-20-17-45.png)
 
-## 9. 🤔 TypeScript 的仓库地址是？
+## 10. 🤔 TypeScript 的仓库地址是？
 
 - https://github.com/microsoft/TypeScript
 
-## 10. 🤔 TypeScript 的官网是？
+## 11. 🤔 TypeScript 的官网是？
 
 - https://www.typescriptlang.org/
 
-## 11. 🤖 「Top 10 JavaScript errors from 1000+ projects (and how to avoid them)」这篇文章讲了什么？
+## 12. 🤖 「Top 10 JavaScript errors from 1000+ projects (and how to avoid them)」这篇文章讲了什么？
 
 这篇文章是 Rollbar 在他们分析了 1000 多个项目的错误日志之后，总结出 JavaScript 中最常见的 10 种错误类型，以及每种错误的成因和避免／调试方式。
 
@@ -140,7 +170,7 @@
 - 在较大或多人协作的项目里，推荐结合静态类型检查（TypeScript / Flow） + 严格 lint 规则 + 单元 / 集成测试 来减少这些空引用、类型不匹配这类低级错误。
 - 同时线上错误监控（比如 Rollbar, Sentry 等）非常重要，因为有些错误在开发 / 测试环境是难以重现的。
 
-## 12. 🔗 引用
+## 13. 🔗 引用
 
 - [wiki - Anders Hejlsberg][1]
 - [Github - Anders Hejlsberg][2]
