@@ -2,34 +2,35 @@
 
 <!-- region:toc -->
 
-- [1. 学习资料](#1-学习资料)
-- [2. TS 简介](#2-ts-简介)
-- [3. 基本用法](#3-基本用法)
-- [4. 类型边界](#4-类型边界)
-- [5. 类型系统](#5-类型系统)
-- [6. 数组](#6-数组)
-- [7. 元组](#7-元组)
-- [8. symbol 类型](#8-symbol-类型)
-- [9. 函数](#9-函数)
-- [10. 对象](#10-对象)
-- [11. interface](#11-interface)
-- [12. 类](#12-类)
-- [13. 泛型](#13-泛型)
-- [14. Enum 类型](#14-enum-类型)
-- [15. 类型断言](#15-类型断言)
-- [16. 模块](#16-模块)
-- [17. namespace](#17-namespace)
-- [18. 装饰器](#18-装饰器)
-- [19. 装饰器（旧语法）](#19-装饰器旧语法)
-- [20. declare 关键字](#20-declare-关键字)
-- [21. d.ts 类型声明文件](#21-dts-类型声明文件)
-- [22. 类型运算符](#22-类型运算符)
-- [23. 类型映射](#23-类型映射)
-- [24. 类型工具](#24-类型工具)
-- [25. 注释指令](#25-注释指令)
-- [26. tsconfig.json 文件](#26-tsconfigjson-文件)
-- [27. tsc 命令](#27-tsc-命令)
-- [28. 空](#28-空)
+- [typescript](#typescript)
+  - [1. 学习资料](#1-学习资料)
+  - [2. TS 简介](#2-ts-简介)
+  - [3. 基本用法](#3-基本用法)
+  - [4. 类型边界](#4-类型边界)
+  - [5. 类型系统](#5-类型系统)
+  - [6. 数组](#6-数组)
+  - [7. 元组](#7-元组)
+  - [8. symbol 类型](#8-symbol-类型)
+  - [9. 函数](#9-函数)
+  - [10. 对象](#10-对象)
+  - [11. interface](#11-interface)
+  - [12. 类](#12-类)
+  - [13. 泛型](#13-泛型)
+  - [14. Enum 类型](#14-enum-类型)
+  - [15. 类型断言](#15-类型断言)
+  - [16. 模块](#16-模块)
+  - [17. namespace](#17-namespace)
+  - [18. 装饰器](#18-装饰器)
+  - [19. 装饰器（旧语法）](#19-装饰器旧语法)
+  - [20. declare 关键字](#20-declare-关键字)
+  - [21. d.ts 类型声明文件](#21-dts-类型声明文件)
+  - [22. 类型运算符](#22-类型运算符)
+  - [23. 类型映射](#23-类型映射)
+  - [24. 类型工具](#24-类型工具)
+  - [25. 注释指令](#25-注释指令)
+  - [26. tsconfig.json 文件](#26-tsconfigjson-文件)
+  - [27. tsc 命令](#27-tsc-命令)
+  - [28. 空](#28-空)
 
 <!-- endregion:toc -->
 
@@ -49,7 +50,7 @@
 
 ## 3. 基本用法
 
-- [ ] [0009. 类型声明和类型推断](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0009.%20%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E5%92%8C%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD/README.md)
+- [x] [0009. 类型声明和类型推断](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0009.%20%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E5%92%8C%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD/README.md)
 - [ ] [0010. TS 的编译](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0010.%20TS%20%E7%9A%84%E7%BC%96%E8%AF%91/README.md)
 - [ ] [0011. TS Playground](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0011.%20TS%20Playground/README.md)
 - [ ] [0012. tsc 基本使用](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0012.%20tsc%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README.md)
@@ -95,7 +96,7 @@
 
 ## 8. symbol 类型
 
-- [ ] [0040. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0040.%20xxx)
+- [ ] [0040. symbol 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0040.%20symbol%20%E7%B1%BB%E5%9E%8B/README.md)
 
 ## 9. 函数
 

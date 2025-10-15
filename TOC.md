@@ -17,7 +17,7 @@
 
 ## 3. 基本用法
 
-- [ ] [0009. 类型声明和类型推断](https://tnotesjs.github.io/TNotes.typescript/notes/0009.%20%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E5%92%8C%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD/README)
+- [x] [0009. 类型声明和类型推断](https://tnotesjs.github.io/TNotes.typescript/notes/0009.%20%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E5%92%8C%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD/README)
 - [ ] [0010. TS 的编译](https://tnotesjs.github.io/TNotes.typescript/notes/0010.%20TS%20%E7%9A%84%E7%BC%96%E8%AF%91/README)
 - [ ] [0011. TS Playground](https://tnotesjs.github.io/TNotes.typescript/notes/0011.%20TS%20Playground/README)
 - [ ] [0012. tsc 基本使用](https://tnotesjs.github.io/TNotes.typescript/notes/0012.%20tsc%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README)
@@ -56,7 +56,14 @@
 
 ## 7. 元组
 
+- [ ] [0036. 元组类型](https://tnotesjs.github.io/TNotes.typescript/notes/0036.%20%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/README)
+- [ ] [0037. 只读元组](https://tnotesjs.github.io/TNotes.typescript/notes/0037.%20%E5%8F%AA%E8%AF%BB%E5%85%83%E7%BB%84/README)
+- [ ] [0038. 元组的成员数量的推断](https://tnotesjs.github.io/TNotes.typescript/notes/0038.%20%E5%85%83%E7%BB%84%E7%9A%84%E6%88%90%E5%91%98%E6%95%B0%E9%87%8F%E7%9A%84%E6%8E%A8%E6%96%AD/README)
+- [ ] [0039. 元组和扩展运算符](https://tnotesjs.github.io/TNotes.typescript/notes/0039.%20%E5%85%83%E7%BB%84%E5%92%8C%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6/README)
+
 ## 8. symbol 类型
+
+- [ ] [0040. symbol 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0040.%20symbol%20%E7%B1%BB%E5%9E%8B/README)
 
 ## 9. 函数
 
@@ -97,8 +104,3 @@
 ## 27. tsc 命令
 
 ## 28. 空
-
-- [ ] [0036. 元组类型](https://tnotesjs.github.io/TNotes.typescript/notes/0036.%20%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/README)
-- [ ] [0037. 只读元组](https://tnotesjs.github.io/TNotes.typescript/notes/0037.%20%E5%8F%AA%E8%AF%BB%E5%85%83%E7%BB%84/README)
-- [ ] [0038. 元组的成员数量的推断](https://tnotesjs.github.io/TNotes.typescript/notes/0038.%20%E5%85%83%E7%BB%84%E7%9A%84%E6%88%90%E5%91%98%E6%95%B0%E9%87%8F%E7%9A%84%E6%8E%A8%E6%96%AD/README)
-- [ ] [0039. 元组和扩展运算符](https://tnotesjs.github.io/TNotes.typescript/notes/0039.%20%E5%85%83%E7%BB%84%E5%92%8C%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6/README)
