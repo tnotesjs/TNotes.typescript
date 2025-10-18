@@ -30,7 +30,8 @@
   - [25. 注释指令](#25-注释指令)
   - [26. tsconfig.json 文件](#26-tsconfigjson-文件)
   - [27. tsc 命令](#27-tsc-命令)
-  - [28. 空](#28-空)
+  - [28. 深入原理](#28-深入原理)
+  - [29. 空](#29-空)
 
 <!-- endregion:toc -->
 
@@ -58,7 +59,6 @@
 - [x] [0013. ts-node 基本使用](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0013.%20ts-node%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README.md)
 - [x] [0041. nodemon 基本使用](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0041.%20nodemon%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README.md)
 - [x] [0042. ts-node-dev 基本使用](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0042.%20ts-node-dev%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README.md)
-- [ ] [0043. source-map-support 基本使用](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0043.%20source-map-support%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README.md)
 
 ## 4. 类型边界
 
@@ -140,4 +140,9 @@
 
 ## 27. tsc 命令
 
-## 28. 空
+## 28. 深入原理
+
+- [ ] [0045. 深入原理](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0045.%20%E6%B7%B1%E5%85%A5%E5%8E%9F%E7%90%86/README.md)
+- [x] [0043. Source Map 的基本概念和原理](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0043.%20Source%20Map%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8E%9F%E7%90%86/README.md)
+
+## 29. 空

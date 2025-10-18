@@ -1,0 +1,22 @@
+{
+  "name": "1",
+  "version": "1.0.0",
+  "description": "source-map-support 实验 demo",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build:no-map": "tsc --project tsconfig.json --sourceMap false",
+    "build:map": "tsc --project tsconfig.json --sourceMap true",
+    "run:dist": "node dist/index.js",
+    "run:dist:maps": "node --enable-source-maps dist/index.js",
+    "demo": "pnpm build:no-map && pnpm run:dist || true; echo '--- 分隔线 ---'; pnpm build:map && pnpm run:dist:maps"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.15.1",
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}

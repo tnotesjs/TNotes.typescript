@@ -17,7 +17,6 @@
 - ts-node 基本使用
 - nodemon 基本使用
 - ts-node-dev 基本使用
-- source-map-support 基本使用
 
 ## 2. 🫧 评价
 
@@ -38,6 +37,5 @@ TS 的编译，一句话解释就是 -> `将 TS 转为 JS`。如果你对 VSCode
 - ts-node 基本使用
 - nodemon 基本使用
 - ts-node-dev 基本使用
-- source-map-support 基本使用
 
 如果你没有将文件存储在本地的需求，没有使用 nodejs API 的需求，只是想要快速体验 TypeScript 的相关特性，那么非常推荐你使用 TS Playground，这是官方站点，你可以在这里边儿快速测试一些 TS 特性，非常适合用来快速学习和验证相关 TS 特性。
