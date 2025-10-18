@@ -17,6 +17,7 @@
 
 ## 3. 基本用法
 
+- [x] [0044. 基本用法](https://tnotesjs.github.io/TNotes.typescript/notes/0044.%20%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/README)
 - [x] [0009. 类型声明和类型推断](https://tnotesjs.github.io/TNotes.typescript/notes/0009.%20%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E5%92%8C%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD/README)
 - [x] [0010. TS 的编译](https://tnotesjs.github.io/TNotes.typescript/notes/0010.%20TS%20%E7%9A%84%E7%BC%96%E8%AF%91/README)
 - [x] [0011. TS Playground](https://tnotesjs.github.io/TNotes.typescript/notes/0011.%20TS%20Playground/README)
