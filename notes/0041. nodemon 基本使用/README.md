@@ -79,7 +79,7 @@ nodemon 的 LOGO 如下：
 
 ::: code-group
 
-<<< ./demos/1/package.json {}
+<<< ./demos/1/package.json {8}
 
 <<< ./demos/1/src/index.ts {}
 

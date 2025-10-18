@@ -23,7 +23,7 @@
 - [x] [0012. tsc 基本使用](https://tnotesjs.github.io/TNotes.typescript/notes/0012.%20tsc%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README)
 - [x] [0013. ts-node 基本使用](https://tnotesjs.github.io/TNotes.typescript/notes/0013.%20ts-node%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README)
 - [x] [0041. nodemon 基本使用](https://tnotesjs.github.io/TNotes.typescript/notes/0041.%20nodemon%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README)
-- [ ] [0042. ts-node-dev 基本使用](https://tnotesjs.github.io/TNotes.typescript/notes/0042.%20ts-node-dev%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README)
+- [x] [0042. ts-node-dev 基本使用](https://tnotesjs.github.io/TNotes.typescript/notes/0042.%20ts-node-dev%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README)
 - [ ] [0043. source-map-support 基本使用](https://tnotesjs.github.io/TNotes.typescript/notes/0043.%20source-map-support%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README)
 
 ## 4. 类型边界
