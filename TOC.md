@@ -28,7 +28,7 @@
 
 ## 4. 类型边界
 
-- [ ] [0014. any 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0014.%20any%20%E7%B1%BB%E5%9E%8B/README)
+- [x] [0014. any 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0014.%20any%20%E7%B1%BB%E5%9E%8B/README)
 - [ ] [0015. unknown 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0015.%20unknown%20%E7%B1%BB%E5%9E%8B/README)
 - [ ] [0016. never 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0016.%20never%20%E7%B1%BB%E5%9E%8B/README)
 - [ ] [0017. 特殊类型的可赋值性](https://tnotesjs.github.io/TNotes.typescript/notes/0017.%20%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%AF%E8%B5%8B%E5%80%BC%E6%80%A7/README)
