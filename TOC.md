@@ -26,19 +26,20 @@
 - [x] [0041. nodemon 基本使用](https://tnotesjs.github.io/TNotes.typescript/notes/0041.%20nodemon%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README)
 - [x] [0042. ts-node-dev 基本使用](https://tnotesjs.github.io/TNotes.typescript/notes/0042.%20ts-node-dev%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/README)
 
-## 4. 类型边界
+## 4. 顶层类型和底层类型
 
+- [x] [0046. 顶层类型和底层类型](https://tnotesjs.github.io/TNotes.typescript/notes/0046.%20%E9%A1%B6%E5%B1%82%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BA%95%E5%B1%82%E7%B1%BB%E5%9E%8B/README)
 - [x] [0014. any 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0014.%20any%20%E7%B1%BB%E5%9E%8B/README)
 - [x] [0015. unknown 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0015.%20unknown%20%E7%B1%BB%E5%9E%8B/README)
-- [ ] [0016. never 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0016.%20never%20%E7%B1%BB%E5%9E%8B/README)
+- [x] [0016. never 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0016.%20never%20%E7%B1%BB%E5%9E%8B/README)
 - [x] [0017. 特殊类型的可赋值性](https://tnotesjs.github.io/TNotes.typescript/notes/0017.%20%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%AF%E8%B5%8B%E5%80%BC%E6%80%A7/README)
 
 ## 5. 类型系统
 
-- [ ] [0018. boolean 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0018.%20boolean%20%E7%B1%BB%E5%9E%8B/README)
-- [ ] [0019. string 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0019.%20string%20%E7%B1%BB%E5%9E%8B/README)
-- [ ] [0020. number 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0020.%20number%20%E7%B1%BB%E5%9E%8B/README)
-- [ ] [0021. bigint 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0021.%20bigint%20%E7%B1%BB%E5%9E%8B/README)
+- [x] [0018. boolean 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0018.%20boolean%20%E7%B1%BB%E5%9E%8B/README)
+- [x] [0019. string 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0019.%20string%20%E7%B1%BB%E5%9E%8B/README)
+- [x] [0020. number 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0020.%20number%20%E7%B1%BB%E5%9E%8B/README)
+- [x] [0021. bigint 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0021.%20bigint%20%E7%B1%BB%E5%9E%8B/README)
 - [ ] [0022. symbol 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0022.%20symbol%20%E7%B1%BB%E5%9E%8B/README)
 - [ ] [0023. object 类型和 Object 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0023.%20object%20%E7%B1%BB%E5%9E%8B%E5%92%8C%20Object%20%E7%B1%BB%E5%9E%8B/README)
 - [ ] [0024. undefined 类型和 null 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0024.%20undefined%20%E7%B1%BB%E5%9E%8B%E5%92%8C%20null%20%E7%B1%BB%E5%9E%8B/README)
