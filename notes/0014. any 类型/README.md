@@ -15,6 +15,7 @@
 - [11. 🤔 noImplicitAny 配置的作用是？](#11--noimplicitany-配置的作用是)
 - [12. 🤔 any 类型的污染问题是什么？](#12--any-类型的污染问题是什么)
 - [13. 🤔 空数组会被 TS 推断为什么类型？](#13--空数组会被-ts-推断为什么类型)
+- [14. 🔗 引用](#14--引用)
 
 <!-- endregion:toc -->
 
@@ -357,3 +358,11 @@ const arr = []
 arr.push(1, 2, 3) // error
 // Argument of type 'number' is not assignable to parameter of type 'never'.
 ```
+
+## 14. 🔗 引用
+
+- [any][2]
+- [noImplicitAny][1]
+
+[1]: https://www.typescriptlang.org/docs/handbook/2/basic-types.html#noimplicitany
+[2]: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any
