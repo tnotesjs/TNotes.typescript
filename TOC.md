@@ -46,7 +46,7 @@
 - [x] [0047. 包装对象类型](https://tnotesjs.github.io/TNotes.typescript/notes/0047.%20%E5%8C%85%E8%A3%85%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/README)
 - [x] [0025. 字面量类型](https://tnotesjs.github.io/TNotes.typescript/notes/0025.%20%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B/README)
 - [x] [0026. 联合类型](https://tnotesjs.github.io/TNotes.typescript/notes/0026.%20%E8%81%94%E5%90%88%E7%B1%BB%E5%9E%8B/README)
-- [ ] [0027. 交叉类型](https://tnotesjs.github.io/TNotes.typescript/notes/0027.%20%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B/README)
+- [x] [0027. 交叉类型](https://tnotesjs.github.io/TNotes.typescript/notes/0027.%20%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B/README)
 - [ ] [0028. type 命令](https://tnotesjs.github.io/TNotes.typescript/notes/0028.%20type%20%E5%91%BD%E4%BB%A4/README)
 - [ ] [0029. typeof 运算符](https://tnotesjs.github.io/TNotes.typescript/notes/0029.%20typeof%20%E8%BF%90%E7%AE%97%E7%AC%A6/README)
 - [ ] [0030. 类型作用域](https://tnotesjs.github.io/TNotes.typescript/notes/0030.%20%E7%B1%BB%E5%9E%8B%E4%BD%9C%E7%94%A8%E5%9F%9F/README)
