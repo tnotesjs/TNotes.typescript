@@ -16,6 +16,7 @@
 - [12. 🤔 unique symbol 类型在属性名中有什么作用？](#12--unique-symbol-类型在属性名中有什么作用)
 - [13. 🤔 unique symbol 类型可以用在类的属性中吗？](#13--unique-symbol-类型可以用在类的属性中吗)
 - [14. 🤔 TypeScript 如何推断 Symbol 值变量的类型？](#14--typescript-如何推断-symbol-值变量的类型)
+- [15. 🔗 引用](#15--引用)
 
 <!-- endregion:toc -->
 
@@ -201,3 +202,9 @@ const y = x // 类型为 symbol
 const x = Symbol()
 let y = x // 类型为 symbol
 ```
+
+## 15. 🔗 引用
+
+- [Reference - Symbols][1]
+
+[1]: https://www.typescriptlang.org/docs/handbook/symbols.html

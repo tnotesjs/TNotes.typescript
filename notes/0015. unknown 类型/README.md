@@ -256,5 +256,8 @@ let r = (a as number) + 10 // ✅
 ## 8. 🔗 引用
 
 - [unknown][1]
+- [Narrowing][2]
+  - 查看官方对「Narrowing 类型缩小」的描述
 
 [1]: https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown
+[2]: https://www.typescriptlang.org/docs/handbook/2/narrowing.html

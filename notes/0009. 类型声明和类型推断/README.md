@@ -326,6 +326,8 @@ const p: Point = { x: 1, y: 2 } // 此时写 z 会报错
 
 - [TS 官方文档，Type annotations][1]
 - [TS 官方文档，Type Annotations on Variables][2]
+- [TS 官方文档，Type Inference][3]
 
 [1]: https://www.typescriptlang.org/docs/handbook/typescript-tooling-in-5-minutes.html#type-annotations
 [2]: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-annotations-on-variables
+[3]: https://www.typescriptlang.org/docs/handbook/type-inference.html
