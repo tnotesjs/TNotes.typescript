@@ -23,11 +23,14 @@
 
 ## 3. 🤔 什么是 Object 类型（大写 O）？
 
-`Object` 是 JavaScript 内置的 `Object` 构造函数的类型，它代表所有对象的基类。
-
-- 包含原始类型：`Object` 类型实际上可以接受任何值，包括原始类型（string、number、boolean 等）
-- 过于宽泛：几乎等同于 `any` 类型，但仍然保留一些类型检查
-- 不推荐使用：因为它无法提供有效的类型安全
+- `Object` 是 JavaScript 内置的 `Object` 构造函数的类型，它代表所有对象的基类。
+- 大写的 `Object` 类型代表 JavaScript 语言里面的广义对象。所有可以转成对象的值，都是 `Object` 类型，这囊括了几乎所有的值。
+- 除了 `undefined` 和 `null` 这两个值不能转为对象，其他任何值都可以赋值给 Object 类型。
+- 特点：
+  - 包含原始类型：`Object` 类型实际上可以接受任何值，包括原始类型（string、number、boolean 等）
+  - 过于宽泛：几乎等同于 `any` 类型，但仍然保留一些类型检查
+  - 不推荐使用：因为它无法提供有效的类型安全
+    - 无所不包的 `Object` 类型既不符合直觉，也不方便使用。
 
 ```typescript
 // Object 类型可以接受任何值
@@ -41,6 +44,30 @@ let obj6: Object = undefined // ❌ 错误（严格模式下）
 // 虽然可以赋值，但访问属性时会有问题
 let str: Object = 'hello'
 // str.length; // ❌ 错误：Property 'length' does not exist on type 'Object'
+```
+
+- 空对象 `{}` 是 `Object` 类型的简写形式，所以使用 `Object` 时常常用空对象代替。
+
+```ts
+let obj: {}
+
+obj = true
+obj = 'hi'
+obj = 1
+obj = { foo: 123 }
+obj = [1, 2]
+obj = (a: number) => a + 1
+
+// 等效
+
+let obj2: Object
+
+obj2 = true
+obj2 = 'hi'
+obj2 = 1
+obj2 = { foo: 123 }
+obj2 = [1, 2]
+obj2 = (a: number) => a + 1
 ```
 
 ---
@@ -69,11 +96,12 @@ function processItem(item: Record<string, any>) {
 
 ## 4. 🤔 什么是 object 类型（小写 o）？
 
-`object` 是 TypeScript 2.2 引入的类型，专门表示非原始类型的值。
-
-- 排除原始类型：不能是 `string`、`number`、`boolean`、`symbol`、`null`、`undefined`
-- 只接受对象：包括普通对象、数组、函数等
-- 类型安全：提供更好的类型约束
+- `object` 是 TypeScript 2.2 引入的类型，专门表示非原始类型的值。
+- 小写的 `object` 类型代表 JavaScript 里面的狭义对象，即可以用字面量表示的对象，只包含对象、数组和函数，不包括原始类型的值。
+- 特点：
+  - 排除原始类型：不能是 `string`、`number`、`boolean`、`symbol`、`null`、`undefined`
+  - 只接受对象：包括普通对象、数组、函数等
+  - 类型安全：提供更好的类型约束
 
 ```typescript
 // object 类型只能接受非原始类型
