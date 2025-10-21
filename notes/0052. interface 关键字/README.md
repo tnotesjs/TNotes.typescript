@@ -242,9 +242,25 @@ interface User {
 
 // 合并为：
 // interface User {
-//   id: string;
-//   name: string;
+//   id: string
+//   name: string
 // }
+
+interface User {
+  age: string
+}
+// 合并为：
+// interface User {
+//   age: string
+//   id: string
+//   name: string
+// }
+
+// 注意：如果出现重名属性，TS 要求必须是 same type 相同的类型，否则会报错。
+interface User {
+  // age: number // ❌
+  // Subsequent property declarations must have the same type.  Property 'age' must be of type 'string', but here has type 'number'.(2717)
+}
 
 // 实战示例：扩展第三方库类型
 // global.d.ts

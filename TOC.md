@@ -52,8 +52,8 @@
 - [x] [0052. interface 关键字](https://tnotesjs.github.io/TNotes.typescript/notes/0052.%20interface%20%E5%85%B3%E9%94%AE%E5%AD%97/README)
 - [x] [0053. type vs. interface](https://tnotesjs.github.io/TNotes.typescript/notes/0053.%20type%20vs.%20interface/README)
 - [x] [0029. typeof 运算符](https://tnotesjs.github.io/TNotes.typescript/notes/0029.%20typeof%20%E8%BF%90%E7%AE%97%E7%AC%A6/README)
-- [ ] [0030. 类型作用域](https://tnotesjs.github.io/TNotes.typescript/notes/0030.%20%E7%B1%BB%E5%9E%8B%E4%BD%9C%E7%94%A8%E5%9F%9F/README)
-- [ ] [0031. 类型的兼容](https://tnotesjs.github.io/TNotes.typescript/notes/0031.%20%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%BC%E5%AE%B9/README)
+- [x] [0030. 类型作用域](https://tnotesjs.github.io/TNotes.typescript/notes/0030.%20%E7%B1%BB%E5%9E%8B%E4%BD%9C%E7%94%A8%E5%9F%9F/README)
+- [x] [0031. 类型的兼容](https://tnotesjs.github.io/TNotes.typescript/notes/0031.%20%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%BC%E5%AE%B9/README)
 
 ## 6. 数组
 

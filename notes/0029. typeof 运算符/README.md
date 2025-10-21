@@ -10,7 +10,9 @@
 - [6. 🤔 TypeScript 中的 `typeof` 与 JavaScript 有什么不同？](#6--typescript-中的-typeof-与-javascript-有什么不同)
 - [7. 🤔 TypeScript 中 `typeof` 有哪些典型用法？](#7--typescript-中-typeof-有哪些典型用法)
 - [8. 🆚 `typeof` vs. `instanceof`](#8--typeof-vs-instanceof)
-- [9. 🤔 使用 `typeof` 来检查引用类型，会存在什么问题？](#9--使用-typeof-来检查引用类型会存在什么问题)
+- [9. 🤔 使用 `typeof` 来检查引用类型会存在什么问题？](#9--使用-typeof-来检查引用类型会存在什么问题)
+- [10. 🤔 可以使用 `typeof` 来获取表达式的类型吗？](#10--可以使用-typeof-来获取表达式的类型吗)
+- [11. 🤔 可以使用 `typeof` 来获取类型的类型吗？](#11--可以使用-typeof-来获取类型的类型吗)
 
 <!-- endregion:toc -->
 
@@ -271,7 +273,7 @@ console.log(user instanceof User) // true
 console.log(typeof user) // "object"
 ```
 
-## 9. 🤔 使用 `typeof` 来检查引用类型，会存在什么问题？
+## 9. 🤔 使用 `typeof` 来检查引用类型会存在什么问题？
 
 问题：会检测不准，太宽泛了。
 
@@ -313,3 +315,68 @@ if (arr !== null && typeof arr === 'object') {
 ```
 
 :::
+
+## 10. 🤔 可以使用 `typeof` 来获取表达式的类型吗？
+
+```ts
+type T = typeof 1 + 1 // 报错
+type T = typeof Date() // 报错
+// ……
+```
+
+由于编译时不会进行 JavaScript 的值运算，所以 TypeScript 规定，`typeof` 的参数只能是标识符，不能是需要运算的表达式。
+
+## 11. 🤔 可以使用 `typeof` 来获取类型的类型吗？
+
+先说结轮：基本上都不行，可以直接暴力认为就是“TS 禁止 🚫 使用 `typeof` 来获取类型的类型”
+
+---
+
+判断规律：
+
+- 如果类型 `xxx` 在 TS 中只能作为类型使用，那么不行；🚫
+- 如果类型 `xxx` 在 TS 中能够同时作为类型和值使用，那么 OK；✅
+  - 特例 `null` 除外
+
+---
+
+TS 中的类型包括很多，比如：`number`、`string`、`boolean`、`bigint`、`symbol`、`null`、`undefined`、`type`、`interface`、`class` …… 其中像是 `null`、`undefined`、`class` 这些就必要特殊，它们在 TS 中可以是类型，也可以是值。
+
+按前面的结论，可以推断出 `null`、`undefined`、`class` 是可以使用 `typeof` 获取类型的，但是这里边儿 `null` 就比较特殊（不愧是 JS 的历史 bug 类型），它不能用 `typeof` 获取类型。
+
+```ts
+type MyNumber = typeof number // ❌
+// 'number' only refers to a type, but is being used as a value here.(2693)
+
+type MyString = typeof string // ❌
+// 'string' only refers to a type, but is being used as a value here.(2693)
+
+type MyBoolean = typeof boolean // ❌
+// 'boolean' only refers to a type, but is being used as a value here.(2693)
+
+type MyBigint = typeof bigint // ❌
+// 'Cannot find name 'bigint'.(2304)
+
+type MySymbol = typeof symbol // ❌
+// Cannot find name 'symbol'. Did you mean 'Symbol'?(2552)
+
+type myNull = typeof null // ❌
+// Cannot find name 'null'.(2304)
+
+type MyUndefined = typeof undefined // ✅
+
+type Age = number
+type MyAge = typeof Age // ❌
+// 'Age' only refers to a type, but is being used as a value here.(2693)
+
+interface User_1 {}
+type MyUser_1 = typeof User_1 // ❌
+// 'User_1' only refers to a type, but is being used as a value here.(2693)
+
+class User_2 {}
+type MyUser_2 = typeof User_2 // ✅
+```
+
+报错类型还各不相同……
+
+![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-21-22-21-44.png)

@@ -344,7 +344,7 @@ type UserReadonlyAndPartial = ReadonlyAndPartial<User> // 【1】
 // TypeScript 在交叉类型中会合并属性类型，但不会合并修饰符为 readonly + ? 这种组合（属性即是只读、又是可选）。
 // 从最终的行为表现来看，TS 是直接将修饰符给丢弃了，只读约束和可选约束都没有起到作用。
 
-// ⚠️ 以下是根据最终行为表现的猜测（没读过 tsc 源码）：
+// ⚠️ 以下是根据最终行为表现的猜测（没读过 tsc 完整源码）：
 // 更像是取了修饰符「readonly 只读」、「? 可选」中的共同“特性”
 // 只读是 Readonly<T> 特有的“特性”
 // 可选是 Partial<T> 特有的“特性”
@@ -365,6 +365,20 @@ const user: UserReadonlyAndPartial = {
 // 这里不会报错（readonly 未被严格应用）
 user.name = 'Bob' // ✅ 可修改（行为宽松）
 ```
+
+---
+
+以下是 deepwiki 的 Q&A 记录
+
+https://deepwiki.com/search/-type-readonlyandpartialt-read_a096601d-5e4e-40e4-a992-6f483462739a
+
+::: code-group
+
+<<< ./assets/questions/1/a.md [A]
+
+<<< ./assets/questions/1/q.md [Q]
+
+:::
 
 ## 10. 🔗 引用
 
