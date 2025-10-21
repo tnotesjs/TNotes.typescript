@@ -17,6 +17,38 @@
 
 - `as const` 断言可以让 TS 宽泛的推导结果更加具体，可以配合字面量类型一起使用。
 
+<!--
+
+🎯 类型泛化
+
+可以考虑在【类型系统】中新建一篇笔记，或者直接写入到 as const 这篇笔记中。
+
+// math.ts
+export const PI = 3.14159 // 不会泛化，就是精确的字面量类型 const PI: 3.14159
+export function add(a: number, b: number) {
+  return a + b
+}
+export const a = 1 + 1 // 表达式会被泛化
+export let b = 3.14159 // let 会被泛化
+export const obj = {
+  a: 1,
+  b: 2,
+} // 对象字面量的属性会被泛化
+// const obj: {
+//     a: number;
+//     b: number;
+// }
+export const obj2 = {
+  a: 1,
+  b: 2,
+} as const // 使用 as const 不会被泛化
+// const obj2: {
+//     readonly a: 1;
+//     readonly b: 2;
+// }
+
+ -->
+
 ## 3. 🤔 const 断言（`as const`）有什么用？
 
 `as const` 的作用：可以让 TS 「宽泛」 的类型推导结果更「准确」
