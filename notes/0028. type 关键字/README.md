@@ -6,8 +6,6 @@
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是 TypeScript 中的 `type` 关键字？](#3--什么是-typescript-中的-type-关键字)
 - [4. 🤔 `type` 有哪些常见用法？](#4--type-有哪些常见用法)
-- [5. 🆚 `type` vs. `interface`](#5--type-vs-interface)
-- [6. 🤔 什么时候使用 `type`，什么时候使用 `interface`？](#6--什么时候使用-type什么时候使用-interface)
 
 <!-- endregion:toc -->
 
@@ -106,22 +104,3 @@ type StringKeys<T> = {
 ```
 
 :::
-
-## 5. 🆚 `type` vs. `interface`
-
-| 特性 | `type` | `interface` |
-| --- | --- | --- |
-| 定义对象 | ✅ | ✅ |
-| 定义联合/交叉类型 | ✅ | ❌ |
-| 定义原始类型别名 | ✅ (`type ID = string`) | ❌ |
-| 自动合并（declaration merging） | ❌ | ✅（同名 interface 会自动合并） |
-| 继承（extends） | 用 `&` 交叉 | 用 `extends` |
-| 计算属性（mapped types） | ✅ | ❌ |
-| 调试显示 | 显示别名（可展开） | 显示结构 |
-
-## 6. 🤔 什么时候使用 `type`，什么时候使用 `interface`？
-
-- 优先用 `interface`：定义公共 API、对象结构（尤其是可扩展的）
-- 必须用 `type`：联合类型、元组、原始类型别名、映射类型
-
-经验法则：如果你能用 `interface`，就用 `interface`；如果不能（比如需要联合类型），就用 `type`。
