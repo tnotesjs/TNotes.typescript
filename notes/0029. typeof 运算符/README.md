@@ -10,20 +10,14 @@
 - [6. 🤔 TypeScript 中的 `typeof` 与 JavaScript 有什么不同？](#6--typescript-中的-typeof-与-javascript-有什么不同)
 - [7. 🤔 TypeScript 中 `typeof` 有哪些典型用法？](#7--typescript-中-typeof-有哪些典型用法)
 - [8. 🆚 `typeof` vs. `instanceof`](#8--typeof-vs-instanceof)
-- [9. 🤔 使用 `typeof` 有哪些常见误区？](#9--使用-typeof-有哪些常见误区)
-  - [9.1. 误区 1：用 `typeof` 检测数组](#91-误区-1用-typeof-检测数组)
-  - [9.2. 误区 2：依赖 `typeof null === "object"`](#92-误区-2依赖-typeof-null--object)
-- [10. 🤔 使用 `typeof` 有哪些最佳实践？](#10--使用-typeof-有哪些最佳实践)
-  - [10.1. 最佳实践 1：在 TypeScript 中优先使用类型守卫](#101-最佳实践-1在-typescript-中优先使用类型守卫)
-  - [10.2. 最佳实践 2：用 `typeof` + `as const` 替代手动写字面量联合类型](#102-最佳实践-2用-typeof--as-const-替代手动写字面量联合类型)
-- [11. 🤔 `typeof` 有哪些高级技巧？](#11--typeof-有哪些高级技巧)
+- [9. 🤔 使用 `typeof` 来检查引用类型，会存在什么问题？](#9--使用-typeof-来检查引用类型会存在什么问题)
 
 <!-- endregion:toc -->
 
 ## 1. 🎯 本节内容
 
-- JS 中的 typeof 运算符
-- TS 中对 typeof 运算符的增强
+- 回顾 JS 中的 typeof 运算符
+- 学习 TS 中对 typeof 运算符的增强
 - typeof vs. instanceof
 
 ## 2. 🫧 评价
@@ -31,6 +25,9 @@
 - 内容概述：
   - 先是对 JS 中的 `typeof` 运算做了简单的回顾，TS 是 JS 的超集，因此 TS 中的 `typeof` 自然也具备这些特性。
   - 后对 TS 中的 `typeof` 特有的功能做了介绍。「这部分是 TS 特有的，也是学习的重点」
+- Type Narrowing 类型收窄
+  - 原始类型 - 用 typeof 检测
+  - 实例（引用）类型 - 用 instanceof 检测
 
 ## 3. 🤔 JavaScript 中的 `typeof` 是什么？【回顾 JS】
 
@@ -120,7 +117,9 @@ type MyType = typeof myVar // MyType === string
 1. 从变量推导类型
 2. 从函数推导函数类型
 3. 从模块/命名空间推导类型
-4. 与 `as const` 结合保留字面量类型信息，以防泛化
+4. `as const` + `typeof` 替代手动写字面量联合类型
+   - 先使用 `as const` 保留字面量类型信息，以防泛化；
+   - 再使用 typeof 提取字面量类型信息
 
 ::: code-group
 
@@ -187,29 +186,80 @@ type MathLib = typeof math
 
 ```ts [4]
 // 默认情况下，TypeScript 会将对象属性推断为宽泛类型：
-const directions = ['north', 'south']
+const directions_1 = ['north', 'south']
 // 类型：string[]
 
+type Direction_1 = (typeof directions_1)[number]
+// type Direction_1 = string
+
 // 使用 as const + typeof 保留字面量：
-const directions = ['north', 'south'] as const
+const directions_2 = ['north', 'south'] as const
 // 类型：readonly ["north", "south"]
 
-type Direction = (typeof directions)[number]
-// "north" | "south"
+type Direction = (typeof directions_2)[number]
+// type Direction = "north" | "south"
+
+// 状态提取
+const STATUS = {
+  IDLE: 'idle',
+  LOADING: 'loading',
+  SUCCESS: 'success',
+} as const
+
+type Status = (typeof STATUS)[keyof typeof STATUS] // "idle" | "loading" | "success"
+
+// API 路径提取
+const apiEndpoints = {
+  users: '/api/users',
+  posts: '/api/posts',
+} as const
+
+type EndpointKeys = keyof typeof apiEndpoints // "users" | "posts"
+type EndpointPaths = (typeof apiEndpoints)[EndpointKeys] // "/api/users" | "/api/posts"
+
+// ……
 ```
 
 :::
+
+`typeof` 也可以用来做类型守卫、类型收窄。
+
+```ts
+function process(input: string | number) {
+  if (typeof input === 'string') {
+    // TypeScript 自动收窄类型
+    return input.toUpperCase()
+  }
+  return input.toFixed(2)
+}
+// 不过这里的 typeof 并非 TS 中的 typeof 运算符，在编译后会保留在结果 JS 中。
+```
 
 ## 8. 🆚 `typeof` vs. `instanceof`
 
 | 运算符 | 用途 | 适用场景 |
 | --- | --- | --- |
-| `typeof` | 检测原始类型和函数 | `string`, `number`, `boolean`, `function` |
-| `instanceof` | 检测对象是否为某构造函数的实例 | `Array`, `Date`, 自定义类 |
+| `typeof` | 检测原始类型和函数 | `string`、`number`、`boolean`、`function` |
+| `instanceof` | 检测对象是否为某构造函数的实例 | `Array`、`Date`、自定义类 |
 
-示例：
+在 TypeScript 类型守卫中的应用：
+
+- 用 `typeof` 收窄原始类型
+- 用 `instanceof` 收窄类实例
 
 ```ts
+// typeof 收窄原始类型
+function printId(id: string | number) {
+  if (typeof id === 'string') {
+    // 在这个分支中，id 被收窄为 string
+    console.log(id.toUpperCase()) // ✅ 安全
+  } else {
+    // 在这个分支中，id 被收窄为 number
+    console.log(id.toFixed(2)) // ✅ 安全
+  }
+}
+
+// instanceof 收窄类实例
 const arr = [1, 2, 3]
 
 console.log(typeof arr) // "object" ❌ 无法识别数组
@@ -221,76 +271,45 @@ console.log(user instanceof User) // true
 console.log(typeof user) // "object"
 ```
 
-在 TypeScript 类型守卫中：
+## 9. 🤔 使用 `typeof` 来检查引用类型，会存在什么问题？
 
-- 用 `typeof` 收窄原始类型
-- 用 `instanceof` 收窄类实例
+问题：会检测不准，太宽泛了。
 
-## 9. 🤔 使用 `typeof` 有哪些常见误区？
+::: code-group
 
-### 9.1. 误区 1：用 `typeof` 检测数组
-
-```ts
-// 错误！
+```ts [1]
+// 用 typeof 检测数组
+// ❌ 错误
 if (typeof arr === "object") { ... } // 太宽泛，可能是任何对象
 
-// 正确！
+// ✅ 正确
 if (Array.isArray(arr)) { ... }
 // 或
 if (arr instanceof Array) { ... }
 ```
 
-### 9.2. 误区 2：依赖 `typeof null === "object"`
-
-```ts
-// 危险！
-if (typeof value === "object") {
-  // value 可能是 null！
-  console.log(value.length); // TypeError!
+```ts [2]
+// 特殊的 null
+const getVal = () => {
+  return Math.random() > 0.5 ? [1, 2, 3] : null
 }
+// 推断结果：
+// const getVal: () => number[] | null
 
-// 安全做法：
-if (value !== null && typeof value === "object") { ... }
-```
+const arr = getVal()
+// 推断结果：
+// const arr: number[] | null
 
-## 10. 🤔 使用 `typeof` 有哪些最佳实践？
+// ❌ 错误 - 未排除 null
+// if (typeof arr === 'object') {
+//   console.log(arr.length)
+//   // 'arr' is possibly 'null'.(18047)
+// }
 
-### 10.1. 最佳实践 1：在 TypeScript 中优先使用类型守卫
-
-```ts
-function process(input: string | number) {
-  if (typeof input === 'string') {
-    // TypeScript 自动收窄类型
-    return input.toUpperCase()
-  }
-  return input.toFixed(2)
+// ✅ 正确 - 排除 null
+if (arr !== null && typeof arr === 'object') {
+  console.log(arr.length)
 }
 ```
 
-### 10.2. 最佳实践 2：用 `typeof` + `as const` 替代手动写字面量联合类型
-
-```ts
-// 不用手动维护类型
-const STATUS = {
-  IDLE: 'idle',
-  LOADING: 'loading',
-  SUCCESS: 'success',
-} as const
-
-type Status = (typeof STATUS)[keyof typeof STATUS] // "idle" | "loading" | "success"
-```
-
-## 11. 🤔 `typeof` 有哪些高级技巧？
-
-与映射类型结合：
-
-```ts
-// 动态生成属性类型
-const apiEndpoints = {
-  users: '/api/users',
-  posts: '/api/posts',
-} as const
-
-type EndpointKeys = keyof typeof apiEndpoints // "users" | "posts"
-type EndpointPaths = (typeof apiEndpoints)[EndpointKeys] // "/api/users" | "/api/posts"
-```
+:::
