@@ -48,6 +48,7 @@
 - [x] [0026. 联合类型](https://tnotesjs.github.io/TNotes.typescript/notes/0026.%20%E8%81%94%E5%90%88%E7%B1%BB%E5%9E%8B/README)
 - [x] [0027. 交叉类型](https://tnotesjs.github.io/TNotes.typescript/notes/0027.%20%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B/README)
 - [x] [0028. type 关键字](https://tnotesjs.github.io/TNotes.typescript/notes/0028.%20type%20%E5%85%B3%E9%94%AE%E5%AD%97/README)
+- [ ] [0052. interface 关键字](https://tnotesjs.github.io/TNotes.typescript/notes/0052.%20interface%20%E5%85%B3%E9%94%AE%E5%AD%97/README)
 - [ ] [0029. typeof 运算符](https://tnotesjs.github.io/TNotes.typescript/notes/0029.%20typeof%20%E8%BF%90%E7%AE%97%E7%AC%A6/README)
 - [ ] [0030. 类型作用域](https://tnotesjs.github.io/TNotes.typescript/notes/0030.%20%E7%B1%BB%E5%9E%8B%E4%BD%9C%E7%94%A8%E5%9F%9F/README)
 - [ ] [0031. 类型的兼容](https://tnotesjs.github.io/TNotes.typescript/notes/0031.%20%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%BC%E5%AE%B9/README)
@@ -70,15 +71,13 @@
 
 ## 9. 对象
 
-## 10. interface
+## 10. 类
 
-## 11. 类
+## 11. 泛型
 
-## 12. 泛型
+## 12. Enum 类型
 
-## 13. Enum 类型
-
-## 14. 类型断言
+## 13. 类型断言
 
 - [ ] [0051. 类型断言](https://tnotesjs.github.io/TNotes.typescript/notes/0051.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/README)
 - [ ] [0040. 类型断言的条件](https://tnotesjs.github.io/TNotes.typescript/notes/0040.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E6%9D%A1%E4%BB%B6/README)
@@ -86,33 +85,33 @@
 - [ ] [0049. 非空断言](https://tnotesjs.github.io/TNotes.typescript/notes/0049.%20%E9%9D%9E%E7%A9%BA%E6%96%AD%E8%A8%80/README)
 - [ ] [0050. 断言函数](https://tnotesjs.github.io/TNotes.typescript/notes/0050.%20%E6%96%AD%E8%A8%80%E5%87%BD%E6%95%B0/README)
 
-## 15. 模块
+## 14. 模块
 
-## 16. namespace
+## 15. namespace
 
-## 17. 装饰器
+## 16. 装饰器
 
-## 18. 装饰器（旧语法）
+## 17. 装饰器（旧语法）
 
-## 19. declare 关键字
+## 18. declare 关键字
 
-## 20. d.ts 类型声明文件
+## 19. d.ts 类型声明文件
 
-## 21. 类型运算符
+## 20. 类型运算符
 
-## 22. 类型映射
+## 21. 类型映射
 
-## 23. 类型工具
+## 22. 类型工具
 
-## 24. 注释指令
+## 23. 注释指令
 
-## 25. tsconfig.json 文件
+## 24. tsconfig.json 文件
 
-## 26. tsc 命令
+## 25. tsc 命令
 
-## 27. 深入原理
+## 26. 深入原理
 
 - [ ] [0045. 深入原理](https://tnotesjs.github.io/TNotes.typescript/notes/0045.%20%E6%B7%B1%E5%85%A5%E5%8E%9F%E7%90%86/README)
 - [x] [0043. Source Map 的基本概念和原理](https://tnotesjs.github.io/TNotes.typescript/notes/0043.%20Source%20Map%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8E%9F%E7%90%86/README)
 
-## 28. 空
+## 27. 空
