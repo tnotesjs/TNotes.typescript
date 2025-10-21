@@ -6,16 +6,9 @@
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 JavaScript 中的 `typeof` 是什么？【回顾 JS】](#3--javascript-中的-typeof-是什么回顾-js)
 - [4. 🤔 JavaScript 中 `typeof null` 为什么会返回 "object"？【回顾 JS】](#4--javascript-中-typeof-null-为什么会返回-object回顾-js)
-  - [4.1. 安全检查 `null` 的方式：](#41-安全检查-null-的方式)
 - [5. 🤔 JavaScript 中 `typeof` 的实际用途有哪些？【回顾 JS】](#5--javascript-中-typeof-的实际用途有哪些回顾-js)
 - [6. 🤔 TypeScript 中的 `typeof` 与 JavaScript 有什么不同？](#6--typescript-中的-typeof-与-javascript-有什么不同)
-  - [6.1. 运行时 `typeof`（与 JavaScript 完全一致）](#61-运行时-typeof与-javascript-完全一致)
-  - [6.2. 类型查询（Type Queries）—— TypeScript 特有！](#62-类型查询type-queries-typescript-特有)
 - [7. 🤔 TypeScript 中 `typeof` 有哪些典型用法？](#7--typescript-中-typeof-有哪些典型用法)
-  - [7.1. 从变量推导类型](#71-从变量推导类型)
-  - [7.2. 从函数推导函数类型](#72-从函数推导函数类型)
-  - [7.3. 从模块/命名空间推导类型](#73-从模块命名空间推导类型)
-  - [7.4. 与 `as const` 结合保留字面量类型](#74-与-as-const-结合保留字面量类型)
 - [8. 🆚 `typeof` vs. `instanceof`](#8--typeof-vs-instanceof)
 - [9. 🤔 使用 `typeof` 有哪些常见误区？](#9--使用-typeof-有哪些常见误区)
   - [9.1. 误区 1：用 `typeof` 检测数组](#91-误区-1用-typeof-检测数组)
@@ -47,8 +40,6 @@ JavaScript 中的 `typeof` 是一个内置运算符，用于在运行时检测�
 
 ```js
 typeof value
-// 或
-typeof value // 带括号的形式（不推荐，易与函数调用混淆）
 ```
 
 返回值都是字符串类型：
@@ -67,17 +58,19 @@ typeof value // 带括号的形式（不推荐，易与函数调用混淆）
 
 ## 4. 🤔 JavaScript 中 `typeof null` 为什么会返回 "object"？【回顾 JS】
 
-这是 JavaScript 最著名的 bug 之一。`typeof null` 返回 "object" 是历史原因造成的：早期 JavaScript 实现中，值的类型信息存储在低位，`null` 的机器码全为 0，被误判为对象。
-
 ```js
-console.log(typeof null) // "object" ❌
+console.log(typeof null) // "object"
 ```
 
-### 4.1. 安全检查 `null` 的方式：
+这是 JavaScript 最著名的 bug 之一。`typeof null` 返回 "object" 是历史原因造成的：早期 JavaScript 实现中，值的类型信息存储在低位，`null` 的机器码全为 0，被误判为对象。
+
+安全检查 `null` 的方式：
 
 ```js
+// 排除 null
 if (value === null) { ... }
-// 或同时排除 null 和 undefined
+
+// 同时排除 null 和 undefined
 if (value == null) { ... } // 因为 null == undefined 为 true
 ```
 
@@ -104,9 +97,7 @@ function add(a, b) {
 
 TypeScript 扩展了 `typeof` 的能力，使其不仅能在运行时使用，还能在类型层面获取值的类型。
 
-### 6.1. 运行时 `typeof`（与 JavaScript 完全一致）
-
-TypeScript 编译后的 JavaScript 保留了 `typeof` 的原始行为：
+- 运行时 `typeof`（与 JavaScript 完全一致），TypeScript 编译后的 JavaScript 保留了 `typeof` 的原始行为。
 
 ```ts
 function logType(value: unknown) {
@@ -114,43 +105,62 @@ function logType(value: unknown) {
 }
 ```
 
-### 6.2. 类型查询（Type Queries）—— TypeScript 特有！
-
-这是 TypeScript 中 `typeof` 最强大、最常用的功能：在类型上下文中使用 `typeof` 获取一个值的静态类型。
-
-语法：
+- 类型查询（Type Queries）—— TypeScript 特有！
 
 ```ts
+// 可以在类型上下文中使用 typeof 获取一个值的静态类型。
 let myVar = 'hello'
+
+// 语法如下：
 type MyType = typeof myVar // MyType === string
 ```
 
 ## 7. 🤔 TypeScript 中 `typeof` 有哪些典型用法？
 
-### 7.1. 从变量推导类型
+1. 从变量推导类型
+2. 从函数推导函数类型
+3. 从模块/命名空间推导类型
+4. 与 `as const` 结合保留字面量类型信息，以防泛化
 
-```ts
-const config = {
-  apiUrl: "https://api.example.com",
+::: code-group
+
+```ts [1]
+// 从变量推导类型
+const config_1 = {
+  apiUrl: 'https://api.example.com',
   timeout: 5000,
-  debug: true
-};
+  debug: true,
+}
 
-// 自动推导 config 的类型，无需手动写 interface
-type ConfigType = typeof config;
+// 查询 config_1 的类型
+type ConfigType_1 = typeof config_1
 // 等价于：
-// {
-//   readonly apiUrl: "https://api.example.com";
-//   readonly timeout: 5000;
-//   readonly debug: true;
+// type ConfigType = {
+//     apiUrl: string;
+//     timeout: number;
+//     debug: boolean;
 // }
 
-function init(c: ConfigType) { ... }
+// 使用 as const 断言，获取更精确的类型推断。
+
+const config_2 = {
+  apiUrl: 'https://api.example.com',
+  timeout: 5000,
+  debug: true,
+} as const
+
+// 查询 config_2 的类型
+type ConfigType_2 = typeof config_2
+// 等价于：
+// type ConfigType_2 = {
+//     readonly apiUrl: "https://api.example.com";
+//     readonly timeout: 5000;
+//     readonly debug: true;
+// }
 ```
 
-### 7.2. 从函数推导函数类型
-
-```ts
+```ts [2]
+// 从函数推导函数类型
 function greet(name: string): string {
   return `Hello, ${name}`
 }
@@ -161,9 +171,8 @@ type GreetFn = typeof greet
 const anotherGreet: GreetFn = (n) => `Hi, ${n}`
 ```
 
-### 7.3. 从模块/命名空间推导类型
-
-```ts
+```ts [3]
+// 从模块/命名空间推导类型
 // math.ts
 export const PI = 3.14159
 export function add(a: number, b: number) {
@@ -176,24 +185,20 @@ type MathLib = typeof math
 // 等价于 { PI: 3.14159; add: (a: number, b: number) => number; }
 ```
 
-### 7.4. 与 `as const` 结合保留字面量类型
-
-默认情况下，TypeScript 会将对象属性推断为宽泛类型：
-
-```ts
+```ts [4]
+// 默认情况下，TypeScript 会将对象属性推断为宽泛类型：
 const directions = ['north', 'south']
 // 类型：string[]
-```
 
-使用 `as const` + `typeof` 保留字面量：
-
-```ts
+// 使用 as const + typeof 保留字面量：
 const directions = ['north', 'south'] as const
 // 类型：readonly ["north", "south"]
 
 type Direction = (typeof directions)[number]
 // "north" | "south"
 ```
+
+:::
 
 ## 8. 🆚 `typeof` vs. `instanceof`
 
