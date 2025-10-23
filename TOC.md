@@ -42,31 +42,51 @@
 - [x] [0020. number 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0020.%20number%20%E7%B1%BB%E5%9E%8B/README)
 - [x] [0021. bigint 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0021.%20bigint%20%E7%B1%BB%E5%9E%8B/README)
 - [x] [0022. symbol 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0022.%20symbol%20%E7%B1%BB%E5%9E%8B/README)
+- [x] [0023. object 类型和 Object 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0023.%20object%20%E7%B1%BB%E5%9E%8B%E5%92%8C%20Object%20%E7%B1%BB%E5%9E%8B/README)
 - [x] [0024. undefined 类型和 null 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0024.%20undefined%20%E7%B1%BB%E5%9E%8B%E5%92%8C%20null%20%E7%B1%BB%E5%9E%8B/README)
 - [x] [0047. 包装对象类型](https://tnotesjs.github.io/TNotes.typescript/notes/0047.%20%E5%8C%85%E8%A3%85%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/README)
-- [x] [0023. object 类型和 Object 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0023.%20object%20%E7%B1%BB%E5%9E%8B%E5%92%8C%20Object%20%E7%B1%BB%E5%9E%8B/README)
 - [x] [0025. 字面量类型](https://tnotesjs.github.io/TNotes.typescript/notes/0025.%20%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B/README)
-- [x] [0032. 数组类型](https://tnotesjs.github.io/TNotes.typescript/notes/0032.%20%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/README)
-- [x] [0036. 元组类型](https://tnotesjs.github.io/TNotes.typescript/notes/0036.%20%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/README)
-- [x] [0033. 对象类型](https://tnotesjs.github.io/TNotes.typescript/notes/0033.%20%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/README)
 - [x] [0026. 联合类型](https://tnotesjs.github.io/TNotes.typescript/notes/0026.%20%E8%81%94%E5%90%88%E7%B1%BB%E5%9E%8B/README)
 - [x] [0027. 交叉类型](https://tnotesjs.github.io/TNotes.typescript/notes/0027.%20%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B/README)
 - [x] [0028. type 关键字](https://tnotesjs.github.io/TNotes.typescript/notes/0028.%20type%20%E5%85%B3%E9%94%AE%E5%AD%97/README)
-- [x] [0052. interface 关键字](https://tnotesjs.github.io/TNotes.typescript/notes/0052.%20interface%20%E5%85%B3%E9%94%AE%E5%AD%97/README)
-- [x] [0053. type vs. interface](https://tnotesjs.github.io/TNotes.typescript/notes/0053.%20type%20vs.%20interface/README)
 - [x] [0029. typeof 运算符](https://tnotesjs.github.io/TNotes.typescript/notes/0029.%20typeof%20%E8%BF%90%E7%AE%97%E7%AC%A6/README)
 - [x] [0030. 类型作用域](https://tnotesjs.github.io/TNotes.typescript/notes/0030.%20%E7%B1%BB%E5%9E%8B%E4%BD%9C%E7%94%A8%E5%9F%9F/README)
 - [x] [0031. 类型的兼容](https://tnotesjs.github.io/TNotes.typescript/notes/0031.%20%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%BC%E5%AE%B9/README)
 
-## 6. 函数
+## 6. 数组
 
-## 7. 类
+- [x] [0032. 数组类型](https://tnotesjs.github.io/TNotes.typescript/notes/0032.%20%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/README)
 
-## 8. 泛型
+## 7. 元组
 
-## 9. Enum 类型
+- [x] [0036. 元组类型](https://tnotesjs.github.io/TNotes.typescript/notes/0036.%20%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/README)
 
-## 10. 类型断言
+## 8. 函数
+
+- [ ] [0034. 函数类型](https://tnotesjs.github.io/TNotes.typescript/notes/0034.%20%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/README)
+
+## 9. 对象
+
+- [x] [0033. 对象类型](https://tnotesjs.github.io/TNotes.typescript/notes/0033.%20%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/README)
+
+## 10. interface
+
+- [x] [0052. interface 关键字](https://tnotesjs.github.io/TNotes.typescript/notes/0052.%20interface%20%E5%85%B3%E9%94%AE%E5%AD%97/README)
+- [x] [0053. type vs. interface](https://tnotesjs.github.io/TNotes.typescript/notes/0053.%20type%20vs.%20interface/README)
+
+## 11. 类
+
+- [ ] [0035. class 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0035.%20class%20%E7%B1%BB%E5%9E%8B/README)
+
+## 12. 泛型
+
+- [ ] [0038. 泛型](https://tnotesjs.github.io/TNotes.typescript/notes/0038.%20%E6%B3%9B%E5%9E%8B/README)
+
+## 13. Enum 类型
+
+- [ ] [0037. Enum 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0037.%20Enum%20%E7%B1%BB%E5%9E%8B/README)
+
+## 14. 类型断言
 
 - [ ] [0051. 类型断言](https://tnotesjs.github.io/TNotes.typescript/notes/0051.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/README)
 - [ ] [0040. 类型断言的条件](https://tnotesjs.github.io/TNotes.typescript/notes/0040.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E6%9D%A1%E4%BB%B6/README)
@@ -74,33 +94,33 @@
 - [ ] [0049. 非空断言](https://tnotesjs.github.io/TNotes.typescript/notes/0049.%20%E9%9D%9E%E7%A9%BA%E6%96%AD%E8%A8%80/README)
 - [ ] [0050. 断言函数](https://tnotesjs.github.io/TNotes.typescript/notes/0050.%20%E6%96%AD%E8%A8%80%E5%87%BD%E6%95%B0/README)
 
-## 11. 模块
+## 15. 模块
 
-## 12. namespace
+## 16. namespace
 
-## 13. 装饰器
+## 17. 装饰器
 
-## 14. 装饰器（旧语法）
+## 18. 装饰器（旧语法）
 
-## 15. declare 关键字
+## 19. declare 关键字
 
-## 16. d.ts 类型声明文件
+## 20. d.ts 类型声明文件
 
-## 17. 类型运算符
+## 21. 类型运算符
 
-## 18. 类型映射
+## 22. 类型映射
 
-## 19. 类型工具
+## 23. 类型工具
 
-## 20. 注释指令
+## 24. 注释指令
 
-## 21. tsconfig.json 文件
+## 25. tsconfig.json 文件
 
-## 22. tsc 命令
+## 26. tsc 命令
 
-## 23. 深入原理
+## 27. 深入原理
 
 - [ ] [0045. 深入原理](https://tnotesjs.github.io/TNotes.typescript/notes/0045.%20%E6%B7%B1%E5%85%A5%E5%8E%9F%E7%90%86/README)
 - [x] [0043. Source Map 的基本概念和原理](https://tnotesjs.github.io/TNotes.typescript/notes/0043.%20Source%20Map%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8E%9F%E7%90%86/README)
 
-## 24. 空
+## 28. 空

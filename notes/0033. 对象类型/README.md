@@ -21,6 +21,7 @@
 - [12. 🤔 什么是“最小可选属性规则”？](#12--什么是最小可选属性规则)
 - [13. 🤔 空对象 `{}` 在 TypeScript 中有什么特殊性？「不重要的细节」](#13--空对象--在-typescript-中有什么特殊性不重要的细节)
 - [14. 🤔 如何强制使用没有任何属性的对象？「没啥用的小技巧」](#14--如何强制使用没有任何属性的对象没啥用的小技巧)
+- [15. 🔗 引用](#15--引用)
 
 <!-- endregion:toc -->
 
@@ -528,3 +529,9 @@ const a: WithoutProperties = { prop: 1 }
 // 正确：空对象
 const b: WithoutProperties = {}
 ```
+
+## 15. 🔗 引用
+
+- [阮一峰 - TypeScript 的对象类型][1]
+
+[1]: https://wangdoc.com/typescript/object

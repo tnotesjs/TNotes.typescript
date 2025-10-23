@@ -76,7 +76,7 @@ const alice: User = {
 | `3` 方法签名 | `greet(): string` | 对象内部行为 | 不含实现体 |
 | `4` 数字索引 | `[index: number]: string` | 数组 / 类数组 | 与数组类型等价语义 |
 | `4` 字符串索引 | `[key: string]: string` | 字典 / 映射 | 注意与已有显式属性兼容性 |
-| `5` 继承 extends | `interface A extends B, C {}` | 组合多个接口结构 | 多继承自动合并属性 |
+| `5` 继承 extends | `interface A extends B, C {}` | 组合多个接口结构 | 多继承自动合并属性（还支持继承 type、class） |
 | `6` 类实现 implements | `class D implements A {}` | 校验类结构契约 | 不注入运行时代码 |
 | `7` 声明合并 | `interface X {a: string} interface X {b: number}` | 同名接口自动合并 | type 不支持 |
 | `7` 类型扩展 | `interface Window { myApp: {...} }` | 增补环境类型，无需修改源码即可加属性，扩展第三方库 | 可能需放在 \*.d.ts |
@@ -167,7 +167,7 @@ const contacts: PhoneBook = {
 ```
 
 ```ts [5]
-// 接口支持通过 extends 关键字继承其他接口
+// 【1】接口支持通过 extends 关键字继承其他接口
 
 // 可以清晰表达接口之间的关系，更好地实现类型复用，避免重复代码。
 
@@ -200,6 +200,49 @@ interface Person_2 extends Named, Aged {
 //   name: string
 //   age: number
 //   email: string
+// }
+
+// ------------------------------------------------
+
+// 【2】接口还可以继承 type
+
+type Country = {
+  name: string
+  capital: string
+}
+
+interface CountryWithPop extends Country {
+  population: number
+}
+
+// 等价于：
+// interface CountryWithPop {
+//   name: string;
+//   capital: string;
+//   population: number;
+// }
+
+// ------------------------------------------------
+
+// 【3】接口还可以继承 class
+
+class A {
+  x: string = ''
+
+  y(): boolean {
+    return true
+  }
+}
+
+interface B extends A {
+  z: number
+}
+
+// 等价于：
+// interface B {
+//   x: string
+//   y(): boolean
+//   z: number
 // }
 ```
 
@@ -356,6 +399,8 @@ interface A extends B {}
 - [TypeScript-Handbook][2]
 - [Prohibition against prefixing interfaces with "I"][1]
   - 禁止在接口名前加前缀 "I"
+- [阮一峰 - TypeScript 的 interface 接口][3]
 
 [1]: https://github.com/microsoft/TypeScript-Handbook/issues/121
 [2]: https://github.com/microsoft/TypeScript-Handbook
+[3]: https://wangdoc.com/typescript/interface

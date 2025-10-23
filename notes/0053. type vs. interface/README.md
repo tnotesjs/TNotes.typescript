@@ -29,6 +29,7 @@
 | 自动合并（declaration merging） | ❌ | ✅（同名 interface 会自动合并） |
 | 继承（extends） | 用 `&` 交叉 | 用 `extends` |
 | 计算属性（mapped types） | ✅ | ❌ |
+| this 关键字 | ❌ | ✅ |
 | 调试显示 | 显示别名（可展开） | 显示结构 |
 
 官方建议（TypeScript Handbook）： "尽可能使用 `interface`，除非你需要 `type` 的特定功能。"
@@ -50,5 +51,7 @@ For the most part, you can choose based on personal preference, and TypeScript w
 
 - [handbook - everyday types - Differences Between Type Aliases and Interfaces][1]
   - ts doc -> 类型别名和接口之间的差异
+- [阮一峰 - TypeScript 的 interface 接口][2]
 
 [1]: https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces
+[2]: https://wangdoc.com/typescript/interface
