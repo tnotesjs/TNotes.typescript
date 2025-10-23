@@ -47,7 +47,7 @@
 - TypeScript 认为，只要开发者使用了 any 类型，就表示开发者想要自己来处理这些代码，所以就不对 any 类型进行任何限制，怎么使用都可以。
 - 不要养成一旦遇到类型报错就 any 一下（过于暴力），可以督促自己多学习下 TypeScript 的类型系统，后边儿会有更 nice 的解决方案！
 
-```typescript
+```ts
 let x: any = 'hello'
 
 x(1) // 不报错
@@ -62,7 +62,7 @@ x.foo = 100 // 不报错
 
 - 场景 1：出于特殊原因，需要关闭某些变量的类型检查，就可以把该变量的类型设为 any。比如"剩余参数"，`console.log()` 可以传入任意数量和类型的参数，此时就需要用到 any 类型。
 
-```typescript
+```ts
 interface Console {
   log(...data: any[]): void
 }
@@ -84,7 +84,7 @@ interface Console {
   - ![图 2](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-19-08-46-43.png)
 - any 类型表示没有任何限制，该类型的变量可以被赋予任意类型的值。从集合论的角度看，any 类型可以看成是所有其他类型的全集，包含了一切可能的类型。TypeScript 将这种类型称为"顶层类型"，意为涵盖了所有下层。
 
-```typescript
+```ts
 let x: any
 
 x = 1 // ✅
@@ -98,7 +98,7 @@ x = true // ✅
 
 - 我们在表述时通常会说 any 是任意类型，可以赋值给其他任何类型。但是，这么描述其实是错误的，any 类型无法赋值给 never 类型。
 
-```typescript
+```ts
 const a: any = 1
 const x: never = a // ❌
 // Type 'any' is not assignable to type 'never'.ts(2322)
@@ -144,7 +144,7 @@ add(1, [1, 2, 3])
 
 需要注意的是，TS 的具体推断行为会受到 TS 配置文件的影响，如果开启了 noImplicitAny 配置，那么在 TS 推断出 any 类型时就会报错。
 
-```typescript
+```ts
 function add(x, y) {
   return x + y
 }
@@ -154,13 +154,13 @@ add(1, [1, 2, 3]) // ✅
 
 TS 类型推断的结果如下：
 
-```typescript
+```ts
 function add(x: any, y: any): any
 ```
 
 上述程序不会报错。函数 add() 的参数变量 x 和 y，都没有足够的信息，TypeScript 无法推断出它们的类型，就会认为这两个变量和函数返回值的类型都是 any。后面 TS 就不再对函数 add() 进行类型检查了。
 
-```typescript
+```ts
 // xxx.ts
 // 给 add 函数的两个参数 x、y 加上类型注解
 function add(x: number, y: number) {
@@ -187,7 +187,7 @@ noImplicitAny -> 禁止出现隐式的 any 类型
 - 建议使用 let 和 var 声明变量时，如果不赋值，就一定要显式声明类型，否则可能存在安全隐患。
 - const 命令没有这个问题，因为 JavaScript 语言规定 const 声明变量时，必须同时进行初始化（赋值）。
 
-```typescript
+```ts
 var x // 不报错
 let y // 不报错
 
@@ -225,7 +225,7 @@ const z // 报错
 }
 ```
 
-```typescript
+```ts
 function add(x, y) {
   return x + y
 }
@@ -241,7 +241,7 @@ function add(x: any, y: any): any
   - `Parameter 'x' implicitly has an 'any' type.`
   - `Parameter 'y' implicitly has an 'any' type.`
 
-```typescript
+```ts
 // 开启 noImplicitAny
 var x1
 let x2
@@ -254,7 +254,7 @@ let x2: any
 - 虽然 x1、x2 被 TS 推断为了 any 类型，并且我们也打开了 noImplicitAny 配置，但是上述程序并不会报错。这是一种特殊情况，使用 var、let 声明的变量如果被推断为 any 类型是不会报错的，无论是否开启了 noImplicitAny 配置。但是对于 const 声明的变量并不会存在该问题，因为 const 声明的变量必须在声明的同时进行初始化，TS 不会将其隐式地推断为 any 类型。
 - 由此可见，noImplicitAny 对于变量被推断为 any 类型，其实没啥实际的约束，使用 var、let 定义的变量在没有赋初值的情况下，依旧会被推断为 any 类型；noImplicitAny 的约束更多时候体现在函数的参数类型上。
 
-```typescript
+```ts
 // 开启 noImplicitAny
 var x1: number
 let x2: string
@@ -281,7 +281,7 @@ x1 = x2 // ❌
 - any 可以赋值给其他任何类型的变量（因为没有类型检查），导致其他变量出错。
 - 污染其他具有正确类型的变量，把错误留到运行时，这就是不宜使用 any 类型的另一个主要原因。
 
-```typescript
+```ts
 const add: any = (a: number, b: number): number => a + b
 
 // 使用 add 污染 result
@@ -296,7 +296,7 @@ result.toUpperCase() // 不报错，因为 result 被 add 污染了
 
 2 执行之后，result 被 add 污染了，也成为了 any 类型，因此，上述的 「语句 3」 并不会报错。
 
-```typescript
+```ts
 // 下面是推荐的写法：
 const add = (a: number, b: number): number => a + b
 const result = add(1, 2)
@@ -310,7 +310,7 @@ result.toUpperCase()
 
 - 由于 `toUpperCase()` 是字符串特有的，数字类型的原型链上默认是不存在这样一个 API 的，应该及时报错，才是我们更希望看到的。
 
-```typescript
+```ts
 let x: any = 'hello'
 let y: number
 
@@ -328,7 +328,7 @@ y.toFixed() // 不报错
 - 没有声明类型的空数组，默认会被 TypeScript 视作一个 any 类型的数组。
 - 如果开启了 strictNullChecks 配置，并且关闭了 noImplicitAny 配置，那么 TypeScript 会将没有声明类型的空数组视作一个 never 类型的数组。
 
-```typescript
+```ts
 const arr = []
 
 // 等效
@@ -349,7 +349,7 @@ arr.push(1, 2, 3) // ok
 }
 ```
 
-```typescript
+```ts
 const arr = []
 
 // 等效

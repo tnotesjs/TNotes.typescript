@@ -145,7 +145,7 @@ tsc --allowJs --checkJs app.js
 
 - 当 TypeScript 代码存在类型错误时，`tsc` 命令会显示错误信息，但仍会生成 JavaScript 文件。例如：
 
-```typescript
+```ts
 let foo: number = 123
 foo = 'abc' // 类型错误
 ```

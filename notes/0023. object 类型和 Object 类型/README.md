@@ -32,7 +32,7 @@
   - 不推荐使用：因为它无法提供有效的类型安全
     - 无所不包的 `Object` 类型既不符合直觉，也不方便使用。
 
-```typescript
+```ts
 // Object 类型可以接受任何值
 let obj1: Object = 'hello' // ✅ 允许
 let obj2: Object = 42 // ✅ 允许
@@ -74,7 +74,7 @@ obj2 = (a: number) => a + 1
 
 不推荐使用 Object 类型的原因：
 
-```typescript
+```ts
 // 不好的做法
 function processItem(item: Object) {
   // 无法确定 item 的具体结构
@@ -103,7 +103,7 @@ function processItem(item: Record<string, any>) {
   - 只接受对象：包括普通对象、数组、函数等
   - 类型安全：提供更好的类型约束
 
-```typescript
+```ts
 // object 类型只能接受非原始类型
 let obj1: object = { name: 'John' } // ✅ 允许
 let obj2: object = [1, 2, 3] // ✅ 允许（数组是对象）
@@ -123,7 +123,7 @@ let obj9: object = undefined // ❌ 错误(开启 strictNullChecks 时)
 
 使用 object 类型的一些常见场景：
 
-```typescript
+```ts
 // 函数参数需要确保传入的是对象而不是原始类型
 function cloneObject(obj: object): object {
   return { ...(obj as any) } // 注意：需要类型断言
@@ -158,7 +158,7 @@ type Config = {
 3. 使用更具体的类型：如接口、类型别名、`Record` 等
 4. 结合泛型使用：提供更好的类型推断
 
-```typescript
+```ts
 // 推荐的模式
 function mergeObjects<T extends object, U extends object>(
   obj1: T,

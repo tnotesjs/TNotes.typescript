@@ -41,7 +41,7 @@
   - 可以这样理解，类型是人为添加的一种编程约束和用法提示。 主要目的是在软件开发过程中，为编译器和开发工具提供更多的验证和帮助，帮助提高代码质量，减少错误。
 - 示例：
 
-```typescript
+```ts
 // 下面是一段简单的 TypeScript 代码，演示一下类型系统的作用
 function addOne(n: number) {
   return n + 1
@@ -69,7 +69,7 @@ addOne('hello') // ❌ Argument of type 'string' is not assignable to parameter 
   - 编写 TypeScript 项目时，不要混淆哪些是值代码，哪些是类型代码。
 - 示例：
 
-```typescript
+```ts
 function addOne(n: number) {
   return n + 1
 }

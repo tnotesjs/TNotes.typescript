@@ -508,7 +508,7 @@ TypeScript 的原生实现通过以下几个关键改进，显著提升了语义
 
 假设你正在使用一个基于 AI 的代码补全工具（如 GitHub Copilot 或 TabNine），并且你在以下代码中输入了一个变量名：
 
-```typescript
+```ts
 function calculateTotal(items: { name: string; price: number }[]) {
   let total = 0;
   for (const item of items) {

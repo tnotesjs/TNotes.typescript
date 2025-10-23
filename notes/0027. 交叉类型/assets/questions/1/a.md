@@ -60,7 +60,7 @@ TypeScript 使用 `CheckFlags` 枚举来标记合成属性的特征： TypeScrip
 
 **File:** src/lib/es5.d.ts (L1567-1569)
 
-```typescript
+```ts
 type Partial<T> = {
   [P in keyof T]?: T[P]
 }
@@ -68,7 +68,7 @@ type Partial<T> = {
 
 **File:** src/lib/es5.d.ts (L1581-1583)
 
-```typescript
+```ts
 type Readonly<T> = {
   readonly [P in keyof T]: T[P]
 }
@@ -76,7 +76,7 @@ type Readonly<T> = {
 
 **File:** src/compiler/types.ts (L6114-6140)
 
-```typescript
+```ts
 export const enum CheckFlags {
   None = 0,
   Instantiated = 1 << 0, // Instantiated symbol
@@ -108,7 +108,7 @@ export const enum CheckFlags {
 
 **File:** src/compiler/types.ts (L6142-6150)
 
-```typescript
+```ts
 /** @internal */
 export interface TransientSymbolLinks extends SymbolLinks {
   checkFlags: CheckFlags
@@ -122,7 +122,7 @@ export interface TransientSymbol extends Symbol {
 
 **File:** tests/cases/conformance/types/intersection/intersectionTypeReadonly.ts (L1-25)
 
-```typescript
+```ts
 interface Base {
   readonly value: number
 }
@@ -172,7 +172,7 @@ mutable.value = 12;
 
 **File:** tests/cases/compiler/intersectionsAndOptionalProperties.ts (L1-23)
 
-```typescript
+```ts
 // @strict: true
 
 declare let x: { a?: number; b: string }
@@ -200,7 +200,7 @@ function foo(v: From) {
 
 **File:** src/compiler/utilities.ts (L7173-7176)
 
-```typescript
+```ts
 /** @internal */
 export function hasEffectiveReadonlyModifier(node: Node): boolean {
   return hasEffectiveModifier(node, ModifierFlags.Readonly)

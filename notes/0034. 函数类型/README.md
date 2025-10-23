@@ -28,6 +28,7 @@
 - 函数的类型声明
 - 函数重载
 - typeof
+- Function
 
 ## 2. 🫧 评价
 
@@ -38,7 +39,7 @@
 - 函数的类型声明是 TS 中用于约束函数参数和返回值的类型声明信息。
 - 函数类型声明需要在声明函数时指定参数的类型和返回值的类型。
 
-```typescript
+```ts
 function hello(txt: string): void {
   console.log('hello ' + txt)
 }
@@ -49,7 +50,7 @@ function hello(txt: string): void {
 - 如果不指定参数类型，TypeScript 会尝试推断参数类型。如果缺乏足够信息，就会推断该参数的类型为 `any`。
 - 返回值的类型通常可以不写，因为对于函数的返回值而言，TypeScript 推断结果相对来说是比较准的。
 
-```typescript
+```ts
 function hello(txt: string) {
   console.log('hello ' + txt)
 }
@@ -64,7 +65,7 @@ function hello(txt: string) {
 
 当变量被赋值为一个函数时，变量的类型有两种写法：
 
-```typescript
+```ts
 // 写法一：通过等号右边的函数类型推断
 const hello = function (txt: string) {
   console.log('hello ' + txt)
@@ -85,7 +86,7 @@ const hello: (txt: string) => void = function (txt) {
 
 - 如果函数的类型定义很冗长，或者多个函数使用同一种类型，可以使用 `type` 命令为函数类型定义一个别名。
 
-```typescript
+```ts
 type MyFunc = (txt: string) => void
 
 const hello: MyFunc = function (txt) {
@@ -100,7 +101,7 @@ const hello: MyFunc = function (txt) {
 - 定义函数类型的时候，不可以省略形参的名字。
 - 形参的名字叫什么不重要，但是不能省略。
 
-```typescript
+```ts
 // type MyFunc = (string) => void // ❌ 错误写法
 // Parameter has a name but no type. Did you mean 'arg0: string'?(7051)
 
@@ -122,7 +123,7 @@ type MyFunc = (abc: string) => void // ✅ 正确写法
 
 函数的实际参数个数可以少于类型指定的参数个数，但是不能多于，即 TypeScript 允许省略参数：
 
-```typescript
+```ts
 let myFunc: (a: number, b: number) => number
 
 myFunc = (a: number) => a // ✅ 正确
@@ -134,7 +135,7 @@ myFunc = (a: number) => a // ✅ 正确
 
 这是因为 JavaScript 函数在声明时往往有多余的参数，实际使用时可以只传入一部分参数。比如，数组的 `forEach()` 方法的参数是一个函数，该函数默认有三个参数 `(item, index, array) => void`，实际上往往只使用第一个参数 `(item) => void`。因此，TypeScript 允许函数传入的参数不足。
 
-```typescript
+```ts
 let x = (a: number) => 0
 let y = (b: number, s: string) => 0
 
@@ -150,7 +151,7 @@ x = y // ❌ 报错
 
 如果一个变量要套用另一个函数类型，可以使用 `typeof` 运算符：
 
-```typescript
+```ts
 function add(x: number, y: number) {
   return x + y
 }
@@ -164,7 +165,7 @@ const myAdd: typeof add = function (x, y) {
 
 函数类型可以采用对象的写法：
 
-```typescript
+```ts
 // 函数类型的对象写法如下：
 // {
 //   (参数列表): 返回值
@@ -190,7 +191,7 @@ add = function (x, y) {
 
 这种写法适用于函数本身存在属性的情况：
 
-```typescript
+```ts
 function f(x: number) {
   console.log(x)
 }
@@ -205,9 +206,9 @@ let foo: {
 
 ## 8. 🤔 Function 类型有什么特点？
 
-TypeScript 提供 `Function` 类型表示函数，任何函数都属于这个类型：
+TypeScript 提供 `Function` 类型表示函数，任何函数都属于这个类型。
 
-```typescript
+```ts
 function doSomething(f: Function) {
   return f(1, 2, 3)
 }
@@ -219,21 +220,22 @@ Function 类型的函数可以接受任意数量的参数，每个参数的类�
 
 箭头函数是普通函数的一种简化写法，它的类型写法与普通函数类似：
 
-```typescript
+```ts
+// 无类型信息
+const repeat = (str, times) => str.repeat(times)
+
+// 加上类型信息
 const repeat = (str: string, times: number): string => str.repeat(times)
-```
 
-类型写在箭头函数的定义里面，与使用箭头函数表示函数类型，写法有所不同：
-
-```typescript
+// 参数是函数
 function greet(fn: (a: string) => void): void {
   fn('world')
 }
 ```
 
-下面是一个更复杂的例子：
+示例：
 
-```typescript
+```ts
 type Person = { name: string }
 
 const people = ['alice', 'bob', 'jan'].map((name): Person => ({ name }))
@@ -245,7 +247,7 @@ const people = ['alice', 'bob', 'jan'].map((name): Person => ({ name }))
 
 如果函数的某个参数可以省略，则在参数名后面加问号表示：
 
-```typescript
+```ts
 function f(x?: number) {
   // ...
 }
@@ -256,7 +258,7 @@ f(10) // OK
 
 参数名带有问号，表示该参数的类型实际上是 `原始类型|undefined`。比如，上例的 `x` 虽然类型声明为 `number`，但是实际上是 `number|undefined`：
 
-```typescript
+```ts
 function f(x?: number) {
   return x
 }
@@ -266,7 +268,7 @@ f(undefined) // 正确
 
 但是，反过来就不成立，类型显式设为 `undefined` 的参数，就不能省略：
 
-```typescript
+```ts
 function f(x: number | undefined) {
   return x
 }
@@ -276,7 +278,7 @@ f() // 报错
 
 函数的可选参数只能在参数列表的尾部，跟在必选参数的后面：
 
-```typescript
+```ts
 let myFunc: (a?: number, b: number) => number // 报错
 ```
 
@@ -284,7 +286,7 @@ let myFunc: (a?: number, b: number) => number // 报错
 
 TypeScript 函数的参数默认值写法，与 JavaScript 一致。设置了默认值的参数，就是可选的：
 
-```typescript
+```ts
 function createPoint(x: number = 0, y: number = 0): [number, number] {
   return [x, y]
 }
@@ -294,7 +296,7 @@ createPoint() // [0, 0]
 
 这里其实可以省略 `x` 和 `y` 的类型声明，因为可以从默认值推断出来：
 
-```typescript
+```ts
 function createPoint(x = 0, y = 0) {
   return [x, y]
 }
@@ -302,7 +304,7 @@ function createPoint(x = 0, y = 0) {
 
 可选参数与默认值不能同时使用：
 
-```typescript
+```ts
 // 报错
 function f(x?: number = 0) {
   // ...
@@ -311,7 +313,7 @@ function f(x?: number = 0) {
 
 设有默认值的参数，如果传入 `undefined`，也会触发默认值：
 
-```typescript
+```ts
 function f(x = 456) {
   return x
 }
@@ -323,7 +325,7 @@ f(undefined) // 456
 
 函数参数如果存在变量解构，类型写法如下：
 
-```typescript
+```ts
 function f([x, y]: [number, number]) {
   // ...
 }
@@ -335,7 +337,7 @@ function sum({ a, b, c }: { a: number; b: number; c: number }) {
 
 参数解构可以结合类型别名（type 命令）一起使用，代码会看起来简洁一些：
 
-```typescript
+```ts
 type ABC = { a: number; b: number; c: number }
 
 function sum({ a, b, c }: ABC) {
@@ -347,7 +349,7 @@ function sum({ a, b, c }: ABC) {
 
 rest 参数表示函数剩余的所有参数，它可以是数组（剩余参数类型相同），也可能是元组（剩余参数类型不同）：
 
-```typescript
+```ts
 // rest 参数为数组
 function joinNumbers(...nums: number[]) {
   // ...
@@ -361,7 +363,7 @@ function f(...args: [boolean, number]) {
 
 下面是一个 rest 参数的例子：
 
-```typescript
+```ts
 function multiply(n: number, ...m: number[]) {
   return m.map((x) => n * x)
 }
@@ -369,7 +371,7 @@ function multiply(n: number, ...m: number[]) {
 
 rest 参数甚至可以嵌套：
 
-```typescript
+```ts
 function f(...args: [boolean, ...string[]]) {
   // ...
 }
@@ -377,7 +379,7 @@ function f(...args: [boolean, ...string[]]) {
 
 rest 参数可以与变量解构结合使用：
 
-```typescript
+```ts
 function repeat(...[str, times]: [string, number]): string {
   return str.repeat(times)
 }
@@ -392,7 +394,7 @@ function repeat(str: string, times: number): string {
 
 如果函数内部不能修改某个参数，可以在函数定义时，在参数类型前面加上 `readonly` 关键字，表示这是只读参数：
 
-```typescript
+```ts
 function arraySum(arr: readonly number[]) {
   // ...
   arr[0] = 0 // 报错
@@ -405,7 +407,7 @@ function arraySum(arr: readonly number[]) {
 
 void 类型表示函数没有返回值：
 
-```typescript
+```ts
 function f(): void {
   console.log('hello')
 }
@@ -413,7 +415,7 @@ function f(): void {
 
 如果返回其他值，就会报错：
 
-```typescript
+```ts
 function f(): void {
   return 123 // 报错
 }
@@ -421,7 +423,7 @@ function f(): void {
 
 void 类型允许返回 `undefined` 或 `null`：
 
-```typescript
+```ts
 function f(): void {
   return undefined // 正确
 }
@@ -433,7 +435,7 @@ function f(): void {
 
 需要特别注意的是，如果变量、对象方法、函数参数是一个返回值为 void 类型的函数，那么并不代表不能赋值为有返回值的函数。恰恰相反，该变量、对象方法和函数参数可以接受返回任意值的函数，这时并不会报错：
 
-```typescript
+```ts
 type voidFunc = () => void
 
 const f: voidFunc = () => {
@@ -451,7 +453,7 @@ const f: voidFunc = () => {
 
 1. 抛出错误的函数：
 
-```typescript
+```ts
 function fail(msg: string): never {
   throw new Error(msg)
 }
@@ -459,7 +461,7 @@ function fail(msg: string): never {
 
 2. 无限执行的函数：
 
-```typescript
+```ts
 const sing = function (): never {
   while (true) {
     console.log('sing')
@@ -469,7 +471,7 @@ const sing = function (): never {
 
 注意，`never` 类型不同于 `void` 类型。前者表示函数没有执行结束，不可能有返回值；后者表示函数正常执行结束，但是不返回值，或者说返回 `undefined`：
 
-```typescript
+```ts
 // 正确
 function sing(): void {
   console.log('sing')
@@ -492,7 +494,7 @@ reverse([1, 2, 3]) // [3, 2, 1]
 
 TypeScript 对于"函数重载"的类型声明方法是，逐一定义每一种情况的类型：
 
-```typescript
+```ts
 function reverse(str: string): string
 function reverse(arr: any[]): any[]
 function reverse(stringOrArray: string | any[]): string | any[] {
@@ -506,13 +508,13 @@ function reverse(stringOrArray: string | any[]): string | any[] {
 
 JavaScript 语言使用构造函数，生成对象的实例。构造函数的最大特点，就是必须使用 `new` 命令调用：
 
-```typescript
+```ts
 const d = new Date()
 ```
 
 构造函数的类型写法，就是在参数列表前面加上 `new` 命令：
 
-```typescript
+```ts
 class Animal {
   numLegs: number = 4
 }
@@ -528,7 +530,7 @@ const a = create(Animal)
 
 构造函数还有另一种类型写法，就是采用对象形式：
 
-```typescript
+```ts
 type F = {
   new (s: string): object
 }
@@ -536,7 +538,7 @@ type F = {
 
 某些函数既是构造函数，又可以当作普通函数使用，比如 `Date()`。这时，类型声明可以写成下面这样：
 
-```typescript
+```ts
 type F = {
   new (s: string): object
   (n?: number): number

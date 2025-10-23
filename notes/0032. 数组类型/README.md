@@ -60,7 +60,7 @@ TypeScript 数组类型的写法有很多，下面两种写法是比较常见的
 1. 在数组成员类型后加方括号：`number[]`
 2. 使用 TypeScript 内置的 Array 接口：`Array<number>`
 
-```typescript
+```ts
 // 写法一：方括号语法
 let arr1: number[] = [1, 2, 3]
 
@@ -76,7 +76,7 @@ let arr2: Array<number> = [1, 2, 3]
   - `let arr2: (number | string)[]` ✅
   - 因为竖杠 `|` 的优先级低于 `[]`，所以 `number|string[]` 会被理解成 `number` 和 `string[]` 的联合类型，而不是数组成员类型为 `number|string` 的数组。
 
-```typescript
+```ts
 // 错误写法：会被理解为 number 和 string[] 的联合类型
 let arr1: number | string[] = [1, 'a'] // 类型错误
 
@@ -93,7 +93,7 @@ let arr3: Array<number | string> = [1, 'a']
 - 可以使用 `any[]` 表示数组成员可以是任意类型，但这种写法应该避免使用，因为它失去了类型检查的意义。
 - 推荐使用联合类型，比如 `(number | string | boolean | object)[]`，这样就可以在一定程度上限制数组成员的类型，更加安全一些。
 
-```typescript
+```ts
 // 不推荐的写法
 let arr: any[] = [1, 'hello', true, { name: 'Tom' }]
 
@@ -111,7 +111,7 @@ let arr2: (number | string | boolean | object)[] = [
 - 数组类型声明后，成员数量是不限制的，可以是任意数量的成员，包括空数组。数组成员可以动态变化。
 - 越界访问不会警告错误（兼容 JavaScript 的行为）。
 
-```typescript
+```ts
 let arr: number[]
 arr = [] // 空数组
 arr = [1] // 一个成员
@@ -132,7 +132,7 @@ arr2[999] // ok
 
 - TypeScript 允许使用方括号 `[]` 读取数组成员的类型，有两种方式：
 
-```typescript
+```ts
 type Names = string[]
 
 // 方式一：通过具体索引读取类型
@@ -158,7 +158,7 @@ type FirstType = MixedArray[0] // string|number
 
 - 在默认配置下，如果数组变量的初始值是空数组，TypeScript 会推断数组类型是 `any[]`。
 
-```typescript
+```ts
 // 初始为空数组，推断为 any[]
 const arr = []
 // arr 的类型为 any[] - arr 的类型确定后将不再改变
@@ -190,7 +190,7 @@ console.log(arr) // [123, 'abc']
 
 如果数组变量的初始值不是空数组，TypeScript 会根据初始值确定类型。
 
-```typescript
+```ts
 const arr = [123]
 // arr 根据初始值被 TS 推断为 number[]
 
@@ -212,7 +212,7 @@ const arr4 = [123, '123', false, 456, true]
 
 有多种方式可以声明只读数组：
 
-```typescript
+```ts
 // 方式一：使用 readonly 关键字
 const arr1: readonly number[] = [0, 1]
 
@@ -228,7 +228,7 @@ const arr4 = [0, 1] as const
 
 `readonly` 关键字不能与数组的泛型写法一起使用：
 
-```typescript
+```ts
 // ❌ 报错：readonly 不能与 Array<number> 一起使用
 // const arr:readonly Array<number> = [0, 1];
 // 'readonly' type modifier is only permitted on array and tuple literal types.(1354)
@@ -241,7 +241,7 @@ const arr3: Readonly<number[]> = [0, 1]
 
 使用 `ReadonlyArray<T>` 和 `Readonly<T[]>` 生成只读数组之间的区别：两者都可以生成只读数组类型，但语法不同
 
-```typescript
+```ts
 // ReadonlyArray<T>：尖括号内是数组成员类型
 const arr1: ReadonlyArray<number> = [0, 1]
 
@@ -253,7 +253,7 @@ const arr2: Readonly<number[]> = [0, 1]
 
 使用 `as const` 可以创建只读数组，并且 TypeScript 会推断为具体的只读元组类型：
 
-```typescript
+```ts
 const arr = [0, 1] as const
 // 类型被推断为 readonly [0, 1]
 
@@ -268,7 +268,7 @@ const complex = [1, 'hello', true] as const
 
 只读数组不允许修改、新增或删除成员：
 
-```typescript
+```ts
 const arr: readonly number[] = [0, 1]
 
 arr[1] = 2 // ❌ 报错：不能修改
@@ -289,7 +289,7 @@ delete arr[0] // ❌ 报错：不能删除
 - `number[] ⊆ readonly number[]`
 - TS 允许你把“可写的数组”当成“只读的数组”使用（因为读取安全），但不能反过来。
 
-```typescript
+```ts
 let mutable: number[] = [0, 1]
 let readonly: readonly number[] = mutable // 正确：子类型赋值给父类型
 
@@ -303,7 +303,7 @@ let readonly: readonly number[] = mutable // 正确：子类型赋值给父类�
 
 因为只读数组是普通数组的父类型，父类型不能替代子类型：
 
-```typescript
+```ts
 function processArray(s: number[]) {
   s.push(4) // 函数内部可能修改数组
 }
@@ -323,7 +323,7 @@ processArray(readonlyArr as number[])
 
 TypeScript 使用 `T[][]` 的形式表示二维数组，`T` 是最底层数组成员的类型：
 
-```typescript
+```ts
 // 二维数组：number[][]
 var multi: number[][] = [
   [1, 2, 3],
@@ -339,7 +339,7 @@ var irregular: number[][] = [[1, 2], [3, 4, 5], [6]]
 
 多维数组通过多重索引访问元素：
 
-```typescript
+```ts
 var multi: number[][] = [
   [1, 2, 3],
   [23, 24, 25],

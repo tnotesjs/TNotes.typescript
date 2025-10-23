@@ -34,7 +34,7 @@
 
 元组（tuple）是 TypeScript 特有的数据类型，JavaScript 没有单独区分这种类型。它表示成员类型可以自由设置的数组，即数组的各个成员的类型可以不同。
 
-```typescript
+```ts
 const s: [string, string, boolean] = ['a', 'b', true]
 ```
 
@@ -47,7 +47,7 @@ const s: [string, string, boolean] = ['a', 'b', true]
 - 数组的成员类型写在方括号外面：`number[]`
 - 元组的成员类型写在方括号里面：`[number]`
 
-```typescript
+```ts
 // 数组
 let a: number[] = [1]
 
@@ -61,7 +61,7 @@ let t: [number] = [1]
 
 使用元组时，必须明确给出类型声明，不能省略，否则 TypeScript 会把一个值自动推断为数组：
 
-```typescript
+```ts
 // a 的类型被推断为 (number | boolean)[]
 let a = [1, true]
 
@@ -75,7 +75,7 @@ let b: [number, boolean] = [1, true]
 
 你也可以使用 `as const` 断言来让 TS 将显式声明的数组推断为更加具体的只读元组类型。
 
-```typescript
+```ts
 // a 的类型被推断为 (number | boolean)[]
 let a = [1, true]
 
@@ -95,7 +95,7 @@ let b = [1, true] as const
 
 是的，元组成员的类型可以添加问号后缀（`?`），表示该成员是可选的。但问号只能用于元组的尾部成员，所有可选成员必须在必选成员之后：
 
-```typescript
+```ts
 let a: [number, number?] = [1]
 // 可以是 [1] 或 [1, 2]
 
@@ -107,7 +107,7 @@ type myTuple = [number, number, number?, string?]
 
 大多数情况下，元组的成员数量是有限的，从类型声明就可以明确知道元组包含多少个成员，越界的成员会报错：
 
-```typescript
+```ts
 let x: [string, string] = ['a', 'b']
 
 x[2] = 'c' // 报错：超出元组声明的索引范围
@@ -115,7 +115,7 @@ x[2] = 'c' // 报错：超出元组声明的索引范围
 
 但可以使用扩展运算符（`...`）表示不限成员数量的元组：
 
-```typescript
+```ts
 type NamedNums = [string, ...number[]]
 
 const a: NamedNums = ['A', 1, 2]
@@ -126,7 +126,7 @@ const b: NamedNums = ['B', 1, 2, 3, 4, 5]
 
 扩展运算符（`...`）用在元组的任意位置都可以，它的后面只能是一个数组或元组：
 
-```typescript
+```ts
 type t1 = [string, number, ...boolean[]] // 扩展在尾部
 type t2 = [string, ...boolean[], number] // 扩展在中部
 type t3 = [...boolean[], string, number] // 扩展在头部
@@ -141,7 +141,7 @@ const example3: t3 = [true, false, 'hello', 42]
 
 元组的成员可以添加成员名，这个成员名是说明性的，可以任意取名，没有实际作用：
 
-```typescript
+```ts
 type Color = [red: number, green: number, blue: number]
 
 const c: Color = [255, 255, 255]
@@ -155,7 +155,7 @@ console.log(c[0]) // 255
 
 元组可以通过方括号读取成员类型：
 
-```typescript
+```ts
 type Tuple = [string, number]
 type Age = Tuple[1] // number
 
@@ -168,7 +168,7 @@ type TupleEl = Tuple2[number] // string|number|Date
 
 元组也可以是只读的，不允许修改，有多种写法：
 
-```typescript
+```ts
 // 写法一（类型只读元组）
 type t1 = readonly [number, string]
 
@@ -190,7 +190,7 @@ const readonlyTuple: readonly [string, number] = ['hello', 42]
 
 只读元组是元组的父类型，所以元组可以替代只读元组，而只读元组不能替代元组：
 
-```typescript
+```ts
 type ReadonlyTuple = readonly [number, number]
 type MutableTuple = [number, number]
 
@@ -203,7 +203,7 @@ let readonly: ReadonlyTuple = mutable // 正确：子类型赋值给父类型
 
 由于只读元组不能替代元组，所以会产生一些令人困惑的报错：
 
-```typescript
+```ts
 function distanceFromOrigin([x, y]: [number, number]) {
   return Math.sqrt(x ** 2 + y ** 2)
 }
@@ -220,7 +220,7 @@ distanceFromOrigin(point as [number, number])
 
 TypeScript 根据元组定义推断成员数量：
 
-```typescript
+```ts
 // 没有可选成员和扩展运算符时，TypeScript 会推断出确切的成员数量
 function f1(point: [number, number]) {
   point.length
@@ -246,7 +246,7 @@ if (myTuple.length === 4) {
 
 扩展运算符将数组转换成参数序列时，TypeScript 会认为参数数量是不确定的，可能导致与函数期望参数数量不匹配的报错：
 
-```typescript
+```ts
 const arr = [1, 2]
 
 function add(x: number, y: number) {
@@ -267,7 +267,7 @@ add(...arr3) // ✅ 正确，类型为 readonly [1, 2]
 
 有些函数可以接受任意数量的参数，这时使用扩展运算符就不会报错：
 
-```typescript
+```ts
 const arr = [1, 2, 3]
 
 // console.log 可以接受任意数量的参数

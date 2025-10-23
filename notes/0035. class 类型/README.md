@@ -35,7 +35,7 @@
 
 类（class）是面向对象编程的基本构件，封装了属性和方法，TypeScript 给予了全面支持。
 
-```typescript
+```ts
 class Point {
   x: number
   y: number
@@ -57,7 +57,7 @@ class Point {
 
 类的属性可以在顶层声明，也可以在构造方法内部声明。对于顶层声明的属性，可以在声明时同时给出类型：
 
-```typescript
+```ts
 class Point {
   x: number
   y: number
@@ -66,7 +66,7 @@ class Point {
 
 如果不给出类型，TypeScript 会认为 x 和 y 的类型都是 any：
 
-```typescript
+```ts
 class Point {
   x
   y
@@ -75,7 +75,7 @@ class Point {
 
 如果声明时给出初值，可以不写类型，TypeScript 会自行推断属性的类型：
 
-```typescript
+```ts
 class Point {
   x = 0
   y = 0
@@ -88,7 +88,7 @@ class Point {
 
 TypeScript 有一个配置项 `strictPropertyInitialization`，只要打开（默认是打开的），就会检查属性是否设置了初值，如果没有就报错：
 
-```typescript
+```ts
 // 打开 strictPropertyInitialization
 class Point {
   x: number // 报错
@@ -98,7 +98,7 @@ class Point {
 
 如果不希望出现报错，可以使用非空断言：
 
-```typescript
+```ts
 class Point {
   x!: number
   y!: number
@@ -111,7 +111,7 @@ class Point {
 
 属性名前面加上 readonly 修饰符，就表示该属性是只读的。实例对象不能修改这个属性：
 
-```typescript
+```ts
 class A {
   readonly id = 'foo'
 }
@@ -122,7 +122,7 @@ a.id = 'bar' // 报错
 
 readonly 属性的初始值，可以写在顶层属性，也可以写在构造方法里面：
 
-```typescript
+```ts
 class A {
   readonly id: string
 
@@ -136,7 +136,7 @@ class A {
 
 类的方法就是普通函数，类型声明方式与函数一致：
 
-```typescript
+```ts
 class Point {
   x: number
   y: number
@@ -158,7 +158,7 @@ class Point {
 
 存取器（accessor）是特殊的类方法，包括取值器（getter）和存值器（setter）两种方法：
 
-```typescript
+```ts
 class C {
   _name = ''
   get name() {
@@ -172,7 +172,7 @@ class C {
 
 如果某个属性只有 `get` 方法，没有 `set` 方法，那么该属性自动成为只读属性：
 
-```typescript
+```ts
 class C {
   _name = 'foo'
 
@@ -189,7 +189,7 @@ c.name = 'bar' // 报错
 
 interface 接口或 type 别名，可以用对象的形式，为 class 指定一组检查条件。然后，类使用 implements 关键字，表示当前类满足这些外部类型条件的限制：
 
-```typescript
+```ts
 interface Country {
   name: string
   capital: string
@@ -203,7 +203,7 @@ class MyCountry implements Country {
 
 类可以实现多个接口（其实是接受多重限制），每个接口之间使用逗号分隔：
 
-```typescript
+```ts
 class Car implements MotorVehicle, Flyable, Swimmable {
   // ...
 }
@@ -213,7 +213,7 @@ class Car implements MotorVehicle, Flyable, Swimmable {
 
 要获得一个类的自身类型，一个简便的方法就是使用 typeof 运算符：
 
-```typescript
+```ts
 function createPoint(PointClass: typeof Point, x: number, y: number): Point {
   return new PointClass(x, y)
 }
@@ -221,7 +221,7 @@ function createPoint(PointClass: typeof Point, x: number, y: number): Point {
 
 类的自身类型可以写成构造函数的形式：
 
-```typescript
+```ts
 function createPoint(
   PointClass: new (x: number, y: number) => Point,
   x: number,
@@ -235,7 +235,7 @@ function createPoint(
 
 Class 也遵循"结构类型原则"。一个对象只要满足 Class 的实例结构，就跟该 Class 属于同一个类型：
 
-```typescript
+```ts
 class Foo {
   id!: number
 }
@@ -256,7 +256,7 @@ fn(bar) // 正确
 
 类（这里又称"子类"）可以使用 extends 关键字继承另一个类（这里又称"基类"）的所有属性和方法：
 
-```typescript
+```ts
 class A {
   greet() {
     console.log('Hello, world!')
@@ -271,7 +271,7 @@ b.greet() // "Hello, world!"
 
 子类可以覆盖基类的同名方法：
 
-```typescript
+```ts
 class B extends A {
   greet(name?: string) {
     if (name === undefined) {
@@ -287,7 +287,7 @@ class B extends A {
 
 TypeScript 4.3 引入了 override 关键字，明确表明作者的意图，就是要覆盖父类里面的同名方法：
 
-```typescript
+```ts
 class B extends A {
   override show() {
     // ...
@@ -306,7 +306,7 @@ TypeScript 又提供了一个编译参数 `noImplicitOverride`。一旦打开这
 
 `public` 修饰符表示这是公开成员，外部可以自由访问：
 
-```typescript
+```ts
 class Greeter {
   public greet() {
     console.log('hi!')
@@ -316,7 +316,7 @@ class Greeter {
 
 `private` 修饰符表示私有成员，只能用在当前类的内部：
 
-```typescript
+```ts
 class A {
   private x: number = 0
 }
@@ -327,7 +327,7 @@ a.x // 报错
 
 `protected` 修饰符表示该成员是保护成员，只能在类的内部使用该成员，实例无法使用该成员，但是子类内部可以使用：
 
-```typescript
+```ts
 class A {
   protected x = 1
 }
@@ -343,7 +343,7 @@ class B extends A {
 
 实际开发中，很多实例属性的值，是通过构造方法传入的。TypeScript 提供了一种简写形式：
 
-```typescript
+```ts
 class Point {
   constructor(public x: number, public y: number) {}
 }
@@ -359,7 +359,7 @@ p.y // 10
 
 类的内部可以使用 `static` 关键字，定义静态成员。静态成员是只能通过类本身使用的成员，不能通过实例对象使用：
 
-```typescript
+```ts
 class MyClass {
   static x = 0
   static printX() {
@@ -375,7 +375,7 @@ MyClass.printX() // 0
 
 TypeScript 允许在类的定义前面，加上关键字 `abstract`，表示该类不能被实例化，只能当作其他类的模板。这种类就叫做"抽象类"（abstract class）：
 
-```typescript
+```ts
 abstract class A {
   id = 1
 }
@@ -385,7 +385,7 @@ const a = new A() // 报错
 
 抽象类的内部可以有已经实现好的属性和方法，也可以有还未实现的属性和方法。后者就叫做"抽象成员"（abstract member）：
 
-```typescript
+```ts
 abstract class A {
   abstract foo: string
   bar: string = ''
@@ -400,7 +400,7 @@ class B extends A {
 
 类的方法经常用到 `this` 关键字，它表示该方法当前所在的对象。TypeScript 允许函数增加一个名为 `this` 的参数，放在参数列表的第一位，用来描述函数内部的 `this` 关键字的类型：
 
-```typescript
+```ts
 class A {
   name = 'A'
 
@@ -412,7 +412,7 @@ class A {
 
 在类的内部，`this` 本身也可以当作类型使用，表示当前类的实例对象：
 
-```typescript
+```ts
 class Box {
   contents: string = ''
 

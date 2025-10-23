@@ -28,7 +28,7 @@
 
 Enum 是 TypeScript 新增的一种数据结构和类型，中文译为"枚举"。实际开发中，经常需要定义一组相关的常量：
 
-```typescript
+```ts
 const RED = 1
 const GREEN = 2
 const BLUE = 3
@@ -50,7 +50,7 @@ throw new Error('wrong color')
 
 TypeScript 设计了 Enum 结构，用来将相关常量放在一个容器里面，方便使用：
 
-```typescript
+```ts
 enum Color {
   Red, // 0
   Green, // 1
@@ -60,7 +60,7 @@ enum Color {
 
 使用时，调用 Enum 的某个成员，与调用对象属性的写法一样，可以使用点运算符，也可以使用方括号运算符：
 
-```typescript
+```ts
 let c = Color.Green // 1
 // 等同于
 let c = Color['Green'] // 1
@@ -70,14 +70,14 @@ let c = Color['Green'] // 1
 
 是的，Enum 结构本身也是一种类型。比如，上例的变量`c`等于`1`，它的类型可以是 Color，也可以是`number`：
 
-```typescript
+```ts
 let c: Color = Color.Green // 正确
 let c: number = Color.Green // 正确
 ```
 
 Enum 结构的特别之处在于，它既是一种类型，也是一个值。绝大多数 TypeScript 语法都是类型语法，编译后会全部去除，但是 Enum 结构是一个值，编译后会变成 JavaScript 对象，留在代码中：
 
-```typescript
+```ts
 // 编译前
 enum Color {
   Red, // 0
@@ -95,7 +95,7 @@ let Color = {
 
 由于这个原因，Enum 结构比较适合的场景是，成员的值不重要，名字更重要，从而增加代码的可读性和可维护性：
 
-```typescript
+```ts
 enum Operator {
   ADD,
   DIV,
@@ -125,7 +125,7 @@ compute(Operator.ADD, 1, 3) // 4
 
 Enum 成员默认不必赋值，系统会从零开始逐一递增，按照顺序为每个成员赋值，比如 0、1、2……：
 
-```typescript
+```ts
 enum Color {
   Red,
   Green,
@@ -142,7 +142,7 @@ enum Color {
 
 如果只设定第一个成员的值，后面成员的值就会从这个值开始递增：
 
-```typescript
+```ts
 enum Color {
   Red = 7,
   Green, // 8
@@ -161,7 +161,7 @@ enum Color {
 
 成员的值可以是任意数值，但不能是大整数（Bigint）：
 
-```typescript
+```ts
 enum Color {
   Red = 90,
   Green = 0.5,
@@ -171,7 +171,7 @@ enum Color {
 
 成员的值甚至可以相同：
 
-```typescript
+```ts
 enum Color {
   Red = 0,
   Green = 0,
@@ -181,7 +181,7 @@ enum Color {
 
 Enum 成员的值也可以使用计算式：
 
-```typescript
+```ts
 enum Permission {
   UserRead = 1 << 8,
   UserWrite = 1 << 7,
@@ -204,7 +204,7 @@ enum Bool {
 
 为了让 Enum 成员值更醒目，通常会在 enum 关键字前面加上`const`修饰，表示这是常量，不能再次赋值：
 
-```typescript
+```ts
 const enum Color {
   Red,
   Green,
@@ -214,7 +214,7 @@ const enum Color {
 
 加上`const`还有一个好处，就是编译为 JavaScript 代码后，代码中 Enum 成员会被替换成对应的值，这样能提高性能表现：
 
-```typescript
+```ts
 const enum Color {
   Red,
   Green,
@@ -237,7 +237,7 @@ const z = 2 /* Color.Blue */
 
 多个同名的 Enum 结构会自动合并：
 
-```typescript
+```ts
 enum Foo {
   A,
 }
@@ -260,7 +260,7 @@ enum Foo {
 
 Enum 结构合并时，只允许其中一个的首成员省略初始值，否则报错：
 
-```typescript
+```ts
 enum Foo {
   A,
 }
@@ -272,7 +272,7 @@ enum Foo {
 
 同名 Enum 合并时，不能有同名成员，否则报错：
 
-```typescript
+```ts
 enum Foo {
   A,
   B,
@@ -288,7 +288,7 @@ enum Foo {
 
 Enum 成员的值除了设为数值，还可以设为字符串。也就是说，Enum 也可以用作一组相关字符串的集合：
 
-```typescript
+```ts
 enum Direction {
   Up = 'UP',
   Down = 'DOWN',
@@ -299,7 +299,7 @@ enum Direction {
 
 字符串枚举的所有成员值，都必须显式设置。如果没有设置，成员值默认为数值，且位置必须在字符串成员之前：
 
-```typescript
+```ts
 enum Foo {
   A, // 0
   B = 'hello',
@@ -309,7 +309,7 @@ enum Foo {
 
 Enum 成员可以是字符串和数值混合赋值：
 
-```typescript
+```ts
 enum Enum {
   One = 'One',
   Two = 'Two',
@@ -322,7 +322,7 @@ enum Enum {
 
 keyof 运算符可以取出 Enum 结构的所有成员名，作为联合类型返回：
 
-```typescript
+```ts
 enum MyEnum {
   A = 'a',
   B = 'b',
@@ -336,7 +336,7 @@ type Foo = keyof typeof MyEnum
 
 如果要返回 Enum 所有的成员值，可以使用`in`运算符：
 
-```typescript
+```ts
 enum MyEnum {
   A = 'a',
   B = 'b',
@@ -350,7 +350,7 @@ type Foo = { [key in MyEnum]: any }
 
 数值 Enum 存在反向映射，即可以通过成员值获得成员名：
 
-```typescript
+```ts
 enum Weekdays {
   Monday = 1,
   Tuesday,

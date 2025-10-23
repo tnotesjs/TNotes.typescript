@@ -360,7 +360,7 @@ let a: Animal = new Dog('Buddy') // ❌ 错误！私有成员不兼容
 
 结构子类型原则有时会导致令人惊讶的结果，因为它只管“你有没有我需要的东西”，不管“你有没有多余的东西”，这就会导致一些细节问题，特别是在使用索引访问时。
 
-```typescript
+```ts
 interface MyObj {
   x: number
   y: number
@@ -387,7 +387,7 @@ function getSum(obj: MyObj) {
 
 明确问题之后，解决起来就简单多了，核心就是要处理 `n` 类型过于宽泛的问题。思考方向 => 让 `n` 类型更具体，只能是 `MyObj` 要求的 `key` 即可。
 
-```typescript
+```ts
 interface MyObj {
   x: number
   y: number

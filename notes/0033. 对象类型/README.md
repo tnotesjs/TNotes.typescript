@@ -47,7 +47,7 @@
 
 TypeScript 的对象类型是最基本的数据结构之一。对象类型的最简单声明方法是使用大括号表示对象，在大括号内部声明每个属性和方法的类型。
 
-```typescript
+```ts
 const obj: {
   x: number
   y: number
@@ -62,7 +62,7 @@ const obj: {
 
 可以使用大括号语法声明对象类型，属性的类型可以用分号 `;` 或逗号 `,` 结尾，也可以什么都不填直接换行。
 
-```typescript
+```ts
 type MyObj = {
   x: number // 可以加分号、或逗号、或直接换行
   y: number
@@ -88,7 +88,7 @@ type MyObj = {
 
 可以使用 `type` 命令为对象类型声明别名，也使用 `interface` 命令把对象类型提炼为接口。
 
-```typescript
+```ts
 // 使用 type 命令
 type MyObj = {
   x: number
@@ -112,7 +112,7 @@ const obj2: MyObjInterface = { x: 1, y: 1 }
 
 对象的方法使用函数类型描述，写法如下：
 
-```typescript
+```ts
 const obj: {
   x: number
   y: number
@@ -136,7 +136,7 @@ const obj: {
 
 如果某个属性是可选的（即可以忽略），需要在属性名后面加一个问号：
 
-```typescript
+```ts
 const obj: {
   x: number
   y?: number
@@ -147,7 +147,7 @@ const obj: {
 
 读取可选属性之前，必须检查是否为`undefined`：
 
-```typescript
+```ts
 const user: {
   firstName: string
   lastName?: string
@@ -174,7 +174,7 @@ let lastName2 = user.lastName ?? 'Default'
 
 属性名前面加上 `readonly` 关键字，表示这个属性是只读属性，不能修改：
 
-```typescript
+```ts
 interface MyInterface {
   readonly prop: number
 }
@@ -189,7 +189,7 @@ person.age = 21 // ❌ 报错：不能修改只读属性
 
 只读属性只能在对象初始化期间赋值，此后就不能修改该属性：
 
-```typescript
+```ts
 type Point = {
   readonly x: number
   readonly y: number
@@ -205,7 +205,7 @@ p.x = 100 // 报错：不能修改只读属性
 
 一旦声明了类型，对象赋值时就不能缺少指定的属性，也不能有多余的属性。读写不存在的属性也会报错，同样不能删除类型声明中存在的属性。
 
-```typescript
+```ts
 interface MyObj {
   x: number
   y: number
@@ -242,7 +242,7 @@ myUser.name = 'Cynthia' // ✅ 正确：修改属性值
 
 对象类型可以使用方括号读取属性的类型：
 
-```typescript
+```ts
 type User = {
   name: string
   age: number
@@ -255,7 +255,7 @@ type Age = User['age'] // number
 
 可选属性与允许设为 `undefined` 的必选属性是不等价的：
 
-```typescript
+```ts
 type A = { x: number; y?: number }
 type B = { x: number; y: number | undefined }
 
@@ -268,7 +268,7 @@ const ObjB2: B = { x: 1, y: undefined } // 正确：必须显式声明
 
 如果属性值是一个对象，`readonly` 修饰符并不禁止修改该对象的属性，只是禁止完全替换掉该对象：
 
-```typescript
+```ts
 interface Home {
   readonly resident: {
     name: string
@@ -294,7 +294,7 @@ h.resident = {
 
 可以使用 `as const` 断言创建完全只读的对象：
 
-```typescript
+```ts
 const myUser = {
   name: 'Sabrina',
   details: {
@@ -313,7 +313,7 @@ myUser.details.age = 26 // ❌ 报错：嵌套属性也变成只读
 
 当对象属性非常多或无法事前知道对象会有多少属性时，可以采用属性名表达式的写法来描述类型，称为"属性名的索引类型"：
 
-```typescript
+```ts
 interface MyObj {
   [property: string]: string
 }
@@ -327,7 +327,7 @@ const obj: MyObj = {
 
 JavaScript 对象的属性名类型有三种可能：`string`、`number` 和 `symbol`：
 
-```typescript
+```ts
 interface StringIndex {
   [property: string]: string
 }
@@ -352,7 +352,7 @@ interface MixedIndex {
 1. 数值索引必须服从字符串索引（因为 JS 中数值属性名会转为字符串）
 2. 具体属性必须符合索引类型的约束
 
-```typescript
+```ts
 // 错误示例：数值索引与字符串索引冲突
 interface MyType {
   [x: number]: boolean // ❌ 报错
@@ -384,7 +384,7 @@ interface MyType4 {
 
 解构赋值用于直接从对象中提取属性，类型写法跟为对象声明类型是一样的：
 
-```typescript
+```ts
 const product = {
   project_id: '123',
   project_name: '笔记本电脑',
@@ -435,7 +435,7 @@ const {
 
 如果某个类型的所有属性都是可选的，那么该类型的对象必须至少存在一个可选属性，不能所有可选属性都不存在。
 
-```typescript
+```ts
 type Options = {
   a?: number
   b?: number
@@ -488,7 +488,7 @@ obj2 = (a: number) => a + 1
 
 - TypeScript 会约束空对象不能有自定义属性，只能使用继承的属性。
 
-```typescript
+```ts
 const obj = {}
 obj.prop = 123 // 报错：不能添加自定义属性
 
@@ -518,7 +518,7 @@ const pt = {
 
 如果想强制使用没有任何属性的对象，可以采用索引签名 never 的方式：
 
-```typescript
+```ts
 interface WithoutProperties {
   [key: string]: never
 }

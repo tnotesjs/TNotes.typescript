@@ -64,7 +64,7 @@ x === y // false
 - unique symbol 类型的变量是不能修改值的，只能用 `const` 命令声明，不能用 `let` 声明。
 - 这是因为 unique symbol 表示单个值，需要保证其唯一性和不可变性。
 
-```typescript
+```ts
 // 正确
 const x: unique symbol = Symbol()
 
@@ -77,7 +77,7 @@ let y: unique symbol = Symbol()
 
 - const 命令为变量赋值 Symbol 值时，变量类型默认就是 unique symbol，所以类型可以省略不写。
 
-```typescript
+```ts
 const x = Symbol()
 // 等同于
 // const x: unique symbol = Symbol()
@@ -88,7 +88,7 @@ const x = Symbol()
 - 每个声明为 unique symbol 类型的变量，它们的值都是不一样的，其实属于两个值类型。
 - 不同类型的值不能使用严格相等运算符进行比较，因为这么做毫无意义，无需比较就能断定是不可能相等的。
 
-```typescript
+```ts
 const a: unique symbol = Symbol()
 const b: unique symbol = Symbol()
 
@@ -110,7 +110,7 @@ a === b // 报错
 - 不能直接将一个 unique symbol 类型的变量赋值给另一个 unique symbol 类型的变量，因为它们实际上是不同的值类型。
 - 如果要写成与变量 `a` 同一个 unique symbol 值类型，只能写成类型为 `typeof a`：
 
-```typescript
+```ts
 const a: unique symbol = Symbol()
 const b: unique symbol = a // 报错
 // Type 'typeof a' is not assignable to type 'typeof b'.(2322)
@@ -124,7 +124,7 @@ const b: typeof a = a // 正确
 - 相同参数的 `Symbol.for()` 方法会返回相同的 Symbol 值。
 - TypeScript 目前无法识别这种情况，所以可能出现多个 unique symbol 类型的变量，等于同一个 Symbol 值的情况。
 
-```typescript
+```ts
 const a: unique symbol = Symbol.for('foo')
 const b: unique symbol = Symbol.for('foo')
 
@@ -139,7 +139,7 @@ console.log(a === b) // true
 
 - unique symbol 类型是 symbol 类型的子类型，所以可以将前者赋值给后者，但是反过来就不行。
 
-```typescript
+```ts
 const a: unique symbol = Symbol()
 
 const b: symbol = a // 正确
@@ -153,7 +153,7 @@ const c: unique symbol = b // 报错
 - unique symbol 类型的一个作用就是用作属性名，这可以保证不会跟其他属性名冲突。
 - 在 5.8.3 版本之前，如果要把某一个特定的 Symbol 值当作属性名，TypeScript 只允许它的类型是 unique symbol，不能是 symbol，5.8.3 版本之后没有了这个限制。
 
-```typescript
+```ts
 const x: unique symbol = Symbol()
 const y: symbol = Symbol()
 
@@ -170,7 +170,7 @@ interface Foo {
 
 - unique symbol 类型也可以用作类（class）的属性值，但只能赋值给类的 `readonly static` 属性。
 
-```typescript
+```ts
 class C {
   static readonly foo: unique symbol = Symbol()
   // 注意，这时 static 和 readonly 两个限定符缺一不可，这是为了保证这个属性是固定不变的。
@@ -184,7 +184,7 @@ class C {
 - `let` 命令声明的变量，推断类型为 symbol
 - `const` 命令声明的变量，推断类型为 unique symbol
 
-```typescript
+```ts
 // 类型为 symbol
 let x = Symbol()
 
@@ -195,7 +195,7 @@ const x = Symbol()
 - `const` 命令声明的变量，如果被赋值为另一个 symbol 类型的变量，则推断类型为 symbol
 - `let` 命令声明的变量，如果赋值为另一个 unique symbol 类型的变量，则推断类型还是 symbol
 
-```typescript
+```ts
 let x = Symbol()
 const y = x // 类型为 symbol
 

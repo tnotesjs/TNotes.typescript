@@ -46,7 +46,7 @@
 - 类型声明的写法一律为在标识符后面添加"冒号 + 类型"。
 - 函数参数和返回值也采用相同的方式声明类型。
 
-```typescript
+```ts
 let foo: string
 
 function toString(num: number): string {
@@ -61,7 +61,7 @@ function toString(num: number): string {
   - TypeScript 规定变量只有赋值后才能使用，否则就会报错。
   - 这与 JavaScript 不同，JavaScript 允许这种行为，未赋值的变量会返回 `undefined`。
 
-```typescript
+```ts
 let foo: string = 123 // ❌ Type 'number' is not assignable to type 'string'.(2322)
 
 let x: number
@@ -115,7 +115,7 @@ console.log(x) // ❌ Variable 'x' is used before being assigned.(2454)
   - 例如 `let foo = 123` 等价于 `let foo: number = 123`，因为 TS 能推断出 123 是 number 类型。
 - 如果 TS 无法推断出具体类型信息，则会根据配置做出不同处理。
 
-```typescript
+```ts
 // 可以不显示地注解返回值类型为 string
 function toString(num: number) {
   return String(num)
@@ -168,7 +168,7 @@ function toString(num: number) {
   - 如果推断成功，会显示具体的类型。
   - 如果推断失败，通常会显示 any 类型，意味着任意类型都可以。
 
-```typescript
+```ts
 // 悬停 a → 显示 `any`（推断失败）
 function foo(a) {
   return a + 1

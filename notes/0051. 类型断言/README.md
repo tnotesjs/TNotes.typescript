@@ -24,7 +24,7 @@
 
 类型断言是 TypeScript 提供的一种手段，允许开发者在代码中"断言"某个值的类型，告诉编译器此处的值是什么类型。TypeScript 一旦发现存在类型断言，就不再对该值进行类型推断，而是直接采用断言给出的类型。
 
-```typescript
+```ts
 type T = 'a' | 'b' | 'c'
 let foo = 'a'
 
@@ -35,7 +35,7 @@ let bar: T = foo // 报错
 
 解决方法就是进行类型断言：
 
-```typescript
+```ts
 type T = 'a' | 'b' | 'c'
 
 let foo = 'a'
@@ -44,7 +44,7 @@ let bar: T = foo as T // 正确
 
 类型断言有两种语法：
 
-```typescript
+```ts
 // 语法一：<类型>值
 <Type>value
 
@@ -58,7 +58,7 @@ value as Type
 
 类型断言并不意味着可以把某个值断言为任意类型。类型断言的使用前提是，值的实际类型与断言的类型必须满足一个条件：
 
-```typescript
+```ts
 expr as T
 ```
 
@@ -68,14 +68,14 @@ expr as T
 
 如果真的要断言成一个完全无关的类型，可以连续进行两次类型断言：
 
-```typescript
+```ts
 // 或者写成 <T><unknown>expr
 expr as unknown as T
 ```
 
 下面是例子：
 
-```typescript
+```ts
 const n = 1
 const m: string = n as unknown as string // 正确
 ```
@@ -84,13 +84,13 @@ const m: string = n as unknown as string // 正确
 
 `as const`是一种特殊的类型断言，用于告诉编译器，推断类型时，可以将这个值推断为常量：
 
-```typescript
+```ts
 let s = 'JavaScript' as const
 ```
 
 使用了`as const`断言以后，let 变量就等同于是用 const 命令声明的，变量的类型会被推断为值类型：
 
-```typescript
+```ts
 let s = 'JavaScript' as const
 type Lang = 'JavaScript' | 'TypeScript' | 'Python'
 
@@ -103,14 +103,14 @@ setLang(s) // 正确
 
 `as const`断言只能用于字面量，不能用于变量：
 
-```typescript
+```ts
 let s = 'JavaScript'
 setLang(s as const) // 报错
 ```
 
 `as const`也可以用于整个对象或对象的单个属性：
 
-```typescript
+```ts
 const v1 = {
   x: 1,
   y: 2,
@@ -131,7 +131,7 @@ const v3 = {
 
 对于那些可能为空的变量（即可能等于`undefined`或`null`），TypeScript 提供了非空断言，保证这些变量不会为空，写法是在变量名后面加上感叹号`!`：
 
-```typescript
+```ts
 function f(x?: number | null) {
   validateNumber(x) // 自定义函数，确保 x 是数值
   console.log(x!.toFixed())
@@ -140,13 +140,13 @@ function f(x?: number | null) {
 
 非空断言在实际编程中很有用，有时可以省去一些额外的判断：
 
-```typescript
+```ts
 const root = document.getElementById('root')!
 ```
 
 非空断言还可以用于赋值断言，解决类属性必须初始化的问题：
 
-```typescript
+```ts
 class Point {
   x!: number // 正确
   y!: number // 正确
@@ -161,7 +161,7 @@ class Point {
 
 断言函数是一种特殊函数，用于保证函数参数符合某种类型。如果函数参数达不到要求，就会抛出错误，中断程序执行；如果达到要求，就不进行任何操作，让代码按照正常流程运行：
 
-```typescript
+```ts
 function isString(value: unknown): void {
   if (typeof value !== 'string') throw new Error('Not a string')
 }
@@ -169,7 +169,7 @@ function isString(value: unknown): void {
 
 TypeScript 3.7 引入了新的类型写法来更清晰地表达断言函数：
 
-```typescript
+```ts
 function isString(value: unknown): asserts value is string {
   if (typeof value !== 'string') throw new Error('Not a string')
 }
@@ -179,7 +179,7 @@ function isString(value: unknown): asserts value is string {
 
 如果要断言参数非空，可以使用工具类型`NonNullable<T>`：
 
-```typescript
+```ts
 function assertIsDefined<T>(value: T): asserts value is NonNullable<T> {
   if (value === undefined || value === null) {
     throw new Error(`${value} is not defined`)
@@ -189,7 +189,7 @@ function assertIsDefined<T>(value: T): asserts value is NonNullable<T> {
 
 如果要断言某个参数保证为真（即不等于`false`、`undefined`和`null`），TypeScript 提供了断言函数的一种简写形式：
 
-```typescript
+```ts
 function assert(x: unknown): asserts x {
   if (!x) {
     throw new Error(`${x} should be a truthy value.`)
