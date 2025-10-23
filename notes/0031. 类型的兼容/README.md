@@ -8,12 +8,13 @@
 - [4. 🤔 什么是结构子类型（Structural Typing）？](#4--什么是结构子类型structural-typing)
 - [5. 🤔 TypeScript 中赋值兼容性规则是什么？](#5--typescript-中赋值兼容性规则是什么)
 - [6. 🤔 对象类型的兼容性规则是什么？](#6--对象类型的兼容性规则是什么)
-- [7. 🤔 为什么 TypeScript 对“新鲜”的对象字面量和“已存在”的变量采用了不同的检查策略？](#7--为什么-typescript-对新鲜的对象字面量和已存在的变量采用了不同的检查策略)
+- [7. 🤔 对象字面量的“新鲜度检查”（Freshness Checking）是什么？](#7--对象字面量的新鲜度检查freshness-checking是什么)
 - [8. 🤔 函数类型的兼容性规则是什么？](#8--函数类型的兼容性规则是什么)
 - [9. 🤔 泛型类型的兼容性规则是什么？](#9--泛型类型的兼容性规则是什么)
 - [10. 🤔 类类型的兼容性规则是什么？](#10--类类型的兼容性规则是什么)
 - [11. 🤔 特殊类型之间的兼容性如何？](#11--特殊类型之间的兼容性如何)
-- [12. 🔗 引用](#12--引用)
+- [12. 🤔 结构子类型（Structural Subtyping）原则会带来什么问题？「细节」](#12--结构子类型structural-subtyping原则会带来什么问题细节)
+- [13. 🔗 引用](#13--引用)
 
 <!-- endregion:toc -->
 
@@ -194,7 +195,10 @@ const obj = { x: 1, y: 'extra' }
 let a: A = obj // ✅ 允许
 ```
 
-## 7. 🤔 为什么 TypeScript 对“新鲜”的对象字面量和“已存在”的变量采用了不同的检查策略？
+## 7. 🤔 对象字面量的“新鲜度检查”（Freshness Checking）是什么？
+
+- 对象字面量的“新鲜度检查”（Freshness Checking）也叫“严格字面量检查”。
+- TypeScript 对“新鲜”的对象字面量和“已存在”的变量会采用不同的检查策略。
 
 ```ts
 type A = { x: number }
@@ -352,7 +356,105 @@ let a: Animal = new Dog('Buddy') // ❌ 错误！私有成员不兼容
 - 表格中的 object 类型代表所有非原始类型的类型，即数组、对象与函数类型
 - 每个类型都可以赋值给其本身
 
-## 12. 🔗 引用
+## 12. 🤔 结构子类型（Structural Subtyping）原则会带来什么问题？「细节」
+
+结构子类型原则有时会导致令人惊讶的结果，因为它只管“你有没有我需要的东西”，不管“你有没有多余的东西”，这就会导致一些细节问题，特别是在使用索引访问时。
+
+```typescript
+interface MyObj {
+  x: number
+  y: number
+}
+
+// 问题示例：使用 Object.keys 遍历时类型不安全
+function getSum(obj: MyObj) {
+  let sum = 0
+
+  for (const n of Object.keys(obj)) {
+    const v = obj[n] // ❌ 报错：类型不安全
+    // Element implicitly has an 'any' type because expression of type 'string' can't be used to index type 'MyObj'.
+    sum += Math.abs(v)
+  }
+
+  return sum
+}
+```
+
+问题分析：
+
+- `obj[xxx]` 通过索引 `xxx` 访问 `obj` 成员时，要求索引 `xxx` 只能是 `'x'` 或者 `'y'`
+- 但是 `Object.keys(obj)` 返回的结果是 `string[]`，这就意味着当我们在使用 `obj[n]` 这种写法时，传入的索引是 `string`，宽泛的 `string` 类型无法赋值给具体的 `'x'` 或 `'y'`，因此就报错了。
+
+明确问题之后，解决起来就简单多了，核心就是要处理 `n` 类型过于宽泛的问题。思考方向 => 让 `n` 类型更具体，只能是 `MyObj` 要求的 `key` 即可。
+
+```typescript
+interface MyObj {
+  x: number
+  y: number
+}
+
+// 正确写法示例 - 1：使用断言
+function getSumSafe_1(obj: MyObj) {
+  let sum = 0
+
+  for (const n of Object.keys(obj) as ['x', 'y']) {
+    const v = obj[n]
+    sum += Math.abs(v)
+  }
+
+  return sum
+}
+
+// 正确写法示例 - 2：使用泛型
+function getSumSafe_2<T extends Record<string, number>>(obj: T): number {
+  let sum = 0
+
+  // 注意：这里用 Object.keys(obj) as (keyof T)[]
+  for (const n of Object.keys(obj) as (keyof T)[]) {
+    const v = obj[n]
+    sum += Math.abs(v)
+  }
+
+  return sum
+}
+
+// 正确写法示例 - 3：封装辅助的类型函数
+function typedKeys<T extends object>(obj: T): (keyof T)[] {
+  return Object.keys(obj) as (keyof T)[]
+}
+
+function getSumSafe_3(obj: MyObj) {
+  let sum = 0
+  for (const n of typedKeys(obj)) {
+    sum += Math.abs(obj[n])
+  }
+  return sum
+}
+
+// 正确写法示例 - 4：使用具体的索引名
+function getSumSafe_4(obj: MyObj) {
+  return Math.abs(obj.x) + Math.abs(obj.y)
+}
+
+// ……
+```
+
+::: tip 🤔 「名义子类型（Nominal Subtyping）」存在上述问题吗？
+
+很可能不会。
+
+- 【1】名义子类型（Nominal Subtyping） -> 看名字定身份 - 能根据名字 `MyObj` 精确定位它的 `key` 具体都有哪些，不会有多余的 `key` 的可能。
+- 【2】结构子类型（Structural Subtyping） -> 看结构定身份 - 根据结构定身份，只要有 `x` 有 `y`，你就是 `MyObj` 类型，`key` 除了 `x`、`y` 之外，还有其它很多可能。
+
+由此可见，【1】、【2】各有特色，并非 TS 采用的策略就是最优的，适配所有场景。
+
+上面提到的这个细节问题，也只是「结构子类型（Structural Subtyping）」导致的问题中的一个缩影！
+
+在实际开发中，我们可能还会遇到其它各种奇怪的小问题，当遇到这类奇怪的类型问题时，先结合报错信息分析一下错误原因。很多问题，在咱们定位到具体原因之后，处理起来的方案还是很多的。
+
+:::
+
+## 13. 🔗 引用
 
 - [Type Compatibility - 类型兼容性][3]
   - [any, unknown, object, void, undefined, null, and never assignability][1]
