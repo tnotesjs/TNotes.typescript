@@ -31,6 +31,7 @@
     - [8.3.4. 为什么说上述代码在执行的时候，有可能是 正常 的呢？](#834-为什么说上述代码在执行的时候有可能是-正常-的呢)
   - [8.4. TS 版](#84-ts-版)
 - [9. 💻 demos.2 - 不要过分高估 TS 的智能](#9--demos2---不要过分高估-ts-的智能)
+- [10. 💻 demos.3 - IDE 的交互式推断行为（Editor Flow Type Inference）](#10--demos3---ide-的交互式推断行为editor-flow-type-inference)
 
 <!-- endregion:toc -->
 
@@ -38,12 +39,15 @@
 
 - 动态类型
 - 静态类型
+- 单次推断（one-shot inference）
+- IDE 的交互式推断行为（Editor Flow Type Inference）
 
 ## 2. 🫧 评价
 
 - 理解动态类型和静态类型之间的区别。
 - 笔记中记录的这些静态类型的优点，也正是大多数 JS 项目转型为 TS 的主要原因。
 - 通过笔记中记录的 demos 来体验静态类型的 TS 的优势。
+- 你可以相信 TSC 的编译结果，但是不要过分相信 IDE 的智能推断，IDE 的推断有可能是错误的。
 
 ## 3. 🤔 JavaScript、TypeScript 分别是“动态类型”还是“静态类型”？
 
@@ -348,3 +352,92 @@ a.substr(1)
 
 - 你会发现，示例 1 明明有错，但是 TS 没那么智能，它并没有提前预警，提醒我们有问题；但是示例 2 又可以正常提前提醒我们有错误。
 - 这跟很多“JS 语言本身的技术债”有关，比如在接下来的学习中，我们还会经常接触到 undefined、null 这些特殊值，对于这些特殊值的处理，有 N 多细节，说实话，很难全都记住（好在是否记住这些类型层面的细节，对日常正常开发几乎没有影响），最好的做法是尝试去理解 TS 为何如此设计。
+
+## 10. 💻 demos.3 - IDE 的交互式推断行为（Editor Flow Type Inference）
+
+::: warning ⚠️ 注意：TS 语言服务提供的 IDE 提示具有欺骗性！
+
+- 你可以相信 tsc 的行为，但是尽量不要过分相信 IDE 提供的智能提示，它有时候是会出错的。
+- 下面记录的错误或许会在后续的 TS 版本中进行修复，如果你也遇到了类似的错误提示，知道是怎么一回事即可。
+
+:::
+
+下面我们来看一个示例：
+
+```ts
+const arr = []
+
+// IDE 提示：
+// const arr: any[]
+
+arr.push(123) // 丢一个数字进去
+
+type ArrType = typeof arr
+// IDE 提示：
+// type ArrType = number[]
+
+arr.push('abc') // 丢一个字符串进去
+
+type ArrType2 = typeof arr
+// IDE 提示：
+// type ArrType2 = (string | number)[]
+
+const test1: ArrType = [1, '1']
+// IDE 报错：
+// Type 'string' is not assignable to type 'number'.(2322)
+
+const test2: ArrType2 = [1, '1']
+```
+
+- 验证：你可以将上述示例复制到 TS Playground 中查看 TS 的类型推断结果来验证。
+
+::: swiper
+
+![1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-23-10-33-17.png)
+
+![2](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-23-10-34-08.png)
+
+![3](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-23-10-34-25.png)
+
+:::
+
+通过上述示例，你可以会得出下面这样一个 ❌ 错误的结论
+
+=> 随着程序的执行 arr 的类型会不断变化，这一现象告诉我们，TS 对变量的类型推断也是动态的，TS 也并非严格意义上的静态类型。
+
+- IDE 之所以会提示你 arr 的类型不断发生变化，实际上这是 IDE 提示的局限性导致的。
+  - 这是 IDE 的交互式推断行为（Editor Flow Type Inference），而非真正的 TypeScript 编译器推断结果。
+  - 在 IDE 中，编辑器会根据你代码的执行顺序（从上往下）做出上下文相关的增量推断，以便提示更符合你眼前的上下文，而 tsc 编译器 则是一次性建立整个语法树和符号表后，再统一推断所有类型。所以 arr 在编译器的静态视角中始终是 `const arr: any[]`。
+- 验证：当你在本地新建一个 `1.ts` 模块，然后将上述程序复制进去，再使用 `tsc 1.ts` 进行编译，会发现并不是报类型错误，这就表示 arr 的类型只被推断了一次，就是开始的 `any[]` 类型。如果类型真如 IDE 提示描述的那样，那么 `const test1: ArrType = [1, '1']` 这条报错的语句将抛出类型错误，导致编译无法通过。
+
+::: code-group
+
+<<< ./demos/3/1.ts {}
+
+<<< ./demos/3/2.ts {}
+
+<<< ./demos/3/package.json {}
+
+:::
+
+- `1.ts` 中的内容，就是最开始的示例源码
+- `2.ts` 中的内容，是刻意制造的一个类型错误 demo
+- `compile_1` 会执行 `tsc ./1.ts` 对 `1.ts` 进行编译 -> 结果不会报错 -> 说明 IDE 报错是误报
+- `compile_2` 会执行 `tsc ./2.ts` 对 `2.ts` 进行编译 -> 错误 -> 说明 IDE 提示的错误是正确的
+
+![图 4](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-23-10-42-18.png)
+
+::: tip 💡 提示：`//@ts-ignore`
+
+如果你觉得 IDE 提示的错误很烦，不想看到“错误”的爆红的话，解决办法也非常简单，在这一行前边儿加一个 `//@ts-ignore` 注释即可。
+
+![img](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-23-10-47-03.png)
+
+:::
+
+结论：
+
+- TypeScript 的类型推断是静态的、单次推断（one-shot inference）。
+- IDE（比如 TS Playground、VSCode 等）的类型推断提示具有局限性，可能会误报。
+  - 方案 1：使用注释指令，比如 `//@ts-ignore`、`//@ts-nocheck` 注释来忽略误报错误；或者通过配置文件 `exclude` 忽略指定模块的检查；（主动）
+  - 方案 2：当做看不见 🙈，等官方修复；（被动）
