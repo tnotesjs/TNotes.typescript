@@ -63,7 +63,7 @@
 
 ## 8. 函数
 
-- [ ] [0034. 函数类型](https://tnotesjs.github.io/TNotes.typescript/notes/0034.%20%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/README)
+- [x] [0034. 函数类型](https://tnotesjs.github.io/TNotes.typescript/notes/0034.%20%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/README)
 
 ## 9. 对象
 
