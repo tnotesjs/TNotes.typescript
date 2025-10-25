@@ -78,12 +78,12 @@
 ## 11. 类
 
 - [ ] [0035. class 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0035.%20class%20%E7%B1%BB%E5%9E%8B/README)
-- [x] [0055. class 中的 this](https://tnotesjs.github.io/TNotes.typescript/notes/0055.%20class%20%E4%B8%AD%E7%9A%84%20this/README)
-- [x] [0056. class 中的 Parameter Properties](https://tnotesjs.github.io/TNotes.typescript/notes/0056.%20class%20%E4%B8%AD%E7%9A%84%20Parameter%20Properties/README)
+- [x] [0055. 类中的 this 参数和 this 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0055.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%20this%20%E5%8F%82%E6%95%B0%E5%92%8C%20this%20%E7%B1%BB%E5%9E%8B/README)
+- [x] [0056. 类中的参数属性](https://tnotesjs.github.io/TNotes.typescript/notes/0056.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0%E5%B1%9E%E6%80%A7/README)
 - [ ] [0057. 抽象类](https://tnotesjs.github.io/TNotes.typescript/notes/0057.%20%E6%8A%BD%E8%B1%A1%E7%B1%BB/README)
-- [x] [0058. class 中的 accessor](https://tnotesjs.github.io/TNotes.typescript/notes/0058.%20class%20%E4%B8%AD%E7%9A%84%20accessor/README)
-- [x] [0059. class 中的 implements](https://tnotesjs.github.io/TNotes.typescript/notes/0059.%20class%20%E4%B8%AD%E7%9A%84%20implements/README)
-- [ ] [0060. class 中的只读属性](https://tnotesjs.github.io/TNotes.typescript/notes/0060.%20class%20%E4%B8%AD%E7%9A%84%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7/README)
+- [x] [0058. 类中的存取器](https://tnotesjs.github.io/TNotes.typescript/notes/0058.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%AD%98%E5%8F%96%E5%99%A8/README)
+- [x] [0059. 类实现接口](https://tnotesjs.github.io/TNotes.typescript/notes/0059.%20%E7%B1%BB%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3/README)
+- [x] [0060. 类中的只读属性](https://tnotesjs.github.io/TNotes.typescript/notes/0060.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7/README)
 - [ ] [0061. xxx](https://tnotesjs.github.io/TNotes.typescript/notes/0061.%20xxx/README)
 
 ## 12. 泛型

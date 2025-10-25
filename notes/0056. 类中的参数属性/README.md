@@ -1,4 +1,4 @@
-# [0056. class 中的 Parameter Properties](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0056.%20class%20%E4%B8%AD%E7%9A%84%20Parameter%20Properties)
+# [0056. 类中的参数属性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0056.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0%E5%B1%9E%E6%80%A7)
 
 <!-- region:toc -->
 

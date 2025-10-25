@@ -1,4 +1,4 @@
-# [0055. class 中的 this](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0055.%20class%20%E4%B8%AD%E7%9A%84%20this)
+# [0055. 类中的 this 参数和 this 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0055.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%20this%20%E5%8F%82%E6%95%B0%E5%92%8C%20this%20%E7%B1%BB%E5%9E%8B)
 
 <!-- region:toc -->
 

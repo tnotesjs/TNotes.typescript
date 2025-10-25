@@ -1,4 +1,4 @@
-# [0059. class 中的 implements](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0059.%20class%20%E4%B8%AD%E7%9A%84%20implements)
+# [0059. 类实现接口](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0059.%20%E7%B1%BB%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3)
 
 <!-- region:toc -->
 

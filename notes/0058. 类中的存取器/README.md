@@ -1,4 +1,4 @@
-# [0058. class 中的 accessor](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0058.%20class%20%E4%B8%AD%E7%9A%84%20accessor)
+# [0058. 类中的存取器](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0058.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%AD%98%E5%8F%96%E5%99%A8)
 
 <!-- region:toc -->
 

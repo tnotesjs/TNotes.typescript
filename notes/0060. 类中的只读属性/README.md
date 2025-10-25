@@ -1,4 +1,4 @@
-# [0060. class 中的只读属性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0060.%20class%20%E4%B8%AD%E7%9A%84%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7)
+# [0060. 类中的只读属性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0060.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7)
 
 <!-- region:toc -->
 
