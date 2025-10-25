@@ -5,6 +5,7 @@
 
 - [x] [0002. TypeScript（阮一峰）](https://tnotesjs.github.io/TNotes.typescript/notes/0002.%20TypeScript%EF%BC%88%E9%98%AE%E4%B8%80%E5%B3%B0%EF%BC%89/README)
 - [x] [0054. 术语表](https://tnotesjs.github.io/TNotes.typescript/notes/0054.%20%E6%9C%AF%E8%AF%AD%E8%A1%A8/README)
+- [x] [0039. roadmap](https://tnotesjs.github.io/TNotes.typescript/notes/0039.%20roadmap/README)
 
 ## 2. TS 简介
 
