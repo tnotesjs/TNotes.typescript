@@ -8,12 +8,12 @@
   - [3. 基本用法](#3-基本用法)
   - [4. 顶层类型和底层类型](#4-顶层类型和底层类型)
   - [5. 类型系统](#5-类型系统)
-  - [6. array 数组](#6-array-数组)
-  - [7. tuple 元组](#7-tuple-元组)
-  - [8. function 函数](#8-function-函数)
-  - [9. object 对象](#9-object-对象)
-  - [10. interface 接口](#10-interface-接口)
-  - [11. class 类](#11-class-类)
+  - [6. 数组](#6-数组)
+  - [7. 元组](#7-元组)
+  - [8. 函数](#8-函数)
+  - [9. 对象](#9-对象)
+  - [10. 接口](#10-接口)
+  - [11. 类](#11-类)
   - [12. 泛型](#12-泛型)
   - [13. Enum 类型](#13-enum-类型)
   - [14. 类型断言](#14-类型断言)
@@ -87,28 +87,28 @@
 - [x] [0030. 类型作用域](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0030.%20%E7%B1%BB%E5%9E%8B%E4%BD%9C%E7%94%A8%E5%9F%9F/README.md)
 - [x] [0031. 类型的兼容](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0031.%20%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%BC%E5%AE%B9/README.md)
 
-## 6. array 数组
+## 6. 数组
 
 - [x] [0032. 数组类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0032.%20%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/README.md)
 
-## 7. tuple 元组
+## 7. 元组
 
 - [x] [0036. 元组类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0036.%20%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/README.md)
 
-## 8. function 函数
+## 8. 函数
 
 - [x] [0034. 函数类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0034.%20%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/README.md)
 
-## 9. object 对象
+## 9. 对象
 
 - [x] [0033. 对象类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0033.%20%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/README.md)
 
-## 10. interface 接口
+## 10. 接口
 
 - [x] [0052. interface 关键字](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0052.%20interface%20%E5%85%B3%E9%94%AE%E5%AD%97/README.md)
 - [x] [0053. type vs. interface](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0053.%20type%20vs.%20interface/README.md)
 
-## 11. class 类
+## 11. 类
 
 - [ ] [0035. class 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0035.%20class%20%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0055. class 中的 this](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0055.%20class%20%E4%B8%AD%E7%9A%84%20this/README.md)
@@ -116,6 +116,8 @@
 - [ ] [0057. 抽象类](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0057.%20%E6%8A%BD%E8%B1%A1%E7%B1%BB/README.md)
 - [x] [0058. class 中的 accessor](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0058.%20class%20%E4%B8%AD%E7%9A%84%20accessor/README.md)
 - [x] [0059. class 中的 implements](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0059.%20class%20%E4%B8%AD%E7%9A%84%20implements/README.md)
+- [ ] [0060. class 中的只读属性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0060.%20class%20%E4%B8%AD%E7%9A%84%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7/README.md)
+- [ ] [0061. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0061.%20xxx/README.md)
 
 ## 12. 泛型
 
