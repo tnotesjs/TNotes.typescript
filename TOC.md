@@ -54,30 +54,35 @@
 - [x] [0030. 类型作用域](https://tnotesjs.github.io/TNotes.typescript/notes/0030.%20%E7%B1%BB%E5%9E%8B%E4%BD%9C%E7%94%A8%E5%9F%9F/README)
 - [x] [0031. 类型的兼容](https://tnotesjs.github.io/TNotes.typescript/notes/0031.%20%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%BC%E5%AE%B9/README)
 
-## 6. 数组
+## 6. array 数组
 
 - [x] [0032. 数组类型](https://tnotesjs.github.io/TNotes.typescript/notes/0032.%20%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/README)
 
-## 7. 元组
+## 7. tuple 元组
 
 - [x] [0036. 元组类型](https://tnotesjs.github.io/TNotes.typescript/notes/0036.%20%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/README)
 
-## 8. 函数
+## 8. function 函数
 
 - [x] [0034. 函数类型](https://tnotesjs.github.io/TNotes.typescript/notes/0034.%20%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/README)
 
-## 9. 对象
+## 9. object 对象
 
 - [x] [0033. 对象类型](https://tnotesjs.github.io/TNotes.typescript/notes/0033.%20%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/README)
 
-## 10. interface
+## 10. interface 接口
 
 - [x] [0052. interface 关键字](https://tnotesjs.github.io/TNotes.typescript/notes/0052.%20interface%20%E5%85%B3%E9%94%AE%E5%AD%97/README)
 - [x] [0053. type vs. interface](https://tnotesjs.github.io/TNotes.typescript/notes/0053.%20type%20vs.%20interface/README)
 
-## 11. 类
+## 11. class 类
 
 - [ ] [0035. class 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0035.%20class%20%E7%B1%BB%E5%9E%8B/README)
+- [x] [0055. class 中的 this](https://tnotesjs.github.io/TNotes.typescript/notes/0055.%20class%20%E4%B8%AD%E7%9A%84%20this/README)
+- [x] [0056. class 中的 Parameter Properties](https://tnotesjs.github.io/TNotes.typescript/notes/0056.%20class%20%E4%B8%AD%E7%9A%84%20Parameter%20Properties/README)
+- [ ] [0057. 抽象类](https://tnotesjs.github.io/TNotes.typescript/notes/0057.%20%E6%8A%BD%E8%B1%A1%E7%B1%BB/README)
+- [x] [0058. class 中的 accessor](https://tnotesjs.github.io/TNotes.typescript/notes/0058.%20class%20%E4%B8%AD%E7%9A%84%20accessor/README)
+- [x] [0059. class 中的 implements](https://tnotesjs.github.io/TNotes.typescript/notes/0059.%20class%20%E4%B8%AD%E7%9A%84%20implements/README)
 
 ## 12. 泛型
 

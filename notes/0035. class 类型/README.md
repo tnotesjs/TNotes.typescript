@@ -6,26 +6,36 @@
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是 TypeScript 中的类（class）？](#3--什么是-typescript-中的类class)
 - [4. 🤔 如何声明类的属性类型？](#4--如何声明类的属性类型)
-- [5. 🤔 TypeScript 如何处理未初始化的类属性？](#5--typescript-如何处理未初始化的类属性)
-- [6. 🤔 readonly 修饰符有什么作用？](#6--readonly-修饰符有什么作用)
-- [7. 🤔 类的方法如何声明类型？](#7--类的方法如何声明类型)
-- [8. 🤔 什么是存取器方法？](#8--什么是存取器方法)
-- [9. 🤔 如何使用 implements 关键字？](#9--如何使用-implements-关键字)
-- [10. 🤔 如何获取类的自身类型？](#10--如何获取类的自身类型)
-- [11. 🤔 什么是结构类型原则？](#11--什么是结构类型原则)
-- [12. 🤔 如何实现类的继承？](#12--如何实现类的继承)
-- [13. 🤔 override 关键字有什么作用？](#13--override-关键字有什么作用)
-- [14. 🤔 什么是可访问性修饰符？](#14--什么是可访问性修饰符)
-- [15. 🤔 如何使用实例属性的简写形式？](#15--如何使用实例属性的简写形式)
-- [16. 🤔 如何处理类的静态成员？](#16--如何处理类的静态成员)
-- [17. 🤔 什么是抽象类和抽象成员？](#17--什么是抽象类和抽象成员)
-- [18. 🤔 如何处理类中的 this 问题？](#18--如何处理类中的-this-问题)
+- [5. 🤔 `strictPropertyInitialization` 配置有什么用？](#5--strictpropertyinitialization-配置有什么用)
+- [6. 🤔 “只读属性”如何声明？](#6--只读属性如何声明)
+- [7. 🤔 “类的方法类型”如何声明？](#7--类的方法类型如何声明)
+- [8. 🤔 如何获取类的自身类型？](#8--如何获取类的自身类型)
+- [9. 🤔 如何判断 Class 的类型兼容性？](#9--如何判断-class-的类型兼容性)
+- [10. 🤔 如何实现类的继承？](#10--如何实现类的继承)
+- [11. 🤔 override 关键字有什么作用？](#11--override-关键字有什么作用)
+- [12. 🤔 什么是可访问性修饰符？](#12--什么是可访问性修饰符)
+- [13. 🤔 “类的静态成员”如何定义？](#13--类的静态成员如何定义)
+- [14. 🔗 引用](#14--引用)
 
 <!-- endregion:toc -->
 
 ## 1. 🎯 本节内容
 
-- todo
+- class
+- readonly
+- static
+- typeof
+- extends
+- override
+- abstract member
+- Parameter Properties
+- access modifiers
+  - public
+  - private
+  - protected
+- tsconfig
+  - [strictPropertyInitialization][1]
+  - [noImplicitOverride][2]
 
 ## 2. 🫧 评价
 
@@ -84,32 +94,54 @@ class Point {
 
 上面示例中，属性 x 和 y 的类型都会被推断为 number。
 
-## 5. 🤔 TypeScript 如何处理未初始化的类属性？
+## 5. 🤔 `strictPropertyInitialization` 配置有什么用？
 
-TypeScript 有一个配置项 `strictPropertyInitialization`，只要打开（默认是打开的），就会检查属性是否设置了初值，如果没有就报错：
+- `strictPropertyInitialization` 配置决定了 TypeScript 如何处理未初始化的类属性。
+- `strictPropertyInitialization` 默认是打开的，实际开发中也是推荐打开的。
+- `strictPropertyInitialization` 会检查属性是否设置了初值，如果没有就报错。
+- 设置初始值的位置可以是在构造函数中，也可以在顶层声明时直接完成初始化。
 
 ```ts
 // 打开 strictPropertyInitialization
 class Point {
-  x: number // 报错
-  y: number // 报错
+  x: number // ❌ 报错
+  // Property 'x' has no initializer and is not definitely assigned in the constructor.(2564)
+  y: number // ❌ 报错
+  // Property 'y' has no initializer and is not definitely assigned in the constructor.(2564)
 }
-```
 
-如果不希望出现报错，可以使用非空断言：
-
-```ts
+// 如果不希望出现报错，可以使用非空断言：
 class Point {
-  x!: number
-  y!: number
+  x!: number // ✅ 正确
+  y!: number // ✅ 正确
+}
+
+// 也可以在构造函数中进行初始化
+class Point {
+  x: number // ✅ 正确
+  y: number // ✅ 正确
+
+  constructor(x: number, y: number) {
+    this.x = x
+    this.y = y
+  }
+}
+
+// 或者直接在顶层声明时初始化
+class Point {
+  x: number = 0 // ✅ 正确
+  y: number = 0 // ✅ 正确
+}
+// 等效：
+class Point {
+  x = 0 // ✅ 正确
+  y = 0 // ✅ 正确
 }
 ```
 
-上面示例中，属性 x 和 y 没有初值，但是属性名后面添加了感叹号，表示这两个属性肯定不会为空，所以 TypeScript 就不报错了。
+## 6. 🤔 “只读属性”如何声明？
 
-## 6. 🤔 readonly 修饰符有什么作用？
-
-属性名前面加上 readonly 修饰符，就表示该属性是只读的。实例对象不能修改这个属性：
+- 属性名前面加上 readonly 修饰符，就表示该属性是只读的，实例对象不能修改这个属性。
 
 ```ts
 class A {
@@ -117,99 +149,17 @@ class A {
 }
 
 const a = new A()
-a.id = 'bar' // 报错
+a.id = 'bar' // ❌ 报错
+// Cannot assign to 'id' because it is a read-only property.(2540)
 ```
 
-readonly 属性的初始值，可以写在顶层属性，也可以写在构造方法里面：
+## 7. 🤔 “类的方法类型”如何声明？
 
-```ts
-class A {
-  readonly id: string
+- 类的方法就是普通函数，类型声明方式与函数一致。
+- 跟普通函数一样，可以使用可选参数、参数默认值、函数重载 …… 等写法。
+- 函数类型声明的具体语法可以参考 `0034. 函数类型`。
 
-  constructor() {
-    this.id = 'bar' // 正确
-  }
-}
-```
-
-## 7. 🤔 类的方法如何声明类型？
-
-类的方法就是普通函数，类型声明方式与函数一致：
-
-```ts
-class Point {
-  x: number
-  y: number
-
-  constructor(x: number, y: number) {
-    this.x = x
-    this.y = y
-  }
-
-  add(point: Point) {
-    return new Point(this.x + point.x, this.y + point.y)
-  }
-}
-```
-
-类的方法跟普通函数一样，可以使用参数默认值，以及函数重载。
-
-## 8. 🤔 什么是存取器方法？
-
-存取器（accessor）是特殊的类方法，包括取值器（getter）和存值器（setter）两种方法：
-
-```ts
-class C {
-  _name = ''
-  get name() {
-    return this._name
-  }
-  set name(value) {
-    this._name = value
-  }
-}
-```
-
-如果某个属性只有 `get` 方法，没有 `set` 方法，那么该属性自动成为只读属性：
-
-```ts
-class C {
-  _name = 'foo'
-
-  get name() {
-    return this._name
-  }
-}
-
-const c = new C()
-c.name = 'bar' // 报错
-```
-
-## 9. 🤔 如何使用 implements 关键字？
-
-interface 接口或 type 别名，可以用对象的形式，为 class 指定一组检查条件。然后，类使用 implements 关键字，表示当前类满足这些外部类型条件的限制：
-
-```ts
-interface Country {
-  name: string
-  capital: string
-}
-
-class MyCountry implements Country {
-  name = ''
-  capital = ''
-}
-```
-
-类可以实现多个接口（其实是接受多重限制），每个接口之间使用逗号分隔：
-
-```ts
-class Car implements MotorVehicle, Flyable, Swimmable {
-  // ...
-}
-```
-
-## 10. 🤔 如何获取类的自身类型？
+## 8. 🤔 如何获取类的自身类型？
 
 要获得一个类的自身类型，一个简便的方法就是使用 typeof 运算符：
 
@@ -231,9 +181,9 @@ function createPoint(
 }
 ```
 
-## 11. 🤔 什么是结构类型原则？
+## 9. 🤔 如何判断 Class 的类型兼容性？
 
-Class 也遵循"结构类型原则"。一个对象只要满足 Class 的实例结构，就跟该 Class 属于同一个类型：
+- Class 也遵循"结构类型原则"。（详细说明见笔记 `0031. 类型的兼容`）
 
 ```ts
 class Foo {
@@ -249,10 +199,11 @@ const bar = {
   amount: 100,
 }
 
-fn(bar) // 正确
+// 一个对象只要满足 Class 的实例结构，就跟该 Class 属于同一个类型：
+fn(bar) // ✅ 正确
 ```
 
-## 12. 🤔 如何实现类的继承？
+## 10. 🤔 如何实现类的继承？
 
 类（这里又称"子类"）可以使用 extends 关键字继承另一个类（这里又称"基类"）的所有属性和方法：
 
@@ -283,7 +234,7 @@ class B extends A {
 }
 ```
 
-## 13. 🤔 override 关键字有什么作用？
+## 11. 🤔 override 关键字有什么作用？
 
 TypeScript 4.3 引入了 override 关键字，明确表明作者的意图，就是要覆盖父类里面的同名方法：
 
@@ -300,7 +251,7 @@ class B extends A {
 
 TypeScript 又提供了一个编译参数 `noImplicitOverride`。一旦打开这个参数，子类覆盖父类的同名方法就会报错，除非使用了 override 关键字。
 
-## 14. 🤔 什么是可访问性修饰符？
+## 12. 🤔 什么是可访问性修饰符？
 
 类的内部成员的外部可访问性，由三个可访问性修饰符（access modifiers）控制：`public`、`private` 和 `protected`。
 
@@ -339,31 +290,16 @@ class B extends A {
 }
 ```
 
-## 15. 🤔 如何使用实例属性的简写形式？
+## 13. 🤔 “类的静态成员”如何定义？
 
-实际开发中，很多实例属性的值，是通过构造方法传入的。TypeScript 提供了一种简写形式：
-
-```ts
-class Point {
-  constructor(public x: number, public y: number) {}
-}
-
-const p = new Point(10, 10)
-p.x // 10
-p.y // 10
-```
-
-除了 `public` 修饰符，构造方法的参数名只要有 `private`、`protected`、`readonly` 修饰符，都会自动声明对应修饰符的实例属性。
-
-## 16. 🤔 如何处理类的静态成员？
-
-类的内部可以使用 `static` 关键字，定义静态成员。静态成员是只能通过类本身使用的成员，不能通过实例对象使用：
+- 类的内部可以使用 `static` 关键字，定义静态成员。
 
 ```ts
 class MyClass {
   static x = 0
   static printX() {
     console.log(MyClass.x)
+    // 静态成员是只能通过类本身使用的成员，不能通过实例对象使用。
   }
 }
 
@@ -371,54 +307,12 @@ MyClass.x // 0
 MyClass.printX() // 0
 ```
 
-## 17. 🤔 什么是抽象类和抽象成员？
+## 14. 🔗 引用
 
-TypeScript 允许在类的定义前面，加上关键字 `abstract`，表示该类不能被实例化，只能当作其他类的模板。这种类就叫做"抽象类"（abstract class）：
+- [Classes 类][3]
+- [strictPropertyInitialization][1]
+- [noImplicitOverride][2]
 
-```ts
-abstract class A {
-  id = 1
-}
-
-const a = new A() // 报错
-```
-
-抽象类的内部可以有已经实现好的属性和方法，也可以有还未实现的属性和方法。后者就叫做"抽象成员"（abstract member）：
-
-```ts
-abstract class A {
-  abstract foo: string
-  bar: string = ''
-}
-
-class B extends A {
-  foo = 'b'
-}
-```
-
-## 18. 🤔 如何处理类中的 this 问题？
-
-类的方法经常用到 `this` 关键字，它表示该方法当前所在的对象。TypeScript 允许函数增加一个名为 `this` 的参数，放在参数列表的第一位，用来描述函数内部的 `this` 关键字的类型：
-
-```ts
-class A {
-  name = 'A'
-
-  getName(this: A) {
-    return this.name
-  }
-}
-```
-
-在类的内部，`this` 本身也可以当作类型使用，表示当前类的实例对象：
-
-```ts
-class Box {
-  contents: string = ''
-
-  set(value: string): this {
-    this.contents = value
-    return this
-  }
-}
-```
+[1]: https://www.typescriptlang.org/tsconfig/#strictPropertyInitialization
+[2]: https://www.typescriptlang.org/tsconfig/#noImplicitOverride
+[3]: https://www.typescriptlang.org/docs/handbook/2/classes.html
