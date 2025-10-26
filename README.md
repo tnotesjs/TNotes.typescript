@@ -111,7 +111,7 @@
 ## 11. 类
 
 - [ ] [0035. class 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0035.%20class%20%E7%B1%BB%E5%9E%8B/README.md)
-- [ ] [0066. 类属性严格初始化](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0066.%20%E7%B1%BB%E5%B1%9E%E6%80%A7%E4%B8%A5%E6%A0%BC%E5%88%9D%E5%A7%8B%E5%8C%96/README.md)
+- [x] [0066. 类属性严格初始化](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0066.%20%E7%B1%BB%E5%B1%9E%E6%80%A7%E4%B8%A5%E6%A0%BC%E5%88%9D%E5%A7%8B%E5%8C%96/README.md)
 - [x] [0056. 类中的参数属性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0056.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0%E5%B1%9E%E6%80%A7/README.md)
 - [ ] [0057. 抽象类](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0057.%20%E6%8A%BD%E8%B1%A1%E7%B1%BB/README.md)
 - [x] [0058. 类中的存取器](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0058.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%AD%98%E5%8F%96%E5%99%A8/README.md)
