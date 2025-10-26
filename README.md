@@ -111,13 +111,18 @@
 ## 11. 类
 
 - [ ] [0035. class 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0035.%20class%20%E7%B1%BB%E5%9E%8B/README.md)
-- [x] [0055. 类中的 this 参数和 this 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0055.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%20this%20%E5%8F%82%E6%95%B0%E5%92%8C%20this%20%E7%B1%BB%E5%9E%8B/README.md)
+- [ ] [0066. 类属性严格初始化](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0066.%20%E7%B1%BB%E5%B1%9E%E6%80%A7%E4%B8%A5%E6%A0%BC%E5%88%9D%E5%A7%8B%E5%8C%96/README.md)
 - [x] [0056. 类中的参数属性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0056.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0%E5%B1%9E%E6%80%A7/README.md)
 - [ ] [0057. 抽象类](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0057.%20%E6%8A%BD%E8%B1%A1%E7%B1%BB/README.md)
 - [x] [0058. 类中的存取器](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0058.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%AD%98%E5%8F%96%E5%99%A8/README.md)
 - [x] [0059. 类实现接口](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0059.%20%E7%B1%BB%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3/README.md)
 - [x] [0060. 类中的只读属性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0060.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7/README.md)
-- [ ] [0061. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0061.%20xxx/README.md)
+- [ ] [0061. 类的静态成员](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0061.%20%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98/README.md)
+- [ ] [0062. 类的三个可访问性修饰符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0062.%20%E7%B1%BB%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6/README.md)
+- [ ] [0064. 类的继承](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0064.%20%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/README.md)
+- [ ] [0063. 子类重写父类同名方法](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0063.%20%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E5%90%8C%E5%90%8D%E6%96%B9%E6%B3%95/README.md)
+- [ ] [0065. 类的类型兼容性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0065.%20%E7%B1%BB%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%85%BC%E5%AE%B9%E6%80%A7/README.md)
+- [x] [0055. 类中的 this 参数和 this 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0055.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%20this%20%E5%8F%82%E6%95%B0%E5%92%8C%20this%20%E7%B1%BB%E5%9E%8B/README.md)
 
 ## 12. 泛型
 
