@@ -15,7 +15,7 @@
 
 ## 2. 🫧 评价
 
-- 本节记录的是 TS 中的 any、unknown、object、void、undefined、null 和 never 的可赋值性，引用了官方文档中的一张表格，清晰地展示了这些特殊类型之间的可赋值性，如果有不清楚的，就多来看看这张表。
+本节记录的是 TS 中的 any、unknown、object、void、undefined、null 和 never 的可赋值性，引用了官方文档中的一张表格，清晰地展示了这些特殊类型之间的可赋值性，如果有不清楚的，就多来看看这张表。
 
 ## 3. 🔍 官方文档 - any, unknown, object, void, undefined, null, and never assignability
 
