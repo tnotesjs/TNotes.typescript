@@ -1,4 +1,4 @@
-# [0031. 类型的兼容](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0031.%20%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%BC%E5%AE%B9)
+# [0031. 类型兼容性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0031.%20%E7%B1%BB%E5%9E%8B%E5%85%BC%E5%AE%B9%E6%80%A7)
 
 <!-- region:toc -->
 
@@ -6,15 +6,38 @@
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是 TypeScript 中的类型兼容性？](#3--什么是-typescript-中的类型兼容性)
 - [4. 🤔 什么是结构子类型（Structural Typing）？](#4--什么是结构子类型structural-typing)
-- [5. 🤔 TypeScript 中赋值兼容性规则是什么？](#5--typescript-中赋值兼容性规则是什么)
-- [6. 🤔 对象类型的兼容性规则是什么？](#6--对象类型的兼容性规则是什么)
-- [7. 🤔 对象字面量的“新鲜度检查”（Freshness Checking）是什么？](#7--对象字面量的新鲜度检查freshness-checking是什么)
-- [8. 🤔 函数类型的兼容性规则是什么？](#8--函数类型的兼容性规则是什么)
-- [9. 🤔 泛型类型的兼容性规则是什么？](#9--泛型类型的兼容性规则是什么)
-- [10. 🤔 类类型的兼容性规则是什么？](#10--类类型的兼容性规则是什么)
-- [11. 🤔 特殊类型之间的兼容性如何？](#11--特殊类型之间的兼容性如何)
-- [12. 🤔 结构子类型（Structural Subtyping）原则会带来什么问题？「细节」](#12--结构子类型structural-subtyping原则会带来什么问题细节)
-- [13. 🔗 引用](#13--引用)
+  - [4.1. 官方描述](#41-官方描述)
+  - [4.2. 结构子类型的核心原则](#42-结构子类型的核心原则)
+- [5. 🤔 对象类型的兼容性规则是什么？](#5--对象类型的兼容性规则是什么)
+  - [5.1. 规则 1：源类型可以有额外属性（超集兼容子集）](#51-规则-1源类型可以有额外属性超集兼容子集)
+  - [5.2. 规则 2：对象字面量的“新鲜度检查”（Freshness Checking）](#52-规则-2对象字面量的新鲜度检查freshness-checking)
+- [6. 🤔 对象字面量的“新鲜度检查”（Freshness Checking）是什么？](#6--对象字面量的新鲜度检查freshness-checking是什么)
+  - [6.1. 思考题](#61-思考题)
+  - [6.2. 问题分析](#62-问题分析)
+  - [6.3. 场景 1 - 值来源于你的输入 - 优先考虑安全性](#63-场景-1---值来源于你的输入---优先考虑安全性)
+  - [6.4. 场景 2 - 值很可能来源于其它地方 - 优先考虑实用性](#64-场景-2---值很可能来源于其它地方---优先考虑实用性)
+  - [6.5. 评价](#65-评价)
+- [7. 🤔 函数类型的兼容性规则是什么？](#7--函数类型的兼容性规则是什么)
+  - [7.1. 基本规则](#71-基本规则)
+  - [7.2. 示例：参数逆变](#72-示例参数逆变)
+  - [7.3. 示例：返回值协变](#73-示例返回值协变)
+- [8. 🤔 泛型类型的兼容性规则是什么？](#8--泛型类型的兼容性规则是什么)
+  - [8.1. 简单规则](#81-简单规则)
+  - [8.2. 协变（Covariance）](#82-协变covariance)
+  - [8.3. 逆变（Contravariance）](#83-逆变contravariance)
+  - [8.4. 不变（Invariance）](#84-不变invariance)
+  - [8.5. 示例：数组（协变）](#85-示例数组协变)
+  - [8.6. 函数类型中的泛型位置分析](#86-函数类型中的泛型位置分析)
+  - [8.7. 评价](#87-评价)
+- [9. 🤔 类类型的兼容性规则是什么？](#9--类类型的兼容性规则是什么)
+- [10. 🤔 特殊类型之间的兼容性如何？](#10--特殊类型之间的兼容性如何)
+- [11. 🤔 结构子类型（Structural Subtyping）原则会带来什么问题？「细节」](#11--结构子类型structural-subtyping原则会带来什么问题细节)
+  - [11.1. 问题描述](#111-问题描述)
+  - [11.2. 问题分析](#112-问题分析)
+  - [11.3. 解决方案](#113-解决方案)
+  - [11.4. 「名义子类型（Nominal Subtyping）」存在上述问题吗？](#114-名义子类型nominal-subtyping存在上述问题吗)
+  - [11.5. 小结](#115-小结)
+- [12. 🔗 引用](#12--引用)
 
 <!-- endregion:toc -->
 
@@ -39,7 +62,7 @@
 
 ## 4. 🤔 什么是结构子类型（Structural Typing）？
 
-官方描述：
+### 4.1. 官方描述
 
 One of TypeScript’s core principles is that type checking focuses on the shape that values have. This is sometimes called “duck typing” or “structural typing”.
 
@@ -109,7 +132,7 @@ If the object or class has all the required properties, TypeScript will say they
 
 只要对象或类具有所有必需的属性，TypeScript 就会认为它们匹配，而不考虑实现细节。
 
----
+### 4.2. 结构子类型的核心原则
 
 结构子类型的核心原则是："如果 A 拥有 B 所需的所有属性和方法，那么 A 就兼容 B。"
 
@@ -150,23 +173,9 @@ const a: Animal = dog // ✅ 兼容！dog 至少满足 Animal 的要求
 - 🦆 鸭子类型（Duck Typing）： "如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子。"
 - 注：鸭子类型（Duck Typing）也叫结构子类型（Structural Typing）
 
-## 5. 🤔 TypeScript 中赋值兼容性规则是什么？
+## 5. 🤔 对象类型的兼容性规则是什么？
 
-TypeScript 的兼容性主要用于赋值场景（包括函数参数、返回值、变量初始化等）。
-
-```ts
-// 目标类型（Target） vs. 源类型（Source）
-let target: Target = source // source 的类型必须兼容 Target
-```
-
-- 目标类型（Target）：变量/参数声明的类型
-- 源类型（Source）：实际赋值的值的类型
-
-兼容条件：源类型必须包含目标类型的所有成员（且类型兼容）。
-
-## 6. 🤔 对象类型的兼容性规则是什么？
-
-- 规则 1：源类型可以有额外属性（超集兼容子集）
+### 5.1. 规则 1：源类型可以有额外属性（超集兼容子集）
 
 ```ts
 type A = { x: number }
@@ -179,23 +188,24 @@ a = b // ✅ B 是 A 的超集，兼容
 // b = a; // ❌ A 缺少 y，不兼容
 ```
 
-- 规则 2：对象字面量的“新鲜度检查”（Freshness Checking）
+### 5.2. 规则 2：对象字面量的“新鲜度检查”（Freshness Checking）
 
 ```ts
 type A = { x: number }
 
-// 情况 1
-let a: A = { x: 1, y: 'extra' } // ❌ 错误！对象字面量不能有未知属性
+// 场景 1
+let a: A = { x: 1, y: 'extra' } // ❌ 错误
 // Object literal may only specify known properties, and 'y' does not exist in type 'A'.(2353)
+// 对象字面量不能有未知属性
+// 这是 TypeScript 的额外保护：防止拼写错误
 
-// 这是 TypeScript 的额外保护：防止拼写错误。
-// 但如果是变量赋值，则允许：
+// 场景 2
+// 如果是变量赋值，则允许：
 const obj = { x: 1, y: 'extra' }
-// 情况 2
 let a: A = obj // ✅ 允许
 ```
 
-## 7. 🤔 对象字面量的“新鲜度检查”（Freshness Checking）是什么？
+## 6. 🤔 对象字面量的“新鲜度检查”（Freshness Checking）是什么？
 
 - 对象字面量的“新鲜度检查”（Freshness Checking）也叫“严格字面量检查”。
 - TypeScript 对“新鲜”的对象字面量和“已存在”的变量会采用不同的检查策略。
@@ -203,46 +213,57 @@ let a: A = obj // ✅ 允许
 ```ts
 type A = { x: number }
 
-// 情况 1
-let a: A = { x: 1, y: 'extra' } // ❌ 错误！对象字面量不能有未知属性
+// 场景 1
+let a: A = { x: 1, y: 'extra' } // ❌ 错误
 // Object literal may only specify known properties, and 'y' does not exist in type 'A'.(2353)
 
-// 这是 TypeScript 的额外保护：防止拼写错误。
-// 但如果是变量赋值，则允许：
+// 场景 2
 const obj = { x: 1, y: 'extra' }
-// 情况 2
 let a: A = obj // ✅ 允许
 ```
 
-思考：1、2 不是等效的吗？为什么 TS 判定 1 错误，2 正确？
+### 6.1. 思考题
+
+1、2 不是等效的吗？为什么 TS 判定 1 错误，2 正确？
+
+### 6.2. 问题分析
 
 等效是指最终运行结果是等效的，但是在 TS 看来，这是两种经典的不同应用场景。
 
-- 情况 1：值来源于你的输入，你明确知道你输入的值是什么，这个值是你能控制的。因此，TS 对对象字面量进行了额外的检查，确保它不包含任何未知属性。这时候 TS 会认为你都已经手写字面量了，想必你是知道你写的是什么的，这时候就必须跟 A 保持一致，还能避免你不小心拼错导致错误。
-  - 当直接将对象字面量赋值给变量时，TypeScript 会进行"新鲜度检查"
-  - TypeScript 认为这是你刚刚创建的对象，如果有多余属性可能是拼写错误
-  - 因此会严格检查，不允许有目标类型中未声明的属性
-- 情况 2：值很可能来源于其它地方，比如后端 API 接口返回的数据，这个值不是你能控制的。因此，这时候 TS 只关心 obj 是否符合 A 的结构，而不检查 obj 的定义是否包含额外的属性。
-  - 当通过变量间接赋值时，TypeScript 采用结构化类型检查
-  - 只要变量包含目标类型所需的所有属性（这里是 `x: number`），就认为兼容
-  - 多余的属性 `y` 被忽略，不会报错
-- 评价：
-  - 挺合理的，在「类型安全」和「实用性」方面都兼顾了。
-  - 防止拼写错误：直接使用对象字面量时，多余的属性很可能是拼写错误
-  - 保持灵活性：已有变量可能来自 API 返回等场景，多余的属性是合理的
+理解这两种场景的特点，更更好的帮我们理解“TS 为何在这块要这么设计”。
 
-## 8. 🤔 函数类型的兼容性规则是什么？
+### 6.3. 场景 1 - 值来源于你的输入 - 优先考虑安全性
+
+值来源于你的输入，你明确知道你输入的值是什么，这个值是你能控制的。因此，TS 对对象字面量进行了额外的检查，确保它不包含任何未知属性。这时候 TS 会认为你都已经手写字面量了，想必你是知道你写的是什么的，这时候就必须跟 A 保持一致，还能避免你不小心拼错导致错误。
+
+- 当直接将对象字面量赋值给变量时，TypeScript 会进行"新鲜度检查"
+- TypeScript 认为这是你刚刚创建的对象，如果有多余属性可能是拼写错误
+- 因此会严格检查，不允许有目标类型中未声明的属性
+
+### 6.4. 场景 2 - 值很可能来源于其它地方 - 优先考虑实用性
+
+值很可能来源于其它地方，比如后端 API 接口返回的数据，这个值不是你能控制的。因此，这时候 TS 只关心 obj 是否符合 A 的结构，而不检查 obj 的定义是否包含额外的属性。
+
+- 当通过变量间接赋值时，TypeScript 采用结构化类型检查
+- 只要变量包含目标类型所需的所有属性（这里是 `x: number`），就认为兼容
+- 多余的属性 `y` 被忽略，不会报错
+
+### 6.5. 评价
+
+- 这么设计挺合理的，在「安全性」和「实用性」方面都兼顾了。
+- 防止拼写错误：直接使用对象字面量时，多余的属性很可能是拼写错误
+- 保持灵活性：已有变量可能来自 API 返回等场景，多余的属性是合理的
+
+## 7. 🤔 函数类型的兼容性规则是什么？
 
 函数兼容性遵循“逆变”（Contravariance）和“协变”（Covariance）规则。
 
-基本规则：
+### 7.1. 基本规则
 
 - 参数类型：逆变 → 源函数的参数类型可以比目标函数更宽泛
 - 返回类型：协变 → 源函数的返回类型可以比目标函数更具体
 
----
-
-- 示例：参数逆变
+### 7.2. 示例：参数逆变
 
 ```ts
 type Handler = (event: MouseEvent) => void
@@ -256,7 +277,7 @@ const handleClick: Handler = (event: Event) => {
 // 传入 MouseEvent 时，Event 类型的参数能安全处理它
 ```
 
-- 示例：返回值协变
+### 7.3. 示例：返回值协变
 
 ```ts
 type Factory = () => HTMLElement
@@ -268,30 +289,117 @@ const createDiv: Factory = () => {
 // ✅ 兼容！HTMLDivElement 是 HTMLElement 的子类型
 ```
 
-## 9. 🤔 泛型类型的兼容性规则是什么？
+## 8. 🤔 泛型类型的兼容性规则是什么？
 
 泛型兼容性取决于类型参数的使用位置（协变/逆变/不变）。
 
-简单规则：
+### 8.1. 简单规则
 
-- 如果泛型只用于返回值 → 协变（子类型兼容）
-- 如果泛型只用于参数 → 逆变（父类型兼容）
-- 如果泛型既用于参数又用于返回值 → 不变（必须完全相同）
+- 如果泛型只用于返回值位置 → 协变（子类型兼容）
+- 如果泛型只用于参数位置 → 逆变（父类型兼容）
+- 如果泛型既用于参数位置又用于返回值位置 → 不变（必须完全相同）
 
----
+### 8.2. 协变（Covariance）
 
-- 示例：数组（协变）
+协变指的是子类型关系在某种变换下得以保持。当泛型类型参数只出现在返回值位置时，类型关系保持不变。
 
 ```ts
-let animals: Animal[] = [{ name: 'Lion' }]
-let dogs: Dog[] = [{ name: 'Buddy', breed: 'Lab' }]
+// 协变示例：泛型只用于返回值位置
+interface Producer<T> {
+  produce(): T
+}
 
-animals = dogs // ✅ Dog[] 兼容 Animal[]（因为 Dog 是 Animal 的子类型）
+let stringProducer: Producer<string> = {
+  produce: () => 'hello',
+}
+
+// string 是 unknown 的子类型，Producer<string> 也是 Producer<unknown> 的子类型
+let unknownProducer: Producer<unknown> = stringProducer // ✅ 协变允许
 ```
 
-注意：这在可变数组中不安全（可以 `animals.push(new Cat())`），但 TypeScript 仍允许（出于实用性）。
+### 8.3. 逆变（Contravariance）
 
-## 10. 🤔 类类型的兼容性规则是什么？
+逆变指的是子类型关系在某种变换下发生逆转。当泛型类型参数只出现在参数位置时，类型关系发生逆转。
+
+```ts
+// 逆变示例：泛型只用于参数位置
+interface Consumer<T> {
+  consume(item: T): void
+}
+
+let unknownConsumer: Consumer<unknown> = {
+  consume: (item: unknown) => console.log(item),
+}
+
+// unknown 是 string 的父类型，Consumer<unknown> 可以安全地赋值给 Consumer<string>
+let stringConsumer: Consumer<string> = unknownConsumer // ✅ 逆变允许
+```
+
+### 8.4. 不变（Invariance）
+
+不变指的是无论在什么情况下都不能改变原有的类型关系。当泛型类型参数既出现在参数位置又出现在返回值位置时，必须保持类型完全一致。
+
+```ts
+// 不变示例：泛型既用于参数又用于返回值
+interface Transformer<T> {
+  transform(item: T): T
+}
+
+let stringTransformer: Transformer<string> = {
+  transform: (item: string) => item.toUpperCase(),
+}
+
+// 以下两行都会报错，必须保持类型完全一致
+let unknownTransformer: Transformer<unknown> = stringTransformer // ❌ 不变禁止
+let stringTransformer2: Transformer<string> = unknownTransformer // ❌ 不变禁止
+```
+
+### 8.5. 示例：数组（协变）
+
+```ts
+class Animal {
+  name: string = ''
+}
+class Dog extends Animal {
+  breed: string = ''
+}
+
+let animals: Animal[] = [new Animal()]
+let dogs: Dog[] = [new Dog()]
+
+animals = dogs // ✅ Dog[] 兼容 Animal[]（因为 Dog 是 Animal 的子类型）
+// 这体现了数组类型的协变特性
+
+// ⚠️ 注意：这在可变数组中不安全（可以 animals.push(new Animal())，但实际是 dogs 数组）
+// 但 TypeScript 仍允许（出于实用性）
+```
+
+### 8.6. 函数类型中的泛型位置分析
+
+```ts
+// 函数返回值位置的泛型 - 协变
+type FuncReturning<T> = () => T
+let getString: FuncReturning<string> = () => 'hello'
+let getUnknown: FuncReturning<unknown> = getString // ✅ 协变
+
+// 函数参数位置的泛型 - 逆变
+type FuncAccepting<T> = (param: T) => void
+let acceptUnknown: FuncAccepting<unknown> = (x: unknown) => console.log(x)
+let acceptString: FuncAccepting<string> = acceptUnknown // ✅ 逆变
+
+// 函数参数和返回值都有的泛型 - 不变
+type FuncTransform<T> = (param: T) => T
+let transformString: FuncTransform<string> = (s: string) => s.toUpperCase()
+// let transformUnknown: FuncTransform<unknown> = transformString; // ❌ 不变禁止
+```
+
+### 8.7. 评价
+
+- 这些规则确保了类型安全：协变适用于"读取"场景（子类型兼容父类型），逆变适用于"写入"场景（父类型兼容子类型），不变适用于"读写"场景（必须类型完全一致）
+- 理解协变、逆变和不变有助于深入掌握 TypeScript 的类型系统
+- 在实际开发中，这些规则影响着泛型类型、数组、函数等的赋值兼容性
+
+## 9. 🤔 类类型的兼容性规则是什么？
 
 类也遵循结构子类型，但私有/受保护成员例外！
 
@@ -334,7 +442,7 @@ let a: Animal = new Dog('Buddy') // ❌ 错误！私有成员不兼容
 // 原因：防止意外继承，保证封装性。
 ```
 
-## 11. 🤔 特殊类型之间的兼容性如何？
+## 10. 🤔 特殊类型之间的兼容性如何？
 
 回顾笔记「0017. 特殊类型的可赋值性」中的内容：
 
@@ -356,7 +464,9 @@ let a: Animal = new Dog('Buddy') // ❌ 错误！私有成员不兼容
 - 表格中的 object 类型代表所有非原始类型的类型，即数组、对象与函数类型
 - 每个类型都可以赋值给其本身
 
-## 12. 🤔 结构子类型（Structural Subtyping）原则会带来什么问题？「细节」
+## 11. 🤔 结构子类型（Structural Subtyping）原则会带来什么问题？「细节」
+
+### 11.1. 问题描述
 
 结构子类型原则有时会导致令人惊讶的结果，因为它只管“你有没有我需要的东西”，不管“你有没有多余的东西”，这就会导致一些细节问题，特别是在使用索引访问时。
 
@@ -380,12 +490,14 @@ function getSum(obj: MyObj) {
 }
 ```
 
-问题分析：
+### 11.2. 问题分析
 
 - `obj[xxx]` 通过索引 `xxx` 访问 `obj` 成员时，要求索引 `xxx` 只能是 `'x'` 或者 `'y'`
 - 但是 `Object.keys(obj)` 返回的结果是 `string[]`，这就意味着当我们在使用 `obj[n]` 这种写法时，传入的索引是 `string`，宽泛的 `string` 类型无法赋值给具体的 `'x'` 或 `'y'`，因此就报错了。
 
 明确问题之后，解决起来就简单多了，核心就是要处理 `n` 类型过于宽泛的问题。思考方向 => 让 `n` 类型更具体，只能是 `MyObj` 要求的 `key` 即可。
+
+### 11.3. 解决方案
 
 ```ts
 interface MyObj {
@@ -439,7 +551,7 @@ function getSumSafe_4(obj: MyObj) {
 // ……
 ```
 
-::: tip 🤔 「名义子类型（Nominal Subtyping）」存在上述问题吗？
+### 11.4. 「名义子类型（Nominal Subtyping）」存在上述问题吗？
 
 很可能不会。
 
@@ -448,13 +560,13 @@ function getSumSafe_4(obj: MyObj) {
 
 由此可见，【1】、【2】各有特色，并非 TS 采用的策略就是最优的，适配所有场景。
 
+### 11.5. 小结
+
 上面提到的这个细节问题，也只是「结构子类型（Structural Subtyping）」导致的问题中的一个缩影！
 
 在实际开发中，我们可能还会遇到其它各种奇怪的小问题，当遇到这类奇怪的类型问题时，先结合报错信息分析一下错误原因。很多问题，在咱们定位到具体原因之后，处理起来的方案还是很多的。
 
-:::
-
-## 13. 🔗 引用
+## 12. 🔗 引用
 
 - [Type Compatibility - 类型兼容性][3]
   - [any, unknown, object, void, undefined, null, and never assignability][1]
