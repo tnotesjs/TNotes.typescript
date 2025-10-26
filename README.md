@@ -68,7 +68,6 @@
 - [x] [0014. any 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0014.%20any%20%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0015. unknown 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0015.%20unknown%20%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0016. never 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0016.%20never%20%E7%B1%BB%E5%9E%8B/README.md)
-- [x] [0017. 特殊类型的可赋值性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0017.%20%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%AF%E8%B5%8B%E5%80%BC%E6%80%A7/README.md)
 
 ## 5. 类型系统基础知识
 
@@ -94,6 +93,7 @@
 - [ ] [0068. 对象类型的兼容性规则](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0068.%20%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E8%A7%84%E5%88%99/README.md)
 - [ ] [0069. 函数类型的兼容性规则](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0069.%20%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E8%A7%84%E5%88%99/README.md)
 - [ ] [0070. 泛型类型的兼容性规则](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0070.%20%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E8%A7%84%E5%88%99/README.md)
+- [x] [0017. 特殊类型之间的兼容性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0017.%20%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7/README.md)
 
 ## 7. 数组
 
