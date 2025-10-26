@@ -4,31 +4,36 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是结构子类型（Structural Typing）？](#3--什么是结构子类型structural-typing)
-  - [3.1. 官方描述](#31-官方描述)
-  - [3.2. 结构子类型的核心原则](#32-结构子类型的核心原则)
-- [4. 🤔 结构子类型（Structural Subtyping）原则会带来什么问题？「细节」](#4--结构子类型structural-subtyping原则会带来什么问题细节)
-  - [4.1. 问题描述](#41-问题描述)
-  - [4.2. 问题分析](#42-问题分析)
-  - [4.3. 解决方案](#43-解决方案)
-  - [4.4. 「名义子类型（Nominal Subtyping）」存在上述问题吗？](#44-名义子类型nominal-subtyping存在上述问题吗)
-  - [4.5. 小结](#45-小结)
-- [5. 🔗 引用](#5--引用)
+- [3. 🔍 查看官方对 “Structural Type” 的描述？](#3--查看官方对-structural-type-的描述)
+- [4. 🤔 结构子类型的核心原则是什么？](#4--结构子类型的核心原则是什么)
+- [5. 🆚 结构子类型 vs. 名义子类型](#5--结构子类型-vs-名义子类型)
+  - [5.1. 结构子类型（Structural Subtyping）](#51-结构子类型structural-subtyping)
+  - [5.2. 名义子类型（Nominal Subtyping）](#52-名义子类型nominal-subtyping)
+- [6. 🤔 TS 可以模拟名义子类型，增强语义的安全性吗？](#6--ts-可以模拟名义子类型增强语义的安全性吗)
+- [7. 🤔 结构子类型导致的“索引访问问题”是什么？](#7--结构子类型导致的索引访问问题是什么)
+  - [7.1. 问题描述](#71-问题描述)
+  - [7.2. 问题分析](#72-问题分析)
+  - [7.3. 解决方案](#73-解决方案)
+  - [7.4. 「名义子类型（Nominal Subtyping）」存在上述问题吗？](#74-名义子类型nominal-subtyping存在上述问题吗)
+  - [7.5. 小结](#75-小结)
+- [8. 🔗 引用](#8--引用)
 
 <!-- endregion:toc -->
 
 ## 1. 🎯 本节内容
 
-- [Structural Type System - 结构化类型系统][1]
+- 结构子类型
+- 名义子类型
 
 ## 2. 🫧 评价
 
-- TypeScript 的类型兼容性基于结构子类型（Structural Subtyping），而非像 Java/C# 那样的名义子类型（Nominal Subtyping）。这是 TypeScript 与许多传统面向对象语言的关键区别。
-- 记住一句话：TypeScript 的类型兼容性只管“你有没有我需要的东西”，不“你叫什么名字”。
+TypeScript 的类型兼容性基于结构子类型（Structural Subtyping），而非像 Java/C# 那样的名义子类型（Nominal Subtyping）。这是 TypeScript 与许多传统面向对象语言的关键区别。
 
-## 3. 🤔 什么是结构子类型（Structural Typing）？
+结构子类型和名义子类型各有特点，可以认为结构子类型策略具备更简洁的写法、更灵活的应用场景，但是也存在意外兼容的风险，以及常见的索引访问问题。
 
-### 3.1. 官方描述
+## 3. 🔍 查看官方对 “Structural Type” 的描述？
+
+[Structural Type System - 结构化类型系统][1] 官方描述如下：
 
 One of TypeScript’s core principles is that type checking focuses on the shape that values have. This is sometimes called “duck typing” or “structural typing”.
 
@@ -98,7 +103,7 @@ If the object or class has all the required properties, TypeScript will say they
 
 只要对象或类具有所有必需的属性，TypeScript 就会认为它们匹配，而不考虑实现细节。
 
-### 3.2. 结构子类型的核心原则
+## 4. 🤔 结构子类型的核心原则是什么？
 
 结构子类型的核心原则是："如果 A 拥有 B 所需的所有属性和方法，那么 A 就兼容 B。"
 
@@ -139,9 +144,128 @@ const a: Animal = dog // ✅ 兼容！dog 至少满足 Animal 的要求
 - 🦆 鸭子类型（Duck Typing）： "如果它走起来像鸭子，叫起来像鸭子，那它就是鸭子。"
 - 注：鸭子类型（Duck Typing）也叫结构子类型（Structural Typing）
 
-## 4. 🤔 结构子类型（Structural Subtyping）原则会带来什么问题？「细节」
+## 5. 🆚 结构子类型 vs. 名义子类型
 
-### 4.1. 问题描述
+结构子类型（Structural Subtyping）和名义子类型（Nominal Subtyping）是两种不同的类型兼容性判断方式，它们在类型系统设计中有根本区别：
+
+| 特性             | 结构子类型               | 名义子类型             |
+| ---------------- | ------------------------ | ---------------------- |
+| 兼容依据         | 类型结构（成员是否匹配） | 类型名称和显式声明关系 |
+| 是否需要显式实现 | 否                       | 是                     |
+| 灵活性           | 高                       | 低                     |
+| 意外兼容风险     | 有                       | 无                     |
+| 代码简洁性       | 更简洁                   | 需要更多声明           |
+| 代表语言         | TypeScript, Go           | Java, C#, C++          |
+
+- 结构子类型 = 看“长什么样”
+- 名义子类型 = 看“叫什么名字”和“谁生的”
+
+### 5.1. 结构子类型（Structural Subtyping）
+
+- 核心思想：
+  - “如果它走起来像鸭子，叫起来也像鸭子，那它就是鸭子。”
+  - 类型兼容性由类型的结构（成员、属性、方法等）决定，而不是由类型名称或显式声明的关系决定。
+- 判断标准：
+  - 如果类型 `A` 包含类型 `B` 所需的所有成员（且类型兼容），那么 `A` 就是 `B` 的子类型。
+- 代表语言：
+  - TypeScript、Go、OCaml（部分）、Rust（在 trait 实现中也有结构化思想）。
+- 示例（TypeScript）：
+
+```ts
+interface Bird {
+  fly(): void
+}
+
+class Sparrow {
+  fly() {
+    console.log('Flying!')
+  }
+}
+
+function launch(b: Bird) {
+  b.fly()
+}
+
+launch(new Sparrow()) // ✅ 合法！Sparrow 结构上兼容 Bird
+```
+
+尽管 `Sparrow` 没有显式实现 `Bird`，但结构匹配即可。
+
+- 优点：
+  - 灵活，无需显式声明继承或实现。
+  - 更适合动态或组合式编程风格。
+  - 减少样板代码。
+- 缺点：
+  - 可能导致意外兼容（例如两个不相关的类型碰巧结构相同）。
+  - 类型意图不够明确（仅靠结构无法表达设计语义）。
+
+### 5.2. 名义子类型（Nominal Subtyping）
+
+- 核心思想：
+  - 类型兼容性由类型名称和显式声明的继承/实现关系决定。
+- 判断标准：
+  - 即使两个类型结构完全相同，如果没有显式声明继承或实现关系，它们就不兼容。
+- 代表语言：
+  - Java、C#、C++、Kotlin、Swift。
+- 示例（Java）：
+
+```java
+interface Bird {
+    void fly();
+}
+
+class Sparrow {
+    public void fly() { System.out.println("Flying!"); }
+}
+
+// 编译错误！Sparrow 没有 implements Bird
+Bird b = new Sparrow(); // ❌ 不合法
+```
+
+必须写成：
+
+```java
+class Sparrow implements Bird { ... }
+```
+
+- 优点：
+  - 类型关系明确，意图清晰。
+  - 避免意外兼容，增强类型安全。
+  - 更适合大型项目和团队协作。
+- 缺点：
+  - 需要更多样板代码（如 `implements`、`extends`）。
+  - 灵活性较低，难以处理“巧合兼容”的场景。
+
+## 6. 🤔 TS 可以模拟名义子类型，增强语义的安全性吗？
+
+虽然 TypeScript 默认是结构子类型，但可以通过一些技巧模拟名义类型（例如使用“品牌类型”/branded types）：
+
+```ts
+type Email = string & { __brand: 'email' }
+type UserID = string & { __brand: 'userid' }
+// Email 和 UserID 虽然底层都是 string，但 TypeScript 视为不同类型
+
+const email = 'user@example.com' as Email
+const id = '123' as UserID
+
+function sendEmail(to: Email) {
+  console.log('Sending to:', to)
+}
+
+sendEmail(email) // ✅ OK
+sendEmail(id) // ❌ Error: UserID 不能赋值给 Email
+// 报错信息如下：
+// Argument of type 'UserID' is not assignable to parameter of type 'Email'.
+//   Type 'UserID' is not assignable to type '{ __brand: "email"; }'.
+//     Types of property '__brand' are incompatible.
+//       Type '"userid"' is not assignable to type '"email"'.(2345)
+```
+
+这说明结构类型系统也可以通过设计增强语义安全性。
+
+## 7. 🤔 结构子类型导致的“索引访问问题”是什么？
+
+### 7.1. 问题描述
 
 结构子类型原则有时会导致令人惊讶的结果，因为它只管“你有没有我需要的东西”，不管“你有没有多余的东西”，这就会导致一些细节问题，特别是在使用索引访问时。
 
@@ -165,14 +289,14 @@ function getSum(obj: MyObj) {
 }
 ```
 
-### 4.2. 问题分析
+### 7.2. 问题分析
 
 - `obj[xxx]` 通过索引 `xxx` 访问 `obj` 成员时，要求索引 `xxx` 只能是 `'x'` 或者 `'y'`
 - 但是 `Object.keys(obj)` 返回的结果是 `string[]`，这就意味着当我们在使用 `obj[n]` 这种写法时，传入的索引是 `string`，宽泛的 `string` 类型无法赋值给具体的 `'x'` 或 `'y'`，因此就报错了。
 
 明确问题之后，解决起来就简单多了，核心就是要处理 `n` 类型过于宽泛的问题。思考方向 => 让 `n` 类型更具体，只能是 `MyObj` 要求的 `key` 即可。
 
-### 4.3. 解决方案
+### 7.3. 解决方案
 
 ```ts
 interface MyObj {
@@ -226,7 +350,7 @@ function getSumSafe_4(obj: MyObj) {
 // ……
 ```
 
-### 4.4. 「名义子类型（Nominal Subtyping）」存在上述问题吗？
+### 7.4. 「名义子类型（Nominal Subtyping）」存在上述问题吗？
 
 很可能不会。
 
@@ -235,13 +359,13 @@ function getSumSafe_4(obj: MyObj) {
 
 由此可见，【1】、【2】各有特色，并非 TS 采用的策略就是最优的，适配所有场景。
 
-### 4.5. 小结
+### 7.5. 小结
 
 上面提到的这个细节问题，也只是「结构子类型（Structural Subtyping）」导致的问题中的一个缩影！
 
 在实际开发中，我们可能还会遇到其它各种奇怪的小问题，当遇到这类奇怪的类型问题时，先结合报错信息分析一下错误原因。很多问题，在咱们定位到具体原因之后，处理起来的方案还是很多的。
 
-## 5. 🔗 引用
+## 8. 🔗 引用
 
 - [Structural Type System - 结构化类型系统][1]
 
