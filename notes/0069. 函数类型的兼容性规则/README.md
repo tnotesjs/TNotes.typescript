@@ -5,11 +5,12 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 函数类型的兼容性规则是什么？](#3--函数类型的兼容性规则是什么)
-  - [3.1. 示例：参数逆变](#31-示例参数逆变)
-  - [3.2. 示例：返回值协变](#32-示例返回值协变)
-- [4. 🤔 “参数逆变（Contravariance）规则” 是什么？](#4--参数逆变contravariance规则-是什么)
-  - [4.1. 参数数量的检查](#41-参数数量的检查)
-  - [4.2. 剩余参数的检查](#42-剩余参数的检查)
+  - [3.1. 基本规则](#31-基本规则)
+  - [3.2. 理解“源函数”和“目标函数”](#32-理解源函数和目标函数)
+- [4. 🤔 参数类型的约束规则是？](#4--参数类型的约束规则是)
+- [5. 🤔 参数数量的约束规则是？](#5--参数数量的约束规则是)
+- [6. 🤔 剩余参数的检查规则是？](#6--剩余参数的检查规则是)
+- [7. 🤔 返回值类型的约束规则是？](#7--返回值类型的约束规则是)
 
 <!-- endregion:toc -->
 
@@ -20,48 +21,61 @@
 
 ## 2. 🫧 评价
 
-- todo
+- “逆变”（Contravariance）
+  - 参数类型的约束规则
+  - 源函数的参数可以比目标函数更宽泛
+  - 约束少的可以传递给约束多的
+- - “协变”（Covariance）
+  - 返回类型的约束规则
+  - 源函数的返回可以比目标函数更具体
+  - 约束多的可以传递给约束少的
 
 ## 3. 🤔 函数类型的兼容性规则是什么？
 
 函数兼容性遵循“逆变”（Contravariance）和“协变”（Covariance）规则。
 
-基本规则如下：
+### 3.1. 基本规则
 
-- 参数类型：逆变 → 源函数的参数类型可以比目标函数更宽泛
-- 返回类型：协变 → 源函数的返回类型可以比目标函数更具体
+- 参数类型：逆变 → 源函数的参数可以比目标函数更宽泛
+- 返回类型：协变 → 源函数的返回可以比目标函数更具体
 
-### 3.1. 示例：参数逆变
+基于上述基本规则，能衍生出很多场景，以参数类型的逆变约束为例：
 
-```ts
-type Handler = (event: MouseEvent) => void
+- 参数数量多的约束强，参数数量少的约束弱，因此可以将参数数量少的函数传递给参数数量多的函数，反之不行；
+- 参数类型更具体的约束强，参数类型更宽泛的约束弱，因此可以将参数类型更宽泛的函数传递给参数类型更具体的函数，反之不行；
 
-const handleClick: Handler = (event: Event) => {
-  // event 是 Event（比 MouseEvent 更宽泛）
-  console.log(event.timeStamp)
-}
+### 3.2. 理解“源函数”和“目标函数”
 
-// ✅ 兼容！因为 MouseEvent 是 Event 的子类型，
-// 传入 MouseEvent 时，Event 类型的参数能安全处理它
-```
+- 源函数表示我们传入的函数；
+- 目标函数表示被赋值的函数；
 
-### 3.2. 示例：返回值协变
+如果用赋值运算符来表示，它们之间的关系如下：
 
 ```ts
-type Factory = () => HTMLElement
-
-const createDiv: Factory = () => {
-  return document.createElement('div') // HTMLDivElement
-}
-
-// ✅ 兼容！HTMLDivElement 是 HTMLElement 的子类型
+目标函数 = 源函数
 ```
 
-## 4. 🤔 “参数逆变（Contravariance）规则” 是什么？
+## 4. 🤔 参数类型的约束规则是？
 
-参数逆变（Contravariance）规则指的是：源函数的参数类型可以比目标函数更宽泛。
+- 参数更宽泛的可以赋值给参数更具体的；
+- 参数更具体的不能赋值给参数更宽泛的；
 
-### 4.1. 参数数量的检查
+```ts
+type MouseEventHandler = (event: MouseEvent) => void
+type EventHandler = (event: Event) => void
+
+let f1: MouseEventHandler = (event: MouseEvent) => {}
+let f2: EventHandler = (event: Event) => {}
+
+f1 = f2 // ✅ 兼容，Event 比 MouseEvent 更宽泛
+// f2 = f1 // ❌ 不兼容
+// 报错信息如下：
+// Type 'MouseEventHandler' is not assignable to type 'EventHandler'.
+//   Types of parameters 'event' and 'event' are incompatible.
+//     Type 'Event' is missing the following properties from type 'MouseEvent': altKey, button, buttons, clientX, and 23 more.(2322)
+```
+
+## 5. 🤔 参数数量的约束规则是？
 
 - 参数少的可以赋值给参数多的
 - 参数多的不能赋值给参数少的
@@ -80,7 +94,7 @@ f2 = f1 // ✅ 兼容 - 参数少的可以赋值给参数多的
 //   Target signature provides too few arguments. Expected 2 or more, but got 1.(2322)
 ```
 
-### 4.2. 剩余参数的检查
+## 6. 🤔 剩余参数的检查规则是？
 
 剩余参数无论是赋值还是被赋值都不会检查
 
@@ -100,4 +114,17 @@ rest = optional // ✅ 兼容
 rest = required // ✅ 兼容
 optional = rest // ✅ 兼容
 required = rest // ✅ 兼容
+```
+
+## 7. 🤔 返回值类型的约束规则是？
+
+```ts
+// 返回值协变
+type Factory = () => HTMLElement
+
+const createDiv: Factory = () => {
+  return document.createElement('div') // HTMLDivElement
+}
+
+// ✅ 兼容！HTMLDivElement 是 HTMLElement 的子类型
 ```
