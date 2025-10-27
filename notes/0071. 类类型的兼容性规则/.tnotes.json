@@ -2,9 +2,9 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
-  "enableDiscussions": false,
+  "done": true,
+  "enableDiscussions": true,
   "created_at": 1761482365000,
-  "updated_at": 1761559100441,
+  "updated_at": 1761562979632,
   "id": "6418a15f-965a-452b-8074-6a1818b5d329"
 }
