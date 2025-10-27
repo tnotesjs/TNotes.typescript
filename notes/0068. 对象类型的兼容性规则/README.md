@@ -159,6 +159,11 @@ console.log(a.x) // 123
 
 会。
 
+`T ⊆ T | undefined`
+
+- 非空类型小，是子类型，可以赋值给可空类型
+- 可空类型大，是父类型，无法赋值给非空类型
+
 ```ts
 type RequiredProp = { x: number }
 type OptionalProp = { x?: number }
