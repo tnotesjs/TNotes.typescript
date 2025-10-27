@@ -291,10 +291,11 @@ delete arr[0] // ❌ 报错：不能删除
 
 ```ts
 let mutable: number[] = [0, 1]
-let readonly: readonly number[] = mutable // 正确：子类型赋值给父类型
+let readonlyArr: readonly number[] = [2, 3]
 
-// readonly = mutable; // 正确：同一对象
-// mutable = readonly; // 报错：父类型不能赋值给子类型
+readonlyArr = mutable // ✅ 正确：子类型赋值给父类型
+mutable = readonlyArr // ❌ 报错：父类型不能赋值给子类型
+// The type 'readonly number[]' is 'readonly' and cannot be assigned to the mutable type 'number[]'.(4104)
 ```
 
 - 子类型可以赋值给父类型，但父类型不能赋值给子类型。
