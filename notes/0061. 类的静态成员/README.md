@@ -13,6 +13,12 @@
   - [5.4. 可以使用 `Object.defineProperty` 定义](#54-可以使用-objectdefineproperty-定义)
   - [5.5. 开发建议](#55-开发建议)
 - [6. 🤔 静态成员可以是抽象的吗？](#6--静态成员可以是抽象的吗)
+- [7. 🤔 静态成员可以被 public/private/protected 修饰吗？](#7--静态成员可以被-publicprivateprotected-修饰吗)
+  - [7.1. public 静态成员（默认）](#71-public-静态成员默认)
+  - [7.2. private 静态成员](#72-private-静态成员)
+  - [7.3. protected 静态成员](#73-protected-静态成员)
+  - [7.4. 使用场景](#74-使用场景)
+  - [7.5. 注意事项](#75-注意事项)
 
 <!-- endregion:toc -->
 
@@ -239,3 +245,116 @@ abstract class BaseClass {
   // 'static' modifier cannot be used with 'abstract' modifier.(1243)
 }
 ```
+
+## 7. 🤔 静态成员可以被 public/private/protected 修饰吗？
+
+是的，静态成员可以被 `public`、`private` 和 `protected` 访问修饰符修饰，这与实例成员的访问控制机制相同。
+
+### 7.1. public 静态成员（默认）
+
+```ts
+class MyClass {
+  public static x = 0 // 明确声明为 public
+  static y = 1 // 省略修饰符，默认为 public
+
+  public static printX() {
+    console.log(MyClass.x)
+  }
+}
+
+// 外部可以自由访问
+MyClass.x // 0
+MyClass.y // 1
+MyClass.printX() // 输出: 0
+```
+
+### 7.2. private 静态成员
+
+```ts
+class MyClass {
+  private static instanceCount = 0 // 私有静态属性
+
+  private static incrementCount() {
+    // 私有静态方法
+    MyClass.instanceCount++
+  }
+
+  constructor() {
+    MyClass.incrementCount() // 类内部可以访问
+  }
+
+  static getInstanceCount() {
+    return MyClass.instanceCount // 类内部可以访问
+  }
+}
+
+const obj1 = new MyClass()
+const obj2 = new MyClass()
+
+console.log(MyClass.getInstanceCount()) // 输出: 2
+
+// console.log(MyClass.instanceCount); // ❌ 报错
+// Property 'instanceCount' is private and only accessible within class 'MyClass'.(2341)
+
+// MyClass.incrementCount() // ❌ 报错
+// Property 'incrementCount' is private and only accessible within class 'MyClass'.(2341)
+```
+
+### 7.3. protected 静态成员
+
+```ts
+class BaseClass {
+  protected static typeName = 'Base'
+
+  protected static getTypeName() {
+    return BaseClass.typeName
+  }
+
+  static getBaseTypeName() {
+    return BaseClass.getTypeName() // 类内部可以访问
+  }
+}
+
+class DerivedClass extends BaseClass {
+  static typeName = 'Derived' // 覆盖基类静态属性
+
+  static getDerivedTypeName() {
+    return DerivedClass.getTypeName() // ✅ 子类可以访问 protected 静态成员
+  }
+
+  static getFullInfo() {
+    return `${BaseClass.getBaseTypeName()} -> ${DerivedClass.getDerivedTypeName()}`
+  }
+}
+
+console.log(BaseClass.getBaseTypeName()) // 输出: Base
+console.log(DerivedClass.getDerivedTypeName()) // 输出: Derived
+console.log(DerivedClass.getFullInfo()) // 输出: Base -> Derived
+
+// console.log(BaseClass.typeName); // ❌ 报错
+// Property 'typeName' is protected and only accessible within class 'BaseClass' and its subclasses.(2445)
+
+// BaseClass.getTypeName(); // ❌ 报错
+// Property 'getTypeName' is protected and only accessible within class 'BaseClass' and its subclasses.(2445)
+```
+
+### 7.4. 使用场景
+
+1. private static：
+   - 内部计数器或缓存
+   - 工具方法仅供类内部使用
+   - 单例模式的实例存储
+2. protected static：
+   - 希望被子类访问的静态工具方法
+   - 子类需要覆写的静态配置
+   - 框架基类提供的受保护静态功能
+3. public static：
+   - 工厂方法
+   - 配置常量
+   - 工具函数
+
+### 7.5. 注意事项
+
+- 访问修饰符对静态成员的作用域与实例成员相同
+- 静态成员的访问控制在编译时检查，运行时 JavaScript 中仍然可以通过特殊方式访问（如方括号语法访问私有静态成员）
+- 与实例成员一样，TypeScript 的访问修饰符主要提供开发时的类型安全和设计意图表达，不会对运行时有实质影响
