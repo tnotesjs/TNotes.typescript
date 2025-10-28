@@ -98,6 +98,7 @@
 - [ ] [0064. 类的继承](https://tnotesjs.github.io/TNotes.typescript/notes/0064.%20%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/README)
 - [ ] [0063. 子类重写父类同名方法](https://tnotesjs.github.io/TNotes.typescript/notes/0063.%20%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E5%90%8C%E5%90%8D%E6%96%B9%E6%B3%95/README)
 - [x] [0055. 类中的 this 参数和 this 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0055.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%20this%20%E5%8F%82%E6%95%B0%E5%92%8C%20this%20%E7%B1%BB%E5%9E%8B/README)
+- [x] [0065. 类与函数的选择](https://tnotesjs.github.io/TNotes.typescript/notes/0065.%20%E7%B1%BB%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E9%80%89%E6%8B%A9/README)
 
 ## 13. 泛型
 
