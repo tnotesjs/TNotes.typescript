@@ -10,9 +10,9 @@
 ## 2. TS 简介
 
 - [x] [0008. TS 简介](https://tnotesjs.github.io/TNotes.typescript/notes/0008.%20TS%20%E7%AE%80%E4%BB%8B/README)
-- [x] [0001. TypeScript 简介](https://tnotesjs.github.io/TNotes.typescript/notes/0001.%20TypeScript%20%E7%AE%80%E4%BB%8B/README)
-- [x] [0003. TypeScript 发展简史](https://tnotesjs.github.io/TNotes.typescript/notes/0003.%20TypeScript%20%E5%8F%91%E5%B1%95%E7%AE%80%E5%8F%B2/README)
-- [x] [0005. TypeScript 博客](https://tnotesjs.github.io/TNotes.typescript/notes/0005.%20TypeScript%20%E5%8D%9A%E5%AE%A2/README)
+- [x] [0001. TS 是什么](https://tnotesjs.github.io/TNotes.typescript/notes/0001.%20TS%20%E6%98%AF%E4%BB%80%E4%B9%88/README)
+- [x] [0003. TS 的发展简史](https://tnotesjs.github.io/TNotes.typescript/notes/0003.%20TS%20%E7%9A%84%E5%8F%91%E5%B1%95%E7%AE%80%E5%8F%B2/README)
+- [x] [0005. TS 的博客](https://tnotesjs.github.io/TNotes.typescript/notes/0005.%20TS%20%E7%9A%84%E5%8D%9A%E5%AE%A2/README)
 - [x] [0004. 类型 vs. 值](https://tnotesjs.github.io/TNotes.typescript/notes/0004.%20%E7%B1%BB%E5%9E%8B%20vs.%20%E5%80%BC/README)
 - [x] [0006. 面向对象的思维方式](https://tnotesjs.github.io/TNotes.typescript/notes/0006.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%80%9D%E7%BB%B4%E6%96%B9%E5%BC%8F/README)
 - [x] [0007. 动态类型 vs. 静态类型](https://tnotesjs.github.io/TNotes.typescript/notes/0007.%20%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B%20vs.%20%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B/README)
@@ -94,7 +94,7 @@
 - [x] [0059. 类实现接口](https://tnotesjs.github.io/TNotes.typescript/notes/0059.%20%E7%B1%BB%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3/README)
 - [x] [0060. 类中的只读属性](https://tnotesjs.github.io/TNotes.typescript/notes/0060.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7/README)
 - [x] [0061. 类的静态成员](https://tnotesjs.github.io/TNotes.typescript/notes/0061.%20%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98/README)
-- [ ] [0062. 类的三个可访问性修饰符](https://tnotesjs.github.io/TNotes.typescript/notes/0062.%20%E7%B1%BB%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6/README)
+- [x] [0062. 类的三个可访问性修饰符](https://tnotesjs.github.io/TNotes.typescript/notes/0062.%20%E7%B1%BB%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6/README)
 - [ ] [0064. 类的继承](https://tnotesjs.github.io/TNotes.typescript/notes/0064.%20%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/README)
 - [ ] [0063. 子类重写父类同名方法](https://tnotesjs.github.io/TNotes.typescript/notes/0063.%20%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E5%90%8C%E5%90%8D%E6%96%B9%E6%B3%95/README)
 - [x] [0055. 类中的 this 参数和 this 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0055.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%20this%20%E5%8F%82%E6%95%B0%E5%92%8C%20this%20%E7%B1%BB%E5%9E%8B/README)

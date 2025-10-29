@@ -1,4 +1,4 @@
-# [0005. TypeScript 博客](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0005.%20TypeScript%20%E5%8D%9A%E5%AE%A2)
+# [0005. TS 的博客](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0005.%20TS%20%E7%9A%84%E5%8D%9A%E5%AE%A2)
 
 <!-- region:toc -->
 
@@ -15,15 +15,17 @@
 
 ## 2. 🫧 评价
 
-- 在官方团队维护的博客中，可以帮你快速了解有关 TypeScript 的一些重大事件。
+在官方团队维护的博客中，可以帮你快速了解有关 TypeScript 的一些重大事件。
 
 ## 3. 🤔 微软官方推出的 TypeScript 博客链接是？
 
-- https://devblogs.microsoft.com/typescript/
-- ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-07-20-55-34.png)
-- 在这里边儿可以帮你快速了解到一些有关 TS 的重大事件。比如 [A 10x Faster TypeScript][2] 这篇文章就提到了：TS v6、v7 的变革
-  - v6 用的是 TypeScript/JavaScript 自己写的编译器，v7 之后的新体系，将迁移为 Go 语言 编译的原生程序，测试结果表示编译速度将提升 10 倍左右。
-  - 以下是 AI 的总结：
+https://devblogs.microsoft.com/typescript/
+
+![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-07-20-55-34.png)
+
+在这里边儿可以帮你快速了解到一些有关 TS 的重大事件。比如 [A 10x Faster TypeScript][2] 这篇文章就提到了：TS v6、v7 的变革 —— v6 用的是 TypeScript/JavaScript 自己写的编译器，v7 之后的新体系，将迁移为 Go 语言 编译的原生程序，测试结果表示编译速度将提升 10 倍左右。
+
+以下是 AI 的总结：
 
 | 层面 | v6 及之前（旧体系） | v7 及之后（新体系） |
 | --- | --- | --- |

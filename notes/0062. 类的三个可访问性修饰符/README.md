@@ -34,7 +34,11 @@
 
 ## 2. 🫧 评价
 
-- todo
+public、private 和 protected 是访问修饰符（access modifiers），它们是 TS 中特有的，编译产物 JS 中会自动移除。
+
+访问修饰符提供的约束也仅仅停留在 TS 层面，对运行时的 JS 无影响。
+
+当你在开发 TS 项目时，书写类的时候可以利用这些修饰符来约束相关成员的访问权限。
 
 ## 3. 🤔 TypeScript 类中的 public、private 和 protected 修饰符有什么作用？
 
@@ -355,7 +359,9 @@ new Derived() // ✅ 正确
 
 ## 11. 🤔 接口或类型定义中能使用 private/protected 吗？
 
-不能。接口（interface）和类型别名（type）描述的是公共契约（public API），只关心外部可访问的部分。因此：
+不能。
+
+接口（interface）和类型别名（type）描述的是公共契约（public API），只关心外部可访问的部分。因此：
 
 - 接口中不能包含 `private` 或 `protected` 成员。
 - 类实现接口时，接口只检查其 public 成员是否匹配。
@@ -371,6 +377,8 @@ class Person implements HasName {
   private name: string // ❌ 错误！接口要求 public name
   // 必须写成 public name 或不加修饰符
 }
+// Class 'Person' incorrectly implements interface 'HasName'.
+//   Property 'name' is private in type 'Person' but not in type 'HasName'.(2420)
 ```
 
 这也体现了 TypeScript 的设计哲学：接口用于描述“外部如何看待一个对象”，而访问修饰符用于控制“内部如何组织实现”。
