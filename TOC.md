@@ -95,7 +95,7 @@
 - [x] [0060. 类中的只读属性](https://tnotesjs.github.io/TNotes.typescript/notes/0060.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7/README)
 - [x] [0061. 类的静态成员](https://tnotesjs.github.io/TNotes.typescript/notes/0061.%20%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98/README)
 - [x] [0062. 类的三个可访问性修饰符](https://tnotesjs.github.io/TNotes.typescript/notes/0062.%20%E7%B1%BB%E7%9A%84%E4%B8%89%E4%B8%AA%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6/README)
-- [ ] [0064. 类的继承](https://tnotesjs.github.io/TNotes.typescript/notes/0064.%20%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/README)
+- [x] [0064. 类的继承](https://tnotesjs.github.io/TNotes.typescript/notes/0064.%20%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/README)
 - [ ] [0063. 子类重写父类同名方法](https://tnotesjs.github.io/TNotes.typescript/notes/0063.%20%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E5%90%8C%E5%90%8D%E6%96%B9%E6%B3%95/README)
 - [x] [0055. 类中的 this 参数和 this 类型](https://tnotesjs.github.io/TNotes.typescript/notes/0055.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%20this%20%E5%8F%82%E6%95%B0%E5%92%8C%20this%20%E7%B1%BB%E5%9E%8B/README)
 - [x] [0065. 类与函数的选择](https://tnotesjs.github.io/TNotes.typescript/notes/0065.%20%E7%B1%BB%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E9%80%89%E6%8B%A9/README)
