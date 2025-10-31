@@ -341,6 +341,16 @@
 
 ## 28. 实战技巧
 
+- [ ] [0268. 常见类型错误处理](https://tnotesjs.github.io/TNotes.typescript/notes/0268.%20%E5%B8%B8%E8%A7%81%E7%B1%BB%E5%9E%8B%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/README)
+- [ ] [0269. 类型收窄技巧](https://tnotesjs.github.io/TNotes.typescript/notes/0269.%20%E7%B1%BB%E5%9E%8B%E6%94%B6%E7%AA%84%E6%8A%80%E5%B7%A7/README)
+- [ ] [0270. 类型守卫的使用](https://tnotesjs.github.io/TNotes.typescript/notes/0270.%20%E7%B1%BB%E5%9E%8B%E5%AE%88%E5%8D%AB%E7%9A%84%E4%BD%BF%E7%94%A8/README)
+- [ ] [0271. 类型推断的最佳实践](https://tnotesjs.github.io/TNotes.typescript/notes/0271.%20%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/README)
+- [ ] [0272. 避免类型断言的滥用](https://tnotesjs.github.io/TNotes.typescript/notes/0272.%20%E9%81%BF%E5%85%8D%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E6%BB%A5%E7%94%A8/README)
+- [ ] [0273. React 中的 TypeScript](https://tnotesjs.github.io/TNotes.typescript/notes/0273.%20React%20%E4%B8%AD%E7%9A%84%20TypeScript/README)
+- [ ] [0274. Vue 中的 TypeScript](https://tnotesjs.github.io/TNotes.typescript/notes/0274.%20Vue%20%E4%B8%AD%E7%9A%84%20TypeScript/README)
+- [ ] [0275. Node.js 中的 TypeScript](https://tnotesjs.github.io/TNotes.typescript/notes/0275.%20Node.js%20%E4%B8%AD%E7%9A%84%20TypeScript/README)
+- [ ] [0276. 第三方库的类型处理](https://tnotesjs.github.io/TNotes.typescript/notes/0276.%20%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%A4%84%E7%90%86/README)
+
 ## 29. 深入原理
 
 - [ ] [0045. 深入原理](https://tnotesjs.github.io/TNotes.typescript/notes/0045.%20%E6%B7%B1%E5%85%A5%E5%8E%9F%E7%90%86/README)
@@ -356,15 +366,6 @@
 
 ## 30. 进阶话题
 
-- [ ] [0268. 常见类型错误处理](https://tnotesjs.github.io/TNotes.typescript/notes/0268.%20%E5%B8%B8%E8%A7%81%E7%B1%BB%E5%9E%8B%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/README)
-- [ ] [0269. 类型收窄技巧](https://tnotesjs.github.io/TNotes.typescript/notes/0269.%20%E7%B1%BB%E5%9E%8B%E6%94%B6%E7%AA%84%E6%8A%80%E5%B7%A7/README)
-- [ ] [0270. 类型守卫的使用](https://tnotesjs.github.io/TNotes.typescript/notes/0270.%20%E7%B1%BB%E5%9E%8B%E5%AE%88%E5%8D%AB%E7%9A%84%E4%BD%BF%E7%94%A8/README)
-- [ ] [0271. 类型推断的最佳实践](https://tnotesjs.github.io/TNotes.typescript/notes/0271.%20%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/README)
-- [ ] [0272. 避免类型断言的滥用](https://tnotesjs.github.io/TNotes.typescript/notes/0272.%20%E9%81%BF%E5%85%8D%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E6%BB%A5%E7%94%A8/README)
-- [ ] [0273. React 中的 TypeScript](https://tnotesjs.github.io/TNotes.typescript/notes/0273.%20React%20%E4%B8%AD%E7%9A%84%20TypeScript/README)
-- [ ] [0274. Vue 中的 TypeScript](https://tnotesjs.github.io/TNotes.typescript/notes/0274.%20Vue%20%E4%B8%AD%E7%9A%84%20TypeScript/README)
-- [ ] [0275. Node.js 中的 TypeScript](https://tnotesjs.github.io/TNotes.typescript/notes/0275.%20Node.js%20%E4%B8%AD%E7%9A%84%20TypeScript/README)
-- [ ] [0276. 第三方库的类型处理](https://tnotesjs.github.io/TNotes.typescript/notes/0276.%20%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%A4%84%E7%90%86/README)
 - [ ] [0277. 高级类型技巧](https://tnotesjs.github.io/TNotes.typescript/notes/0277.%20%E9%AB%98%E7%BA%A7%E7%B1%BB%E5%9E%8B%E6%8A%80%E5%B7%A7/README)
 - [ ] [0278. 类型体操](https://tnotesjs.github.io/TNotes.typescript/notes/0278.%20%E7%B1%BB%E5%9E%8B%E4%BD%93%E6%93%8D/README)
 - [ ] [0279. 类型安全的设计模式](https://tnotesjs.github.io/TNotes.typescript/notes/0279.%20%E7%B1%BB%E5%9E%8B%E5%AE%89%E5%85%A8%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/README)
