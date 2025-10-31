@@ -172,14 +172,34 @@
 - [ ] [0063. 子类重写父类同名成员](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0063.%20%E5%AD%90%E7%B1%BB%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E5%90%8C%E5%90%8D%E6%88%90%E5%91%98/README.md)
 - [x] [0055. 类中的 this 参数和 this 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0055.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%20this%20%E5%8F%82%E6%95%B0%E5%92%8C%20this%20%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0065. 类与函数的选择](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0065.%20%E7%B1%BB%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E9%80%89%E6%8B%A9/README.md)
+- [ ] [0111. 类的类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0111.%20%E7%B1%BB%E7%9A%84%E7%B1%BB%E5%9E%8B/README.md)
+- [ ] [0112. 类的结构类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0112.%20%E7%B1%BB%E7%9A%84%E7%BB%93%E6%9E%84%E7%B1%BB%E5%9E%8B/README.md)
+- [ ] [0113. 类的 implements 子句](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0113.%20%E7%B1%BB%E7%9A%84%20implements%20%E5%AD%90%E5%8F%A5/README.md)
+- [ ] [0114. 类的静态块](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0114.%20%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E5%9D%97/README.md)
 
 ## 13. 泛型
 
 - [ ] [0038. 泛型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0038.%20%E6%B3%9B%E5%9E%8B/README.md)
+- [ ] [0115. 泛型类](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0115.%20%E6%B3%9B%E5%9E%8B%E7%B1%BB/README.md)
+- [ ] [0116. 泛型函数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0116.%20%E6%B3%9B%E5%9E%8B%E5%87%BD%E6%95%B0/README.md)
+- [ ] [0117. 泛型接口](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0117.%20%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3/README.md)
+- [ ] [0118. 泛型约束](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0118.%20%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F/README.md)
+- [ ] [0119. 在泛型约束中使用类型参数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0119.%20%E5%9C%A8%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0/README.md)
+- [ ] [0120. 在泛型中使用类类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0120.%20%E5%9C%A8%E6%B3%9B%E5%9E%8B%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%B1%BB%E7%B1%BB%E5%9E%8B/README.md)
+- [ ] [0121. 泛型默认值](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0121.%20%E6%B3%9B%E5%9E%8B%E9%BB%98%E8%AE%A4%E5%80%BC/README.md)
+- [ ] [0122. 泛型的最佳实践](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0122.%20%E6%B3%9B%E5%9E%8B%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/README.md)
 
 ## 14. Enum 类型
 
 - [ ] [0037. Enum 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0037.%20Enum%20%E7%B1%BB%E5%9E%8B/README.md)
+- [ ] [0123. 数字枚举](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0123.%20%E6%95%B0%E5%AD%97%E6%9E%9A%E4%B8%BE/README.md)
+- [ ] [0124. 字符串枚举](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0124.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9E%9A%E4%B8%BE/README.md)
+- [ ] [0125. 异构枚举](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0125.%20%E5%BC%82%E6%9E%84%E6%9E%9A%E4%B8%BE/README.md)
+- [ ] [0126. 常量枚举（const enum）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0126.%20%E5%B8%B8%E9%87%8F%E6%9E%9A%E4%B8%BE%EF%BC%88const%20enum%EF%BC%89/README.md)
+- [ ] [0127. 外部枚举（ambient enum）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0127.%20%E5%A4%96%E9%83%A8%E6%9E%9A%E4%B8%BE%EF%BC%88ambient%20enum%EF%BC%89/README.md)
+- [ ] [0128. 枚举成员的类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0128.%20%E6%9E%9A%E4%B8%BE%E6%88%90%E5%91%98%E7%9A%84%E7%B1%BB%E5%9E%8B/README.md)
+- [ ] [0129. 反向映射](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0129.%20%E5%8F%8D%E5%90%91%E6%98%A0%E5%B0%84/README.md)
+- [ ] [0130. 枚举 vs. 对象字面量](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0130.%20%E6%9E%9A%E4%B8%BE%20vs.%20%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F/README.md)
 
 ## 15. 类型断言
 
@@ -188,6 +208,9 @@
 - [ ] [0048. as const 断言](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0048.%20as%20const%20%E6%96%AD%E8%A8%80/README.md)
 - [ ] [0049. 非空断言](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0049.%20%E9%9D%9E%E7%A9%BA%E6%96%AD%E8%A8%80/README.md)
 - [ ] [0050. 断言函数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0050.%20%E6%96%AD%E8%A8%80%E5%87%BD%E6%95%B0/README.md)
+- [ ] [0131. 双重断言](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0131.%20%E5%8F%8C%E9%87%8D%E6%96%AD%E8%A8%80/README.md)
+- [ ] [0132. 类型断言的使用场景](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0132.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/README.md)
+- [ ] [0133. 类型断言 vs. 类型声明](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0133.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%20vs.%20%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E/README.md)
 
 ## 16. 模块
 
@@ -224,5 +247,4 @@
 
 ## 31. 空
 
-- [ ] [0111. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0111.%20xxx/README.md)
-- [ ] [0112. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0112.%20xxx/README.md)
+- [ ] [0134. xxx](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0134.%20xxx/README.md)

@@ -114,6 +114,12 @@
 ## 11. 接口
 
 - [x] [0052. interface 关键字](https://tnotesjs.github.io/TNotes.typescript/notes/0052.%20interface%20%E5%85%B3%E9%94%AE%E5%AD%97/README)
+- [ ] [0105. 接口的继承](https://tnotesjs.github.io/TNotes.typescript/notes/0105.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%BB%A7%E6%89%BF/README)
+- [ ] [0106. 接口的合并（声明合并）](https://tnotesjs.github.io/TNotes.typescript/notes/0106.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%90%88%E5%B9%B6%EF%BC%88%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%EF%BC%89/README)
+- [ ] [0107. 接口的索引签名](https://tnotesjs.github.io/TNotes.typescript/notes/0107.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%B4%A2%E5%BC%95%E7%AD%BE%E5%90%8D/README)
+- [ ] [0108. 接口的调用签名](https://tnotesjs.github.io/TNotes.typescript/notes/0108.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%B0%83%E7%94%A8%E7%AD%BE%E5%90%8D/README)
+- [ ] [0109. 接口的构造签名](https://tnotesjs.github.io/TNotes.typescript/notes/0109.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%9E%84%E9%80%A0%E7%AD%BE%E5%90%8D/README)
+- [ ] [0110. 混合类型接口](https://tnotesjs.github.io/TNotes.typescript/notes/0110.%20%E6%B7%B7%E5%90%88%E7%B1%BB%E5%9E%8B%E6%8E%A5%E5%8F%A3/README)
 - [x] [0053. type vs. interface](https://tnotesjs.github.io/TNotes.typescript/notes/0053.%20type%20vs.%20interface/README)
 
 ## 12. 类
@@ -183,11 +189,27 @@
 
 ## 31. 空
 
-- [ ] [0105. 接口的继承](https://tnotesjs.github.io/TNotes.typescript/notes/0105.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%BB%A7%E6%89%BF/README)
-- [ ] [0106. 接口的合并（声明合并）](https://tnotesjs.github.io/TNotes.typescript/notes/0106.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%90%88%E5%B9%B6%EF%BC%88%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%EF%BC%89/README)
-- [ ] [0107. 接口的索引签名](https://tnotesjs.github.io/TNotes.typescript/notes/0107.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%B4%A2%E5%BC%95%E7%AD%BE%E5%90%8D/README)
-- [ ] [0108. 接口的调用签名](https://tnotesjs.github.io/TNotes.typescript/notes/0108.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%B0%83%E7%94%A8%E7%AD%BE%E5%90%8D/README)
-- [ ] [0109. 接口的构造签名](https://tnotesjs.github.io/TNotes.typescript/notes/0109.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%9E%84%E9%80%A0%E7%AD%BE%E5%90%8D/README)
-- [ ] [0110. 混合类型接口](https://tnotesjs.github.io/TNotes.typescript/notes/0110.%20%E6%B7%B7%E5%90%88%E7%B1%BB%E5%9E%8B%E6%8E%A5%E5%8F%A3/README)
-- [ ] [0111. xxx](https://tnotesjs.github.io/TNotes.typescript/notes/0111.%20xxx/README)
-- [ ] [0112. xxx](https://tnotesjs.github.io/TNotes.typescript/notes/0112.%20xxx/README)
+- [ ] [0111. 类的类型](https://tnotesjs.github.io/TNotes.typescript/notes/0111.%20%E7%B1%BB%E7%9A%84%E7%B1%BB%E5%9E%8B/README)
+- [ ] [0112. 类的结构类型](https://tnotesjs.github.io/TNotes.typescript/notes/0112.%20%E7%B1%BB%E7%9A%84%E7%BB%93%E6%9E%84%E7%B1%BB%E5%9E%8B/README)
+- [ ] [0113. 类的 implements 子句](https://tnotesjs.github.io/TNotes.typescript/notes/0113.%20%E7%B1%BB%E7%9A%84%20implements%20%E5%AD%90%E5%8F%A5/README)
+- [ ] [0114. 类的静态块](https://tnotesjs.github.io/TNotes.typescript/notes/0114.%20%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E5%9D%97/README)
+- [ ] [0115. 泛型类](https://tnotesjs.github.io/TNotes.typescript/notes/0115.%20%E6%B3%9B%E5%9E%8B%E7%B1%BB/README)
+- [ ] [0116. 泛型函数](https://tnotesjs.github.io/TNotes.typescript/notes/0116.%20%E6%B3%9B%E5%9E%8B%E5%87%BD%E6%95%B0/README)
+- [ ] [0117. 泛型接口](https://tnotesjs.github.io/TNotes.typescript/notes/0117.%20%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3/README)
+- [ ] [0118. 泛型约束](https://tnotesjs.github.io/TNotes.typescript/notes/0118.%20%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F/README)
+- [ ] [0119. 在泛型约束中使用类型参数](https://tnotesjs.github.io/TNotes.typescript/notes/0119.%20%E5%9C%A8%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0/README)
+- [ ] [0120. 在泛型中使用类类型](https://tnotesjs.github.io/TNotes.typescript/notes/0120.%20%E5%9C%A8%E6%B3%9B%E5%9E%8B%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%B1%BB%E7%B1%BB%E5%9E%8B/README)
+- [ ] [0121. 泛型默认值](https://tnotesjs.github.io/TNotes.typescript/notes/0121.%20%E6%B3%9B%E5%9E%8B%E9%BB%98%E8%AE%A4%E5%80%BC/README)
+- [ ] [0122. 泛型的最佳实践](https://tnotesjs.github.io/TNotes.typescript/notes/0122.%20%E6%B3%9B%E5%9E%8B%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/README)
+- [ ] [0123. 数字枚举](https://tnotesjs.github.io/TNotes.typescript/notes/0123.%20%E6%95%B0%E5%AD%97%E6%9E%9A%E4%B8%BE/README)
+- [ ] [0124. 字符串枚举](https://tnotesjs.github.io/TNotes.typescript/notes/0124.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9E%9A%E4%B8%BE/README)
+- [ ] [0125. 异构枚举](https://tnotesjs.github.io/TNotes.typescript/notes/0125.%20%E5%BC%82%E6%9E%84%E6%9E%9A%E4%B8%BE/README)
+- [ ] [0126. 常量枚举（const enum）](https://tnotesjs.github.io/TNotes.typescript/notes/0126.%20%E5%B8%B8%E9%87%8F%E6%9E%9A%E4%B8%BE%EF%BC%88const%20enum%EF%BC%89/README)
+- [ ] [0127. 外部枚举（ambient enum）](https://tnotesjs.github.io/TNotes.typescript/notes/0127.%20%E5%A4%96%E9%83%A8%E6%9E%9A%E4%B8%BE%EF%BC%88ambient%20enum%EF%BC%89/README)
+- [ ] [0128. 枚举成员的类型](https://tnotesjs.github.io/TNotes.typescript/notes/0128.%20%E6%9E%9A%E4%B8%BE%E6%88%90%E5%91%98%E7%9A%84%E7%B1%BB%E5%9E%8B/README)
+- [ ] [0129. 反向映射](https://tnotesjs.github.io/TNotes.typescript/notes/0129.%20%E5%8F%8D%E5%90%91%E6%98%A0%E5%B0%84/README)
+- [ ] [0130. 枚举 vs. 对象字面量](https://tnotesjs.github.io/TNotes.typescript/notes/0130.%20%E6%9E%9A%E4%B8%BE%20vs.%20%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F/README)
+- [ ] [0131. 双重断言](https://tnotesjs.github.io/TNotes.typescript/notes/0131.%20%E5%8F%8C%E9%87%8D%E6%96%AD%E8%A8%80/README)
+- [ ] [0132. 类型断言的使用场景](https://tnotesjs.github.io/TNotes.typescript/notes/0132.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/README)
+- [ ] [0133. 类型断言 vs. 类型声明](https://tnotesjs.github.io/TNotes.typescript/notes/0133.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%20vs.%20%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E/README)
+- [ ] [0134. xxx](https://tnotesjs.github.io/TNotes.typescript/notes/0134.%20xxx/README)
