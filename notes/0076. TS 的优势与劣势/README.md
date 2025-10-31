@@ -124,7 +124,7 @@ function retry<T>(
 // 使用时直接看到所有可用选项，无需查文档
 
 // ❌ JavaScript：需要额外维护文档
-/
+/**
  * @param {Function} fn - 要重试的函数
  * @param {Object} options - 选项
  * @param {number} options.maxAttempts - 最大重试次数
@@ -192,9 +192,15 @@ processPayment({
 
 ### 4.2. 详细说明
 
+- 劣势 1：学习曲线陡峭
+- 劣势 2：编译开销
+- 劣势 3：类型"体操"难以维护
+- 劣势 4：第三方库类型缺失
+- 劣势 5：类型断言滥用
+
 ::: code-group
 
-```ts [劣势 1：学习曲线陡峭]
+```ts [1]
 // 简单场景
 function add(a: number, b: number): number {
   return a + b
@@ -210,7 +216,7 @@ type DeepPartial<T> = T extends object
 // 挑战：从简单到复杂的跨度很大
 ```
 
-```ts [劣势 2：编译开销]
+```ts [2]
 // JavaScript：直接运行
 node index.js
 
@@ -222,7 +228,7 @@ node index.js     # 运行
 // 解决方案：增量编译、并行编译、esbuild 等工具
 ```
 
-```ts [劣势 3：类型"体操"难以维护]
+```ts [3]
 // 场景：提取函数参数类型
 type GetParameters<T> = T extends (...args: infer P) => any ? P : never
 type GetReturnType<T> = T extends (...args: any[]) => infer R ? R : never
@@ -236,7 +242,7 @@ type GetReturnType<T> = T extends (...args: any[]) => infer R ? R : never
 // Type instantiation is excessively deep and possibly infinite.(2589)
 ```
 
-```ts [劣势 4：第三方库类型缺失]
+```ts [4]
 // 场景：使用小众库
 import awesomeLib from 'awesome-lib'
 
@@ -252,7 +258,7 @@ declare module 'awesome-lib' {
 }
 ```
 
-```ts [劣势 5：类型断言滥用]
+```ts [5]
 // 场景：类型系统无法推断
 const data = JSON.parse(response) // 类型：any
 

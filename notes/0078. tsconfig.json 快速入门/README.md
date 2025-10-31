@@ -5,7 +5,8 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是 tsconfig.json？](#3--什么是-tsconfigjson)
-  - [3.1. 作用](#31-作用)
+  - [3.1. `tsconfig.json` 简介](#31-tsconfigjson-简介)
+  - [3.2. 作用](#32-作用)
 - [4. 🤔 如何创建 tsconfig.json？](#4--如何创建-tsconfigjson)
   - [4.1. 方法 1：自动生成](#41-方法-1自动生成)
   - [4.2. 方法 2：使用社区模板](#42-方法-2使用社区模板)
@@ -54,6 +55,8 @@
 
 ## 3. 🤔 什么是 tsconfig.json？
 
+### 3.1. `tsconfig.json` 简介
+
 `tsconfig.json` 是 TypeScript 项目的配置文件，用于指定：
 
 | 配置类别 | 用途 | 示例选项 |
@@ -64,9 +67,9 @@
 | **类型检查** | 控制类型检查严格度 | `strictNullChecks`, `noImplicitAny` |
 | **输出配置** | 控制编译产物 | `outDir`, `declaration` |
 
-### 3.1. 作用
+### 3.2. 作用
 
-```
+```txt
 有 tsconfig.json：
   tsc                # 按配置文件编译项目
   tsc --watch        # 监听模式

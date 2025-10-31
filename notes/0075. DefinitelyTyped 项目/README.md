@@ -70,12 +70,12 @@ DefinitelyTyped 是一个集中托管 TypeScript 类型声明文件的 GitHub �
 ### 3.2. 工作流程
 
 ```mermaid
-graph LR
+graph TB
     A[JS 库发布到 npm] --> B[开发者编写 .d.ts]
     B --> C[提交 PR 到 DefinitelyTyped]
     C --> D[自动化测试]
     D --> E[合并后自动发布]
-    E --> F[@types/xxx 发布到 npm]
+    E --> F["@types/xxx 发布到 npm"]
     F --> G[用户安装使用]
 ```
 
