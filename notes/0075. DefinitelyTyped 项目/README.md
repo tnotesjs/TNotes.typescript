@@ -414,8 +414,6 @@ import { doSomething } from 'awesome-lib'
 doSomething(123) // 类型错误
 ```
 
-````
-
 ### 8.3. 快速修复
 
 如果是小问题，可以直接提交 PR：
@@ -430,7 +428,7 @@ doSomething(123) // 类型错误
 
 # 3. 提交 PR
 git commit -m "Fix: correct doSomething return type"
-````
+```
 
 ## 9. 🔗 引用
 
