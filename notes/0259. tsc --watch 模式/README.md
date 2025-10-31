@@ -5,10 +5,29 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 watch 模式是什么？](#3--watch-模式是什么)
+  - [3.1. 主要特点](#31-主要特点)
+  - [3.2. 适用场景](#32-适用场景)
 - [4. 🤔 如何启动 watch 模式？](#4--如何启动-watch-模式)
-- [5. 🤔 watch 模式的工作原理？](#5--watch-模式的工作原理)
+  - [4.1. 基本用法](#41-基本用法)
+  - [4.2. 监听单个文件](#42-监听单个文件)
+  - [4.3. 监听项目](#43-监听项目)
+  - [4.4. watch 模式输出](#44-watch-模式输出)
+  - [4.5. 项目引用 watch](#45-项目引用-watch)
+- [5. � watch 模式的工作原理？](#5--watch-模式的工作原理)
+  - [5.1. 文件监听机制](#51-文件监听机制)
+  - [5.2. 示例演示](#52-示例演示)
 - [6. 🤔 如何配置 watch 选项？](#6--如何配置-watch-选项)
+  - [6.1. watchOptions 配置](#61-watchoptions-配置)
+  - [6.2. watchFile 策略](#62-watchfile-策略)
+  - [6.3. watchDirectory 策略](#63-watchdirectory-策略)
+  - [6.4. 排除监听](#64-排除监听)
 - [7. 🤔 如何优化 watch 性能？](#7--如何优化-watch-性能)
+  - [7.1. 排除不必要的目录](#71-排除不必要的目录)
+  - [7.2. 使用项目引用](#72-使用项目引用)
+  - [7.3. 启用增量编译](#73-启用增量编译)
+  - [7.4. 使用 skipLibCheck](#74-使用-skiplibcheck)
+  - [7.5. 性能对比](#75-性能对比)
+  - [7.6. 配合 nodemon 使用](#76-配合-nodemon-使用)
 - [8. 🔗 引用](#8--引用)
 
 <!-- endregion:toc -->
@@ -36,7 +55,7 @@ watch 模式是开发时的必备功能，可以自动监听文件变化并重�
 
 watch 模式会持续监听文件变化，当文件改变时自动重新编译。
 
-### 主要特点
+### 3.1. 主要特点
 
 ```text
 1. 自动监听
@@ -60,7 +79,7 @@ watch 模式会持续监听文件变化，当文件改变时自动重新编译�
    - Ctrl+C 退出
 ```
 
-### 适用场景
+### 3.2. 适用场景
 
 ```text
 ✅ 适合使用 watch 模式：
@@ -79,7 +98,7 @@ watch 模式会持续监听文件变化，当文件改变时自动重新编译�
 
 ## 4. 🤔 如何启动 watch 模式？
 
-### 基本用法
+### 4.1. 基本用法
 
 ```bash
 # 启动 watch 模式
@@ -89,7 +108,7 @@ tsc --watch
 tsc -w
 ```
 
-### 监听单个文件
+### 4.2. 监听单个文件
 
 ```bash
 # 监听指定文件
@@ -104,7 +123,7 @@ console.log('Hello, TypeScript!')
 console.log('Hello, TypeScript! Updated')
 ```
 
-### 监听项目
+### 4.3. 监听项目
 
 ```bash
 # 监听整个项目（使用 tsconfig.json）
@@ -114,7 +133,7 @@ tsc --watch
 tsc --watch --project tsconfig.json
 ```
 
-### watch 模式输出
+### 4.4. watch 模式输出
 
 ```bash
 $ tsc --watch
@@ -129,7 +148,7 @@ $ tsc --watch
 [上午10:31:24] Found 0 errors. Watching for file changes.
 ```
 
-### 项目引用 watch
+### 4.5. 项目引用 watch
 
 ```bash
 # 监听项目引用
@@ -141,7 +160,7 @@ tsc -b -w
 
 ## 5. � watch 模式的工作原理？
 
-### 文件监听机制
+### 5.1. 文件监听机制
 
 ```text
 1. 初始编译
@@ -168,7 +187,7 @@ tsc -b -w
    └── 生成新的输出
 ```
 
-### 示例演示
+### 5.2. 示例演示
 
 ```typescript
 // utils.ts
@@ -204,7 +223,7 @@ $ tsc --watch
 
 ## 6. 🤔 如何配置 watch 选项？
 
-### watchOptions 配置
+### 6.1. watchOptions 配置
 
 ```json
 // tsconfig.json
@@ -224,7 +243,7 @@ $ tsc --watch
 }
 ```
 
-### watchFile 策略
+### 6.2. watchFile 策略
 
 ```json
 {
@@ -242,7 +261,7 @@ $ tsc --watch
 - `useFsEvents`：使用文件系统事件（推荐）
 - `useFsEventsOnParentDirectory`：监听父目录事件
 
-### watchDirectory 策略
+### 6.3. watchDirectory 策略
 
 ```json
 {
@@ -258,7 +277,7 @@ $ tsc --watch
 - `dynamicPriorityPolling`：动态优先级轮询
 - `useFsEvents`：使用文件系统事件（推荐）
 
-### 排除监听
+### 6.4. 排除监听
 
 ```json
 {
@@ -277,7 +296,7 @@ $ tsc --watch
 
 ## 7. 🤔 如何优化 watch 性能？
 
-### 排除不必要的目录
+### 7.1. 排除不必要的目录
 
 ```json
 {
@@ -288,7 +307,7 @@ $ tsc --watch
 }
 ```
 
-### 使用项目引用
+### 7.2. 使用项目引用
 
 ```json
 // packages/core/tsconfig.json
@@ -317,7 +336,7 @@ tsc --build --watch
 # - 大幅提升大型项目性能
 ```
 
-### 启用增量编译
+### 7.3. 启用增量编译
 
 ```json
 {
@@ -328,7 +347,7 @@ tsc --build --watch
 }
 ```
 
-### 使用 skipLibCheck
+### 7.4. 使用 skipLibCheck
 
 ```json
 {
@@ -338,7 +357,7 @@ tsc --build --watch
 }
 ```
 
-### 性能对比
+### 7.5. 性能对比
 
 ```text
 大型项目（1000+ 文件）：
@@ -363,7 +382,7 @@ tsc --build --watch
 ✅ useFsEvents 监听策略
 ```
 
-### 配合 nodemon 使用
+### 7.6. 配合 nodemon 使用
 
 ```json
 // nodemon.json

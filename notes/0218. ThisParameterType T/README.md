@@ -4,10 +4,10 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 ThisParameterType<T> 的源码实现是什么？](#3--thisparametertypet-的源码实现是什么)
-- [4. 🤔 如何使用 ThisParameterType<T> 提取 this 参数类型？](#4--如何使用-thisparametertypet-提取-this-参数类型)
-- [5. 🤔 ThisParameterType<T> 在方法绑定中如何应用？](#5--thisparametertypet-在方法绑定中如何应用)
-- [6. 🤔 使用 ThisParameterType<T> 时需要注意哪些问题？](#6--使用-thisparametertypet-时需要注意哪些问题)
+- [3. 🤔 `ThisParameterType<T>` 的源码实现是什么？](#3--thisparametertypet-的源码实现是什么)
+- [4. 🤔 如何使用 `ThisParameterType<T>` 提取 this 参数类型？](#4--如何使用-thisparametertypet-提取-this-参数类型)
+- [5. 🤔 `ThisParameterType<T>` 在方法绑定中如何应用？](#5--thisparametertypet-在方法绑定中如何应用)
+- [6. 🤔 使用 `ThisParameterType<T>` 时需要注意哪些问题？](#6--使用-thisparametertypet-时需要注意哪些问题)
 - [7. 🔗 引用](#7--引用)
 
 <!-- endregion:toc -->
@@ -30,7 +30,7 @@
 - 常与 `OmitThisParameter<T>` 配合使用
 - 需要启用 `strictBindCallApply` 获得更好的类型检查
 
-## 3. 🤔 ThisParameterType<T> 的源码实现是什么？
+## 3. 🤔 `ThisParameterType<T>` 的源码实现是什么？
 
 `ThisParameterType<T>` 的源码定义如下：
 
@@ -149,7 +149,7 @@ type AddSignature = MethodSignature<Calculator['add']>
 // }
 ```
 
-## 4. 🤔 如何使用 ThisParameterType<T> 提取 this 参数类型？
+## 4. 🤔 如何使用 `ThisParameterType<T>` 提取 this 参数类型？
 
 在需要操作或验证函数的 `this` 上下文时，`ThisParameterType<T>` 非常有用：
 
@@ -276,7 +276,7 @@ function applyMixins<T extends Combined>(target: T) {
 }
 ```
 
-## 5. 🤔 ThisParameterType<T> 在方法绑定中如何应用？
+## 5. 🤔 `ThisParameterType<T>` 在方法绑定中如何应用？
 
 在处理方法绑定、装饰器和上下文管理时，`ThisParameterType<T>` 提供类型安全保障：
 
@@ -441,7 +441,7 @@ type HandleClickAutoThis = ThisParameterType<ReactComponent['handleClickAuto']>
 // unknown，箭头函数没有 this 参数
 ```
 
-## 6. 🤔 使用 ThisParameterType<T> 时需要注意哪些问题？
+## 6. 🤔 使用 `ThisParameterType<T>` 时需要注意哪些问题？
 
 在使用 `ThisParameterType<T>` 时，有以下几点需要注意：
 

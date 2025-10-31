@@ -4,11 +4,11 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 OmitThisParameter<T> 的源码实现是什么？](#3--omitthisparametert-的源码实现是什么)
-- [4. 🤔 如何使用 OmitThisParameter<T> 移除 this 参数？](#4--如何使用-omitthisparametert-移除-this-参数)
+- [3. 🤔 `OmitThisParameter<T>` 的源码实现是什么？](#3--omitthisparametert-的源码实现是什么)
+- [4. 🤔 如何使用 `OmitThisParameter<T>` 移除 this 参数？](#4--如何使用-omitthisparametert-移除-this-参数)
 - [5. 🆚 ThisParameterType vs. OmitThisParameter](#5--thisparametertype-vs-omitthisparameter)
-- [6. 🤔 OmitThisParameter<T> 在函数绑定中如何应用？](#6--omitthisparametert-在函数绑定中如何应用)
-- [7. 🤔 使用 OmitThisParameter<T> 时需要注意哪些问题？](#7--使用-omitthisparametert-时需要注意哪些问题)
+- [6. 🤔 `OmitThisParameter<T>` 在函数绑定中如何应用？](#6--omitthisparametert-在函数绑定中如何应用)
+- [7. 🤔 使用 `OmitThisParameter<T>` 时需要注意哪些问题？](#7--使用-omitthisparametert-时需要注意哪些问题)
 - [8. 🔗 引用](#8--引用)
 
 <!-- endregion:toc -->
@@ -31,7 +31,7 @@
 - 与 `ThisParameterType<T>` 是互补的工具类型
 - 如果原函数没有 `this` 参数，则返回原类型
 
-## 3. 🤔 OmitThisParameter<T> 的源码实现是什么？
+## 3. 🤔 `OmitThisParameter<T>` 的源码实现是什么？
 
 `OmitThisParameter<T>` 的源码定义如下：
 
@@ -144,7 +144,7 @@ type ReconstructedMethod = (
 // (this: Service, input: string) => Promise<string>
 ```
 
-## 4. 🤔 如何使用 OmitThisParameter<T> 移除 this 参数？
+## 4. 🤔 如何使用 `OmitThisParameter<T>` 移除 this 参数？
 
 在需要将方法转换为独立函数或处理绑定后的方法时，`OmitThisParameter<T>` 很有用：
 
@@ -364,7 +364,7 @@ const analysis = analyzeMethod(processor.process)
 // }
 ```
 
-## 6. 🤔 OmitThisParameter<T> 在函数绑定中如何应用？
+## 6. 🤔 `OmitThisParameter<T>` 在函数绑定中如何应用？
 
 在处理函数绑定、回调和方法提取时，`OmitThisParameter<T>` 提供精确的类型表示：
 
@@ -520,7 +520,7 @@ readFileAsync('file.txt').then((content) => {
 })
 ```
 
-## 7. 🤔 使用 OmitThisParameter<T> 时需要注意哪些问题？
+## 7. 🤔 使用 `OmitThisParameter<T>` 时需要注意哪些问题？
 
 在使用 `OmitThisParameter<T>` 时，有以下几点需要注意：
 
