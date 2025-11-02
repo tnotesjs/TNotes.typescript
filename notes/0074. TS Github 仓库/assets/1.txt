@@ -1,0 +1,14 @@
+TypeScript Version: 5.3.2
+
+Search Terms: "generic constraint", "conditional type"
+
+Expected behavior: 类型应该被正确推断为 `string`
+
+Actual behavior: 推断为 `unknown`
+
+Code:
+
+```ts
+type Test<T> = T extends string ? T : never
+type Result = Test<'hello'> // 期望 'hello'，实际 unknown
+```

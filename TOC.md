@@ -7,7 +7,7 @@
 - [x] [0054. 术语表](https://tnotesjs.github.io/TNotes.typescript/notes/0054.%20%E6%9C%AF%E8%AF%AD%E8%A1%A8/README)
 - [x] [0039. roadmap](https://tnotesjs.github.io/TNotes.typescript/notes/0039.%20roadmap/README)
 - [x] [0073. TS 官方文档](https://tnotesjs.github.io/TNotes.typescript/notes/0073.%20TS%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README)
-- [ ] [0074. TS Github 仓库](https://tnotesjs.github.io/TNotes.typescript/notes/0074.%20TS%20Github%20%E4%BB%93%E5%BA%93/README)
+- [x] [0074. TS Github 仓库](https://tnotesjs.github.io/TNotes.typescript/notes/0074.%20TS%20Github%20%E4%BB%93%E5%BA%93/README)
 - [ ] [0075. DefinitelyTyped 项目](https://tnotesjs.github.io/TNotes.typescript/notes/0075.%20DefinitelyTyped%20%E9%A1%B9%E7%9B%AE/README)
 
 ## 2. TS 简介
@@ -373,3 +373,7 @@
 - [ ] [0281. TS 性能优化](https://tnotesjs.github.io/TNotes.typescript/notes/0281.%20TS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/README)
 - [ ] [0282. 大型项目的类型组织](https://tnotesjs.github.io/TNotes.typescript/notes/0282.%20%E5%A4%A7%E5%9E%8B%E9%A1%B9%E7%9B%AE%E7%9A%84%E7%B1%BB%E5%9E%8B%E7%BB%84%E7%BB%87/README)
 - [ ] [0283. monorepo 中的 TypeScript](https://tnotesjs.github.io/TNotes.typescript/notes/0283.%20monorepo%20%E4%B8%AD%E7%9A%84%20TypeScript/README)
+
+## 31. TS 7.0
+
+- [ ] [0284. typescript-go 项目](https://tnotesjs.github.io/TNotes.typescript/notes/0284.%20typescript-go%20%E9%A1%B9%E7%9B%AE/README)
