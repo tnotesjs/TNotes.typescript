@@ -88,5 +88,11 @@ tmp/
 *.min.css
 *.map
 
+# 忽略 VitePress 缓存目录
+.vitepress/.vite
+.vitepress/cache
+.vitepress/.cache
+.vitepress/config.mts.timestamp-*
+
 # 忽略词典数据解析后生成的文件
 results

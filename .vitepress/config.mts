@@ -10,6 +10,10 @@ import { head } from './config/head.config'
 import { markdown } from './config/markdown.config'
 import { themeConfig } from './config/theme.config'
 
+// 记录配置文件加载开始时间
+const configStartTime = Date.now()
+console.log('\n🚀 VitePress 开发服务启动中...')
+
 const IGNORE_LIST = [
   './README.md',
   './MERGED_README.md',
@@ -52,7 +56,22 @@ export default defineConfig({
   vite: {
     server: {
       watch: {
-        ignored: IGNORE_LIST,
+        // 优化文件监听配置，减少不必要的文件监听
+        ignored: [
+          ...IGNORE_LIST,
+          '**/node_modules/**',
+          '**/dist/**',
+          '**/.git/**',
+          '**/.vitepress/.vite/**',
+          '**/.vitepress/cache/**',
+          '**/.vitepress/.cache/**',
+          '**/package-lock.json',
+          '**/pnpm-lock.yaml',
+          '**/yarn.lock',
+          '**/.DS_Store',
+          '**/Thumbs.db',
+          '**/*.log',
+        ],
         // awaitWriteFinish: {
         //   stabilityThreshold: 5000, // 文件大小稳定 1000ms 后触发
         //   pollInterval: 1000, // 每 100ms 检查一次文件大小
@@ -63,7 +82,87 @@ export default defineConfig({
       // warmup: {
       //   clientFiles: ['./**/*.md'],
       // },
+      fs: {
+        // 允许访问项目根目录之外的文件
+        allow: ['..'],
+      },
     },
-    plugins: [TN_HMR_Plugin()],
+
+    // 路由级别代码分割和构建优化
+    build: {
+      // 代码分割配置
+      rollupOptions: {
+        output: {
+          // 按路由分割代码
+          manualChunks(id) {
+            // 将 node_modules 中的大型库单独分割
+            if (id.includes('node_modules')) {
+              if (id.includes('vue')) return 'vue-vendor'
+              if (id.includes('vitepress')) return 'vitepress-vendor'
+              if (id.includes('markdown-it')) return 'markdown-vendor'
+              return 'vendor'
+            }
+            // 将笔记按目录分组（减少单个文件体积）
+            if (id.includes('/notes/')) {
+              const match = id.match(/notes\/(\d{4})/)
+              if (match) {
+                const noteNum = parseInt(match[1])
+                // 每 20 个笔记打包成一个 chunk
+                const chunkGroup = Math.floor(noteNum / 20)
+                return `notes-${chunkGroup}`
+              }
+            }
+          },
+          // chunk 命名
+          chunkFileNames: 'assets/js/[name]-[hash].js',
+          entryFileNames: 'assets/js/[name]-[hash].js',
+          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
+        },
+      },
+      // 启用 CSS 代码分割
+      cssCodeSplit: true,
+      // chunk 大小警告阈值
+      chunkSizeWarningLimit: 1000,
+      // 压缩选项
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: false, // 保留 console（开发时有用）
+          drop_debugger: true,
+        },
+      },
+    },
+
+    // 优化依赖预构建
+    optimizeDeps: {
+      include: [
+        'markdown-it',
+        'markdown-it-container',
+        'markdown-it-link-attributes',
+        'markdown-it-task-lists',
+      ],
+      // 排除不需要预构建的依赖
+      exclude: [],
+    },
+
+    plugins: [
+      TN_HMR_Plugin(),
+      // 启动时间监控插件
+      {
+        name: 'vitepress-startup-timer',
+        configureServer(server) {
+          server.httpServer?.once('listening', () => {
+            const configEndTime = Date.now()
+            const configDuration = configEndTime - configStartTime
+            console.log(`\n🚀 VitePress 启动完成！`)
+            console.log(
+              `🚀 总启动时间: ${configDuration}ms (${(
+                configDuration / 1000
+              ).toFixed(1)}秒)`
+            )
+          })
+        },
+      },
+    ],
   },
 })

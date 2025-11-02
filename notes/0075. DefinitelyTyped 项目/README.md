@@ -278,9 +278,15 @@ npm view <package-name> types
 
 ### 7.2. 贡献流程
 
+1. 初始化项目
+2. 编写类型声明
+3. 编写测试
+4. 配置元数据
+5. 测试和提交
+
 ::: code-group
 
-```bash [1. 初始化项目]
+```bash [1]
 # Fork 并克隆仓库
 git clone https://github.com/YOUR_USERNAME/DefinitelyTyped.git
 cd DefinitelyTyped
@@ -292,7 +298,7 @@ pnpm install
 pnpm run new-package awesome-lib
 ```
 
-```ts [2. 编写类型声明]
+```ts [2]
 // types/awesome-lib/index.d.ts
 export function doSomething(x: number): string
 
@@ -309,7 +315,7 @@ export class Client {
 export default Client
 ```
 
-```ts [3. 编写测试]
+```ts [3]
 // types/awesome-lib/awesome-lib-tests.ts
 import Client, { doSomething } from 'awesome-lib'
 
@@ -321,7 +327,7 @@ const client = new Client({ timeout: 5000 })
 client.connect() // $ExpectType Promise<void>
 ```
 
-```json [4. 配置元数据]
+```json [4]
 // types/awesome-lib/package.json
 {
   "private": true,
@@ -341,7 +347,7 @@ client.connect() // $ExpectType Promise<void>
 }
 ```
 
-```bash [5. 测试和提交]
+```bash [5]
 # 运行测试
 pnpm test awesome-lib
 

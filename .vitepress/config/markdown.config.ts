@@ -19,6 +19,23 @@ import { generateAnchor } from '../tnotes/utils'
 import fs from 'fs'
 import path from 'path'
 
+/**
+ * 预编译正则表达式（避免重复编译）
+ */
+const REGEX_CACHE = {
+  braceMatch: /\{([^}]*)\}/,
+  fencePrefix: /^`+\s*/,
+  tokenSplit: /"[^"]*"|'[^']*'|\S+/g,
+  pureNumber: /^\d+$/,
+  keyValue: /^([^=:\s]+)\s*(=|:)\s*(.+)$/,
+  doubleQuoted: /^".*"$/,
+  singleQuoted: /^'.*'$/,
+  fileRef: /^<<<\s*(.+)$/,
+  trimQuotes: /^['"]|['"]$/g,
+  htmlEntities: /[&<>"']/g,
+  doubleQuoteEntity: /"/g,
+}
+
 // 简化的 Mermaid 处理函数
 const simpleMermaidMarkdown = (md: MarkdownIt) => {
   const fence = md.renderer.rules.fence
@@ -69,12 +86,10 @@ export function markdown() {
       // 添加 Mermaid 支持
       simpleMermaidMarkdown(md)
 
-      // 先保留 container 的解析（负责把 ```markmap ``` 识别成 container tokens）
-      // 但让它本身不输出任何 HTML（render 返回空）
+      // 添加 MarkMap 处理
       md.use(markdownItContainer, 'markmap', {
         marker: '`',
         validate(params: string) {
-          // 接受 "markmap", "markmap{...}" 或 "markmap key=val ..." 等写法
           const p = (params || '').trim()
           return p.startsWith('markmap')
         },
@@ -84,7 +99,6 @@ export function markdown() {
       })
 
       // 在 core 阶段把整个 container 区间替换成一个 html_block（MarkMap 组件标签）
-      // 这样渲染时就只输出 <MarkMap ...>，中间的列表 token 已被移除
       md.core.ruler.after('block', 'tn_replace_markmap_container', (state) => {
         const src = state.env.source || ''
         const lines = src.split('\n')
@@ -115,12 +129,12 @@ export function markdown() {
               let paramPart = ''
 
               // 优先匹配大括号形式 ```markmap{...}
-              const braceMatch = openLine.match(/\{([^}]*)\}/)
+              const braceMatch = openLine.match(REGEX_CACHE.braceMatch)
               if (braceMatch) {
                 paramPart = braceMatch[1].trim()
               } else {
                 // 否则尝试去掉前缀 ``` 和 markmap，剩下的作为参数部分
-                const after = openLine.replace(/^`+\s*/, '')
+                const after = openLine.replace(REGEX_CACHE.fencePrefix, '')
                 if (after.startsWith('markmap')) {
                   paramPart = after.slice('markmap'.length).trim()
                 }
@@ -129,13 +143,13 @@ export function markdown() {
               if (paramPart) {
                 // 使用正则按 token 切分：保持用引号包裹的片段为单个 token（支持包含空格）
                 // 例如: tokenArr -> ['2', 'title="我的 树"', 'foo=bar']
-                const tokenArr = paramPart.match(/"[^"]*"|'[^']*'|\S+/g) || []
+                const tokenArr = paramPart.match(REGEX_CACHE.tokenSplit) || []
 
                 // 如果第一个 token 是纯数字，把它当作 initialExpandLevel
                 let startIdx = 0
                 if (
                   tokenArr.length > 0 &&
-                  /^\d+$/.test(tokenArr[0] as string)
+                  REGEX_CACHE.pureNumber.test(tokenArr[0] as string)
                 ) {
                   params.initialExpandLevel = Number(tokenArr[0])
                   startIdx = 1
@@ -145,18 +159,18 @@ export function markdown() {
                 for (let k = startIdx; k < tokenArr.length; k++) {
                   const pair = tokenArr[k]
                   if (!pair) continue
-                  const m = pair.match(/^([^=:\s]+)\s*(=|:)\s*(.+)$/)
+                  const m = pair.match(REGEX_CACHE.keyValue)
                   if (m) {
                     const key = m[1]
                     let val = m[3]
 
                     // 去除外层引号（若存在）
                     if (
-                      (/^".*"$/.test(val) && val.length >= 2) ||
-                      (/^'.*'$/.test(val) && val.length >= 2)
+                      (REGEX_CACHE.doubleQuoted.test(val) && val.length >= 2) ||
+                      (REGEX_CACHE.singleQuoted.test(val) && val.length >= 2)
                     ) {
                       val = val.slice(1, -1)
-                    } else if (/^\d+$/.test(val)) {
+                    } else if (REGEX_CACHE.pureNumber.test(val)) {
                       // 纯数字转字符串
                       val = String(Number(val))
                     }
@@ -183,10 +197,12 @@ export function markdown() {
             // --- 检查第一非空行是否为引用语法 ---
             const firstNonEmptyLine =
               (content || '').split('\n').find((ln) => ln.trim() !== '') || ''
-            const refMatch = firstNonEmptyLine.trim().match(/^<<<\s*(.+)$/)
+            const refMatch = firstNonEmptyLine.trim().match(REGEX_CACHE.fileRef)
             if (refMatch) {
               // 提取引用路径，支持引号包裹
-              let refRaw = refMatch[1].trim().replace(/^['"]|['"]$/g, '')
+              let refRaw = refMatch[1]
+                .trim()
+                .replace(REGEX_CACHE.trimQuotes, '')
 
               // 尝试同步读取文件内容（兼容常见 Node 环境）
               try {
@@ -234,10 +250,16 @@ export function markdown() {
             let propsStr = `content="${encodedContent}"`
 
             for (const [k, v] of Object.entries(params)) {
-              if (typeof v === 'number' || /^\d+$/.test(String(v))) {
+              if (
+                typeof v === 'number' ||
+                REGEX_CACHE.pureNumber.test(String(v))
+              ) {
                 propsStr += ` :${k}="${v}"`
               } else {
-                const safe = String(v).replace(/"/g, '&quot;')
+                const safe = String(v).replace(
+                  REGEX_CACHE.doubleQuoteEntity,
+                  '&quot;'
+                )
                 propsStr += ` ${k}="${safe}"`
               }
             }
@@ -281,20 +303,22 @@ export function markdown() {
         },
       })
 
-      function esc(s = '') {
-        return s.replace(
-          /[&<>"']/g,
-          (ch) =>
-            ({
-              '&': '&amp;',
-              '<': '&lt;',
-              '>': '&gt;',
-              '"': '&quot;',
-              "'": '&#39;',
-            }[ch]!)
-        )
+      /**
+       * 使用预定义的转义映射表
+       */
+      const escapeMap: Record<string, string> = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
       }
 
+      function esc(s = '') {
+        return s.replace(REGEX_CACHE.htmlEntities, (ch) => escapeMap[ch]!)
+      }
+
+      // Swiper 图片轮播支持
       let __tn_swiper_uid = 0
 
       interface TN_RULES_STACK_ITEM {
@@ -314,7 +338,6 @@ export function markdown() {
       md.use(markdownItContainer, 'swiper', {
         render: (tokens: any[], idx: number) => {
           if (tokens[idx].nesting === 1) {
-            // 进容器：保存原规则 & 局部覆盖
             __tn_rules_stack.push({
               image: md.renderer.rules.image,
               pOpen: md.renderer.rules.paragraph_open,
@@ -341,7 +364,6 @@ export function markdown() {
     <div class="swiper-wrapper">
 `
           } else {
-            // 出容器：恢复原规则并收尾
             const prev: TN_RULES_STACK_ITEM = __tn_rules_stack.pop() || {
               image: null,
               pOpen: null,
@@ -353,12 +375,6 @@ export function markdown() {
 
             return `
     </div>
-    <!-- 下一页按钮 -->
-    <!-- <div class="swiper-button-next"></div> -->
-    <!-- 上一页按钮 -->
-    <!-- <div class="swiper-button-prev"></div> -->
-    <!-- 分页导航 -->
-    <!-- <div class="swiper-pagination"></div> -->
   </div>
 </div>
 `
