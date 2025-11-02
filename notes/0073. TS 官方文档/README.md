@@ -10,29 +10,19 @@
 - [4. 🤔 如何高效使用官方文档？](#4--如何高效使用官方文档)
   - [4.1. 学习路径建议](#41-学习路径建议)
   - [4.2. 使用技巧](#42-使用技巧)
-  - [4.3. 实用查询场景](#43-实用查询场景)
+  - [4.3. 一些常见的查询场景](#43-一些常见的查询场景)
 - [5. 🤔 官方文档与第三方教程的区别是什么？](#5--官方文档与第三方教程的区别是什么)
-  - [5.1. 使用建议](#51-使用建议)
+  - [5.1. 对比表格](#51-对比表格)
   - [5.2. 典型错误示例](#52-典型错误示例)
-- [6. 🤔 官方 Playground 有什么用？](#6--官方-playground-有什么用)
-  - [6.1. 核心功能](#61-核心功能)
-  - [6.2. 实用场景](#62-实用场景)
-  - [6.3. 高级技巧](#63-高级技巧)
-- [7. 🤔 如何查找特定 TypeScript 特性的文档？](#7--如何查找特定-typescript-特性的文档)
-  - [7.1. 查找策略](#71-查找策略)
-  - [7.2. 实战示例](#72-实战示例)
-  - [7.3. 搜索技巧](#73-搜索技巧)
-- [8. 🔗 引用](#8--引用)
+  - [5.3. 使用建议](#53-使用建议)
+- [6. 🔗 引用](#6--引用)
 
 <!-- endregion:toc -->
 
 ## 1. 🎯 本节内容
 
-- TypeScript 官方文档结构
-- 官方文档的使用技巧
-- Playground 工具
-- 版本更新日志（Release Notes）
-- TSConfig 参考
+- TypeScript 官方文档的结构简介
+- TypeScript 官方文档的一些使用技巧
 
 ## 2. 🫧 评价
 
@@ -47,13 +37,15 @@ TypeScript 官方文档是学习和使用 TypeScript 的权威资源。它不仅
 
 虽然官方文档风格偏技术性，但它是解决复杂问题、深入理解 TypeScript 的最佳途径。建议将其作为常备参考手册，而非入门教程。
 
+如果入门直接上官方文档，容易失去信心，可以找一些短平快的教程来作为 TypeScript 的入门教程。比如，B 站上就有很多几分钟快速入门 TypeScript 的教程，里面讲解的大多是 TypeScript 日常开发中最常用到的一些特性，可以帮助你快速了解 TypeScript 是什么？
+
 ## 3. 🤔 TypeScript 官方文档有哪些主要部分？
 
 ### 3.1. 核心模块
 
 TypeScript 官方文档分为以下核心模块：
 
-| 模块 | 用途 | 典型使用场景 | 链接 |
+| 模块 | 用途 | 备注 | 链接 |
 | --- | --- | --- | --- |
 | Get Started | 快速入门指南 | 新手上手、环境搭建 | [链接][1] |
 | Handbook | 语言核心手册 | 学习 TS 语法和类型系统 | [链接][2] |
@@ -112,31 +104,53 @@ TypeScript 官方文档分为以下核心模块：
 
 ### 4.1. 学习路径建议
 
-```mermaid
-graph TD
-    A[入门阶段] --> B[Get Started + Handbook 前 3 章]
-    B --> C[实战阶段] --> D[结合项目查阅 Reference]
-    D --> E[进阶阶段] --> F[深入 Handbook 高级章节]
-    F --> G[持续更新] --> H[关注 Release Notes]
-```
+| 阶段     | 内容                           |
+| -------- | ------------------------------ |
+| 入门阶段 | Get Started + Handbook 前 3 章 |
+| 实战阶段 | 结合项目查阅 Reference         |
+| 进阶阶段 | 深入 Handbook 高级章节         |
+| 持续更新 | 关注 Release Notes             |
 
 ### 4.2. 使用技巧
 
 | 技巧 | 说明 | 示例 |
 | --- | --- | --- |
-| 善用搜索 | 官方文档支持全文搜索 | 搜索 `conditional types` 快速定位 |
-| 查看示例 | 每个特性都有可运行示例 | 点击 `Try` 按钮跳转到 Playground |
-| 对比版本 | Release Notes 按版本组织 | 查看 4.5 → 5.0 的变化 |
-| 收藏常用页 | 浏览器书签保存高频页面 | TSConfig、Utility Types |
-| 查看源码链接 | 部分文档提供 GitHub 源码链接 | 深入理解实现细节 |
+| 善用搜索 | 官方文档支持全文搜索 | 搜索 `conditional types`（条件类型） 快速定位 |
+| 查看示例 | 每个特性都有可运行示例 | 可以点击 `Try` 按钮跳转到 Playground |
+| 对比版本 | Release Notes 按版本组织 | 如果遇到版本问题，可以在 `What's New` 章节中，查看 1.1 → 5.9 所有主要版本迭代的重大变更 |
 
-### 4.3. 实用查询场景
+1. 通过关键术语精确定位，快速查询相关内容的介绍说明；
+   - 前提是你需要熟悉 TS 的核心特性，并清楚相关术语（也就是知道你想要搜的东西，它叫什么）；
+   - 在后续学习过程中，可以留意一下所学概念的官方叫法；
+2. 所有官方示例都有一个对应的 Try 按钮，点击后会自动跳转到 Playground，并自动填充代码；
+3. 可以在 `What's New` 章节，查看过往的 TS 主要版本迭代的重大变更说明；
+
+::: swiper
+
+![1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-11-02-10-51-46.png)
+
+![2-1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-11-02-10-52-53.png)
+
+![2-2](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-11-02-10-53-35.png)
+
+![3](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-11-02-10-54-21.png)
+
+:::
+
+### 4.3. 一些常见的查询场景
+
+1. 查询工具类型用法
+2. 查询配置编译选项
+3. 查询类型收窄
+4. 查询泛型约束
+5. 查询配置路径别名
+6. 查询类型谓词
 
 ::: code-group
 
-```ts [场景 1：查询工具类型用法]
+```ts [1]
 // 问题：如何让对象的所有属性变为可选？
-// 查询路径：Reference > Utility Types > Partial
+// 查找：Reference > Utility Types > Partial
 
 interface User {
   name: string
@@ -148,9 +162,9 @@ type PartialUser = Partial<User>
 // 等价于 { name?: string; age?: number }
 ```
 
-```ts [场景 2：配置编译选项]
+```ts [2]
 // 问题：如何开启严格模式？
-// 查询路径：TSConfig Reference > strict
+// 查找：Project Configuration > TSConfig Reference > strict
 
 // tsconfig.json
 {
@@ -160,9 +174,9 @@ type PartialUser = Partial<User>
 }
 ```
 
-```ts [场景 3：理解类型收窄]
+```ts [3]
 // 问题：typeof 守卫如何工作？
-// 查询路径：Handbook > Narrowing > typeof type guards
+// 查找：Handbook > Narrowing > typeof type guards
 
 function print(value: string | number) {
   if (typeof value === 'string') {
@@ -172,26 +186,82 @@ function print(value: string | number) {
 }
 ```
 
+```ts [4]
+// 问题：如何限制泛型必须有某个属性？
+// 查找：Handbook > Generics > Generic Constraints
+
+function getProperty<Type, Key extends keyof Type>(obj: Type, key: Key) {
+  return obj[key]
+}
+
+let x = { a: 1, b: 2, c: 3, d: 4 }
+
+getProperty(x, 'a')
+// getProperty(x, "m"); // ❌ 报错
+// Argument of type '"m"' is not assignable to parameter of type '"a" | "b" | "c" | "d"'.
+
+// 文档中会解释 `extends keyof` 的含义
+```
+
+```json [5]
+// 问题：如何配置 @/ 别名？
+// 查找：Project Configuration > TSConfig Reference > paths
+
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
+```
+
+```ts [6]
+// 问题：is 关键字是什么？
+// 查找：Handbook > Narrowing > Using type predicates
+
+function isString(value: unknown): value is string {
+  return typeof value === 'string'
+}
+
+// 文档会说明这是"用户定义的类型守卫"
+```
+
 :::
+
+没事儿多翻翻官方文档，找到规律之后，查起来还是比较快的。
+
+搜索技巧：
+
+1. 使用英文关键词搜索（中文可能搜不到）
+2. 搜索具体特性名称（如 "conditional types"）
+3. 搜索错误码（如 "TS2322"）
+
+查找策略：
+
+| 需求类型 | 查找路径 | 示例 |
+| --- | --- | --- |
+| 语法问题 | Handbook 对应章节 | "如何定义泛型？" → Handbook > Generics |
+| 编译选项 | TSConfig Reference | "strict 包含哪些选项？" → TSConfig > strict |
+| 内置类型 | Reference > Utility Types | "Omit 怎么用？" → Utility Types > Omit |
+| 新特性 | Release Notes | "5.0 有什么新功能？" → Release Notes > 5.0 |
+| 错误码 | 搜索错误码 | "TS2322 是什么错误？" → 搜索 `2322` |
 
 ## 5. 🤔 官方文档与第三方教程的区别是什么？
 
-| 对比维度 | 官方文档            | 第三方教程          |
-| -------- | ------------------- | ------------------- |
-| 准确性   | ✅ 100% 权威        | ⚠️ 可能过时或有误   |
-| 完整性   | ✅ 覆盖所有特性     | ❌ 通常只讲常用部分 |
-| 深度     | ✅ 深入到编译器行为 | ⚠️ 多为应用层讲解   |
-| 易读性   | ⚠️ 偏技术性         | ✅ 通常更友好       |
-| 实战性   | ⚠️ 示例偏理论       | ✅ 更贴近实际项目   |
-| 更新速度 | ✅ 与版本同步       | ❌ 常滞后数月       |
+### 5.1. 对比表格
 
-### 5.1. 使用建议
+| 对比维度 | 官方文档         | 第三方教程        |
+| -------- | ---------------- | ----------------- |
+| 准确性   | ✅ 100% 权威     | ❌ 可能过时或有误 |
+| 更新速度 | ✅ 与版本同步    | ❌ 往往都是滞后的 |
+| 完整性   | 覆盖所有特性     | 通常只讲常用部分  |
+| 深度     | 深入到编译器行为 | 多为应用层讲解    |
+| 易读性   | 偏技术性         | 通常更友好        |
+| 实战性   | 示例偏理论       | 更贴近实际项目    |
 
-```
-入门阶段：第三方教程（快速上手） → 官方 Get Started（验证理解）
-进阶阶段：官方 Handbook（系统学习） → Reference（深入细节）
-工作阶段：官方文档为主（解决具体问题），社区文章为辅（获取最佳实践）
-```
+注意：虽说官方文档是 100% 准确的，但不意味着 100% 是正确的。官方文档也有可能出错，如果你怀疑官方文档出错了，可以先到 Issues 面板中看看是否已经有人反馈过了，或者直接给官方提 Issues。
 
 ### 5.2. 典型错误示例
 
@@ -206,132 +276,17 @@ namespace MyNamespace {
 export function doSomething() {}
 ```
 
-## 6. 🤔 官方 Playground 有什么用？
+如果你在 TS 学习过程中，看到了一些有争议的描述或者程序示例，这时候就可以重点翻翻官方文档，看看官方是咋说的。
 
-Playground 是 TypeScript 官方提供的在线编辑器，地址：https://www.typescriptlang.org/play
+### 5.3. 使用建议
 
-### 6.1. 核心功能
-
-| 功能     | 用途                | 快捷键/位置        |
-| -------- | ------------------- | ------------------ |
-| 即时编译 | 实时查看编译后的 JS | 右侧面板           |
-| 类型检查 | 查看类型错误提示    | 编辑器内红色波浪线 |
-| 配置切换 | 调整编译选项        | 右上角 TS Config   |
-| 版本切换 | 测试不同 TS 版本    | 右上角版本选择器   |
-| 分享代码 | 生成短链接          | 右上角 Share 按钮  |
-| 查看类型 | 悬停查看推断类型    | 鼠标悬停           |
-| 导出项目 | 下载为 `.zip`       | Export 菜单        |
-
-### 6.2. 实用场景
-
-::: code-group
-
-```ts [场景 1：快速验证语法]
-// 问题：这个类型写法对吗？
-type Result<T> = T extends Promise<infer U> ? U : T
-
-// 在 Playground 中：
-// 1. 输入代码
-// 2. 查看是否有红色波浪线
-// 3. 悬停查看具体类型
-type A = Result<Promise<string>> // 推断为 string ✅
-```
-
-```ts [场景 2：对比不同 TS 版本]
-// 问题：satisfies 关键字是哪个版本引入的？
-const config = { port: 8080 } satisfies Record<string, number>
-
-// 在 Playground 中：
-// 1. 切换到 TS 4.8 → 报错（不支持）
-// 2. 切换到 TS 4.9 → 通过（新特性）
-```
-
-```ts [场景 3：分享问题代码]
-// 场景：在 GitHub Issue 中报告 Bug
-// 1. 在 Playground 写复现代码
-// 2. 点击 Share 生成链接：https://tsplay.dev/abc123
-// 3. 粘贴到 Issue 中，方便维护者调试
-```
-
-:::
-
-### 6.3. 高级技巧
-
-```ts
-// 技巧 1：查看编译产物的 sourceMap
-// 右侧面板切换到 `.d.ts` 查看类型声明
-
-// 技巧 2：使用 Playground 插件
-// 例如安装 "TS AST Viewer" 查看抽象语法树
-
-// 技巧 3：导出示例项目
-// Export > Download 可获得包含 package.json 的完整项目
-```
-
-## 7. 🤔 如何查找特定 TypeScript 特性的文档？
-
-### 7.1. 查找策略
-
-| 需求类型 | 查找路径 | 示例 |
+| 阶段 | 学习方式 | 目的 |
 | --- | --- | --- |
-| 语法问题 | Handbook 对应章节 | "如何定义泛型？" → Handbook > Generics |
-| 编译选项 | TSConfig Reference | "strict 包含哪些选项？" → TSConfig > strict |
-| 内置类型 | Reference > Utility Types | "Omit 怎么用？" → Utility Types > Omit |
-| 新特性 | Release Notes | "5.0 有什么新功能？" → Release Notes > 5.0 |
-| 错误码 | 搜索错误码 | "TS2322 是什么错误？" → 搜索 `2322` |
+| 入门阶段 | 第三方教程（快速上手） + 官方 Get Started（验证理解） | 快速上手并验证基础理解 |
+| 进阶阶段 | 官方 Handbook（系统学习） + Reference（深入细节） | 系统学习语言特性并深入了解细节 |
+| 工作阶段 | 官方文档为主（解决具体问题）+ 社区文章为辅（获取最佳实践） | 解决实际问题并获取最佳实践 |
 
-### 7.2. 实战示例
-
-::: code-group
-
-```ts [示例 1：查询泛型约束]
-// 问题：如何限制泛型必须有某个属性？
-// 查找：Handbook > Generics > Generic Constraints
-
-function getProperty<T, K extends keyof T>(obj: T, key: K) {
-  return obj[key]
-}
-
-// 文档中会解释 `extends keyof` 的含义
-```
-
-```json [示例 2：配置路径别名]
-// 问题：如何配置 @/ 别名？
-// 查找：TSConfig Reference > paths
-
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  }
-}
-```
-
-```ts [示例 3：理解类型谓词]
-// 问题：is 关键字是什么？
-// 查找：Handbook > Narrowing > Using type predicates
-
-function isString(value: unknown): value is string {
-  return typeof value === 'string'
-}
-
-// 文档会说明这是"用户定义的类型守卫"
-```
-
-:::
-
-### 7.3. 搜索技巧
-
-```
-1. 使用英文关键词搜索（中文可能搜不到）
-2. 搜索具体特性名称（如 "conditional types"）
-3. 搜索错误码（如 "TS2322"）
-4. 使用 site:typescriptlang.org 在 Google 中限定搜索
-```
-
-## 8. 🔗 引用
+## 6. 🔗 引用
 
 - [TypeScript Documentation][9]
 - [TypeScript Handbook][2]

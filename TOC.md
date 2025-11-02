@@ -6,7 +6,7 @@
 - [x] [0002. TypeScript（阮一峰）](https://tnotesjs.github.io/TNotes.typescript/notes/0002.%20TypeScript%EF%BC%88%E9%98%AE%E4%B8%80%E5%B3%B0%EF%BC%89/README)
 - [x] [0054. 术语表](https://tnotesjs.github.io/TNotes.typescript/notes/0054.%20%E6%9C%AF%E8%AF%AD%E8%A1%A8/README)
 - [x] [0039. roadmap](https://tnotesjs.github.io/TNotes.typescript/notes/0039.%20roadmap/README)
-- [ ] [0073. TS 官方文档](https://tnotesjs.github.io/TNotes.typescript/notes/0073.%20TS%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README)
+- [x] [0073. TS 官方文档](https://tnotesjs.github.io/TNotes.typescript/notes/0073.%20TS%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README)
 - [ ] [0074. TS Github 仓库](https://tnotesjs.github.io/TNotes.typescript/notes/0074.%20TS%20Github%20%E4%BB%93%E5%BA%93/README)
 - [ ] [0075. DefinitelyTyped 项目](https://tnotesjs.github.io/TNotes.typescript/notes/0075.%20DefinitelyTyped%20%E9%A1%B9%E7%9B%AE/README)
 
