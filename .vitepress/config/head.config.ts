@@ -1,19 +1,14 @@
 /**
- * ./.vitepress/config/head.config.ts
+ * .vitepress/config/head.config.ts
  *
- * HTML <head> 相关配置
- * - meta 标签（关键词、作者）
- * - 图标链接
- * - 外部资源预连接
+ * HTML head 标签配置
  */
 import { HeadConfig } from 'vitepress'
-import { author, keywords, repoName } from '../../.tnotes.json'
+import { author, keywords } from '../../.tnotes.json'
+import { GITHUB_PAGE_URL } from './constants'
 
-const github_page_url =
-  'https://' + author.toLowerCase() + '.github.io/' + repoName + '/'
-
-export function head() {
-  const headConfig: HeadConfig[] = [
+export function getHeadConfig(): HeadConfig[] {
+  const head: HeadConfig[] = [
     [
       'meta',
       {
@@ -22,10 +17,10 @@ export function head() {
       },
     ],
     ['meta', { name: 'author', content: author }],
-    ['link', { rel: 'canonical', href: github_page_url }],
-    ['link', { rel: 'icon', href: github_page_url + 'favicon.ico' }],
+    ['link', { rel: 'canonical', href: GITHUB_PAGE_URL }],
+    ['link', { rel: 'icon', href: GITHUB_PAGE_URL + 'favicon.ico' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
   ]
 
-  return headConfig
+  return head
 }

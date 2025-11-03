@@ -1,19 +1,14 @@
 /**
- * ./vitepress/config/theme.config.ts
+ * .vitepress/config/theme.config.ts
  *
- * 主题相关配置
- * - 导航栏
- * - 侧边栏
- * - 搜索功能（本地搜索）
- * - 页脚
- * - 社交链接
+ * 主题配置
  */
 import { DefaultTheme } from 'vitepress'
-import { author, menuItems, repoName, socialLinks } from '../../.tnotes.json'
+import { menuItems, socialLinks } from '../../.tnotes.json'
 import sidebar from '../../sidebar.json'
 
-export function themeConfig() {
-  const config: DefaultTheme.Config = {
+export function getThemeConfig(): DefaultTheme.Config {
+  const themeConfig: DefaultTheme.Config = {
     docFooter: {
       prev: '上一篇',
       next: '下一篇',
@@ -63,7 +58,7 @@ export function themeConfig() {
             fuzzy: 0.2, // 模糊匹配阈值（0-1），允许拼写错误的阈值（数值越低越严格）
             prefix: true, // 是否启用前缀匹配（输入"jav"可匹配"javascript"）
             boost: {
-              title: 10, // 文件名作为 h1 标题，权重最高（这个 title 指的是 _render 返回结果 md.renderer html 中的第一个 h1，使用 folderName 作为第一个 h1，权重最高。）
+              title: 10, // 文件名作为 h1 标题，权重最高
               headings: 5, // h2 - h6
               text: 3, // 正文内容索引
               code: 1, // 代码块索引权重
@@ -93,8 +88,6 @@ export function themeConfig() {
           const titleField = `# ${folderName}\n`
           const html = md.render(titleField + '\n\n' + src, env)
 
-          // console.log('html:', html)
-
           return html
         },
       },
@@ -103,5 +96,5 @@ export function themeConfig() {
     socialLinks,
   }
 
-  return config
+  return themeConfig
 }
