@@ -38,6 +38,9 @@ export class FileWatcherService {
   private initializationTime: number = 0 // 初始化时间
   private readonly initializationPeriod = 3000 // 初始化期（毫秒），忽略启动后的变更事件
   private fileHashes: Map<string, string> = new Map() // 文件内容哈希缓存
+  private batchUpdateThreshold = 5 // 批量更新阈值（文件数）
+  private batchUpdateWindow = 2000 // 批量更新检测窗口（毫秒）
+  private recentChanges: Array<{ time: number; path: string }> = [] // 记录最近的变更
 
   constructor() {
     this.readmeService = new ReadmeService()
@@ -151,6 +154,40 @@ export class FileWatcherService {
         // 更新哈希缓存
         this.fileHashes.set(fullPath, currentHash)
 
+        // 记录此次变更时间
+        const now = Date.now()
+        this.recentChanges.push({ time: now, path: fullPath })
+
+        // 清理超出窗口期的变更记录
+        this.recentChanges = this.recentChanges.filter(
+          (change) => now - change.time < this.batchUpdateWindow
+        )
+
+        // 检测是否为批量更新（如 pnpm tn:update）
+        if (this.recentChanges.length >= this.batchUpdateThreshold) {
+          // 检测到批量更新，临时暂停监听
+          logger.warn(
+            `检测到批量文件变更 (${this.recentChanges.length} 个文件)，可能是 pnpm tn:update 执行中，暂停自动更新`
+          )
+
+          // 清空变更记录和待处理队列
+          this.changedFiles.clear()
+          this.recentChanges = []
+
+          // 设置更新标志，阻止后续变更
+          this.isUpdating = true
+
+          // 延迟重置，让批量更新完成
+          setTimeout(() => {
+            this.isUpdating = false
+            // 重新初始化哈希缓存，确保下次检测准确
+            this.initializeFileHashes()
+            logger.info('批量更新完成，恢复自动监听')
+          }, this.batchUpdateWindow + 1000)
+
+          return
+        }
+
         // 解析笔记信息
         const noteDirName = path.basename(path.dirname(fullPath))
         const noteIdMatch = noteDirName.match(/^(\d{4})\./)
@@ -209,6 +246,7 @@ export class FileWatcherService {
     this.watcher = null
     this.changedFiles.clear()
     this.fileHashes.clear()
+    this.recentChanges = []
 
     logger.info('文件监听已停止')
   }
@@ -278,5 +316,27 @@ export class FileWatcherService {
    */
   isWatching(): boolean {
     return this.watcher !== null
+  }
+
+  /**
+   * 暂停文件监听（用于 push 等批量操作）
+   */
+  pause(): void {
+    if (!this.watcher) return
+    this.isUpdating = true
+    logger.info('文件监听已暂停')
+  }
+
+  /**
+   * 恢复文件监听
+   */
+  resume(): void {
+    if (!this.watcher) return
+    // 重新初始化哈希缓存，确保下次检测准确
+    this.initializeFileHashes()
+    this.isUpdating = false
+    this.changedFiles.clear()
+    this.recentChanges = []
+    logger.info('文件监听已恢复')
   }
 }
