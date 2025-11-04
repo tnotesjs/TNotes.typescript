@@ -22,10 +22,9 @@
 - [7. 🤔 构建和发布？](#7--构建和发布)
   - [7.1. 使用 Turborepo](#71-使用-turborepo)
   - [7.2. 版本管理](#72-版本管理)
-- [8. <!-- .changeset/cool-feature.md -->](#8----changesetcool-featuremd---)
-  - [8.1. CI/CD 配置](#81-cicd-配置)
-  - [8.2. 选择性发布](#82-选择性发布)
-- [9. 🔗 引用](#9--引用)
+  - [7.3. CI/CD 配置](#73-cicd-配置)
+  - [7.4. 选择性发布](#74-选择性发布)
+- [8. 🔗 引用](#8--引用)
 
 <!-- endregion:toc -->
 
@@ -416,7 +415,7 @@ pnpm changeset publish
 Added cool new feature
 ```
 
-### 8.1. CI/CD 配置
+### 7.3. CI/CD 配置
 
 ```yaml
 # .github/workflows/ci.yml
@@ -448,7 +447,7 @@ jobs:
       - run: pnpm run lint
 ```
 
-### 8.2. 选择性发布
+### 7.4. 选择性发布
 
 ```typescript
 // scripts/publish.ts
@@ -497,7 +496,7 @@ async function publishPackages() {
 publishPackages()
 ```
 
-## 9. 🔗 引用
+## 8. 🔗 引用
 
 - [TypeScript Project References][1]
 - [pnpm Workspaces][2]
