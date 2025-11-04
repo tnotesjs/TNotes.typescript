@@ -27,8 +27,23 @@ export class DevCommand extends BaseCommand {
   protected async run(): Promise<void> {
     this.logger.info('服务启动中...')
 
+    // 记录启动开始时间
+    const startTime = Date.now()
+    let serverReady = false
+
     // 启动 VitePress 服务器
-    const pid = await this.vitepressService.startServer()
+    const pid = await this.vitepressService.startServer(() => {
+      // VitePress 服务就绪回调
+      if (!serverReady) {
+        serverReady = true
+        const duration = Date.now() - startTime
+        this.logger.success(
+          `VitePress 服务就绪 (耗时 ${duration}ms = ${(duration / 1000).toFixed(
+            1
+          )}s)`
+        )
+      }
+    })
 
     if (pid) {
       const newStatus = this.vitepressService.getServerStatus()

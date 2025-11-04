@@ -8,7 +8,7 @@
 - [x] [0039. roadmap](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0039.%20roadmap/README.md)
 - [x] [0073. TS 官方文档](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0073.%20TS%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md)
 - [x] [0074. TS Github 仓库](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0074.%20TS%20Github%20%E4%BB%93%E5%BA%93/README.md)
-- [ ] [0075. DefinitelyTyped 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0075.%20DefinitelyTyped%20%E9%A1%B9%E7%9B%AE/README.md)
+- [x] [0075. DefinitelyTyped 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0075.%20DefinitelyTyped%20%E9%A1%B9%E7%9B%AE/README.md)
 
 ## 2. TS 简介
 

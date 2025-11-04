@@ -26,9 +26,10 @@ export class VitepressService {
 
   /**
    * 启动 VitePress 开发服务器
+   * @param onReady - 服务就绪回调
    * @returns 进程ID
    */
-  async startServer(): Promise<number | undefined> {
+  async startServer(onReady?: () => void): Promise<number | undefined> {
     const port = this.configManager.get('port')
     const processId = 'vitepress-dev'
 
@@ -63,20 +64,95 @@ export class VitepressService {
       await new Promise((resolve) => setTimeout(resolve, 1000))
     }
 
-    // 启动 VitePress 开发服务器（使用 inherit 以显示日志）
+    // 启动 VitePress 开发服务器
     const command = 'pnpm'
     const args = ['vitepress', 'dev', '--port', port.toString()]
     logger.info(`执行命令：${command} ${args.join(' ')}`)
 
     const processInfo = this.processManager.spawn(processId, command, args, {
       cwd: ROOT_DIR_PATH,
-      stdio: 'inherit', // 继承当前进程的 stdio，显示所有日志
+      stdio: ['inherit', 'pipe', 'pipe'], // stdin 继承，stdout/stderr 管道捕获
     })
+
+    // 监听 stdout 和 stderr，转发到控制台
+    if (processInfo.process.stdout) {
+      processInfo.process.stdout.setEncoding('utf8')
+      processInfo.process.stdout.on('data', (data: string) => {
+        process.stdout.write(data)
+      })
+    }
+
+    if (processInfo.process.stderr) {
+      processInfo.process.stderr.setEncoding('utf8')
+      processInfo.process.stderr.on('data', (data: string) => {
+        process.stderr.write(data)
+      })
+    }
 
     // 将 PID 写入文件
     await this.writePidFile(processInfo.pid!)
 
+    // 启动端口监听检测
+    if (onReady) {
+      this.waitForServerReady(port, onReady)
+    }
+
     return processInfo.pid
+  }
+
+  /**
+   * 等待服务器就绪（通过 HTTP 请求检测）
+   */
+  private async waitForServerReady(
+    port: number,
+    callback: () => void
+  ): Promise<void> {
+    // 先等待 2 秒，让 VitePress 有时间初始化
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+
+    const maxAttempts = 100 // 最多等待 100 次
+    const interval = 1000 // 每 1s 检测一次
+
+    // VitePress 可能使用 base 路径，尝试多个 URL
+    const repoName = require('path').basename(process.cwd())
+    const urls = [
+      `http://localhost:${port}/`,
+      `http://localhost:${port}/${repoName}/`,
+    ]
+
+    for (let i = 0; i < maxAttempts; i++) {
+      for (const url of urls) {
+        try {
+          // 尝试发送 HTTP 请求
+          const http = await import('http')
+
+          await new Promise<void>((resolve, reject) => {
+            const req = http.get(url, { timeout: 1000 }, (res) => {
+              // 收到响应说明服务器已就绪（不管状态码是什么）
+              resolve()
+            })
+
+            req.on('error', reject)
+            req.on('timeout', () => {
+              req.destroy()
+              reject(new Error('timeout'))
+            })
+          })
+
+          // 服务器已就绪
+          callback()
+          return
+        } catch {
+          // 这个 URL 失败，尝试下一个
+          continue
+        }
+      }
+
+      // 所有 URL 都失败，等待后重试
+      await new Promise((resolve) => setTimeout(resolve, interval))
+    }
+
+    logger.warn('等待服务器就绪超时')
   }
 
   /**

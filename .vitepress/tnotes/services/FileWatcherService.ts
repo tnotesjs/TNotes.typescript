@@ -5,6 +5,7 @@
  */
 import * as fs from 'fs'
 import * as path from 'path'
+import * as crypto from 'crypto'
 import { logger } from '../utils/logger'
 import { ConfigValidator } from '../utils/ConfigValidator'
 import { ReadmeService } from './ReadmeService'
@@ -20,7 +21,6 @@ interface FileChange {
   noteId: string
   noteDirName: string
   noteDirPath: string
-  configChangeType?: 'toc-only' | 'full' // 配置变更类型
 }
 
 /**
@@ -35,9 +35,56 @@ export class FileWatcherService {
   private isUpdating: boolean = false // 标记是否正在更新，避免循环触发
   private lastUpdateTime: number = 0 // 上次更新时间
   private readonly minUpdateInterval = 1000 // 最小更新间隔（毫秒），减少到 1s
+  private initializationTime: number = 0 // 初始化时间
+  private readonly initializationPeriod = 3000 // 初始化期（毫秒），忽略启动后的变更事件
+  private fileHashes: Map<string, string> = new Map() // 文件内容哈希缓存
 
   constructor() {
     this.readmeService = new ReadmeService()
+  }
+
+  /**
+   * 计算文件内容的哈希值
+   */
+  private getFileHash(filePath: string): string | null {
+    try {
+      if (!fs.existsSync(filePath)) {
+        return null
+      }
+      const content = fs.readFileSync(filePath, 'utf-8')
+      return crypto.createHash('md5').update(content).digest('hex')
+    } catch {
+      return null
+    }
+  }
+
+  /**
+   * 初始化文件哈希和内容缓存
+   */
+  private initializeFileHashes(): void {
+    try {
+      const noteDirs = fs.readdirSync(NOTES_DIR_PATH)
+      for (const noteDir of noteDirs) {
+        const noteDirPath = path.join(NOTES_DIR_PATH, noteDir)
+        if (!fs.statSync(noteDirPath).isDirectory()) continue
+
+        // 缓存 README.md 的哈希
+        const readmePath = path.join(noteDirPath, 'README.md')
+        const readmeHash = this.getFileHash(readmePath)
+        if (readmeHash) {
+          this.fileHashes.set(readmePath, readmeHash)
+        }
+
+        // 缓存 .tnotes.json 的哈希
+        const configPath = path.join(noteDirPath, '.tnotes.json')
+        const configHash = this.getFileHash(configPath)
+        if (configHash) {
+          this.fileHashes.set(configPath, configHash)
+        }
+      }
+    } catch (error) {
+      logger.warn('初始化文件哈希缓存失败', error)
+    }
   }
 
   /**
@@ -52,11 +99,23 @@ export class FileWatcherService {
     logger.info('启动文件监听...')
     logger.info(`监听目录: ${NOTES_DIR_PATH}`)
 
+    // 初始化文件哈希缓存
+    this.initializeFileHashes()
+
+    // 记录初始化时间
+    this.initializationTime = Date.now()
+
     this.watcher = fs.watch(
       NOTES_DIR_PATH,
       { recursive: true },
       (eventType, filename) => {
         if (!filename) return
+
+        // 忽略初始化期间的变更事件（避免启动时的误报）
+        const timeSinceInit = Date.now() - this.initializationTime
+        if (timeSinceInit < this.initializationPeriod) {
+          return
+        }
 
         // 如果正在更新，忽略所有变更
         if (this.isUpdating) {
@@ -77,6 +136,20 @@ export class FileWatcherService {
         }
 
         const fullPath = path.join(NOTES_DIR_PATH, filename)
+
+        // 检查文件内容是否真的发生了变化
+        const currentHash = this.getFileHash(fullPath)
+        if (!currentHash) {
+          return // 文件不存在或无法读取
+        }
+
+        const previousHash = this.fileHashes.get(fullPath)
+        if (previousHash === currentHash) {
+          return // 文件内容未变化，忽略此次事件
+        }
+
+        // 更新哈希缓存
+        this.fileHashes.set(fullPath, currentHash)
 
         // 解析笔记信息
         const noteDirName = path.basename(path.dirname(fullPath))
@@ -135,6 +208,7 @@ export class FileWatcherService {
     this.watcher.close()
     this.watcher = null
     this.changedFiles.clear()
+    this.fileHashes.clear()
 
     logger.info('文件监听已停止')
   }
@@ -166,72 +240,26 @@ export class FileWatcherService {
     try {
       const startTime = Date.now()
 
-      // 分析变更类型
-      const hasReadmeChanges = changes.some((c) => c.type === 'readme')
+      // 收集所有需要更新的笔记 ID（README 变更 + 配置变更）
+      const noteIdsToUpdate = [...new Set(changes.map((c) => c.noteId))]
+
+      // 只更新变更笔记的 README（包含 TOC）
+      logger.info(
+        `检测到 ${changes.length} 个文件变更，更新 ${noteIdsToUpdate.length} 个笔记...`
+      )
+      await this.readmeService.updateNoteReadmesOnly(noteIdsToUpdate)
+
+      const duration = Date.now() - startTime
+      logger.success(`更新完成 (耗时 ${duration}ms)`)
+
+      // 输出变更详情
+      const readmeChanges = changes.filter((c) => c.type === 'readme')
       const configChanges = changes.filter((c) => c.type === 'config')
-
-      // 处理配置文件变更：验证并检测变更类型
+      if (readmeChanges.length > 0) {
+        logger.info(`  - README 变更: ${readmeChanges.length} 个`)
+      }
       if (configChanges.length > 0) {
-        for (const change of configChanges) {
-          const configPath = path.join(change.noteDirPath, '.tnotes.json')
-
-          // 读取变更前的配置（从文件系统缓存或重新读取）
-          let oldConfig: NoteConfig | null = null
-          try {
-            const oldContent = fs.readFileSync(configPath, 'utf-8')
-            oldConfig = JSON.parse(oldContent)
-          } catch {
-            // 无法读取旧配置，跳过变更类型检测
-          }
-
-          // 验证并修复配置文件
-          const newConfig = ConfigValidator.validateAndFix(
-            configPath,
-            change.noteDirPath
-          )
-
-          // 检测变更类型
-          if (oldConfig && newConfig) {
-            change.configChangeType = ConfigValidator.detectChangeType(
-              oldConfig,
-              newConfig
-            )
-          } else {
-            // 无法检测，默认为全局更新
-            change.configChangeType = 'full'
-          }
-        }
-      }
-
-      // 判断更新策略
-      const hasTocOnlyChanges = configChanges.some(
-        (c) => c.configChangeType === 'toc-only'
-      )
-      const hasFullChanges = configChanges.some(
-        (c) => c.configChangeType === 'full'
-      )
-
-      // 策略1：只有 README.md 变更或仅 TOC 相关配置变更 - 只更新笔记内 TOC
-      if ((hasReadmeChanges || hasTocOnlyChanges) && !hasFullChanges) {
-        logger.info(`检测到 ${changes.length} 个笔记内容变更，执行快速更新...`)
-        await this.readmeService.updateNoteReadmesOnly(
-          changes.map((c) => c.noteId)
-        )
-        const duration = Date.now() - startTime
-        logger.success(`快速更新完成 (耗时 ${duration}ms)`)
-      }
-      // 策略2：有全局配置变更 - 执行完整更新
-      else if (hasFullChanges) {
-        logger.info(
-          `检测到 ${configChanges.length} 个配置文件变更，执行完整更新...`
-        )
-        await this.readmeService.updateAllReadmes({
-          updateSidebar: true,
-          updateToc: true,
-          updateHome: true,
-        })
-        const duration = Date.now() - startTime
-        logger.success(`更新完成 (耗时 ${duration}ms)`)
+        logger.info(`  - 配置变更: ${configChanges.length} 个`)
       }
 
       this.lastUpdateTime = Date.now()
