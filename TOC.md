@@ -377,4 +377,4 @@
 
 ## 31. TS 7.0
 
-- [ ] [0284. typescript-go 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0284.%20typescript-go%20%E9%A1%B9%E7%9B%AE/README.md)
+- [ ] [0284. typescript-go 项目](https://github.com/tnotesjs/TNotes.introduction/tree/main/notes/0284.%20typescript-go%20%E9%A1%B9%E7%9B%AE/README.md)
