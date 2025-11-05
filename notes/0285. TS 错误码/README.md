@@ -1,4 +1,4 @@
-# [0285. TS 错误码查询](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0285.%20TS%20%E9%94%99%E8%AF%AF%E7%A0%81%E6%9F%A5%E8%AF%A2)
+# [0285. TS 错误码](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0285.%20TS%20%E9%94%99%E8%AF%AF%E7%A0%81)
 
 <!-- region:toc -->
 
