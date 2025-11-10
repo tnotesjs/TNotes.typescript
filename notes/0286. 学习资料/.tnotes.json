@@ -3,9 +3,9 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
+  "enableDiscussions": true,
   "created_at": 1762507935246,
   "updated_at": 1762507935246
 }

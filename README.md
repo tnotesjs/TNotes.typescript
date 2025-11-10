@@ -38,7 +38,7 @@
 
 ## 1. 学习资料
 
-- [ ] [0286. 学习资料](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0286.%20%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/README.md)
+- [x] [0286. 学习资料](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0286.%20%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/README.md)
 - [x] [0002. TypeScript（阮一峰）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0002.%20TypeScript%EF%BC%88%E9%98%AE%E4%B8%80%E5%B3%B0%EF%BC%89/README.md)
 - [x] [0054. 术语表](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0054.%20%E6%9C%AF%E8%AF%AD%E8%A1%A8/README.md)
 - [x] [0039. roadmap](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0039.%20roadmap/README.md)
@@ -54,7 +54,7 @@
 - [x] [0004. 类型 vs. 值](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0004.%20%E7%B1%BB%E5%9E%8B%20vs.%20%E5%80%BC/README.md)
 - [x] [0006. 面向对象的思维方式](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0006.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%80%9D%E7%BB%B4%E6%96%B9%E5%BC%8F/README.md)
 - [x] [0007. 动态类型 vs. 静态类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0007.%20%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B%20vs.%20%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B/README.md)
-- [ ] [0076. TS 的优势与劣势](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0076.%20TS%20%E7%9A%84%E4%BC%98%E5%8A%BF%E4%B8%8E%E5%8A%A3%E5%8A%BF/README.md)
+- [x] [0076. TS 的优势与劣势](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0076.%20TS%20%E7%9A%84%E4%BC%98%E5%8A%BF%E4%B8%8E%E5%8A%A3%E5%8A%BF/README.md)
 - [ ] [0077. TS 的应用场景](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0077.%20TS%20%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/README.md)
 
 ## 3. 基本用法
