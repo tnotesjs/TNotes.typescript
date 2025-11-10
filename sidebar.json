@@ -26,6 +26,10 @@
       {
         "text": "✅ TS Github 仓库",
         "link": "/notes/0074. TS Github 仓库/README"
+      },
+      {
+        "text": "✅ 特殊类型之间的兼容性",
+        "link": "/notes/0017. 特殊类型之间的兼容性/README"
       }
     ]
   },
@@ -50,10 +54,6 @@
         "link": "/notes/0005. TS 的博客/README"
       },
       {
-        "text": "✅ 类型 vs. 值",
-        "link": "/notes/0004. 类型 vs. 值/README"
-      },
-      {
         "text": "✅ 面向对象的思维方式",
         "link": "/notes/0006. 面向对象的思维方式/README"
       },
@@ -66,18 +66,22 @@
         "link": "/notes/0076. TS 的优势与劣势/README"
       },
       {
-        "text": "⏰ TS 的应用场景",
-        "link": "/notes/0077. TS 的应用场景/README"
+        "text": "✅ TS 在前、后端领域的应用",
+        "link": "/notes/0077. TS 在前、后端领域的应用/README"
       }
     ]
   },
   {
-    "text": "3. 基本用法",
+    "text": "3. 学前准备",
     "collapsed": true,
     "items": [
       {
-        "text": "✅ 基本用法",
-        "link": "/notes/0044. 基本用法/README"
+        "text": "✅ 学前准备",
+        "link": "/notes/0044. 学前准备/README"
+      },
+      {
+        "text": "✅ 类型 vs. 值",
+        "link": "/notes/0004. 类型 vs. 值/README"
       },
       {
         "text": "✅ 类型声明和类型推断",
@@ -96,7 +100,7 @@
         "link": "/notes/0012. tsc 快速入门/README"
       },
       {
-        "text": "⏰ tsconfig.json 快速入门",
+        "text": "✅ tsconfig.json 快速入门",
         "link": "/notes/0078. tsconfig.json 快速入门/README"
       },
       {
@@ -136,6 +140,10 @@
       {
         "text": "⏰ void 类型",
         "link": "/notes/0079. void 类型/README"
+      },
+      {
+        "text": "✅ 特殊类型之间的兼容性",
+        "link": "/notes/0017. 特殊类型之间的兼容性/README"
       }
     ]
   },

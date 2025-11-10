@@ -19,16 +19,17 @@
 - any
 - unknown
 - never
+- void
 - 顶层类型（top type）
 - 底层类型（bottom type）
 
 ## 2. 🫧 评价
 
-本章介绍的内容是 TS 类型系统中的一些特殊类型，包括 any、unknown 和 never。
+本章介绍的内容是 TS 类型系统中的一些特殊类型，包括 any、unknown、never、void 类型。
 
 ## 3. 🤔 「顶层类型」、「底层类型」官方有给明确定义吗？
 
-- 没有。
+没有。
 
 在 TypeScript 的类型系统讨论中，经常提到 顶层类型（top type） 和 底层类型（bottom type） 的概念。不过官方文档中并没有专门以 “top type／bottom type” 为标题系统化定义两者，而是散见于不同章节与手册中，以 “unknown = top”“never = bottom” 这样方式提及。比如在 [TS for Functional Programmers - Other important TypeScript types][1] 这一节中出现的：
 

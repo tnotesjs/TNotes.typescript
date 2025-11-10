@@ -29,8 +29,9 @@
 
 ## 2. 🫧 评价
 
-- any 类型被很多教程视作兜底类型，告诉不想处理类型错误，就 any 一下，但是这么做会导致很多问题。
-- 如果遇到类型问题就 any 一下，那学习 TS 也就没啥必要了，建议最好还是少用 any。
+any 类型被很多教程视作兜底类型，告诉不想处理类型错误，就 any 一下，但是这么做会导致很多问题。
+
+如果遇到类型问题就 any 一下，那学习 TS 也就没啥必要了，建议最好还是少用 any。
 
 ## 3. 🤔 any 类型是什么？
 
@@ -70,19 +71,23 @@ interface Console {
 
 - 场景 2：为了适配以前老的 JavaScript 项目，让代码快速迁移到 TypeScript，可以把变量类型设为 any。有些年代很久的大型 JavaScript 项目，尤其是别人的代码，很难为每一行适配正确的类型，这时你为那些类型复杂的变量加上 any，TypeScript 编译时就不会报错。
 
----
+对比分析：
 
 - 场景 1：情有可原，这时候使用 any 类型是比较合适的。
 - 场景 2：不推荐，如果是迁移 `*.js` 到 `*.ts` 的项目，还有有更好的方案来解决迁移初期因类型检查而出现大量报错的问题。
 
 ## 6. 🤔 "any assignability"是什么？
 
-- any assignability 表示 any 类型的可赋值性。
-  - 🤔 可赋值性是什么？
-  - 答：简单来讲就是 -> 该类型可以被什么类型赋值，可以赋值给什么类型。
-- 这里刻意用英文来表述，目的是为了跟官方文档保持同步，如果你在 TypeScript 官网中，想要查询某些类型的可赋值性，就可以直接搜 assignability 关键字。
-  - ![图 2](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-19-08-46-43.png)
-- any 类型表示没有任何限制，该类型的变量可以被赋予任意类型的值。从集合论的角度看，any 类型可以看成是所有其他类型的全集，包含了一切可能的类型。TypeScript 将这种类型称为"顶层类型"，意为涵盖了所有下层。
+any assignability 表示 any 类型的可赋值性。
+
+- 🤔 可赋值性是什么？
+- 答：简单来讲就是 -> 该类型可以被什么类型赋值，可以赋值给什么类型。
+
+这里刻意用英文来表述，目的是为了跟官方文档保持同步，如果你在 TypeScript 官网中，想要查询某些类型的可赋值性，就可以直接搜 assignability 关键字。
+
+![图 2](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-19-08-46-43.png)
+
+any 类型表示没有任何限制，该类型的变量可以被赋予任意类型的值。从集合论的角度看，any 类型可以看成是所有其他类型的全集，包含了一切可能的类型。TypeScript 将这种类型称为"顶层类型"，意为涵盖了所有下层。
 
 ```ts
 let x: any
@@ -94,9 +99,7 @@ x = true // ✅
 
 上面示例中，变量 x 的类型是 any，就可以被赋值为任意类型的值。
 
----
-
-- 我们在表述时通常会说 any 是任意类型，可以赋值给其他任何类型。但是，这么描述其实是错误的，any 类型无法赋值给 never 类型。
+需要注意的是，我们在表述时通常会说 any 是任意类型，可以赋值给其他任何类型。但是，这么描述其实是错误的，any 类型无法赋值给 never 类型。
 
 ```ts
 const a: any = 1
@@ -325,8 +328,9 @@ y.toFixed() // 不报错
 
 ## 13. 🤔 空数组会被 TS 推断为什么类型？
 
-- 没有声明类型的空数组，默认会被 TypeScript 视作一个 any 类型的数组。
-- 如果开启了 strictNullChecks 配置，并且关闭了 noImplicitAny 配置，那么 TypeScript 会将没有声明类型的空数组视作一个 never 类型的数组。
+没有声明类型的空数组，默认会被 TypeScript 视作一个 any 类型的数组。
+
+如果开启了 strictNullChecks 配置，并且关闭了 noImplicitAny 配置，那么 TypeScript 会将没有声明类型的空数组视作一个 never 类型的数组。
 
 ```ts
 const arr = []
@@ -339,17 +343,15 @@ arr.push(1, 2, 3) // ok
 
 开启 strictNullChecks 配置，并且关闭 noImplicitAny 配置：
 
-```json
-// tsconfig.json
-{
-  "compilerOptions": {
-    "strictNullChecks": true,
-    "noImplicitAny": false
-  }
-}
-```
-
 ```ts
+// tsconfig.json
+// {
+//   "compilerOptions": {
+//     "strictNullChecks": true,
+//     "noImplicitAny": false
+//   }
+// }
+
 const arr = []
 
 // 等效

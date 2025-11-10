@@ -5,31 +5,22 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是 tsconfig.json？](#3--什么是-tsconfigjson)
-  - [3.1. `tsconfig.json` 简介](#31-tsconfigjson-简介)
-  - [3.2. 作用](#32-作用)
 - [4. 🤔 如何创建 tsconfig.json？](#4--如何创建-tsconfigjson)
-  - [4.1. 方法 1：自动生成](#41-方法-1自动生成)
-  - [4.2. 方法 2：使用社区模板](#42-方法-2使用社区模板)
-  - [4.3. 方法 3：手动创建](#43-方法-3手动创建)
-- [5. 🤔 tsconfig.json 的基本结构是什么？](#5--tsconfigjson-的基本结构是什么)
-  - [5.1. 核心字段](#51-核心字段)
-  - [5.2. 字段优先级](#52-字段优先级)
+  - [4.1. 方法 1：使用命令 `tsc --init` 自动生成](#41-方法-1使用命令-tsc---init-自动生成)
+  - [4.2. 方法 2：继承社区模板](#42-方法-2继承社区模板)
+  - [4.3. 方法 3：手动创建 `tsconfig.json` 文件](#43-方法-3手动创建-tsconfigjson-文件)
+- [5. 🤔 tsconfig.json 配置文件的基本结构是什么样的？](#5--tsconfigjson-配置文件的基本结构是什么样的)
 - [6. 🤔 常用编译选项有哪些？](#6--常用编译选项有哪些)
   - [6.1. 必知选项（按重要性排序）](#61-必知选项按重要性排序)
   - [6.2. strict 包含的选项](#62-strict-包含的选项)
-  - [6.3. 场景化选项](#63-场景化选项)
-- [7. 🤔 不同项目如何配置 tsconfig.json？](#7--不同项目如何配置-tsconfigjson)
-  - [7.1. Vite + React 项目](#71-vite--react-项目)
-  - [7.2. Next.js 项目](#72-nextjs-项目)
-  - [7.3. Nest.js 项目](#73-nestjs-项目)
-  - [7.4. Monorepo 项目](#74-monorepo-项目)
-- [8. 🤔 如何调试 tsconfig.json 配置？](#8--如何调试-tsconfigjson-配置)
-  - [8.1. 查看实际生效的配置](#81-查看实际生效的配置)
-  - [8.2. 检查哪些文件会被编译](#82-检查哪些文件会被编译)
-  - [8.3. 查看模块解析过程](#83-查看模块解析过程)
-  - [8.4. 常见问题排查](#84-常见问题排查)
-  - [8.5. 配置验证工具](#85-配置验证工具)
-- [9. 🔗 引用](#9--引用)
+  - [6.3. 不同开发场景下的一些常见配置示例](#63-不同开发场景下的一些常见配置示例)
+- [7. 🤔 如何调试 tsconfig.json 配置？](#7--如何调试-tsconfigjson-配置)
+  - [7.1. 查看实际生效的配置](#71-查看实际生效的配置)
+  - [7.2. 检查哪些文件会被编译](#72-检查哪些文件会被编译)
+  - [7.3. 查看模块解析过程](#73-查看模块解析过程)
+  - [7.4. 常见问题排查](#74-常见问题排查)
+  - [7.5. 配置验证工具](#75-配置验证工具)
+- [8. 🔗 引用](#8--引用)
 
 <!-- endregion:toc -->
 
@@ -45,29 +36,25 @@
 
 `tsconfig.json` 是 TypeScript 项目的配置文件，它决定了编译器的行为、类型检查的严格程度以及输出文件的结构。虽然 TypeScript 可以在没有配置文件的情况下工作，但在实际项目中，合理的 `tsconfig.json` 配置是必不可少的。
 
-该配置文件的复杂度在于：它有 **100+ 个配置选项**，每个选项都会影响编译行为。新手常见的问题是：
+该配置文件的复杂度在于：它有 100+ 个配置选项，每个选项都会影响编译行为。新手常见的问题是：
 
 1. 不知道哪些选项是必需的
 2. 不理解选项之间的依赖关系
 3. 照搬网上的配置导致问题
 
-本节将从**实用角度**出发，介绍最常用的配置选项，并提供不同场景的配置模板。掌握这些内容后，你就能根据项目需求定制合适的 TypeScript 配置。
+本节将从实用角度出发，介绍最常用的配置选项，并提供不同场景的配置模板。掌握这些内容后，你就能根据项目需求定制合适的 TypeScript 简单配置了。
 
 ## 3. 🤔 什么是 tsconfig.json？
 
-### 3.1. `tsconfig.json` 简介
-
 `tsconfig.json` 是 TypeScript 项目的配置文件，用于指定：
 
-| 配置类别 | 用途 | 示例选项 |
-| --- | --- | --- |
-| **编译选项** | 控制编译器行为 | `target`, `module`, `strict` |
-| **文件包含/排除** | 指定哪些文件需要编译 | `include`, `exclude`, `files` |
-| **路径映射** | 配置模块解析 | `paths`, `baseUrl` |
-| **类型检查** | 控制类型检查严格度 | `strictNullChecks`, `noImplicitAny` |
-| **输出配置** | 控制编译产物 | `outDir`, `declaration` |
-
-### 3.2. 作用
+| 配置类别      | 用途                 | 示例选项                            |
+| ------------- | -------------------- | ----------------------------------- |
+| 编译选项      | 控制编译器行为       | `target`, `module`, `strict`        |
+| 文件包含/排除 | 指定哪些文件需要编译 | `include`, `exclude`, `files`       |
+| 路径映射      | 配置模块解析         | `paths`, `baseUrl`                  |
+| 类型检查      | 控制类型检查严格度   | `strictNullChecks`, `noImplicitAny` |
+| 输出配置      | 控制编译产物         | `outDir`, `declaration`             |
 
 ```txt
 有 tsconfig.json：
@@ -81,26 +68,18 @@
 
 ## 4. 🤔 如何创建 tsconfig.json？
 
-### 4.1. 方法 1：自动生成
+### 4.1. 方法 1：使用命令 `tsc --init` 自动生成
 
 ```bash
 # 生成默认配置
 tsc --init
-
-# 生成内容（简化版）：
-{
-  "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
-}
 ```
 
-### 4.2. 方法 2：使用社区模板
+下面是目前 25.11 生成的 tsconfig.json 示例：
+
+<<< ./assets/tsconfig.json
+
+### 4.2. 方法 2：继承社区模板
 
 ```bash
 # 安装基础配置
@@ -115,7 +94,7 @@ npm install --save-dev @tsconfig/node18
 }
 ```
 
-### 4.3. 方法 3：手动创建
+### 4.3. 方法 3：手动创建 `tsconfig.json` 文件
 
 ```json
 {
@@ -127,18 +106,16 @@ npm install --save-dev @tsconfig/node18
     "rootDir": "./src",
     "strict": true
   },
-  "include": ["src/**/*"],
+  "include": ["src//*"],
   "exclude": ["node_modules", "dist"]
 }
 ```
 
-## 5. 🤔 tsconfig.json 的基本结构是什么？
-
-### 5.1. 核心字段
+## 5. 🤔 tsconfig.json 配置文件的基本结构是什么样的？
 
 ::: code-group
 
-```json [完整结构]
+```json [基本结构]
 {
   // 继承其他配置
   "extends": "./base-config.json",
@@ -149,9 +126,11 @@ npm install --save-dev @tsconfig/node18
     "target": "ES2020", // 目标 JS 版本
     "module": "ESNext", // 模块系统
     "lib": ["ES2020", "DOM"], // 包含的类型库
+    // ...
 
     /* 严格检查 */
     "strict": true, // 开启所有严格检查
+    // ...
 
     /* 模块解析 */
     "moduleResolution": "node", // 模块解析策略
@@ -160,15 +139,17 @@ npm install --save-dev @tsconfig/node18
       // 路径映射
       "@/*": ["src/*"]
     },
+    // ...
 
     /* 输出 */
     "outDir": "./dist", // 输出目录
     "declaration": true, // 生成 .d.ts
     "sourceMap": true // 生成 source map
+    // ...
   },
 
   // 包含的文件
-  "include": ["src/**/*"],
+  "include": ["src//*"],
 
   // 排除的文件
   "exclude": ["node_modules", "dist"],
@@ -192,31 +173,21 @@ npm install --save-dev @tsconfig/node18
 
 :::
 
-### 5.2. 字段优先级
-
-```
-files > include/exclude > compilerOptions
-```
-
-- `files`：精确指定，优先级最高
-- `include`/`exclude`：通配符匹配
-- `compilerOptions`：编译行为配置
-
 ## 6. 🤔 常用编译选项有哪些？
 
 ### 6.1. 必知选项（按重要性排序）
 
 | 选项 | 作用 | 推荐值 | 说明 |
 | --- | --- | --- | --- |
-| **strict** | 开启所有严格检查 | `true` | 包含 7 个子选项 |
-| **target** | 编译目标 | `ES2020` | 根据运行环境选择 |
-| **module** | 模块系统 | `ESNext` | 现代项目用 ESNext |
-| **lib** | 包含的类型库 | `["ES2020", "DOM"]` | 浏览器项目需要 DOM |
-| **outDir** | 输出目录 | `"./dist"` | 编译产物位置 |
-| **rootDir** | 源码根目录 | `"./src"` | 保持目录结构 |
-| **moduleResolution** | 模块解析策略 | `"node"` | Node.js 风格解析 |
-| **esModuleInterop** | ESM/CJS 互操作 | `true` | 兼容默认导入 |
-| **skipLibCheck** | 跳过库文件检查 | `true` | 加快编译速度 |
+| strict | 开启所有严格检查 | `true` | 包含若干个子选项 |
+| target | 编译目标 | `ES2020` | 根据运行环境选择 |
+| module | 模块系统 | `ESNext` | 现代项目用 ESNext |
+| lib | 包含的类型库 | `["ES2020", "DOM"]` | 浏览器项目需要 DOM |
+| outDir | 输出目录 | `"./dist"` | 编译产物位置 |
+| rootDir | 源码根目录 | `"./src"` | 保持目录结构 |
+| moduleResolution | 模块解析策略 | `"node"` | Node.js 风格解析 |
+| esModuleInterop | ESM/CJS 互操作 | `true` | 兼容默认导入 |
+| skipLibCheck | 跳过库文件检查 | `true` | 加快编译速度 |
 
 ### 6.2. strict 包含的选项
 
@@ -236,7 +207,7 @@ files > include/exclude > compilerOptions
 }
 ```
 
-### 6.3. 场景化选项
+### 6.3. 不同开发场景下的一些常见配置示例
 
 ::: code-group
 
@@ -289,132 +260,9 @@ files > include/exclude > compilerOptions
 
 :::
 
-## 7. 🤔 不同项目如何配置 tsconfig.json？
+## 7. 🤔 如何调试 tsconfig.json 配置？
 
-### 7.1. Vite + React 项目
-
-```json
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
-}
-```
-
-### 7.2. Next.js 项目
-
-```json
-{
-  "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
-}
-```
-
-### 7.3. Nest.js 项目
-
-```json
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
-}
-```
-
-### 7.4. Monorepo 项目
-
-```json
-// 根目录 tsconfig.json
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "composite": true,              // 启用项目引用
-    "declaration": true,
-    "declarationMap": true
-  },
-  "references": [
-    { "path": "./packages/shared" },
-    { "path": "./packages/frontend" },
-    { "path": "./packages/backend" }
-  ]
-}
-
-// packages/shared/tsconfig.json
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src"
-  },
-  "include": ["src"]
-}
-```
-
-## 8. 🤔 如何调试 tsconfig.json 配置？
-
-### 8.1. 查看实际生效的配置
+### 7.1. 查看实际生效的配置
 
 ```bash
 # 查看编译器使用的配置
@@ -429,12 +277,12 @@ tsc --showConfig
     ...
   },
   "files": [],
-  "include": ["src/**/*"],
+  "include": ["src//*"],
   "exclude": ["node_modules", "dist"]
 }
 ```
 
-### 8.2. 检查哪些文件会被编译
+### 7.2. 检查哪些文件会被编译
 
 ```bash
 # 列出所有会被编译的文件
@@ -447,7 +295,7 @@ tsc --listFiles
 ...
 ```
 
-### 8.3. 查看模块解析过程
+### 7.3. 查看模块解析过程
 
 ```bash
 # 查看模块如何被解析
@@ -462,7 +310,7 @@ File '/path/to/project/node_modules/lodash.tsx' does not exist.
 ...
 ```
 
-### 8.4. 常见问题排查
+### 7.4. 常见问题排查
 
 ::: code-group
 
@@ -496,7 +344,7 @@ tsc --traceResolution > resolution.log
 
 :::
 
-### 8.5. 配置验证工具
+### 7.5. 配置验证工具
 
 ```json
 // 使用 JSON Schema 验证
@@ -508,7 +356,7 @@ tsc --traceResolution > resolution.log
 }
 ```
 
-## 9. 🔗 引用
+## 8. 🔗 引用
 
 - [TSConfig Reference][1]
 - [TypeScript 编译选项][2]
