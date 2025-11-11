@@ -113,8 +113,9 @@
 ## 7. 数组类型
 
 - [x] [0032. 数组类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0032.%20%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/README.md)
-- [ ] [0082. 数组的两种类型声明方式](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0082.%20%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%B9%E5%BC%8F/README.md)
+- [x] [0082. 数组的两种类型声明方式](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0082.%20%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%A4%E7%A7%8D%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%B9%E5%BC%8F/README.md)
 - [ ] [0083. 只读数组 ReadonlyArray](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0083.%20%E5%8F%AA%E8%AF%BB%E6%95%B0%E7%BB%84%20ReadonlyArray/README.md)
+- [ ] [0288. readonly 数组在函数参数中的兼容性差异分析](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0288.%20readonly%20%E6%95%B0%E7%BB%84%E5%9C%A8%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E4%B8%AD%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E5%B7%AE%E5%BC%82%E5%88%86%E6%9E%90/README.md)
 - [ ] [0084. 数组的类型推断](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0084.%20%E6%95%B0%E7%BB%84%E7%9A%84%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD/README.md)
 - [ ] [0085. 多维数组](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0085.%20%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84/README.md)
 
@@ -417,6 +418,5 @@
 ## 31. TS 7.0
 
 - [ ] [0284. typescript-go 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0284.%20typescript-go%20%E9%A1%B9%E7%9B%AE/README.md)
-- [ ] [0288. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0288.%20new/README.md)
 - [ ] [0289. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0289.%20new/README.md)
 - [ ] [0290. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0290.%20new/README.md)

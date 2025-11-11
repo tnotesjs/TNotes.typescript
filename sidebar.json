@@ -268,12 +268,16 @@
         "link": "/notes/0032. 数组类型/README"
       },
       {
-        "text": "⏰ 数组的两种类型声明方式",
+        "text": "✅ 数组的两种类型声明方式",
         "link": "/notes/0082. 数组的两种类型声明方式/README"
       },
       {
         "text": "⏰ 只读数组 ReadonlyArray",
         "link": "/notes/0083. 只读数组 ReadonlyArray/README"
+      },
+      {
+        "text": "⏰ readonly 数组在函数参数中的兼容性差异分析",
+        "link": "/notes/0288. readonly 数组在函数参数中的兼容性差异分析/README"
       },
       {
         "text": "⏰ 数组的类型推断",
@@ -1338,10 +1342,6 @@
       {
         "text": "⏰ typescript-go 项目",
         "link": "/notes/0284. typescript-go 项目/README"
-      },
-      {
-        "text": "⏰ new",
-        "link": "/notes/0288. new/README"
       },
       {
         "text": "⏰ new",

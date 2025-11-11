@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TypeScript中数组的两种类型声明方式T[]和Array<T>功能完全等价，但方括号语法更简洁直观且被社区广泛推荐，仅在处理复杂联合类型时泛型语法更具可读性优势。",
   "id": "1a11b364-abdc-4c4b-9b23-0e877f557983",
   "created_at": 1761871140000,
-  "updated_at": 1761881440000
+  "updated_at": 1762844498653
 }
