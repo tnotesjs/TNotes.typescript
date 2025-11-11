@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "函数参数的“逆变”只在函数类型赋值时生效。而在函数调用时，TypeScript 采用“单向兼容”检查，因此允许将 number[] 传给 readonly number[] 参数。",
   "id": "b329cc08-0e74-4198-b3fa-f4b3ac030abf",
   "created_at": 1762507935492,
-  "updated_at": 1762507935492
+  "updated_at": 1762848111439
 }

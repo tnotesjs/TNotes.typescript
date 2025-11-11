@@ -9,25 +9,8 @@
   - [4.1. 操作层面](#41-操作层面)
   - [4.2. 类型兼容性层面](#42-类型兼容性层面)
 - [5. 🤔 如何声明只读数组？](#5--如何声明只读数组)
-  - [5.1. 方式 1：ReadonlyArray 泛型](#51-方式-1readonlyarray-泛型)
-  - [5.2. 方式 2：readonly 修饰符（推荐）](#52-方式-2readonly-修饰符推荐)
-  - [5.3. 方式 3：const 断言](#53-方式-3const-断言)
-  - [5.4. 三种方式对比](#54-三种方式对比)
-- [6. 🤔 ReadonlyArray 的使用场景](#6--readonlyarray-的使用场景)
-  - [6.1. 场景 1：函数参数（防止意外修改）](#61-场景-1函数参数防止意外修改)
-  - [6.2. 场景 2：配置对象](#62-场景-2配置对象)
-  - [6.3. 场景 3：React 组件 Props](#63-场景-3react-组件-props)
-  - [6.4. 场景 4：类的公共属性](#64-场景-4类的公共属性)
-  - [6.5. 场景 5：Redux State](#65-场景-5redux-state)
-- [7. 🤔 如何处理只读数组的修改需求？](#7--如何处理只读数组的修改需求)
-  - [7.1. 方法 1：创建副本后修改](#71-方法-1创建副本后修改)
-  - [7.2. 方法 2：使用不可变操作](#72-方法-2使用不可变操作)
-  - [7.3. 方法 3：类型断言（不推荐）](#73-方法-3类型断言不推荐)
-- [8. 🤔 常见错误和最佳实践](#8--常见错误和最佳实践)
-  - [8.1. 错误 1：浅只读](#81-错误-1浅只读)
-  - [8.2. 错误 2：const 断言的误解](#82-错误-2const-断言的误解)
-  - [8.3. 最佳实践](#83-最佳实践)
-- [9. 🔗 引用](#9--引用)
+- [6. 🤔 只读约束是深只读还是浅只读？](#6--只读约束是深只读还是浅只读)
+- [7. 🔗 引用](#7--引用)
 
 <!-- endregion:toc -->
 
@@ -36,9 +19,7 @@
 - ReadonlyArray 的定义和用途
 - 只读数组的声明方式
 - 与普通数组的区别
-- 类型兼容性规则
-- 实际应用场景
-- 修改只读数组的方法
+- 浅只读约束
 
 ## 2. 🫧 评价
 
@@ -159,9 +140,13 @@ const mutable2: number[] = readonly2 // ❌ Error
 
 ## 5. 🤔 如何声明只读数组？
 
-### 5.1. 方式 1：ReadonlyArray 泛型
+- 方式 1：ReadonlyArray 泛型
+- 方式 2：readonly 修饰符（推荐）
+- 方式 3：const 断言（声明的是只读元组，也算是特殊的只读数组）
 
-```ts
+::: code-group
+
+```ts [1]
 // 基础类型
 const numbers: ReadonlyArray<number> = [1, 2, 3]
 const strings: ReadonlyArray<string> = ['a', 'b', 'c']
@@ -181,9 +166,7 @@ const users: ReadonlyArray<User> = [
 const mixed: ReadonlyArray<string | number> = [1, 'two', 3, 'four']
 ```
 
-### 5.2. 方式 2：readonly 修饰符（推荐）
-
-```ts
+```ts [2]
 // ✅ 更简洁
 const numbers: readonly number[] = [1, 2, 3]
 const strings: readonly string[] = ['a', 'b', 'c']
@@ -198,9 +181,7 @@ const users: readonly User[] = [
 const mixed: readonly (string | number)[] = [1, 'two', 3, 'four']
 ```
 
-### 5.3. 方式 3：const 断言
-
-```ts
+```ts [3]
 // as const 使整个结构只读
 const numbers = [1, 2, 3] as const
 // 类型：readonly [1, 2, 3]（只读元组）
@@ -213,7 +194,9 @@ const config = {
 // sizes 类型：readonly [10, 20, 30]
 ```
 
-### 5.4. 三种方式对比
+:::
+
+三种方式对比：
 
 ::: code-group
 
@@ -243,186 +226,11 @@ const arr = [1, 2, 3] as const
 
 :::
 
-## 6. 🤔 ReadonlyArray 的使用场景
+## 6. 🤔 只读约束是深只读还是浅只读？
 
-### 6.1. 场景 1：函数参数（防止意外修改）
+浅只读
 
-```ts
-// ❌ 不好：函数可能修改参数
-function process(items: string[]): void {
-  items.sort() // 修改了调用者的数组！
-  items.forEach((item) => console.log(item))
-}
-
-const myItems = ['c', 'a', 'b']
-process(myItems)
-console.log(myItems) // ['a', 'b', 'c'] - 被修改了！
-
-// ✅ 好：明确表示不会修改
-function processReadonly(items: readonly string[]): void {
-  // items.sort() // ❌ Error: 编译器阻止修改
-
-  // 如果需要排序，创建副本
-  const sorted = [...items].sort()
-  sorted.forEach((item) => console.log(item))
-}
-
-const myItems2 = ['c', 'a', 'b']
-processReadonly(myItems2)
-console.log(myItems2) // ['c', 'a', 'b'] - 未被修改
-```
-
-### 6.2. 场景 2：配置对象
-
-```ts
-// ✅ 配置不应该被修改
-const CONFIG = {
-  apiEndpoints: ['https://api1.com', 'https://api2.com'],
-  retryAttempts: 3,
-  timeout: 5000,
-} as const
-
-// CONFIG.apiEndpoints 是 readonly ["https://api1.com", "https://api2.com"]
-
-function makeRequest(endpoint: string) {
-  // CONFIG.apiEndpoints.push('https://api3.com') // ❌ Error
-  console.log(endpoint)
-}
-```
-
-### 6.3. 场景 3：React 组件 Props
-
-```tsx
-interface ListProps {
-  // ✅ 防止子组件修改父组件的数组
-  items: readonly string[]
-  onItemClick?: (item: string) => void
-}
-
-function List({ items, onItemClick }: ListProps) {
-  // items.push('new') // ❌ Error
-
-  return (
-    <ul>
-      {items.map(item => (
-        <li key={item} onClick={() => onItemClick?.(item)}>
-          {item}
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-// 使用
-const myItems = ['Apple', 'Banana', 'Cherry']
-<List items={myItems} />
-// myItems 不会被 List 组件修改
-```
-
-### 6.4. 场景 4：类的公共属性
-
-```ts
-class User {
-  private _roles: string[]
-
-  constructor(roles: string[]) {
-    this._roles = roles
-  }
-
-  // ✅ 返回只读数组，防止外部修改
-  get roles(): readonly string[] {
-    return this._roles
-  }
-
-  addRole(role: string): void {
-    this._roles.push(role)
-  }
-}
-
-const user = new User(['user', 'admin'])
-const roles = user.roles
-
-// roles.push('superadmin') // ❌ Error: 不能修改
-user.addRole('superadmin') // ✅ 通过方法修改
-```
-
-### 6.5. 场景 5：Redux State
-
-```ts
-interface State {
-  readonly users: readonly User[]
-  readonly posts: readonly Post[]
-}
-
-// Reducer 不能直接修改 state
-function reducer(state: State, action: Action): State {
-  // state.users.push(newUser) // ❌ Error
-
-  // ✅ 创建新状态
-  return {
-    ...state,
-    users: [...state.users, newUser],
-  }
-}
-```
-
-## 7. 🤔 如何处理只读数组的修改需求？
-
-### 7.1. 方法 1：创建副本后修改
-
-```ts
-const readonly: readonly number[] = [1, 2, 3]
-
-// ✅ 扩展运算符
-const mutable = [...readonly]
-mutable.push(4) // ✅ [1, 2, 3, 4]
-
-// ✅ Array.from
-const mutable2 = Array.from(readonly)
-mutable2.push(5) // ✅
-
-// ✅ slice
-const mutable3 = readonly.slice()
-mutable3.push(6) // ✅
-```
-
-### 7.2. 方法 2：使用不可变操作
-
-```ts
-const numbers: readonly number[] = [1, 2, 3]
-
-// ✅ 添加元素（返回新数组）
-const added = [...numbers, 4] // [1, 2, 3, 4]
-
-// ✅ 删除元素
-const removed = numbers.filter((n) => n !== 2) // [1, 3]
-
-// ✅ 修改元素
-const updated = numbers.map((n) => (n === 2 ? 20 : n)) // [1, 20, 3]
-
-// ✅ 插入元素
-const inserted = [...numbers.slice(0, 1), 99, ...numbers.slice(1)] // [1, 99, 2, 3]
-
-// ✅ 排序
-const sorted = [...numbers].sort((a, b) => b - a) // [3, 2, 1]
-```
-
-### 7.3. 方法 3：类型断言（不推荐）
-
-```ts
-const readonly: readonly number[] = [1, 2, 3]
-
-// ⚠️ 绕过类型检查（危险）
-const mutable = readonly as number[]
-mutable.push(4) // 编译通过，但破坏了不可变性
-
-// 这会影响原始数组（如果它们引用同一个对象）
-console.log(readonly) // [1, 2, 3, 4] - 被修改了！
-```
-
-## 8. 🤔 常见错误和最佳实践
-
-### 8.1. 错误 1：浅只读
+readonly 只能保证数组的第一层成员是只读的，但是无法约束更深层次的成员。
 
 ```ts
 interface User {
@@ -435,62 +243,21 @@ const users: readonly User[] = [{ id: 1, roles: ['admin'] }]
 // ❌ 数组是只读的，但元素不是
 users.push({ id: 2, roles: ['user'] }) // ❌ Error
 
-// ⚠️ 但可以修改元素的属性
+// ⚠️ 允许修改元素的属性
 users[0].roles.push('superadmin') // ✅ 允许（浅只读）
 
-// ✅ 解决方案：深度只读
-interface User {
+// ✅ 深度只读的写法：
+interface User2 {
   readonly id: number
   readonly roles: readonly string[]
 }
 
-const users: readonly User[] = [{ id: 1, roles: ['admin'] }]
+const users2: readonly User2[] = [{ id: 1, roles: ['admin'] }]
 
-users[0].roles.push('superadmin') // ❌ Error
+users2[0].roles.push('superadmin') // ❌ Error
 ```
 
-### 8.2. 错误 2：const 断言的误解
-
-```ts
-// ⚠️ const 不会使数组只读
-const numbers = [1, 2, 3]
-numbers.push(4) // ✅ 允许
-
-// ✅ as const 才会使数组只读
-const readonlyNumbers = [1, 2, 3] as const
-readonlyNumbers.push(4) // ❌ Error
-```
-
-### 8.3. 最佳实践
-
-```ts
-// ✅ 1. 函数参数默认使用只读
-function process(items: readonly string[]): void {
-  // 不修改参数
-}
-
-// ✅ 2. 返回值考虑使用只读
-function getConfig(): readonly Config[] {
-  return CONFIG
-}
-
-// ✅ 3. 需要修改时创建副本
-function addItem(items: readonly string[], newItem: string): string[] {
-  return [...items, newItem]
-}
-
-// ✅ 4. 类的公共数组属性使用只读
-class Store {
-  get items(): readonly Item[] {
-    return this._items
-  }
-}
-
-// ✅ 5. 配置常量使用 as const
-const ROUTES = ['/home', '/about', '/contact'] as const
-```
-
-## 9. 🔗 引用
+## 7. 🔗 引用
 
 - [TypeScript Handbook - readonly][1]
 - [TypeScript 3.4 - readonly 修饰符][2]

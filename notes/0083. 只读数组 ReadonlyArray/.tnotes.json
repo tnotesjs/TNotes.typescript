@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TypeScript的ReadonlyArray<T>或readonly T[]提供编译期不可变数组约束，允许读取和返回新数组的操作但禁止修改，仅实现浅只读（第一层元素不可变），能有效防止意外数据修改并提高代码安全性。",
   "id": "a4de9f87-d31c-4708-90b0-8ae35d9ec36c",
   "created_at": 1760521823000,
-  "updated_at": 1762844498653
+  "updated_at": 1762848111439
 }
