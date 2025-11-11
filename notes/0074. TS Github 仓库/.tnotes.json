@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 源码仓库及相关资源，适合深入了解 TS 实现原理和社区动态。",
   "id": "0df097d1-76a6-426d-8884-c796f1818277",
   "created_at": 1760521823000,
-  "updated_at": 1762303040606
+  "updated_at": 1762818272169
 }

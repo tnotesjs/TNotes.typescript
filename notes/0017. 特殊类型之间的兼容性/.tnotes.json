@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "详细记录了 TypeScript 中特殊类型（any、unknown、object、void、undefined、null 和 never）之间的可赋值性关系，并通过引用官方文档的表格清晰展示了这些类型在不同 strictNullChecks 配置下的兼容性规则，是经常需要查阅的资料之一。",
   "id": "ab4564c7-5fbe-430e-a9de-018e6b861c10",
   "created_at": 1760523564000,
-  "updated_at": 1761481582000
+  "updated_at": 1762818639653
 }
