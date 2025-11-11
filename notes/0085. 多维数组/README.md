@@ -5,56 +5,41 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是多维数组？](#3--什么是多维数组)
-  - [3.1. 可视化理解](#31-可视化理解)
 - [4. 🤔 如何声明多维数组？](#4--如何声明多维数组)
   - [4.1. 二维数组](#41-二维数组)
   - [4.2. 三维数组](#42-三维数组)
   - [4.3. 不规则数组（Jagged Array）](#43-不规则数组jagged-array)
   - [4.4. 只读多维数组](#44-只读多维数组)
-- [5. 🤔 多维数组的常见用途](#5--多维数组的常见用途)
-  - [5.1. 用途 1：矩阵运算](#51-用途-1矩阵运算)
-  - [5.2. 用途 2：表格数据](#52-用途-2表格数据)
-  - [5.3. 用途 3：游戏地图](#53-用途-3游戏地图)
-  - [5.4. 用途 4：图像数据](#54-用途-4图像数据)
-- [6. 🤔 如何操作多维数组？](#6--如何操作多维数组)
-  - [6.1. 遍历二维数组](#61-遍历二维数组)
-  - [6.2. 映射（map）](#62-映射map)
-  - [6.3. 过滤（filter）](#63-过滤filter)
-  - [6.4. 展平（flat）](#64-展平flat)
-  - [6.5. 归约（reduce）](#65-归约reduce)
-- [7. 🤔 多维数组的类型推断](#7--多维数组的类型推断)
-  - [7.1. 自动推断](#71-自动推断)
-  - [7.2. 不规则数组的推断](#72-不规则数组的推断)
-  - [7.3. const 断言](#73-const-断言)
-- [8. 🤔 常见错误和最佳实践](#8--常见错误和最佳实践)
-  - [8.1. 错误 1：未检查数组长度](#81-错误-1未检查数组长度)
-  - [8.2. 错误 2：浅拷贝陷阱](#82-错误-2浅拷贝陷阱)
-  - [8.3. 错误 3：性能问题](#83-错误-3性能问题)
-  - [8.4. 最佳实践](#84-最佳实践)
-- [9. 🔗 引用](#9--引用)
+- [5. 🤔 多维数组的类型推断行为是？](#5--多维数组的类型推断行为是)
+  - [5.1. 自动推断](#51-自动推断)
+  - [5.2. 不规则数组的推断](#52-不规则数组的推断)
+  - [5.3. const 断言](#53-const-断言)
+- [6. 🤔 多维数组的常见用途都有哪些？](#6--多维数组的常见用途都有哪些)
+  - [6.1. 用途 1：矩阵运算](#61-用途-1矩阵运算)
+  - [6.2. 用途 2：表格数据](#62-用途-2表格数据)
+  - [6.3. 用途 3：游戏地图](#63-用途-3游戏地图)
+  - [6.4. 用途 4：图像数据](#64-用途-4图像数据)
+- [7. 🔗 引用](#7--引用)
 
 <!-- endregion:toc -->
 
 ## 1. 🎯 本节内容
 
 - 多维数组的定义和声明
-- 二维数组、三维数组的使用
-- 多维数组的遍历和操作
 - 类型推断规则
 - 实际应用场景
-- 性能优化建议
 
 ## 2. 🫧 评价
 
-多维数组（Multidimensional Arrays）是**数组的数组**，用于表示矩阵、表格、立方体等多维数据结构。在 TypeScript 中，多维数组本质上是嵌套的一维数组。
+多维数组（Multidimensional Arrays）是数组的数组，在 TypeScript 中，多维数组本质上是嵌套的一维数组。
 
-虽然 JavaScript/TypeScript 没有原生的多维数组类型（不像 C/C++ 等语言），但通过**数组嵌套**可以实现相同的功能。理解多维数组的使用，对于处理表格数据、矩阵运算、游戏地图等场景至关重要。
+虽然 JavaScript/TypeScript 没有原生的多维数组类型（不像 C/C++ 等语言），但通过数组嵌套可以实现相同的功能。
 
-本节将介绍多维数组的声明、操作和最佳实践，帮助你在 TypeScript 中高效处理多维数据。
+多维数组常用于表示矩阵、表格、立方体等多维数据结构。（关于多维数组的用途和操作是属于 JS 层面的知识点，本文不会过多介绍）
 
 ## 3. 🤔 什么是多维数组？
 
-多维数组是**数组的数组**，每个元素本身也是一个数组。
+多维数组是数组的数组，每个元素本身也是一个数组。
 
 ```ts
 // 一维数组
@@ -77,35 +62,6 @@ const array3D: number[][][] = [
     [5, 6],
     [7, 8],
   ],
-]
-```
-
-### 3.1. 可视化理解
-
-```
-一维数组：
-[1, 2, 3, 4, 5]
-
-二维数组（3×3 矩阵）：
-[
-  [1, 2, 3],  ← 第 0 行
-  [4, 5, 6],  ← 第 1 行
-  [7, 8, 9]   ← 第 2 行
-]
-  ↑  ↑  ↑
-  列 列 列
-  0  1  2
-
-三维数组（2×2×2 立方体）：
-[
-  [           ← 第 0 层
-    [1, 2],   ← 第 0 层第 0 行
-    [3, 4]    ← 第 0 层第 1 行
-  ],
-  [           ← 第 1 层
-    [5, 6],   ← 第 1 层第 0 行
-    [7, 8]    ← 第 1 层第 1 行
-  ]
 ]
 ```
 
@@ -209,16 +165,77 @@ const matrix: readonly (readonly number[])[] = [
 ]
 
 // ❌ 不能修改
-matrix[0][0] = 10 // Error
-matrix.push([7, 8, 9]) // Error
+matrix[0][0] = 10 // ❌ Error
+matrix.push([7, 8, 9]) // ❌ Error
 
 // 简化写法（需要 TypeScript 3.4+）
 type ReadonlyMatrix = readonly (readonly number[])[]
 ```
 
-## 5. 🤔 多维数组的常见用途
+## 5. 🤔 多维数组的类型推断行为是？
 
-### 5.1. 用途 1：矩阵运算
+### 5.1. 自动推断
+
+```ts
+// ✅ TypeScript 自动推断
+const matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+]
+// 推断类型：number[][]
+
+const mixed = [
+  [1, 'a'],
+  [2, 'b'],
+]
+// 推断类型：(string | number)[][]
+```
+
+### 5.2. 不规则数组的推断
+
+```ts
+// ⚠️ 不规则数组
+const jagged = [[1, 2, 3], [4, 5], [6]]
+// 推断类型：number[][]（但长度不一致）
+
+// ✅ 更安全的方式：使用元组
+type JaggedArray = [[number, number, number], [number, number], [number]]
+
+const jagged2: JaggedArray = [[1, 2, 3], [4, 5], [6]]
+```
+
+### 5.3. const 断言
+
+```ts
+// 普通推断
+const matrix1 = [
+  [1, 2],
+  [3, 4],
+]
+// 类型：number[][]
+
+// const 断言
+const matrix2 = [
+  [1, 2],
+  [3, 4],
+] as const
+// 类型：readonly [readonly [1, 2], readonly [3, 4]]
+
+// 应用场景：常量配置
+const GRID = [
+  ['A', 'B', 'C'],
+  ['D', 'E', 'F'],
+] as const
+// 类型：const GRID: readonly [readonly ["A", "B", "C"], readonly ["D", "E", "F"]]
+
+// 小技巧：多维数组类型展开
+type CellValue = (typeof GRID)[number][number]
+// 'A' | 'B' | 'C' | 'D' | 'E' | 'F'
+```
+
+## 6. 🤔 多维数组的常见用途都有哪些？
+
+### 6.1. 用途 1：矩阵运算
 
 ```ts
 // 数学矩阵
@@ -253,7 +270,7 @@ function transpose(matrix: Matrix): Matrix {
 }
 ```
 
-### 5.2. 用途 2：表格数据
+### 6.2. 用途 2：表格数据
 
 ```ts
 // 表格数据表示
@@ -282,7 +299,7 @@ function getColumn(data: TableData, colIndex: number): (string | number)[] {
 }
 ```
 
-### 5.3. 用途 3：游戏地图
+### 6.3. 用途 3：游戏地图
 
 ```ts
 // 2D 游戏地图
@@ -314,7 +331,7 @@ function isWalkable(map: GameMap, x: number, y: number): boolean {
 }
 ```
 
-### 5.4. 用途 4：图像数据
+### 6.4. 用途 4：图像数据
 
 ```ts
 // RGB 图像（3 通道）
@@ -347,350 +364,7 @@ function getPixel(
 }
 ```
 
-## 6. 🤔 如何操作多维数组？
-
-### 6.1. 遍历二维数组
-
-::: code-group
-
-```ts [for 循环]
-const matrix: number[][] = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-]
-
-// 嵌套 for 循环
-for (let i = 0; i < matrix.length; i++) {
-  for (let j = 0; j < matrix[i].length; j++) {
-    console.log(`matrix[${i}][${j}] = ${matrix[i][j]}`)
-  }
-}
-```
-
-```ts [forEach]
-const matrix: number[][] = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-]
-
-// forEach 嵌套
-matrix.forEach((row, i) => {
-  row.forEach((value, j) => {
-    console.log(`matrix[${i}][${j}] = ${value}`)
-  })
-})
-```
-
-```ts [for...of]
-const matrix: number[][] = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-]
-
-// for...of 嵌套
-for (const [i, row] of matrix.entries()) {
-  for (const [j, value] of row.entries()) {
-    console.log(`matrix[${i}][${j}] = ${value}`)
-  }
-}
-```
-
-:::
-
-### 6.2. 映射（map）
-
-```ts
-const matrix: number[][] = [
-  [1, 2, 3],
-  [4, 5, 6],
-]
-
-// 所有元素 ×2
-const doubled = matrix.map((row) => row.map((value) => value * 2))
-// [[2, 4, 6], [8, 10, 12]]
-
-// 转换为字符串
-const stringMatrix = matrix.map((row) => row.map((value) => value.toString()))
-// [['1', '2', '3'], ['4', '5', '6']]
-```
-
-### 6.3. 过滤（filter）
-
-```ts
-const matrix: number[][] = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-]
-
-// 过滤行（保留和 > 10 的行）
-const filteredRows = matrix.filter(
-  (row) => row.reduce((sum, val) => sum + val, 0) > 10
-)
-// [[4, 5, 6], [7, 8, 9]]
-
-// 过滤每行的元素（保留偶数）
-const filteredValues = matrix.map((row) =>
-  row.filter((value) => value % 2 === 0)
-)
-// [[2], [4, 6], [8]]
-```
-
-### 6.4. 展平（flat）
-
-```ts
-const matrix: number[][] = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-]
-
-// 展平为一维数组
-const flat = matrix.flat()
-// [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-// 三维数组展平
-const cube: number[][][] = [
-  [
-    [1, 2],
-    [3, 4],
-  ],
-  [
-    [5, 6],
-    [7, 8],
-  ],
-]
-
-const flat1 = cube.flat() // 展平一层
-// [[1, 2], [3, 4], [5, 6], [7, 8]]
-
-const flat2 = cube.flat(2) // 展平两层
-// [1, 2, 3, 4, 5, 6, 7, 8]
-```
-
-### 6.5. 归约（reduce）
-
-```ts
-const matrix: number[][] = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-]
-
-// 计算矩阵所有元素的和
-const sum = matrix.reduce(
-  (total, row) => total + row.reduce((rowSum, val) => rowSum + val, 0),
-  0
-)
-// 45
-
-// 找出最大值
-const max = matrix.reduce((maxVal, row) => Math.max(maxVal, ...row), -Infinity)
-// 9
-```
-
-## 7. 🤔 多维数组的类型推断
-
-### 7.1. 自动推断
-
-```ts
-// ✅ TypeScript 自动推断
-const matrix = [
-  [1, 2, 3],
-  [4, 5, 6],
-]
-// 推断类型：number[][]
-
-const mixed = [
-  [1, 'a'],
-  [2, 'b'],
-]
-// 推断类型：(string | number)[][]
-```
-
-### 7.2. 不规则数组的推断
-
-```ts
-// ⚠️ 不规则数组
-const jagged = [[1, 2, 3], [4, 5], [6]]
-// 推断类型：number[][]（但长度不一致）
-
-// ✅ 更安全的方式：使用元组
-type JaggedArray = [[number, number, number], [number, number], [number]]
-
-const jagged2: JaggedArray = [[1, 2, 3], [4, 5], [6]]
-```
-
-### 7.3. const 断言
-
-```ts
-// 普通推断
-const matrix1 = [
-  [1, 2],
-  [3, 4],
-]
-// 类型：number[][]
-
-// const 断言
-const matrix2 = [
-  [1, 2],
-  [3, 4],
-] as const
-// 类型：readonly [readonly [1, 2], readonly [3, 4]]
-
-// 应用场景：常量配置
-const GRID = [
-  ['A', 'B', 'C'],
-  ['D', 'E', 'F'],
-] as const
-
-type CellValue = (typeof GRID)[number][number]
-// 'A' | 'B' | 'C' | 'D' | 'E' | 'F'
-```
-
-## 8. 🤔 常见错误和最佳实践
-
-### 8.1. 错误 1：未检查数组长度
-
-```ts
-const matrix: number[][] = [
-  [1, 2, 3],
-  [4, 5],
-]
-
-// ❌ 假设所有行长度相同
-function getColumn(matrix: number[][], col: number): number[] {
-  return matrix.map((row) => row[col]) // 可能返回 undefined
-}
-
-// ✅ 检查长度
-function getColumnSafe(matrix: number[][], col: number): number[] {
-  return matrix.map((row) => row[col] ?? 0) // 使用默认值
-}
-
-// 或者验证矩阵规整性
-function validateMatrix(matrix: number[][]): boolean {
-  if (matrix.length === 0) return true
-  const expectedLength = matrix[0].length
-  return matrix.every((row) => row.length === expectedLength)
-}
-```
-
-### 8.2. 错误 2：浅拷贝陷阱
-
-```ts
-const original: number[][] = [
-  [1, 2],
-  [3, 4],
-]
-
-// ❌ 浅拷贝（修改会影响原数组）
-const copy1 = original.slice()
-copy1[0][0] = 99
-console.log(original[0][0]) // 99（被修改了！）
-
-// ✅ 深拷贝
-const copy2 = original.map((row) => [...row])
-copy2[0][0] = 99
-console.log(original[0][0]) // 1（未被修改）
-
-// ✅ 使用 JSON（简单但有限制）
-const copy3 = JSON.parse(JSON.stringify(original))
-
-// ✅ 使用库（推荐）
-import { cloneDeep } from 'lodash'
-const copy4 = cloneDeep(original)
-```
-
-### 8.3. 错误 3：性能问题
-
-```ts
-// ❌ 创建大型数组的低效方式
-function createMatrixBad(rows: number, cols: number): number[][] {
-  const matrix: number[][] = []
-  for (let i = 0; i < rows; i++) {
-    matrix[i] = []
-    for (let j = 0; j < cols; j++) {
-      matrix[i][j] = 0
-    }
-  }
-  return matrix
-}
-
-// ✅ 高效方式
-function createMatrixGood(rows: number, cols: number): number[][] {
-  return Array.from({ length: rows }, () =>
-    Array.from({ length: cols }, () => 0)
-  )
-}
-
-// ✅ 或使用 fill + map
-function createMatrixFill(rows: number, cols: number): number[][] {
-  return Array(rows)
-    .fill(null)
-    .map(() => Array(cols).fill(0))
-}
-```
-
-### 8.4. 最佳实践
-
-```ts
-// ✅ 1. 使用类型别名提高可读性
-type Matrix = number[][]
-type Point = [number, number]
-
-// ✅ 2. 创建辅助函数
-function getRows(matrix: Matrix): number {
-  return matrix.length
-}
-
-function getCols(matrix: Matrix): number {
-  return matrix[0]?.length ?? 0
-}
-
-function isValidIndex(matrix: Matrix, row: number, col: number): boolean {
-  return (
-    row >= 0 &&
-    row < matrix.length &&
-    col >= 0 &&
-    col < (matrix[row]?.length ?? 0)
-  )
-}
-
-// ✅ 3. 使用 const 断言保护常量
-const DIRECTIONS = [
-  [-1, 0], // 上
-  [1, 0], // 下
-  [0, -1], // 左
-  [0, 1], // 右
-] as const
-
-// ✅ 4. 提供默认值
-function getCell(
-  matrix: Matrix,
-  row: number,
-  col: number,
-  defaultValue = 0
-): number {
-  return matrix[row]?.[col] ?? defaultValue
-}
-
-// ✅ 5. 使用泛型函数
-function createEmptyMatrix<T>(
-  rows: number,
-  cols: number,
-  defaultValue: T
-): T[][] {
-  return Array.from({ length: rows }, () =>
-    Array.from({ length: cols }, () => defaultValue)
-  )
-}
-```
-
-## 9. 🔗 引用
+## 7. 🔗 引用
 
 - [MDN - Array][1]
 - [TypeScript Handbook - Arrays][2]

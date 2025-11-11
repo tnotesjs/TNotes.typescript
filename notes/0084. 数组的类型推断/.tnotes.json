@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TypeScript根据数组元素自动推断类型（单一类型推断为T[]，混合类型推断为联合类型），空数组需显式标注类型以避免any[]或never[]问题，而as const断言可获得精确的只读元组类型，实现更严格的类型约束。",
   "id": "f246783d-6097-4d65-8d6f-64634c6c4be1",
   "created_at": 1760521823000,
-  "updated_at": 1761896147000
+  "updated_at": 1762850862035
 }

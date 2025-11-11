@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "多维数组（Multidimensional Arrays）是数组的数组，在 TypeScript 中，多维数组本质上是嵌套的一维数组。",
   "id": "97744878-9a37-4b68-9537-969184e0a9c4",
   "created_at": 1760521823000,
-  "updated_at": 1761896147000
+  "updated_at": 1762851678247
 }

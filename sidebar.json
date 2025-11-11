@@ -280,11 +280,11 @@
         "link": "/notes/0288. readonly 数组在函数参数中的兼容性差异分析/README"
       },
       {
-        "text": "⏰ 数组的类型推断",
+        "text": "✅ 数组的类型推断",
         "link": "/notes/0084. 数组的类型推断/README"
       },
       {
-        "text": "⏰ 多维数组",
+        "text": "✅ 多维数组",
         "link": "/notes/0085. 多维数组/README"
       }
     ]

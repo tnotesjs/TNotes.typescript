@@ -330,9 +330,19 @@ y.toFixed() // 不报错
 
 没有声明类型的空数组，默认会被 TypeScript 视作一个 any 类型的数组。
 
-如果开启了 strictNullChecks 配置，并且关闭了 noImplicitAny 配置，那么 TypeScript 会将没有声明类型的空数组视作一个 never 类型的数组。
+如果开启了 strictNullChecks 配置，并且关闭了 noImplicitAny 配置，那么 TypeScript 会将没有声明类型的空数组视作一个 never 类型的数组。否则会被推断为 `any[]`。
 
-```ts
+::: code-group
+
+```ts [any 数组]
+// tsconfig.json 不满足：
+// {
+//   "compilerOptions": {
+//     "strictNullChecks": true,
+//     "noImplicitAny": false
+//   }
+// }
+
 const arr = []
 
 // 等效
@@ -341,10 +351,8 @@ const arr = []
 arr.push(1, 2, 3) // ok
 ```
 
-开启 strictNullChecks 配置，并且关闭 noImplicitAny 配置：
-
-```ts
-// tsconfig.json
+```ts [never 数组]
+// tsconfig.json 满足：
 // {
 //   "compilerOptions": {
 //     "strictNullChecks": true,
@@ -360,6 +368,8 @@ const arr = []
 arr.push(1, 2, 3) // error
 // Argument of type 'number' is not assignable to parameter of type 'never'.
 ```
+
+:::
 
 ## 14. 🔗 引用
 
