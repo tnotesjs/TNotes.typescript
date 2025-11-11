@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 的 unknown 类型是比 any 更安全的顶层类型，它允许接收任何值但强制要求使用前进行类型检查或缩小，有效避免了类型污染问题，特别适用于处理未知数据源和需要类型安全的场景。",
   "id": "ec2c5c22-96a2-4f59-b820-3a7f6f7a7a02",
   "created_at": 1760521823000,
   "updated_at": 1760927697000

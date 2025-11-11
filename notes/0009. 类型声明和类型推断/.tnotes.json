@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "记录了 TypeScript 中类型声明、类型注解和类型推断的概念、规则及实际应用，强调类型声明不是必需的，TS 能自动推断大部分类型，但在复杂场景下需显式标注以保证类型安全。",
   "id": "6c09151d-3667-4b77-9e90-9e5a2e70821d",
   "created_at": 1760523564000,
   "updated_at": 1761215047000

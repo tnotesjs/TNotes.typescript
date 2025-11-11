@@ -138,7 +138,7 @@
         "link": "/notes/0016. never 类型/README"
       },
       {
-        "text": "⏰ void 类型",
+        "text": "✅ void 类型",
         "link": "/notes/0079. void 类型/README"
       },
       {
@@ -151,6 +151,10 @@
     "text": "5. 类型系统基础知识",
     "collapsed": true,
     "items": [
+      {
+        "text": "⏰ 类型系统基础知识",
+        "link": "/notes/0287. 类型系统基础知识/README"
+      },
       {
         "text": "✅ boolean 类型",
         "link": "/notes/0018. boolean 类型/README"
@@ -1334,10 +1338,6 @@
       {
         "text": "⏰ typescript-go 项目",
         "link": "/notes/0284. typescript-go 项目/README"
-      },
-      {
-        "text": "⏰ new",
-        "link": "/notes/0287. new/README"
       },
       {
         "text": "⏰ new",

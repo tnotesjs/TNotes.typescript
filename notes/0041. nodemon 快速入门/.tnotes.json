@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "记录了 nodemon 的作用、典型应用场景及其与 ts-node 的集成方式，强调其在 TypeScript 开发中实现自动重启和提升开发效率的实用价值。",
   "id": "e612210e-444a-41c0-8052-e0b1a057f1b2",
   "created_at": 1760712303000,
   "updated_at": 1761871140000

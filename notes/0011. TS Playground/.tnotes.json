@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "记录了 TypeScript Playground 的核心功能、典型应用场景和页面结构，强调其在学习、调试和分享 TypeScript 代码中的高效作用。",
   "id": "00fec24c-a298-4a7b-9e0e-38f8f8296504",
   "created_at": 1760521823000,
   "updated_at": 1762054176000

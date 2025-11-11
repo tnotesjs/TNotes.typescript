@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "这篇笔记全面解析了 TypeScript 中 any 类型的定义、特性及使用场景，重点讨论了其关闭类型检查的行为、隐式推断规则、与 never 等类型的交互，以及“类型污染”问题，同时建议通过开启 noImplicitAny 配置和显式声明类型来提升代码安全性。",
   "id": "1fe6273f-13a1-4770-bc04-3111df7cc318",
   "created_at": 1760521823000,
   "updated_at": 1762768965473

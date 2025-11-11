@@ -5,23 +5,19 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是 void 类型？](#3--什么是-void-类型)
-- [4. 🤔 void 与 undefined 有什么区别？](#4--void-与-undefined-有什么区别)
-  - [4.1. 对比表](#41-对比表)
-  - [4.2. 关键区别：函数返回值](#42-关键区别函数返回值)
-  - [4.3. 实际应用场景差异](#43-实际应用场景差异)
-- [5. 🤔 void 类型的常见使用场景有哪些？](#5--void-类型的常见使用场景有哪些)
-- [6. 🤔 void 类型有哪些特殊行为？](#6--void-类型有哪些特殊行为)
-  - [6.1. 特殊行为 1：函数类型赋值](#61-特殊行为-1函数类型赋值)
-  - [6.2. 特殊行为 2：方法重写](#62-特殊行为-2方法重写)
-  - [6.3. 特殊行为 3：类型保护无效](#63-特殊行为-3类型保护无效)
-  - [6.4. 特殊行为 4：Promise 返回值](#64-特殊行为-4promise-返回值)
-- [7. 🤔 void 类型的常见错误有哪些？](#7--void-类型的常见错误有哪些)
-  - [7.1. 错误 1：试图使用 void 返回值](#71-错误-1试图使用-void-返回值)
-  - [7.2. 错误 2：void 与 undefined 混淆](#72-错误-2void-与-undefined-混淆)
-  - [7.3. 错误 3：期望返回 void 但实际返回值](#73-错误-3期望返回-void-但实际返回值)
-  - [7.4. 错误 4：在联合类型中使用 void](#74-错误-4在联合类型中使用-void)
-  - [7.5. 最佳实践总结](#75-最佳实践总结)
-- [8. 🔗 引用](#8--引用)
+- [4. 🤔 TS 在什么情况下会将类型推断为 void？](#4--ts-在什么情况下会将类型推断为-void)
+- [5. 🤔 void 与 undefined 有什么区别？](#5--void-与-undefined-有什么区别)
+  - [5.1. 对比表](#51-对比表)
+  - [5.2. 关键区别：函数返回值](#52-关键区别函数返回值)
+  - [5.3. 实际应用场景差异](#53-实际应用场景差异)
+- [6. 🤔 void 类型的常见使用场景有哪些？](#6--void-类型的常见使用场景有哪些)
+- [7. 🤔 void 类型有哪些特殊行为？](#7--void-类型有哪些特殊行为)
+  - [7.1. 特殊行为 1：函数类型赋值](#71-特殊行为-1函数类型赋值)
+  - [7.2. 特殊行为 2：方法重写](#72-特殊行为-2方法重写)
+  - [7.3. 特殊行为 3：类型保护无效](#73-特殊行为-3类型保护无效)
+  - [7.4. 特殊行为 4：Promise 返回值](#74-特殊行为-4promise-返回值)
+- [8. 🤔 void 类型的常见错误有哪些？](#8--void-类型的常见错误有哪些)
+- [9. 🔗 引用](#9--引用)
 
 <!-- endregion:toc -->
 
@@ -35,13 +31,18 @@
 
 ## 2. 🫧 评价
 
-`void` 是 TypeScript 中一个特殊的类型，用于表示没有返回值的函数。它源自 C/C++ 等语言，但在 TypeScript 中有独特的语义。
+void 类型的特殊行为很多，但我们只需要知道两点：
 
-虽然 `void` 看起来简单，但它与 `undefined` 的关系、在回调函数中的行为、以及类型兼容性规则都容易让人困惑。理解 `void` 的正确用法，对于编写类型安全的函数签名至关重要。
+1. void 类型主要用来约束返回的返回值，其它地方大概率不会用到 void 类型
+2. void 类型表达的含义是：函数没有返回值或返回值不应该被使用
+   - 写：当你需要使用 void 来约束函数返回值时，请记住不要返回任何值，哪怕显式写了返回值也不会报错
+   - 读：当你看到使用 void 类型来约束函数返回值时，就当这个函数没有返回值即可
 
 ## 3. 🤔 什么是 void 类型？
 
-`void` 类型表示函数没有返回值或返回值不应该被使用。
+- `void` 是 TypeScript 中一个特殊的类型，它源自 C/C++ 等语言，但在 TypeScript 中有独特的语义。
+- `void` 类型表示函数没有返回值或返回值不应该被使用。
+- 虽然 `void` 看起来简单，但它与 `undefined` 的关系、在回调函数中的行为、以及类型兼容性规则都容易让人困惑。理解 `void` 的正确用法，对于编写类型安全的函数签名至关重要。
 
 ::: code-group
 
@@ -101,9 +102,34 @@ const result = test() // result 的类型是 void
 console.log(result) // 输出：undefined
 ```
 
-## 4. 🤔 void 与 undefined 有什么区别？
+## 4. 🤔 TS 在什么情况下会将类型推断为 void？
 
-### 4.1. 对比表
+下面是官方的描述：
+
+void represents the return value of functions which don’t return a value. It’s the inferred type any time a function doesn’t have any return statements, or doesn’t return any explicit value from those return statements:
+
+void 表示不返回任何值的函数的返回值类型。当函数没有任何 return 语句，或者从这些 return 语句中没有返回任何显式值时，推断出的类型就是 void：
+
+```ts
+// The inferred return type is void
+function noop() {
+  return
+}
+// TS 类型推断结果：
+// function noop(): void
+```
+
+In JavaScript, a function that doesn’t return any value will implicitly return the value undefined. However, void and undefined are not the same thing in TypeScript.
+
+在 JavaScript 中，不返回任何值的函数会隐式返回 undefined 。但在 TypeScript 中， void 和 undefined 并非同一概念。
+
+void is not the same as undefined.
+
+void 与 undefined 是不同的类型。
+
+## 5. 🤔 void 与 undefined 有什么区别？
+
+### 5.1. 对比表
 
 | 特性     | void           | undefined            |
 | -------- | -------------- | -------------------- |
@@ -111,7 +137,7 @@ console.log(result) // 输出：undefined
 | 使用场景 | 函数返回值类型 | 变量类型、可选属性   |
 | 函数返回 | 忽略返回值     | 必须返回 `undefined` |
 
-### 4.2. 关键区别：函数返回值
+### 5.2. 关键区别：函数返回值
 
 ::: code-group
 
@@ -150,7 +176,7 @@ const f3: UndefinedFunc = () => {
 
 :::
 
-### 4.3. 实际应用场景差异
+### 5.3. 实际应用场景差异
 
 - 场景 1：回调函数（推荐用 void）
 - 场景 2：可选属性（推荐用 undefined）
@@ -186,7 +212,7 @@ console.log(user.age) // undefined
 
 :::
 
-## 5. 🤔 void 类型的常见使用场景有哪些？
+## 6. 🤔 void 类型的常见使用场景有哪些？
 
 主要都是用于函数的返回值。
 
@@ -269,9 +295,9 @@ class Resource implements Disposable {
 
 :::
 
-## 6. 🤔 void 类型有哪些特殊行为？
+## 7. 🤔 void 类型有哪些特殊行为？
 
-### 6.1. 特殊行为 1：函数类型赋值
+### 7.1. 特殊行为 1：函数类型赋值
 
 ```ts
 // ✅ void 函数可以接受有返回值的函数
@@ -286,7 +312,7 @@ const f3: VoidFunc = () => {
 // 原因：TypeScript 认为调用者不关心返回值
 ```
 
-### 6.2. 特殊行为 2：方法重写
+### 7.2. 特殊行为 2：方法重写
 
 ```ts
 class Base {
@@ -306,7 +332,7 @@ class Derived extends Base {
 }
 ```
 
-### 6.3. 特殊行为 3：类型保护无效
+### 7.3. 特殊行为 3：类型保护无效
 
 虽然函数返回值如果是 void 类型，通常意味着它的值是 undefined，但是 void 和 undefined 是不同的类型。
 
@@ -337,7 +363,7 @@ function process2(value: string | undefined) {
 process2()
 ```
 
-### 6.4. 特殊行为 4：Promise 返回值
+### 7.4. 特殊行为 4：Promise 返回值
 
 ```ts
 ;(async () => {
@@ -353,22 +379,25 @@ process2()
 })()
 ```
 
-## 7. 🤔 void 类型的常见错误有哪些？
+## 8. 🤔 void 类型的常见错误有哪些？
 
-### 7.1. 错误 1：试图使用 void 返回值
+- 错误 1：试图使用 void 返回值
+- 错误 2：void 与 undefined 语义混淆，在约束函数返回值时，前者表示函数没有返回值，后者表示返回值可能是 undefined
+- 错误 3：期望返回 void 但实际有返回值
+- 错误 4：在联合类型中使用 void
 
 ::: code-group
 
-```ts [❌ 错误示例]
+```ts [1]
+// ❌ 错误示例
 function log(msg: string): void {
   console.log(msg)
 }
 
 const result = log('hello')
 console.log(result.length) // ❌ 错误：Property 'length' does not exist on type 'void'
-```
 
-```ts [✅ 正确做法]
+// ✅ 正确做法
 function log(msg: string): void {
   console.log(msg)
 }
@@ -376,22 +405,21 @@ function log(msg: string): void {
 log('hello') // 不使用返回值
 ```
 
-:::
-
-### 7.2. 错误 2：void 与 undefined 混淆
-
-::: code-group
-
-```ts [❌ 错误示例]
-function getData(): void {
+```ts [2]
+// ❌ 错误示例
+function getData(): string | void {
   if (condition) {
     return undefined // ✅ 语法正确，但语义不清
   }
   // 实际上想表达：可能有值，也可能没有
+  return 'data'
 }
-```
 
-```ts [✅ 正确做法]
+// 或者使用可选链
+const data = getData()
+console.log(data?.toUpperCase()) // ❌ 这里会报错
+
+// ✅ 正确做法
 function getData(): string | undefined {
   if (condition) {
     return undefined
@@ -401,16 +429,11 @@ function getData(): string | undefined {
 
 // 或者使用可选链
 const data = getData()
-console.log(data?.toUpperCase())
+console.log(data?.toUpperCase()) // ✅ 正确
 ```
 
-:::
-
-### 7.3. 错误 3：期望返回 void 但实际返回值
-
-::: code-group
-
-```ts [⚠️ 潜在问题]
+```ts [3]
+// ⚠️ 潜在问题
 type Callback = () => void
 
 // 这个函数返回 number，但赋值给 void 类型
@@ -420,9 +443,8 @@ const callback: Callback = () => {
 
 // 调用者无法获取返回值
 const result = callback() // result 是 void，不是 number
-```
 
-```ts [✅ 明确意图]
+// ✅ 明确意图
 // 如果需要返回值，不要用 void
 type Callback = () => number
 
@@ -433,11 +455,7 @@ const callback: Callback = () => {
 const result = callback() // result 是 number
 ```
 
-:::
-
-### 7.4. 错误 4：在联合类型中使用 void
-
-```ts
+```ts [4]
 // ❌ 不推荐：void 在联合类型中很少有意义
 type Result = string | void
 
@@ -459,7 +477,9 @@ function process(): Result {
 }
 ```
 
-### 7.5. 最佳实践总结
+:::
+
+最佳实践总结：
 
 | 场景         | 推荐                  | 不推荐                |
 | ------------ | --------------------- | --------------------- |
@@ -469,10 +489,12 @@ function process(): Result {
 | Promise 无值 | `Promise<void>`       | `Promise<undefined>`  |
 | 方法声明     | `method(): void`      | `method(): undefined` |
 
-## 8. 🔗 引用
+## 9. 🔗 引用
 
 - [TypeScript Handbook - Functions][1]
-- [TypeScript Deep Dive - void][2]
+- [void][2]
+- [Why are functions returning non-void assignable to function returning void? - “为什么返回非 void 的函数可以赋值给返回 void 的函数？”][3]
 
 [1]: https://www.typescriptlang.org/docs/handbook/2/functions.html
-[2]: https://basarat.gitbook.io/typescript/type-system/never#void
+[2]: https://www.typescriptlang.org/docs/handbook/2/functions.html#void
+[3]: https://github.com/Microsoft/TypeScript/wiki/FAQ#why-are-functions-returning-non-void-assignable-to-function-returning-void

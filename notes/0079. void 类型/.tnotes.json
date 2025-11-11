@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "这篇笔记详细探讨了 TypeScript 中 void 类型的定义、用途及其与 undefined 的区别，阐述了 void 在函数返回值、回调函数等场景中的行为和特殊规则，并通过代码示例展示了常见用法、错误案例及最佳实践，帮助开发者深入理解 void 类型在类型系统中的作用和正确使用方式。",
   "id": "d1eb05f8-b62c-4607-90f0-d8829f634c51",
   "created_at": 1760521823000,
-  "updated_at": 1762768965473
+  "updated_at": 1762825199648
 }

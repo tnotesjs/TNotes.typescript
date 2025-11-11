@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "记录了 tsconfig.json 的作用、常用配置项、不同项目场景下的模板及调试技巧，帮助开发者快速掌握 TypeScript 项目的配置管理。",
   "id": "1b1d1e54-12d1-4056-a50d-1cf14bb1109e",
   "created_at": 1760521823000,
   "updated_at": 1762768965473

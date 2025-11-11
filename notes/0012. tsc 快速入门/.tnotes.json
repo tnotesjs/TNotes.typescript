@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "记录了 tsc 编译器的作用、安装方法、常用命令及与 tsconfig.json 配置文件的关系，帮助快速掌握 TypeScript 项目的基本编译流程。",
   "id": "94b1bc92-e562-4cdf-abc4-960cad436cf1",
   "created_at": 1760521823000,
   "updated_at": 1761871140000

@@ -27,25 +27,17 @@
 学前准备章节，主要目标有两个：
 
 - 了解 TS 的两个核心概念：
-  - 类型
-  - 编译
+  - 【1】类型
+  - 【2】编译
+  - 我们后面学习的 TS 相关的所有内容，几乎都是围绕着这两个核心概念展开的
 - 搭建 TS 的学习环境：
-  - 在线的 TS Playground
-  - 本地的 tsc（tsconfig.json）、ts-node、nodemon、ts-node-dev 等
+  - 【1】在线的 TS Playground
+  - 【2】本地的 tsc（tsconfig.json）、ts-node、nodemon、ts-node-dev 等
+  - 快速测试一些 TNotes.typescript 知识库中的 TS 代码片段，非常推荐【1】TS Playground。
 
 本节主要用于对章节的内容做的一个汇总说明。
 
-| 笔记 | 简介 |
-| --- | --- |
-| 0004. 类型 vs. 值 | 记录了 TypeScript 中的“类型”和“值”概念，强调类型信息只用于开发阶段的类型检查，最终运行的始终是去除类型后的 JavaScript 代码。 |
-| 0009. 类型声明和类型推断 | 记录了 TypeScript 中类型声明、类型注解和类型推断的概念、规则及实际应用，强调类型声明不是必需的，TS 能自动推断大部分类型，但在复杂场景下需显式标注以保证类型安全。 |
-| 0010. TS 的编译 | 记录了 TypeScript 的编译流程、实时类型检查机制及 VS Code 语言服务的原理，帮助理解 TS 如何在开发和运行阶段保障类型安全。 |
-| 0011. TS Playground | 记录了 TypeScript Playground 的核心功能、典型应用场景和页面结构，强调其在学习、调试和分享 TypeScript 代码中的高效作用。 |
-| 0012. tsc 快速入门 | 记录了 tsc 编译器的作用、安装方法、常用命令及与 tsconfig.json 配置文件的关系，帮助快速掌握 TypeScript 项目的基本编译流程。 |
-| 0078. tsconfig.json 快速入门 | 记录了 tsconfig.json 的作用、常用配置项、不同项目场景下的模板及调试技巧，帮助开发者快速掌握 TypeScript 项目的配置管理。 |
-| 0013. ts-node 快速入门 | 记录了 ts-node 的作用、原理、安装与使用方法，并对其与 tsc、node 的关系及实际开发中的应用场景进行了详细说明。 |
-| 0041. nodemon 快速入门 | 记录了 nodemon 的作用、典型应用场景及其与 ts-node 的集成方式，强调其在 TypeScript 开发中实现自动重启和提升开发效率的实用价值。 |
-| 0042. ts-node-dev 快速入门 | 记录了 ts-node-dev 的功能、与 ts-node 的关系、使用方法及其在 TypeScript 开发中实现自动重启和高效开发的优势。 |
+<N :ids="['0004', '0009', '0010', '0011', '0012', '0078', '0013', '0041', '0042']" />
 
 ## 3. 🔍 本章内容概览
 

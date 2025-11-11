@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 的 never 类型代表“永远不会出现的值”（空集），作为底层类型可赋值给任何其他类型但不能被任何类型赋值，主要用于表示抛出异常/无限循环的函数返回值、实现类型运算完整性以及进行穷尽性检查，与 void 的核心区别在于 never 表示函数永远不会正常结束。",
   "id": "ba5969c1-ac49-4d25-8fb2-1c699e7f4f88",
   "created_at": 1760521823000,
   "updated_at": 1760855656000

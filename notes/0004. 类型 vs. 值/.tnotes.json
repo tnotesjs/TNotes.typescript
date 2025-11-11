@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "记录了 TypeScript 中的“类型”和“值”概念，强调类型信息只用于开发阶段的类型检查，最终运行的始终是去除类型后的 JavaScript 代码。",
   "id": "4f8dad52-8e9e-476a-beef-c0d9284c7c93",
   "created_at": 1759898980000,
   "updated_at": 1761736152000

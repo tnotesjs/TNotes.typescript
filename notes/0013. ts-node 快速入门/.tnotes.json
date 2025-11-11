@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "记录了 ts-node 的作用、原理、安装与使用方法，并对其与 tsc、node 的关系及实际开发中的应用场景进行了详细说明。",
   "id": "757ad566-147e-4619-a205-303fd6acebda",
   "created_at": 1760521823000,
   "updated_at": 1761871140000
