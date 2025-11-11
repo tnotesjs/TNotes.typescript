@@ -260,7 +260,7 @@
     ]
   },
   {
-    "text": "7. 数组",
+    "text": "7. 数组类型",
     "collapsed": true,
     "items": [
       {
@@ -286,7 +286,7 @@
     ]
   },
   {
-    "text": "8. 元组",
+    "text": "8. 元组类型",
     "collapsed": true,
     "items": [
       {
@@ -316,7 +316,7 @@
     ]
   },
   {
-    "text": "9. 函数",
+    "text": "9. 函数类型",
     "collapsed": true,
     "items": [
       {
@@ -358,7 +358,7 @@
     ]
   },
   {
-    "text": "10. 对象",
+    "text": "10. 对象类型",
     "collapsed": true,
     "items": [
       {
@@ -392,7 +392,7 @@
     ]
   },
   {
-    "text": "11. 接口",
+    "text": "11. 接口类型",
     "collapsed": true,
     "items": [
       {
@@ -430,7 +430,7 @@
     ]
   },
   {
-    "text": "12. 类",
+    "text": "12. Class 类型",
     "collapsed": true,
     "items": [
       {
