@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "系统对比了动态类型和静态类型的核心区别，分析了各自的优缺点，并通过实际示例展示了 TypeScript 静态类型带来的开发体验提升及其局限。",
   "id": "ba21cdff-e6d1-4c6f-bf54-992556d6136c",
   "created_at": 1759898980000,
   "updated_at": 1762247641000

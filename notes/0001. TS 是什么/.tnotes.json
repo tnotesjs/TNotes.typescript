@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "介绍了 TypeScript 的本质、与 JavaScript 的关系、设计初衷及其为解决大型项目类型安全问题而诞生的背景。",
   "id": "a4063adf-68eb-4c61-a7ca-c0088b091f40",
   "created_at": 1759845851000,
   "updated_at": 1761736152000

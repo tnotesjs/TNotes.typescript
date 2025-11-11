@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "介绍了面向对象编程（OOP）的核心思想、四大特性及其与面向过程的对比，并说明了 TypeScript 如何通过类型系统和相关特性更好地支持面向对象开发。",
   "id": "6fa0ae24-a06a-4d0b-9848-a9d98096f5ee",
   "created_at": 1759845851000,
   "updated_at": 1761736152000

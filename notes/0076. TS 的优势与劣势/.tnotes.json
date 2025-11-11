@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "分析了 TypeScript 在类型安全、开发效率、团队协作等方面的优势，以及学习曲线、类型复杂度等劣势，并给出适用场景、技术选型建议及常见误解澄清。",
   "id": "f5438879-978c-4324-b292-0d4c800f0b09",
   "created_at": 1760521823000,
   "updated_at": 1762751169019
