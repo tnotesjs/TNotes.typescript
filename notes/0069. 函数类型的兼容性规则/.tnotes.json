@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 函数类型兼容性遵循“参数逆变、返回值协变”原则：源函数参数类型可比目标函数更宽泛（父类型→子类型），而返回值类型需比目标函数更具体（子类型→父类型），该规则受 strictFunctionTypes 配置影响且类方法采用宽松双变策略。",
   "id": "401fac7b-38be-4944-8eff-60ab339f74e0",
   "created_at": 1761481372000,
-  "updated_at": 1761558491000
+  "updated_at": 1762831331322
 }

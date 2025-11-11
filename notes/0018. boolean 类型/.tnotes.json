@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 中的 boolean 类型严格表示逻辑值 true 或 false，与 JavaScript 不同，它不允许将非布尔值（如数字、字符串等）直接赋值给 boolean 类型变量，必须使用 Boolean() 函数或 !! 运算符进行显式转换以确保类型安全。",
   "id": "b5cce6f3-92aa-4648-b90c-2a55932db006",
   "created_at": 1760521823000,
   "updated_at": 1760855656000

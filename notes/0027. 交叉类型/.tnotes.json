@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 交叉类型（&）表示值必须同时满足多个类型的全部特性，通过合并属性创建更复杂的类型结构，常用于对象组合、混入模式和类型扩展，但需谨慎避免同名属性冲突导致 never 类型问题。",
   "id": "1917d5be-f4bf-477d-b531-ffb6263841cd",
   "created_at": 1760521823000,
   "updated_at": 1761056739000

@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 的 symbol 类型是表示唯一标识符的原始类型，其子类型 unique symbol 用于表示特定的 symbol 值，只能通过 const 声明且不可修改，确保类型系统能识别单个 symbol 值的唯一性，常用于避免属性名冲突和实现更精确的类型检查。",
   "id": "5fa29e42-1949-4c80-9f4d-859c1c9715ab",
   "created_at": 1760521823000,
   "updated_at": 1761215047000

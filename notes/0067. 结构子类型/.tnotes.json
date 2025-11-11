@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 采用结构子类型系统，通过检查对象的结构（而非名称）判断类型兼容性，只要对象包含所需属性和方法即可兼容（“鸭子类型”原则），提供灵活性的同时也存在意外兼容风险，可通过品牌类型等技巧增强语义安全性。",
   "id": "e92378c4-ad2c-4971-a54e-60792bf10e4a",
   "created_at": 1760521823000,
   "updated_at": 1761484416000

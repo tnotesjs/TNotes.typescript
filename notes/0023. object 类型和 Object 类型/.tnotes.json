@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 中大写的 Object 类型几乎接受所有值（除 null/undefined），包含原始类型且过于宽泛不推荐使用；而小写的 object 类型（TS 2.2+）仅接受非原始类型（对象、数组、函数等），提供更精确的类型约束，是表示对象类型时的推荐选择。",
   "id": "953493b8-d1d4-4f7f-8f4c-6cd5af8a872b",
   "created_at": 1760521823000,
   "updated_at": 1761215047000

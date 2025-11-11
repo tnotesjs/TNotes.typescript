@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 扩展了 JavaScript 的 typeof 运算符，使其不仅能进行运行时类型检查，还能在类型层面查询值的静态类型，特别适用于配合 as const 保留字面量类型信息，是实现类型安全和精确类型推导的关键特性。",
   "id": "3218b4ad-46b7-48c5-b79d-8f87b2cf8c42",
   "created_at": 1760521823000,
-  "updated_at": 1761056739000
+  "updated_at": 1762831331322
 }

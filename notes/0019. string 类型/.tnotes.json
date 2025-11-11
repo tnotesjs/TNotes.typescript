@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 中的 string 类型是表示文本数据的基本类型，严格涵盖普通字符串和模板字符串，确保只有字符串值可以赋给该类型变量，提供类型安全保证。",
   "id": "43c7309e-c84f-4626-b6cd-0485b5e200e5",
   "created_at": 1760521823000,
   "updated_at": 1760855656000

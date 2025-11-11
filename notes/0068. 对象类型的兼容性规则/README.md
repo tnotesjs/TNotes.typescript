@@ -70,17 +70,23 @@ let a: A = obj // ✅ 允许
 - 对象字面量的“新鲜度检查”（Freshness Checking）也叫“严格字面量检查”。
 - TypeScript 对“新鲜”的对象字面量和“已存在”的变量会采用不同的检查策略。
 
-```ts
+::: code-group
+
+```ts [场景 1]
 type A = { x: number }
 
-// 场景 1
 let a: A = { x: 1, y: 'extra' } // ❌ 错误
 // Object literal may only specify known properties, and 'y' does not exist in type 'A'.(2353)
+```
 
-// 场景 2
+```ts [场景 2]
+type A = { x: number }
+
 const obj = { x: 1, y: 'extra' }
 let a: A = obj // ✅ 允许
 ```
+
+:::
 
 ### 4.1. 思考题
 
@@ -107,7 +113,7 @@ let a: A = obj // ✅ 允许
 
 ### 4.4. 场景 2 - 值很可能来源于其它地方 - 优先考虑实用性
 
-值很可能来源于其它地方，比如后端 API 接口返回的数据，这个值不是你能控制的。因此，这时候 TS 只关心 obj 是否符合 A 的结构，而不检查 obj 的定义是否包含额外的属性。
+值很可能来源于其它地方，比如调用某个函数（如：后端 API 接口）返回的数据，这个值的结构往往不是你能精确控制的。因此，这时候 TS 只关心 obj 是否符合 A 的结构，而不检查 obj 的定义是否包含额外的属性。
 
 小结：
 

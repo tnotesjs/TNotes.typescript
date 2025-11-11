@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 联合类型（|）表示值可为多种类型之一，通过类型守卫进行类型收窄后安全访问，是实现类型安全多态和状态建模的核心机制，广泛应用于字面量类型组合、可选值处理等场景。",
   "id": "54a6f126-8af6-4356-92b8-2cfafe0dfa49",
   "created_at": 1760521823000,
   "updated_at": 1760956761000

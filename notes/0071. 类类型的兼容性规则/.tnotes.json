@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript类类型兼容性主要遵循结构子类型规则，但私有/受保护成员必须来自同一类或其子类以保证封装安全，静态成员不参与检查，构造函数通常不检查（除非使用参数属性语法糖），且类可与结构匹配的对象字面量兼容但受“新鲜度检查”约束。",
   "id": "6418a15f-965a-452b-8074-6a1818b5d329",
   "created_at": 1761482365000,
   "updated_at": 1761580451000

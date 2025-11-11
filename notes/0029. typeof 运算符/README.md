@@ -319,8 +319,8 @@ if (arr !== null && typeof arr === 'object') {
 ## 10. 🤔 可以使用 `typeof` 来获取表达式的类型吗？
 
 ```ts
-type T = typeof 1 + 1 // 报错
-type T = typeof Date() // 报错
+type T = typeof 1 + 1 // ❌ 报错
+type T = typeof Date() // ❌ 报错
 // ……
 ```
 

@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 的 number 类型是表示数字的基本类型，涵盖整数、浮点数及特殊值（Infinity、-Infinity、NaN），支持完整的数学运算并提供严格的类型安全保证。",
   "id": "af5fe8dc-d91e-4659-9711-ff4a36d2a906",
   "created_at": 1760521823000,
   "updated_at": 1760855656000

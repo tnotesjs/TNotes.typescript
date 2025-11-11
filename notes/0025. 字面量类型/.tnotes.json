@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 字面量类型允许将具体值（如 'success'、42、true）用作类型，通过联合类型、as const 断言和模板字符串字面量实现精确约束，相比 enum 更轻量且推荐在现代项目中使用。",
   "id": "ec4381f6-70c6-4831-8f86-b19c5824c6ce",
   "created_at": 1760521823000,
   "updated_at": 1761871140000

@@ -51,13 +51,13 @@
 
 ## 2. 🫧 评价
 
-协变（Covariance）和逆变（Contravariance）是类型系统中的重要概念，用于描述**类型之间的替换关系**。虽然这两个术语听起来学术化，但它们解决的是非常实际的问题：**什么时候可以用子类型替换父类型**。
+协变（Covariance）和逆变（Contravariance）是类型系统中的重要概念，用于描述类型之间的替换关系。虽然这两个术语听起来学术化，但它们解决的是非常实际的问题：什么时候可以用子类型替换父类型。
 
 在 TypeScript 中，协变和逆变主要体现在：
 
-1. **函数参数**：逆变（更宽松的类型可以替换更严格的类型）
-2. **函数返回值**：协变（更严格的类型可以替换更宽松的类型）
-3. **泛型**：根据使用位置决定
+1. 函数参数：逆变（更宽松的类型可以替换更严格的类型）
+2. 函数返回值：协变（更严格的类型可以替换更宽松的类型）
+3. 泛型：根据使用位置决定
 
 理解协变与逆变，能帮助你：
 
@@ -76,10 +76,10 @@
 
 | 概念 | 定义 | 记忆口诀 |
 | --- | --- | --- |
-| **协变（Covariance）** | 如果 `Dog extends Animal`，则 `Container<Dog>` 可以赋值给 `Container<Animal>` | 子类型 → 父类型（方向一致） |
-| **逆变（Contravariance）** | 如果 `Dog extends Animal`，则 `Container<Animal>` 可以赋值给 `Container<Dog>` | 父类型 → 子类型（方向相反） |
-| **双向协变（Bivariance）** | 两个方向都可以赋值 | 既协变又逆变 |
-| **不变（Invariance）** | 必须类型完全相同 | 不能赋值 |
+| 协变（Covariance） | 如果 `Dog extends Animal`，则 `Container<Dog>` 可以赋值给 `Container<Animal>` | 子类型 → 父类型（方向一致） |
+| 逆变（Contravariance） | 如果 `Dog extends Animal`，则 `Container<Animal>` 可以赋值给 `Container<Dog>` | 父类型 → 子类型（方向相反） |
+| 双向协变（Bivariance） | 两个方向都可以赋值 | 既协变又逆变 |
+| 不变（Invariance） | 必须类型完全相同 | 不能赋值 |
 
 ### 3.2. 直观理解
 
@@ -153,7 +153,7 @@ const handleAnimal2: AnimalHandler = handleDog2 // ❌ 应该禁止
 
 ### 5.1. 定义
 
-协变：**子类型可以赋值给父类型**（保持类型层级的方向）
+协变：子类型可以赋值给父类型（保持类型层级的方向）
 
 ```
 如果 Dog extends Animal
@@ -248,7 +248,7 @@ console.log(animal.name) // ✅ Dog 一定有 name
 
 ### 6.1. 定义
 
-逆变：**父类型可以赋值给子类型**（反转类型层级的方向）
+逆变：父类型可以赋值给子类型（反转类型层级的方向）
 
 ```
 如果 Dog extends Animal
@@ -327,7 +327,7 @@ const handleAnimal: AnimalHandler = handleDog
 
 ### 6.4. 为什么参数是逆变的？
 
-**里氏替换原则**（Liskov Substitution Principle）：
+里氏替换原则（Liskov Substitution Principle）：
 
 ```
 子类型可以替换父类型
@@ -346,7 +346,7 @@ const handleAnimal: AnimalHandler = handleDog
 
 ### 7.1. 定义
 
-双向协变：**既可以协变，也可以逆变**
+双向协变：既可以协变，也可以逆变
 
 ```ts
 // 在 strictFunctionTypes: false 时
@@ -406,7 +406,7 @@ const handler: EventListener = handleClick as EventListener
 
 ### 8.1. 定义
 
-不变：**类型必须完全匹配**，既不能协变也不能逆变
+不变：类型必须完全匹配，既不能协变也不能逆变
 
 ```ts
 // 可变数据结构通常是不变的

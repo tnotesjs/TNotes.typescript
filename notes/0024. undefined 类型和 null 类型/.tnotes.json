@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 中 undefined 和 null 是特殊原始类型，推荐始终启用 strictNullChecks 并通过可选链 ?. 和空值合并 ?? 安全处理空值，而非空断言操作符 ! 虽可简化代码但存在运行时风险，应谨慎使用。",
   "id": "8e67e020-373b-44f0-aff5-fbe790160c26",
   "created_at": 1760523564000,
   "updated_at": 1760938781000

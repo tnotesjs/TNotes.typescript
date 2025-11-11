@@ -81,7 +81,7 @@
 
 ## 5. 类型系统基础知识
 
-- [ ] [0287. 类型系统基础知识](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0287.%20%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/README.md)
+- [x] [0287. 类型系统基础知识](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0287.%20%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/README.md)
 - [x] [0018. boolean 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0018.%20boolean%20%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0019. string 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0019.%20string%20%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0020. number 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0020.%20number%20%E7%B1%BB%E5%9E%8B/README.md)

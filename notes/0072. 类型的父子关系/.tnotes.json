@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": false,
-  "description": "",
+  "description": "TypeScript 中类型的父子关系由结构子类型系统决定，子类型（如字面量类型、对象超集、可变数组）更具体且能力更强，父类型（如原始类型、对象子集、只读数组）更宽泛且能力更弱，这种关系决定了类型兼容性：父类型 = 子类型（✅兼容），子类型 = 父类型（❌不兼容）。",
   "id": "8da78570-c9b0-4db5-a1fd-ca7e0044f5c6",
   "created_at": 1761548931000,
-  "updated_at": 1761548931000
+  "updated_at": 1762831331322
 }

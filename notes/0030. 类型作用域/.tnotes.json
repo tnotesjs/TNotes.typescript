@@ -5,7 +5,7 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 类型作用域遵循 JavaScript 词法作用域规则，由模块系统控制类型可见性范围，interface 支持声明合并而 type 不能重定义，现代项目应使用模块化避免全局作用域污染。",
   "id": "215cf82f-3fd1-4135-8e9b-fb0dbd2f520f",
   "created_at": 1760521823000,
   "updated_at": 1761056739000
