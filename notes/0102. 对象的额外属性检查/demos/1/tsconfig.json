@@ -1,0 +1,5 @@
+{
+  "compilerOptions": {
+    "suppressExcessPropertyErrors": true // ❌ 已废弃，不再生效
+  }
+}

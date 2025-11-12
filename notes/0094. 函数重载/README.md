@@ -5,37 +5,24 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是函数重载？](#3--什么是函数重载)
-- [4. 🤔 如何声明函数重载？](#4--如何声明函数重载)
-  - [4.1. 基本语法](#41-基本语法)
-  - [4.2. 简单示例](#42-简单示例)
-  - [4.3. 多个参数的重载](#43-多个参数的重载)
-- [5. 🤔 重载签名与实现签名](#5--重载签名与实现签名)
-  - [5.1. 重载签名（Overload Signatures）](#51-重载签名overload-signatures)
-  - [5.2. 实现签名（Implementation Signature）](#52-实现签名implementation-signature)
-  - [5.3. 完整示例](#53-完整示例)
-  - [5.4. 重要规则](#54-重要规则)
-- [6. 🤔 函数重载的匹配规则](#6--函数重载的匹配规则)
-  - [6.1. 从上到下匹配](#61-从上到下匹配)
-  - [6.2. 更具体的重载在前](#62-更具体的重载在前)
-  - [6.3. 可选参数的匹配](#63-可选参数的匹配)
-- [7. 🤔 常见使用场景](#7--常见使用场景)
-  - [7.1. 场景 1：不同参数类型返回不同类型](#71-场景-1不同参数类型返回不同类型)
-  - [7.2. 场景 2：不同参数数量](#72-场景-2不同参数数量)
-  - [7.3. 场景 3：数组操作](#73-场景-3数组操作)
-  - [7.4. 场景 4：Promise 重载](#74-场景-4promise-重载)
-  - [7.5. 场景 5：React 组件工厂](#75-场景-5react-组件工厂)
-  - [7.6. 场景 6：数据库查询](#76-场景-6数据库查询)
-- [8. 🤔 重载 vs 联合类型](#8--重载-vs-联合类型)
-  - [8.1. 何时使用重载](#81-何时使用重载)
-  - [8.2. 何时使用联合类型](#82-何时使用联合类型)
-  - [8.3. 对比表](#83-对比表)
-  - [8.4. 实际对比](#84-实际对比)
-- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
-  - [9.1. 错误 1：实现签名不兼容](#91-错误-1实现签名不兼容)
-  - [9.2. 错误 2：重载顺序错误](#92-错误-2重载顺序错误)
-  - [9.3. 错误 3：过度使用重载](#93-错误-3过度使用重载)
-  - [9.4. 最佳实践](#94-最佳实践)
-- [10. 🔗 引用](#10--引用)
+  - [3.1. 核心概念](#31-核心概念)
+  - [3.2. 基本语法](#32-基本语法)
+  - [3.3. 简单示例](#33-简单示例)
+  - [3.4. 多个参数的重载](#34-多个参数的重载)
+- [4. 🤔 重载签名、实现签名是什么？](#4--重载签名实现签名是什么)
+  - [4.1. 重载签名（Overload Signatures）](#41-重载签名overload-signatures)
+  - [4.2. 实现签名（Implementation Signature）](#42-实现签名implementation-signature)
+  - [4.3. 实现签名必须兼容所有重载签名](#43-实现签名必须兼容所有重载签名)
+- [5. 🤔 函数重载的匹配规则是？](#5--函数重载的匹配规则是)
+  - [5.1. 基本流程与直观示例](#51-基本流程与直观示例)
+  - [5.2. 更具体的重载优先（与声明顺序无关）](#52-更具体的重载优先与声明顺序无关)
+  - [5.3. 声明顺序会影响的情况：无“唯一更具体者”](#53-声明顺序会影响的情况无唯一更具体者)
+  - [5.4. 可选参数与参数个数](#54-可选参数与参数个数)
+  - [5.5. 仅看参数，不看返回类型](#55-仅看参数不看返回类型)
+  - [5.6. 小结](#56-小结)
+- [6. 🆚 重载 vs 联合类型](#6--重载-vs-联合类型)
+- [7. 🤔 关于函数重载都有哪些实践建议？](#7--关于函数重载都有哪些实践建议)
+- [8. 🔗 引用](#8--引用)
 
 <!-- endregion:toc -->
 
@@ -50,13 +37,13 @@
 
 ## 2. 🫧 评价
 
-函数重载（Function Overloading）允许为**同一个函数**定义**多个类型签名**，根据不同的参数类型或数量，返回不同的类型。
+函数重载（Function Overloading）允许为同一个函数定义多个类型签名，根据不同的参数类型或数量，返回不同的类型。
 
-TypeScript 的函数重载是**纯编译期特性**：
+TypeScript 的函数重载是纯编译期特性：
 
-- 在编译时提供**多个类型签名**
-- 在运行时只有**一个实现**
-- 通过重载签名提供更**精确的类型推断**
+- 在编译时提供多个类型签名
+- 在运行时只有一个实现
+- 通过重载签名提供更精确的类型推断
 
 理解函数重载，能帮助你：
 
@@ -69,7 +56,7 @@ TypeScript 的函数重载是**纯编译期特性**：
 
 ## 3. 🤔 什么是函数重载？
 
-函数重载是为**同一个函数**提供**多个类型定义**，使其能接受不同类型或数量的参数，并返回相应的类型。
+函数重载是为同一个函数提供多个类型定义，使其能接受不同类型或数量的参数，并返回相应的类型。
 
 ```ts
 // 没有重载：返回类型不够精确
@@ -91,16 +78,14 @@ const result1 = getValue('name') // 类型：string ✅
 const result2 = getValue(42) // 类型：number ✅
 ```
 
-**关键概念**：
+### 3.1. 核心概念
 
-- **重载签名**：多个类型定义（没有实现）
-- **实现签名**：唯一的实现（有函数体）
-- **调用签名匹配**：从上到下匹配重载签名
-- **类型收窄**：根据参数类型返回精确类型
+- 重载签名：多个类型定义（没有实现）
+- 实现签名：唯一的实现（有函数体）
+- 调用签名匹配：从上到下匹配重载签名
+- 类型收窄：根据参数类型返回精确类型
 
-## 4. 🤔 如何声明函数重载？
-
-### 4.1. 基本语法
+### 3.2. 基本语法
 
 ```ts
 // 重载签名 1
@@ -113,7 +98,7 @@ function func(param: Type1 | Type2): ReturnType1 | ReturnType2 {
 }
 ```
 
-### 4.2. 简单示例
+### 3.3. 简单示例
 
 ```ts
 // ✅ 重载：根据参数类型返回不同类型
@@ -131,7 +116,7 @@ const num = double(5) // 类型：number
 const str = double('hello') // 类型：string
 ```
 
-### 4.3. 多个参数的重载
+### 3.4. 多个参数的重载
 
 ```ts
 // ✅ 重载：不同数量的参数
@@ -145,78 +130,68 @@ function add(a: any, b: any, c?: any): any {
   return a + b
 }
 
-add(1, 2) // 类型：number
-add('hello', 'world') // 类型：string
-add(1, 2, 3) // 类型：number
+const a = add(1, 2) // 类型：number
+const b = add('hello', 'world') // 类型：string
+const c = add(1, 2, 3) // 类型：number
 ```
 
-## 5. 🤔 重载签名与实现签名
+## 4. 🤔 重载签名、实现签名是什么？
 
-### 5.1. 重载签名（Overload Signatures）
+示例：
+
+```ts
+function add(a: number, b: number): number
+function add(a: string, b: string): string
+function add(a: number, b: number, c: number): number
+function add(a: any, b: any, c?: any): any {
+  if (c !== undefined) {
+    return a + b + c
+  }
+  return a + b
+}
+```
+
+### 4.1. 重载签名（Overload Signatures）
 
 ```ts
 // 重载签名：只有类型，没有实现
-function process(value: string): string
-function process(value: number): number
-function process(value: boolean): boolean
+function add(a: number, b: number): number
+function add(a: string, b: string): string
+function add(a: number, b: number, c: number): number
 
 // 这些签名对外可见，用于类型检查
 ```
 
-### 5.2. 实现签名（Implementation Signature）
+### 4.2. 实现签名（Implementation Signature）
 
 ```ts
 // 实现签名：包含所有可能的类型
-function process(value: string | number | boolean): string | number | boolean {
-  // 唯一的实现
-  if (typeof value === 'string') {
-    return value.toUpperCase()
-  } else if (typeof value === 'number') {
-    return value * 2
-  } else {
-    return !value
+function add(a: any, b: any, c?: any): any {
+  if (c !== undefined) {
+    return a + b + c
   }
+  return a + b
 }
-
-// 实现签名对外不可见
 ```
 
-### 5.3. 完整示例
+::: warning ⚠️ 注意 - 实现签名对外不可见
 
-```ts
-// ✅ 完整的函数重载
-// 重载签名 1：处理字符串
-function format(value: string): string
-// 重载签名 2：处理数字
-function format(value: number): string
-// 重载签名 3：处理日期
-function format(value: Date): string
-// 实现签名：兼容所有重载签名
-function format(value: string | number | Date): string {
-  if (typeof value === 'string') {
-    return value.toUpperCase()
-  } else if (typeof value === 'number') {
-    return value.toFixed(2)
-  } else {
-    return value.toISOString()
-  }
-}
+调用者只能看到重载签名，实现签名对于调用者而言是不可见的。
 
-// 使用
-format('hello') // 类型：string
-format(123.456) // 类型：string
-format(new Date()) // 类型：string
-// format(true) // ❌ Error: No overload matches
-```
+比如你在 IDE 中输入 `add(` 的时候，会自动弹出重载签名的面板。
 
-### 5.4. 重要规则
+![img](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-11-12-17-22-36.png)
+
+:::
+
+### 4.3. 实现签名必须兼容所有重载签名
 
 ```ts
 // ❌ 实现签名必须兼容所有重载签名
-function bad(x: string): string
-function bad(x: number): number
+function bad(x: string): string // 1 ✅ 兼容
+function bad(x: number): number // 2 ❌ 不兼容
 function bad(x: string): string {
-  // ❌ Error: 实现签名不兼容
+  // ❌ Error: 实现签名不兼容 2
   return x
 }
 
@@ -228,255 +203,133 @@ function good(x: string | number): string | number {
 }
 ```
 
-## 6. 🤔 函数重载的匹配规则
+## 5. 🤔 函数重载的匹配规则是？
 
-### 6.1. 从上到下匹配
+重载解析并不是“从上到下匹配第一个就停”，而是：
+
+1. 收集所有“可适配”的重载；
+2. 在这些候选中选择“更具体”的那个（narrower 更优于 wider）；
+3. 如果不存在唯一更具体的候选（彼此不可比、同等具体），才按声明顺序取最前面的那个。
+
+### 5.1. 基本流程与直观示例
 
 ```ts
-// 重载签名的顺序很重要！
 function convert(value: string): number
 function convert(value: number): string
 function convert(value: string | number): string | number {
   return typeof value === 'string' ? parseInt(value) : String(value)
 }
 
-// TypeScript 从上到下匹配第一个符合的重载
-convert('123') // 匹配第 1 个重载 → number
-convert(123) // 匹配第 2 个重载 → string
+const foo = convert('123') // number（只有第 1 个可适配）
+const bar = convert(123) // string（只有第 2 个可适配）
 ```
 
-### 6.2. 更具体的重载在前
+上例中每次调用只有一个候选签名可适配，因此直接选中该签名。
+
+### 5.2. 更具体的重载优先（与声明顺序无关）
+
+当多个候选都可适配时，TS 会选择“更具体”的那个（更窄的参数类型）。即使它排在后面，也会被选中。
 
 ```ts
-// ✅ 具体的重载在前，通用的在后
-function process(value: 'special'): string
 function process(value: string): number
+function process(value: 'special'): string
 function process(value: string): string | number {
-  if (value === 'special') {
-    return 'Special case'
-  }
-  return value.length
+  return value === 'special' ? 'Special case' : value.length
 }
 
-process('special') // 类型：string（匹配第 1 个）
-process('other') // 类型：number（匹配第 2 个）
-
-// ❌ 如果顺序反了
-function badProcess(value: string): number
-function badProcess(value: 'special'): string
-// Error: This overload signature is not compatible with its implementation signature
+const a = process('special') // string（选择字面量重载，较具体）
+const b = process('other') // number（选择 string 重载）
 ```
 
-### 6.3. 可选参数的匹配
+这里 'special' 是 string 的子类型，因此字面量重载更具体并被选择。
+
+### 5.3. 声明顺序会影响的情况：无“唯一更具体者”
+
+当存在多个“同等具体”的候选（彼此不可比、都能适配），才会按声明顺序取第一个。
 
 ```ts
-// ✅ 可选参数的重载
+function pick(x: 'a' | 'b'): 1
+function pick(x: 'a' | 'c'): 2
+function pick(x: 'a' | 'b' | 'c'): 1 | 2 {
+  return x === 'c' ? 2 : 1
+}
+
+const a1 = pick('a') // 1（两个候选都可适配、无唯一更具体 → 取第一个）
+const b1 = pick('b') // 1（只匹配第 1 个）
+const c1 = pick('c') // 2（只匹配第 2 个）
+```
+
+结构类型示例（注意对象字面量的“多余属性检查”）：
+
+```ts
+function f(x: { a: number }): 'A'
+function f(x: { b: number }): 'B'
+function f(x: { a?: number; b?: number }): 'A' | 'B' {
+  return 'a' in x ? 'A' : 'B'
+}
+
+// 用变量调用：两个候选都可适配、同等具体 → 取声明顺序第一个
+const ab = { a: 1, b: 2 }
+const r = f(ab) // 'A'
+
+// 注意：直接用对象字面量会触发“对象多余属性检查”，因此此调用报错：
+// f({ a: 1, b: 2 }) // ❌
+// No overload matches this call.
+//   Overload 1 of 2, '(x: { a: number; }): "A"', gave the following error.
+//     Object literal may only specify known properties, and 'b' does not exist in type '{ a: number; }'.
+//   Overload 2 of 2, '(x: { b: number; }): "B"', gave the following error.
+//     Object literal may only specify known properties, and 'a' does not exist in type '{ b: number; }'.(2769)
+```
+
+解释：
+
+- 变量 `ab` 的类型是 `{ a: number; b: number }`，可赋给 `{ a: number }` 和 `{ b: number }`，二者同等具体，按顺序取第一个 → 返回 `'A'`。
+- 但对对象字面量会额外进行“多余属性检查”，分别检查成 `{ a: number }` 和 `{ b: number }` 时，`b/a` 被视为多余属性而报错；实现签名不可见，不参与选择。
+
+### 5.4. 可选参数与参数个数
+
+- 可选参数/不同参数个数也参与“可适配性”的判断。
+- 通常“参数个数更精确、约束更强”的签名更具体。
+
+```ts
 function greet(name: string): string
 function greet(name: string, greeting: string): string
 function greet(name: string, greeting?: string): string {
   return greeting ? `${greeting}, ${name}` : `Hello, ${name}`
 }
 
-greet('Alice') // 匹配第 1 个重载
-greet('Bob', 'Hi') // 匹配第 2 个重载
+greet('Alice') // 选 (name: string)
+greet('Bob', 'Hi') // 选 (name: string, greeting: string)
 ```
 
-## 7. 🤔 常见使用场景
+### 5.5. 仅看参数，不看返回类型
 
-### 7.1. 场景 1：不同参数类型返回不同类型
+重载选择仅依据参数类型/个数是否可适配及“更具体性”。
+
+返回类型不参与重载选择。
 
 ```ts
-// ✅ 根据输入类型返回对应类型
-function parse(value: string): number
-function parse(value: number): string
-function parse(value: boolean): string
-function parse(value: string | number | boolean): string | number {
-  if (typeof value === 'string') {
-    return parseInt(value, 10)
-  } else if (typeof value === 'number') {
-    return String(value)
-  } else {
-    return String(value)
-  }
+// 参数完全相同而仅返回类型不同的两个重载不被允许
+function bad(x: string): number
+// function bad(x: string): string // ❌ 重复的参数列表，编译错误
+function bad(x: string): number {
+  return x.length
 }
-
-const num = parse('123') // 类型：number
-const str = parse(456) // 类型：string
-const bool = parse(true) // 类型：string
 ```
 
-### 7.2. 场景 2：不同参数数量
+### 5.6. 小结
 
-```ts
-// ✅ 根据参数数量提供不同功能
-function createElement(tag: string): HTMLElement
-function createElement(tag: string, props: Record<string, any>): HTMLElement
-function createElement(
-  tag: string,
-  props: Record<string, any>,
-  children: HTMLElement[]
-): HTMLElement
-function createElement(
-  tag: string,
-  props?: Record<string, any>,
-  children?: HTMLElement[]
-): HTMLElement {
-  const element = document.createElement(tag)
+- 写重载时应按“更具体 → 更通用”排序（最佳实践）
+- 实际解析以“更具体者优先”为准，只有没有唯一更具体时，声明顺序才决定结果
+- 实现签名对外不可见，不参与选择过程
 
-  if (props) {
-    Object.assign(element, props)
-  }
+## 6. 🆚 重载 vs 联合类型
 
-  if (children) {
-    children.forEach((child) => element.appendChild(child))
-  }
-
-  return element
-}
-
-createElement('div') // ✅
-createElement('div', { className: 'container' }) // ✅
-createElement('div', { id: 'app' }, []) // ✅
-```
-
-### 7.3. 场景 3：数组操作
-
-```ts
-// ✅ reverse 函数重载
-function reverse(value: string): string
-function reverse<T>(value: T[]): T[]
-function reverse<T>(value: string | T[]): string | T[] {
-  if (typeof value === 'string') {
-    return value.split('').reverse().join('')
-  } else {
-    return value.slice().reverse()
-  }
-}
-
-reverse('hello') // 类型：string
-reverse([1, 2, 3]) // 类型：number[]
-reverse(['a', 'b', 'c']) // 类型：string[]
-```
-
-### 7.4. 场景 4：Promise 重载
-
-```ts
-// ✅ fetch 函数重载
-function fetch(url: string): Promise<string>
-function fetch(url: string, options: { json: true }): Promise<any>
-function fetch(url: string, options: { blob: true }): Promise<Blob>
-function fetch(
-  url: string,
-  options?: { json?: boolean; blob?: boolean }
-): Promise<string | any | Blob> {
-  return window.fetch(url).then((response) => {
-    if (options?.json) {
-      return response.json()
-    } else if (options?.blob) {
-      return response.blob()
-    } else {
-      return response.text()
-    }
-  })
-}
-
-fetch('/api/data') // Promise<string>
-fetch('/api/data', { json: true }) // Promise<any>
-fetch('/api/image', { blob: true }) // Promise<Blob>
-```
-
-### 7.5. 场景 5：React 组件工厂
-
-```ts
-// ✅ 组件创建重载
-interface ComponentProps {
-  onClick?: () => void
-}
-
-function component(type: 'button'): (props: ComponentProps) => HTMLButtonElement
-function component(type: 'input'): (props: ComponentProps) => HTMLInputElement
-function component(type: 'div'): (props: ComponentProps) => HTMLDivElement
-function component(type: string): (props: ComponentProps) => HTMLElement {
-  return (props: ComponentProps) => {
-    const element = document.createElement(type)
-    if (props.onClick) {
-      element.addEventListener('click', props.onClick)
-    }
-    return element as any
-  }
-}
-
-const createButton = component('button') // (props) => HTMLButtonElement
-const createInput = component('input') // (props) => HTMLInputElement
-```
-
-### 7.6. 场景 6：数据库查询
-
-```ts
-// ✅ 数据库查询重载
-interface User {
-  id: number
-  name: string
-}
-
-function find(id: number): Promise<User | null>
-function find(query: { name: string }): Promise<User[]>
-function find(query: number | { name: string }): Promise<User | User[] | null> {
-  if (typeof query === 'number') {
-    // 根据 ID 查询单个用户
-    return Promise.resolve({ id: query, name: 'User' })
-  } else {
-    // 根据条件查询多个用户
-    return Promise.resolve([{ id: 1, name: query.name }])
-  }
-}
-
-find(1) // Promise<User | null>
-find({ name: 'Alice' }) // Promise<User[]>
-```
-
-## 8. 🤔 重载 vs 联合类型
-
-### 8.1. 何时使用重载
-
-```ts
-// ✅ 重载：参数类型决定返回类型
-function process(value: string): number
-function process(value: number): string
-function process(value: string | number): string | number {
-  return typeof value === 'string' ? value.length : String(value)
-}
-
-const result1 = process('hello') // 类型：number ✅
-const result2 = process(123) // 类型：string ✅
-```
-
-### 8.2. 何时使用联合类型
-
-```ts
-// ✅ 联合类型：返回类型固定
-function process(value: string | number): number {
-  return typeof value === 'string' ? value.length : value
-}
-
-const result1 = process('hello') // 类型：number
-const result2 = process(123) // 类型：number
-```
-
-### 8.3. 对比表
-
-| 场景                     | 重载        | 联合类型        |
-| ------------------------ | ----------- | --------------- |
-| **返回类型依赖参数类型** | ✅ 适合     | ❌ 类型不够精确 |
-| **返回类型固定**         | ❌ 过度设计 | ✅ 适合         |
-| **多种调用方式**         | ✅ 适合     | ❌ 不够灵活     |
-| **代码复杂度**           | 较高        | 较低            |
-
-### 8.4. 实际对比
+对比示例：
 
 ::: code-group
 
-```ts [使用重载]
+```ts [重载]
 // ✅ 重载：返回类型精确
 function getValue(key: 'name'): string
 function getValue(key: 'age'): number
@@ -488,7 +341,7 @@ const name = getValue('name') // string ✅
 const age = getValue('age') // number ✅
 ```
 
-```ts [使用联合类型]
+```ts [联合类型]
 // ⚠️ 联合类型：返回类型宽松
 function getValue(key: 'name' | 'age'): string | number {
   return key === 'name' ? 'Alice' : 25
@@ -503,63 +356,44 @@ const nameStr = getValue('name') as string
 
 :::
 
-## 9. 🤔 常见错误和最佳实践
+对比表格：
 
-### 9.1. 错误 1：实现签名不兼容
+| 场景                 | 重载        | 联合类型        |
+| -------------------- | ----------- | --------------- |
+| 返回类型依赖参数类型 | ✅ 适合     | ❌ 类型不够精确 |
+| 返回类型固定         | ❌ 过度设计 | ✅ 适合         |
+| 多种调用方式         | ✅ 适合     | ❌ 不够灵活     |
+| 代码复杂度           | 较高        | 较低            |
 
-```ts
-// ❌ 实现签名必须兼容所有重载签名
-function bad(x: string): string
-function bad(x: number): number
-function bad(x: string): string {
-  // Error: 实现签名类型不匹配
-  return x
+决策建议：
+
+::: code-group
+
+```ts [优先使用重载]
+// ✅ 重载：参数类型决定返回类型
+function process(value: string): number
+function process(value: number): string
+function process(value: string | number): string | number {
+  return typeof value === 'string' ? value.length : String(value)
 }
 
-// ✅ 实现签名包含所有类型
-function good(x: string): string
-function good(x: number): number
-function good(x: string | number): string | number {
-  return typeof x === 'string' ? x : String(x)
-}
+const result1 = process('hello') // 类型：number ✅
+const result2 = process(123) // 类型：string ✅
 ```
 
-### 9.2. 错误 2：重载顺序错误
-
-```ts
-// ❌ 更通用的重载在前，会覆盖具体的重载
-function bad(value: string): number
-function bad(value: 'special'): string // Error: 永远不会匹配
-function bad(value: string): string | number {
-  return value === 'special' ? 'Special' : value.length
+```ts [优先使用联合类型]
+// ✅ 联合类型：返回类型固定
+function process(value: string | number): number {
+  return typeof value === 'string' ? value.length : value
 }
 
-// ✅ 更具体的重载在前
-function good(value: 'special'): string
-function good(value: string): number
-function good(value: string): string | number {
-  return value === 'special' ? 'Special' : value.length
-}
+const result1 = process('hello') // 类型：number
+const result2 = process(123) // 类型：number
 ```
 
-### 9.3. 错误 3：过度使用重载
+:::
 
-```ts
-// ❌ 不需要重载，联合类型就够了
-function bad(value: string): string
-function bad(value: number): string
-function bad(value: boolean): string
-function bad(value: string | number | boolean): string {
-  return String(value)
-}
-
-// ✅ 使用联合类型更简单
-function good(value: string | number | boolean): string {
-  return String(value)
-}
-```
-
-### 9.4. 最佳实践
+## 7. 🤔 关于函数重载都有哪些实践建议？
 
 ```ts
 // ✅ 1. 当返回类型依赖参数类型时使用重载
@@ -609,7 +443,7 @@ function parse(value: string | number): string | number {
   return typeof value === 'string' ? parseInt(value) : String(value)
 }
 
-// ✅ 6. 实现签名使用类型守卫
+// ✅ 6. 实现签名使用类型守卫，确保类型安全
 function process(value: string): string
 function process(value: number): number
 function process(value: string | number): string | number {
@@ -620,31 +454,19 @@ function process(value: string | number): string | number {
   }
 }
 
-// ✅ 7. 考虑是否可以用条件类型替代
-// 重载方式
-function getValue(key: 'name'): string
-function getValue(key: 'age'): number
-function getValue(key: string): string | number
-
-// 条件类型方式（更灵活）
-type ValueType<K extends string> = K extends 'name'
-  ? string
-  : K extends 'age'
-  ? number
-  : never
-
-function getValue<K extends 'name' | 'age'>(key: K): ValueType<K> {
-  // 实现
-  return null as any
+// ✅ 7. 返回类型固定的情况下，优先考虑用条件类型替代，不要过度设计
+function process(value: string | number): number {
+  return typeof value === 'string' ? value.length : value
 }
+
+const result1 = process('hello') // 类型：number
+const result2 = process(123) // 类型：number
 ```
 
-## 10. 🔗 引用
+## 8. 🔗 引用
 
 - [TypeScript Handbook - Function Overloads][1]
 - [TypeScript Deep Dive - Function Overloading][2]
-- [Effective TypeScript - Prefer Type-Safe Approaches to Overloaded Functions][3]
 
 [1]: https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads
 [2]: https://basarat.gitbook.io/typescript/type-system/functions#overloading
-[3]: https://effectivetypescript.com/

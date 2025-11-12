@@ -67,19 +67,21 @@ let a: A = obj // ✅ 允许
 
 ## 4. 🤔 对象字面量的“新鲜度检查”（Freshness Checking）是什么？
 
-- 对象字面量的“新鲜度检查”（Freshness Checking）也叫“严格字面量检查”。
-- TypeScript 对“新鲜”的对象字面量和“已存在”的变量会采用不同的检查策略。
+对象字面量的「新鲜度检查」（Freshness Checking）也叫「额外属性检查」（Excess Property Checking）或「严格对象字面量检查」（Strict Object Literal Checking），这些术语指代的是同一个机制。
+
+TypeScript 对「新鲜」的对象字面量和「已存在」的变量会采用不同的检查策略。
 
 ::: code-group
 
-```ts [场景 1]
+```ts [场景 1：新鲜对象字面量]
 type A = { x: number }
 
 let a: A = { x: 1, y: 'extra' } // ❌ 错误
-// Object literal may only specify known properties, and 'y' does not exist in type 'A'.(2353)
+// Object literal may only specify known properties,
+// and 'y' does not exist in type 'A'.(2353)
 ```
 
-```ts [场景 2]
+```ts [场景 2：已存在的变量]
 type A = { x: number }
 
 const obj = { x: 1, y: 'extra' }

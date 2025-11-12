@@ -5,38 +5,40 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是额外属性检查？](#3--什么是额外属性检查)
-- [4. 🤔 何时触发额外属性检查？](#4--何时触发额外属性检查)
-  - [4.1. 触发条件](#41-触发条件)
-  - [4.2. 函数参数](#42-函数参数)
-  - [4.3. 返回值](#43-返回值)
-  - [4.4. 类型断言](#44-类型断言)
-- [5. 🤔 如何绕过额外属性检查？](#5--如何绕过额外属性检查)
-  - [5.1. 方法 1：使用变量](#51-方法-1使用变量)
-  - [5.2. 方法 2：类型断言](#52-方法-2类型断言)
-  - [5.3. 方法 3：添加索引签名](#53-方法-3添加索引签名)
-  - [5.4. 方法 4：使用交叉类型](#54-方法-4使用交叉类型)
-  - [5.5. 方法 5：使用 Partial 和扩展运算符](#55-方法-5使用-partial-和扩展运算符)
-- [6. 🤔 额外属性检查的原理](#6--额外属性检查的原理)
-  - [6.1. 结构类型 vs 额外属性检查](#61-结构类型-vs-额外属性检查)
-  - [6.2. 新鲜对象类型](#62-新鲜对象类型)
-  - [6.3. 检查时机](#63-检查时机)
-- [7. 🤔 索引签名与额外属性检查](#7--索引签名与额外属性检查)
-  - [7.1. 索引签名允许额外属性](#71-索引签名允许额外属性)
-  - [7.2. 索引签名的类型约束](#72-索引签名的类型约束)
-  - [7.3. 弱类型检测](#73-弱类型检测)
-- [8. 🤔 常见使用场景](#8--常见使用场景)
-  - [8.1. 场景 1：配置对象](#81-场景-1配置对象)
-  - [8.2. 场景 2：函数选项](#82-场景-2函数选项)
-  - [8.3. 场景 3：React Props](#83-场景-3react-props)
-  - [8.4. 场景 4：API 请求体](#84-场景-4api-请求体)
-  - [8.5. 场景 5：需要灵活性的配置](#85-场景-5需要灵活性的配置)
-- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
-  - [9.1. 错误 1：不理解为什么会报错](#91-错误-1不理解为什么会报错)
-  - [9.2. 错误 2：过度使用类型断言](#92-错误-2过度使用类型断言)
-  - [9.3. 错误 3：索引签名过于宽泛](#93-错误-3索引签名过于宽泛)
-  - [9.4. 错误 4：忽略有用的错误提示](#94-错误-4忽略有用的错误提示)
-  - [9.5. 最佳实践](#95-最佳实践)
-- [10. 🔗 引用](#10--引用)
+- [4. 🤔 额外属性检查（Excess Property Checking）都有哪些叫法？](#4--额外属性检查excess-property-checking都有哪些叫法)
+- [5. 💻 demos.1 - 认识 suppressExcessPropertyErrors 配置](#5--demos1---认识-suppressexcesspropertyerrors-配置)
+- [6. 🤔 何时触发额外属性检查？](#6--何时触发额外属性检查)
+  - [6.1. 触发条件](#61-触发条件)
+  - [6.2. 函数参数](#62-函数参数)
+  - [6.3. 返回值](#63-返回值)
+  - [6.4. 类型断言](#64-类型断言)
+- [7. 🤔 如何绕过额外属性检查？](#7--如何绕过额外属性检查)
+  - [7.1. 方法 1：使用变量](#71-方法-1使用变量)
+  - [7.2. 方法 2：类型断言](#72-方法-2类型断言)
+  - [7.3. 方法 3：添加索引签名](#73-方法-3添加索引签名)
+  - [7.4. 方法 4：使用交叉类型](#74-方法-4使用交叉类型)
+  - [7.5. 方法 5：使用 Partial 和扩展运算符](#75-方法-5使用-partial-和扩展运算符)
+- [8. 🤔 额外属性检查的原理](#8--额外属性检查的原理)
+  - [8.1. 结构类型 vs 额外属性检查](#81-结构类型-vs-额外属性检查)
+  - [8.2. 新鲜对象类型](#82-新鲜对象类型)
+  - [8.3. 检查时机](#83-检查时机)
+- [9. 🤔 索引签名与额外属性检查](#9--索引签名与额外属性检查)
+  - [9.1. 索引签名允许额外属性](#91-索引签名允许额外属性)
+  - [9.2. 索引签名的类型约束](#92-索引签名的类型约束)
+  - [9.3. 弱类型检测](#93-弱类型检测)
+- [10. 🤔 常见使用场景](#10--常见使用场景)
+  - [10.1. 场景 1：配置对象](#101-场景-1配置对象)
+  - [10.2. 场景 2：函数选项](#102-场景-2函数选项)
+  - [10.3. 场景 3：React Props](#103-场景-3react-props)
+  - [10.4. 场景 4：API 请求体](#104-场景-4api-请求体)
+  - [10.5. 场景 5：需要灵活性的配置](#105-场景-5需要灵活性的配置)
+- [11. 🤔 常见错误和最佳实践](#11--常见错误和最佳实践)
+  - [11.1. 错误 1：不理解为什么会报错](#111-错误-1不理解为什么会报错)
+  - [11.2. 错误 2：过度使用类型断言](#112-错误-2过度使用类型断言)
+  - [11.3. 错误 3：索引签名过于宽泛](#113-错误-3索引签名过于宽泛)
+  - [11.4. 错误 4：忽略有用的错误提示](#114-错误-4忽略有用的错误提示)
+  - [11.5. 最佳实践](#115-最佳实践)
+- [12. 🔗 引用](#12--引用)
 
 <!-- endregion:toc -->
 
@@ -51,9 +53,9 @@
 
 ## 2. 🫧 评价
 
-额外属性检查（Excess Property Checking）是 TypeScript 的一个**特殊类型检查机制**，用于检测对象字面量中的**多余属性**。
+额外属性检查（Excess Property Checking）是 TypeScript 的一个特殊类型检查机制，用于检测对象字面量中的多余属性。
 
-这个检查的目的是**捕获拼写错误**和**无效配置**：
+这个检查的目的是捕获拼写错误和无效配置：
 
 ```ts
 interface Config {
@@ -70,10 +72,10 @@ const config: Config = {
 
 额外属性检查的特点：
 
-- **只针对对象字面量**：直接赋值时触发
-- **严格但不总是有效**：可以被绕过
-- **帮助发现错误**：特别是拼写错误
-- **有时过于严格**：需要绕过机制
+- 只针对对象字面量：直接赋值时触发
+- 严格但不总是有效：可以被绕过
+- 帮助发现错误：特别是拼写错误
+- 有时过于严格：需要绕过机制
 
 理解额外属性检查，能帮助你：
 
@@ -86,7 +88,7 @@ const config: Config = {
 
 ## 3. 🤔 什么是额外属性检查？
 
-额外属性检查会**拒绝对象字面量中的多余属性**。
+额外属性检查会拒绝对象字面量中的多余属性。
 
 ```ts
 interface User {
@@ -108,7 +110,7 @@ const user: User = {
 }
 ```
 
-**为什么需要这个检查？**
+为什么需要这个检查？
 
 ```ts
 interface Config {
@@ -123,11 +125,80 @@ const config: Config = {
 }
 ```
 
-## 4. 🤔 何时触发额外属性检查？
+## 4. 🤔 额外属性检查（Excess Property Checking）都有哪些叫法？
 
-### 4.1. 触发条件
+| 术语 | 来源 | 说明 |
+| --- | --- | --- |
+| Freshness Checking | TypeScript 内部实现 | 强调对象字面量的「新鲜」状态 |
+| Excess Property Checking | 官方文档常用 | 强调检查「多余属性」的行为 |
+| Strict Object Literal Checking | 社区常用 | 强调对对象字面量的「严格检查」 |
 
-额外属性检查**只在对象字面量**直接赋值时触发：
+对象字面量的「新鲜度检查」（Freshness Checking）也叫「额外属性检查」（Excess Property Checking）或「严格对象字面量检查」（Strict Object Literal Checking），这些术语指代的是同一个机制。
+
+TypeScript 对「新鲜」的对象字面量和「已存在」的变量会采用不同的检查策略。
+
+::: code-group
+
+```ts [场景 1：新鲜对象字面量]
+type A = { x: number }
+
+let a: A = { x: 1, y: 'extra' } // ❌ 错误
+// Object literal may only specify known properties,
+// and 'y' does not exist in type 'A'.(2353)
+```
+
+```ts [场景 2：已存在的变量]
+type A = { x: number }
+
+const obj = { x: 1, y: 'extra' }
+let a: A = obj // ✅ 允许
+```
+
+:::
+
+在 TypeScript 官方手册中，这个特性被称为 Excess Property Checks：
+
+> Object literals get special treatment and undergo _excess property checking_ when assigning them to other variables, or passing them as arguments.
+
+所以在学术或正式场合，推荐使用「额外属性检查」（Excess Property Checking）这个术语，因为它是官方文档的标准表述。
+
+## 5. 💻 demos.1 - 认识 suppressExcessPropertyErrors 配置
+
+先来看看官方对这个配置的描述：
+
+![图 1](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-11-12-18-58-13.png)
+
+历史背景：
+
+- `suppressExcessPropertyErrors` 是 TypeScript 1.6 时期引入的临时配置项，用于帮助开发者从旧版本迁移。
+- 目前（25.11）测试时发现该配置项已废弃，在现代 TypeScript 中不再生效。
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "suppressExcessPropertyErrors": true // ❌ 已废弃，不再生效
+  }
+}
+```
+
+如果这个配置还没被废弃的话，我们其实可以通过开启该配置来避免“对象的额外属性检查”规则。
+
+::: code-group
+
+<<< ./demos/1/1.ts
+
+<<< ./demos/1/tsconfig.json
+
+:::
+
+![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-11-12-18-52-23.png)
+
+## 6. 🤔 何时触发额外属性检查？
+
+### 6.1. 触发条件
+
+额外属性检查只在对象字面量直接赋值时触发：
 
 ```ts
 interface Point {
@@ -151,7 +222,7 @@ const obj = {
 const p2: Point = obj // ✅ 不报错
 ```
 
-### 4.2. 函数参数
+### 6.2. 函数参数
 
 ```ts
 interface Options {
@@ -179,7 +250,7 @@ const opts = {
 render(opts) // ✅ 不报错
 ```
 
-### 4.3. 返回值
+### 6.3. 返回值
 
 ```ts
 interface User {
@@ -207,7 +278,7 @@ function getUser(): User {
 }
 ```
 
-### 4.4. 类型断言
+### 6.4. 类型断言
 
 ```ts
 interface Point {
@@ -230,9 +301,9 @@ const p2 = {
 } as Point // ✅ 不报错
 ```
 
-## 5. 🤔 如何绕过额外属性检查？
+## 7. 🤔 如何绕过额外属性检查？
 
-### 5.1. 方法 1：使用变量
+### 7.1. 方法 1：使用变量
 
 ```ts
 interface Config {
@@ -250,7 +321,7 @@ const config = {
 const serverConfig: Config = config // ✅ 不报错
 ```
 
-### 5.2. 方法 2：类型断言
+### 7.2. 方法 2：类型断言
 
 ```ts
 // ✅ 使用类型断言
@@ -261,7 +332,7 @@ const config: Config = {
 } as Config // ✅ 不报错
 ```
 
-### 5.3. 方法 3：添加索引签名
+### 7.3. 方法 3：添加索引签名
 
 ```ts
 // ✅ 添加索引签名允许额外属性
@@ -279,7 +350,7 @@ const config: Config = {
 }
 ```
 
-### 5.4. 方法 4：使用交叉类型
+### 7.4. 方法 4：使用交叉类型
 
 ```ts
 interface BaseConfig {
@@ -295,7 +366,7 @@ const config: BaseConfig & { timeout: number } = {
 }
 ```
 
-### 5.5. 方法 5：使用 Partial 和扩展运算符
+### 7.5. 方法 5：使用 Partial 和扩展运算符
 
 ```ts
 interface User {
@@ -311,11 +382,11 @@ const user: User = {
 }
 ```
 
-## 6. 🤔 额外属性检查的原理
+## 8. 🤔 额外属性检查的原理
 
-### 6.1. 结构类型 vs 额外属性检查
+### 8.1. 结构类型 vs 额外属性检查
 
-TypeScript 使用**结构类型系统**（Structural Typing），但额外属性检查是例外：
+TypeScript 使用结构类型系统（Structural Typing），但额外属性检查是例外：
 
 ```ts
 interface Point {
@@ -339,9 +410,9 @@ distance({
 })
 ```
 
-### 6.2. 新鲜对象类型
+### 8.2. 新鲜对象类型
 
-TypeScript 将**对象字面量**视为"新鲜对象类型"（Fresh Object Type）：
+TypeScript 将对象字面量视为"新鲜对象类型"（Fresh Object Type）：
 
 ```ts
 // 新鲜对象类型：会进行额外属性检查
@@ -351,7 +422,7 @@ const fresh = { x: 1, y: 2, z: 3 }
 const notFresh = fresh
 ```
 
-### 6.3. 检查时机
+### 8.3. 检查时机
 
 ```ts
 interface Config {
@@ -366,9 +437,9 @@ const obj = { host: 'localhost', port: 3000 }
 const config: Config = obj // ✅ obj 不是新鲜对象
 ```
 
-## 7. 🤔 索引签名与额外属性检查
+## 9. 🤔 索引签名与额外属性检查
 
-### 7.1. 索引签名允许额外属性
+### 9.1. 索引签名允许额外属性
 
 ```ts
 // ✅ 有索引签名，允许额外属性
@@ -387,7 +458,7 @@ const config: FlexibleConfig = {
 }
 ```
 
-### 7.2. 索引签名的类型约束
+### 9.2. 索引签名的类型约束
 
 ```ts
 // ✅ 索引签名限制额外属性的类型
@@ -407,7 +478,7 @@ const config: StrictConfig = {
 }
 ```
 
-### 7.3. 弱类型检测
+### 9.3. 弱类型检测
 
 ```ts
 // ⚠️ 所有属性都可选的类型（弱类型）仍会检查
@@ -428,9 +499,9 @@ const obj: WeakType = {
 }
 ```
 
-## 8. 🤔 常见使用场景
+## 10. 🤔 常见使用场景
 
-### 8.1. 场景 1：配置对象
+### 10.1. 场景 1：配置对象
 
 ```ts
 // ✅ 捕获配置错误
@@ -455,7 +526,7 @@ const config: ServerConfig = {
 }
 ```
 
-### 8.2. 场景 2：函数选项
+### 10.2. 场景 2：函数选项
 
 ```ts
 interface FetchOptions {
@@ -481,7 +552,7 @@ fetchData('/api/users', {
 })
 ```
 
-### 8.3. 场景 3：React Props
+### 10.3. 场景 3：React Props
 
 ```ts
 interface ButtonProps {
@@ -504,7 +575,7 @@ const button = (
 const button = <Button text="Click" onClick={handleClick} type="primary" />
 ```
 
-### 8.4. 场景 4：API 请求体
+### 10.4. 场景 4：API 请求体
 
 ```ts
 interface CreateUserRequest {
@@ -541,7 +612,7 @@ if (formData.password === formData.confirmPassword) {
 }
 ```
 
-### 8.5. 场景 5：需要灵活性的配置
+### 10.5. 场景 5：需要灵活性的配置
 
 ```ts
 // ✅ 使用索引签名允许插件配置
@@ -559,9 +630,9 @@ const eslintConfig: PluginConfig = {
 }
 ```
 
-## 9. 🤔 常见错误和最佳实践
+## 11. 🤔 常见错误和最佳实践
 
-### 9.1. 错误 1：不理解为什么会报错
+### 11.1. 错误 1：不理解为什么会报错
 
 ```ts
 interface Point {
@@ -585,7 +656,7 @@ const obj = { x: 10, y: 20, z: 30 }
 const p: Point = obj
 ```
 
-### 9.2. 错误 2：过度使用类型断言
+### 11.2. 错误 2：过度使用类型断言
 
 ```ts
 // ❌ 过度使用断言失去类型安全
@@ -601,7 +672,7 @@ const config: Config = {
 }
 ```
 
-### 9.3. 错误 3：索引签名过于宽泛
+### 11.3. 错误 3：索引签名过于宽泛
 
 ```ts
 // ❌ 过于宽泛的索引签名
@@ -619,7 +690,7 @@ interface Config {
 }
 ```
 
-### 9.4. 错误 4：忽略有用的错误提示
+### 11.4. 错误 4：忽略有用的错误提示
 
 ```ts
 interface Options {
@@ -640,7 +711,7 @@ const options: Options = {
 }
 ```
 
-### 9.5. 最佳实践
+### 11.5. 最佳实践
 
 ```ts
 // ✅ 1. 对于严格的类型，不要绕过检查
@@ -695,7 +766,7 @@ function isValidConfig(obj: any): obj is Config {
 }
 
 // ✅ 6. 文档化为什么需要额外属性
-/**
+/
  * 配置对象
  * @property host - 主机地址
  * @property port - 端口号
@@ -747,12 +818,14 @@ function normalizeConfig(external: ExternalConfig): InternalConfig {
 }
 ```
 
-## 10. 🔗 引用
+## 12. 🔗 引用
 
 - [TypeScript Handbook - Excess Property Checks][1]
 - [TypeScript Handbook - Object Types][2]
 - [TypeScript Deep Dive - Freshness][3]
+- [TypeScript TSConfig References - suppressExcessPropertyErrors][4]
 
 [1]: https://www.typescriptlang.org/docs/handbook/2/objects.html#excess-property-checks
 [2]: https://www.typescriptlang.org/docs/handbook/2/objects.html
 [3]: https://basarat.gitbook.io/typescript/type-system/freshness
+[4]: https://www.typescriptlang.org/tsconfig/#suppressExcessPropertyErrors
