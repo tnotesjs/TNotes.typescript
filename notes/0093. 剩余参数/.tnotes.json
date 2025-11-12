@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "剩余参数（...args）是 TypeScript 中用于接收任意数量参数并将其收集成数组（或元组）的机制，它必须是函数最后一个且唯一的剩余形式参数，支持泛型与元组类型（TS 4.0+），是替代 arguments 对象、实现灵活可变参函数的类型安全首选方案。",
   "id": "db01349b-a9e7-4f5f-b058-d370b5a3620a",
   "created_at": 1760521823000,
-  "updated_at": 1761896147000
+  "updated_at": 1762937004876
 }

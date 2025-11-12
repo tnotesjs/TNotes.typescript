@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TypeScript 中可选参数（param?: Type）表示参数可省略且类型自动包含 undefined，必须位于必需参数之后；而默认参数（param: Type = value）提供明确的默认值且类型保持为 Type，可在任意位置定义，实践中应优先使用默认参数以提高代码可读性和健壮性。",
   "id": "6ec56c6b-4002-4d69-85d4-ef2cd518e8b9",
   "created_at": 1761871140000,
-  "updated_at": 1761896147000
+  "updated_at": 1762937004876
 }
