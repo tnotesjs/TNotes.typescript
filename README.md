@@ -126,7 +126,7 @@
 - [x] [0087. 元组剩余元素](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0087.%20%E5%85%83%E7%BB%84%E5%89%A9%E4%BD%99%E5%85%83%E7%B4%A0/README.md)
 - [x] [0088. 元组只读元素](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0088.%20%E5%85%83%E7%BB%84%E5%8F%AA%E8%AF%BB%E5%85%83%E7%B4%A0/README.md)
 - [x] [0089. 具名元组](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0089.%20%E5%85%B7%E5%90%8D%E5%85%83%E7%BB%84/README.md)
-- [ ] [0090. 元组 vs. 数组](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0090.%20%E5%85%83%E7%BB%84%20vs.%20%E6%95%B0%E7%BB%84/README.md)
+- [x] [0090. 元组 vs. 数组](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0090.%20%E5%85%83%E7%BB%84%20vs.%20%E6%95%B0%E7%BB%84/README.md)
 
 ## 9. 函数类型
 

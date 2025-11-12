@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TypeScript 中元组（[T, U]）和数组（T[]）在运行时均为 JavaScript 数组，但在类型系统层面元组提供固定长度和精确元素类型，而数组支持可变长度和同类型元素，需注意元组的“固定长度”运行时并不安全，实际开发中应根据元素数量是否固定及类型是否相同来选择合适的数据结构。",
   "id": "76e74e19-af15-423b-bf6f-5b81dd8f196c",
   "created_at": 1760521823000,
-  "updated_at": 1761896147000
+  "updated_at": 1762918228914
 }
