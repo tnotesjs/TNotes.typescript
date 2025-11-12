@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TypeScript 元组剩余元素（通过 ...Type[] 语法实现）允许元组类型表达部分固定、部分可变的结构，从 TypeScript 4.0 开始可在开头、中间或结尾任意位置使用，与扩展运算符配合能实现灵活的函数参数、解构赋值和类型操作。",
   "id": "05a2f54f-19cc-4765-a5e8-c425c2efa44a",
   "created_at": 1760521823000,
-  "updated_at": 1761896147000
+  "updated_at": 1762916424912
 }

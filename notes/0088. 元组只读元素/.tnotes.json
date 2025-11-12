@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TypeScript 元组只读元素通过 readonly 修饰符或 as const 断言创建不可变的固定结构元组，提供编译期保护防止意外修改，同时保持元组的精确类型、固定长度和元素类型差异化的特性优势。",
   "id": "d6932859-8997-49df-b691-248f435ef28d",
   "created_at": 1760521823000,
-  "updated_at": 1761896147000
+  "updated_at": 1762916424912
 }

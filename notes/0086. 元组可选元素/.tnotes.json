@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TypeScript 元组可选元素（通过在类型后添加 ? 实现）允许元组的某些位置可以不存在（而非必须为 undefined），与 | undefined 联合类型相比，它使元组长度可变且更准确地表达了“元素可能不存在”的语义场景。",
   "id": "ad0d979c-251a-4649-9511-5bc2bee08018",
   "created_at": 1760521823000,
-  "updated_at": 1762866466438
+  "updated_at": 1762916424912
 }
