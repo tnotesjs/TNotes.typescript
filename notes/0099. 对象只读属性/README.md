@@ -9,32 +9,11 @@
   - [3.2. 浅只读](#32-浅只读)
   - [3.3. 运行时行为](#33-运行时行为)
 - [4. 🤔 如何声明只读属性？](#4--如何声明只读属性)
-- [5. 🤔 Readonly 工具类型](#5--readonly-工具类型)
-  - [5.1. `Readonly<T>`](#51-readonlyt)
-  - [5.2. 部分只读](#52-部分只读)
-  - [5.3. 嵌套只读](#53-嵌套只读)
-- [6. 🤔 只读数组和元组](#6--只读数组和元组)
-  - [6.1. `ReadonlyArray<T>`](#61-readonlyarrayt)
-  - [6.2. 数组方法限制](#62-数组方法限制)
-  - [6.3. 只读元组](#63-只读元组)
-  - [6.4. 数组与只读数组的转换](#64-数组与只读数组的转换)
-- [7. 🤔 深层只读](#7--深层只读)
-  - [7.1. DeepReadonly 实现](#71-deepreadonly-实现)
-  - [7.2. 处理数组和函数](#72-处理数组和函数)
-- [8. 🤔 常见使用场景](#8--常见使用场景)
-  - [8.1. 场景 1：配置对象](#81-场景-1配置对象)
-  - [8.2. 场景 2：常量数据](#82-场景-2常量数据)
-  - [8.3. 场景 3：不可变数据结构](#83-场景-3不可变数据结构)
-  - [8.4. 场景 4：函数参数](#84-场景-4函数参数)
-  - [8.5. 场景 5：React Props](#85-场景-5react-props)
-  - [8.6. 场景 6：Redux Action](#86-场景-6redux-action)
-  - [8.7. 场景 7：API 响应](#87-场景-7api-响应)
-- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
-  - [9.1. 错误 1：期望运行时不可变](#91-错误-1期望运行时不可变)
-  - [9.2. 错误 2：忽略浅只读](#92-错误-2忽略浅只读)
-  - [9.3. 错误 3：在构造函数外赋值](#93-错误-3在构造函数外赋值)
-  - [9.4. 最佳实践](#94-最佳实践)
-- [10. 🔗 引用](#10--引用)
+- [5. 🤔 如何将对象类型的所有属性变为只读？](#5--如何将对象类型的所有属性变为只读)
+- [6. 🤔 如何实现深层只读？](#6--如何实现深层只读)
+  - [6.1. 做法 1：手写类型工具](#61-做法-1手写类型工具)
+  - [6.2. 做法 2：使用 `as const` 断言](#62-做法-2使用-as-const-断言)
+- [7. 🔗 引用](#7--引用)
 
 <!-- endregion:toc -->
 
@@ -43,9 +22,7 @@
 - 只读属性的定义和语法
 - readonly 修饰符
 - Readonly 工具类型
-- 只读数组和元组
 - 深层只读的实现
-- 实际应用场景
 
 ## 2. 🫧 评价
 
@@ -56,16 +33,7 @@
 - 编译时检查：防止意外修改
 - 初始化后不可变：只能在声明或构造函数中赋值
 - 浅只读：只保护属性本身，不保护嵌套对象
-- 类型层面：运行时仍可修改（JavaScript 不支持）
-
-理解只读属性，能帮助你：
-
-1. 编写更安全的不可变代码
-2. 防止意外修改关键数据
-3. 实现函数式编程范式
-4. 提升代码可维护性
-
-只读属性是 TypeScript 类型系统中实现不可变性的重要工具，是编写健壮代码的基础。
+- 类型层面：运行时仍可修改
 
 ## 3. 🤔 什么是只读属性？
 
@@ -238,12 +206,12 @@ map.age = '25' // ❌ Error: Index signature in type 'ReadonlyStringMap' only pe
 
 :::
 
-## 5. 🤔 Readonly 工具类型
+## 5. 🤔 如何将对象类型的所有属性变为只读？
 
-### 5.1. `Readonly<T>`
+可以使用 Readonly 工具类型将对象类型的所有属性变为只读。
 
 ```ts
-// ✅ Readonly<T> 将所有属性变为只读
+// Readonly<T> 将所有属性变为只读
 interface User {
   name: string
   age: number
@@ -252,11 +220,11 @@ interface User {
 
 type ReadonlyUser = Readonly<User>
 // 等价于
-type ReadonlyUser = {
-  readonly name: string
-  readonly age: number
-  readonly email: string
-}
+// type ReadonlyUser = {
+//   readonly name: string
+//   readonly age: number
+//   readonly email: string
+// }
 
 // 使用
 const user: ReadonlyUser = {
@@ -268,34 +236,16 @@ const user: ReadonlyUser = {
 user.name = 'Bob' // ❌ Error
 ```
 
-### 5.2. 部分只读
+其实 Readonly 的实现非常简单：
 
 ```ts
-// ✅ 部分属性只读
-interface User {
-  id: number
-  name: string
-  email: string
-}
-
-type UserWithReadonlyId = Readonly<Pick<User, 'id'>> & Omit<User, 'id'>
-// 等价于
-type UserWithReadonlyId = {
-  readonly id: number
-  name: string
-  email: string
-}
-
-// 或使用工具类型
-type PartialReadonly<T, K extends keyof T> = Readonly<Pick<T, K>> & Omit<T, K>
-
-type UserWithReadonlyId = PartialReadonly<User, 'id'>
+type Readonly<T> = { readonly [P in keyof T]: T[P] }
 ```
 
-### 5.3. 嵌套只读
+从 Readonly 的实现不难看出，它提供的只读约束也是浅层的只读约束。
 
 ```ts
-// ❌ Readonly<T> 是浅层的
+// Readonly<T> 是浅层的
 interface User {
   name: string
   profile: {
@@ -319,77 +269,35 @@ user.profile = { age: 30, city: 'LA' } // ❌ Error
 user.profile.age = 30 // ✅ 可以修改嵌套属性
 ```
 
-## 6. 🤔 只读数组和元组
-
-### 6.1. `ReadonlyArray<T>`
+和其它类型工具结合实现，也可以实现部分只读的效果：
 
 ```ts
-// ✅ 只读数组
-const numbers: ReadonlyArray<number> = [1, 2, 3]
+interface User {
+  id: number
+  name: string
+  email: string
+}
 
-numbers.push(4) // ❌ Error: Property 'push' does not exist
-numbers[0] = 10 // ❌ Error: Index signature only permits reading
+// 实现部分只读的效果：
+type UserWithReadonlyId_1 = Readonly<Pick<User, 'id'>> & Omit<User, 'id'>
+// 等价于
+// type UserWithReadonlyId_1 = {
+//   readonly id: number
+//   name: string
+//   email: string
+// }
 
-// ✅ 只读数组字面量语法
-const numbers: readonly number[] = [1, 2, 3]
-
-numbers.push(4) // ❌ Error
-numbers[0] = 10 // ❌ Error
+// 或自定义工具类型
+type PartialReadonly<T, K extends keyof T> = Readonly<Pick<T, K>> & Omit<T, K>
+type UserWithReadonlyId_2 = PartialReadonly<User, 'id'>
 ```
 
-### 6.2. 数组方法限制
+## 6. 🤔 如何实现深层只读？
+
+### 6.1. 做法 1：手写类型工具
 
 ```ts
-const numbers: readonly number[] = [1, 2, 3]
-
-// ✅ 不修改数组的方法可用
-const doubled = numbers.map((n) => n * 2) // ✅
-const sum = numbers.reduce((a, b) => a + b, 0) // ✅
-const filtered = numbers.filter((n) => n > 1) // ✅
-
-// ❌ 修改数组的方法不可用
-numbers.push(4) // ❌ Error
-numbers.pop() // ❌ Error
-numbers.splice(0, 1) // ❌ Error
-numbers.sort() // ❌ Error
-```
-
-### 6.3. 只读元组
-
-```ts
-// ✅ 只读元组
-const point: readonly [number, number] = [10, 20]
-
-point[0] = 30 // ❌ Error
-point.push(30) // ❌ Error
-
-// ✅ 具名只读元组
-type Point = readonly [x: number, y: number]
-
-const point: Point = [10, 20]
-```
-
-### 6.4. 数组与只读数组的转换
-
-```ts
-// ✅ 普通数组赋值给只读数组
-const mutable: number[] = [1, 2, 3]
-const readonly: readonly number[] = mutable // ✅
-
-// ❌ 只读数组赋值给普通数组
-const readonly: readonly number[] = [1, 2, 3]
-const mutable: number[] = readonly // ❌ Error
-
-// ✅ 需要复制
-const mutable: number[] = [...readonly] // ✅
-```
-
-## 7. 🤔 深层只读
-
-### 7.1. DeepReadonly 实现
-
-```ts
-// ✅ 递归深层只读
+// 递归深层只读
 type DeepReadonly<T> = {
   readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P]
 }
@@ -423,10 +331,10 @@ user.profile.age = 30 // ❌ Error
 user.profile.address.city = 'LA' // ❌ Error
 ```
 
-### 7.2. 处理数组和函数
+完善数组和函数的处理：
 
 ```ts
-// ✅ 完整的深层只读
+// 完整的深层只读
 type DeepReadonly<T> = T extends (infer R)[]
   ? ReadonlyArray<DeepReadonly<R>>
   : T extends Function
@@ -444,332 +352,47 @@ interface Data {
 }
 
 type ReadonlyData = DeepReadonly<Data>
-// {
-//   readonly items: ReadonlyArray<{
-//     readonly id: number
-//     readonly tags: ReadonlyArray<string>
-//   }>
-//   readonly process: (x: number) => number
+// TS 类型推断结果：
+// type ReadonlyData = {
+//     readonly items: readonly {
+//         readonly id: number;
+//         readonly tags: readonly string[];
+//     }[];
+//     readonly process: (x: number) => number;
 // }
 ```
 
-## 8. 🤔 常见使用场景
-
-### 8.1. 场景 1：配置对象
+### 6.2. 做法 2：使用 `as const` 断言
 
 ```ts
-// ✅ 配置应该是只读的
-interface AppConfig {
-  readonly apiUrl: string
-  readonly apiKey: string
-  readonly timeout: number
-  readonly retries: number
-}
-
-const config: Readonly<AppConfig> = {
-  apiUrl: 'https://api.example.com',
-  apiKey: 'secret-key',
-  timeout: 5000,
-  retries: 3,
-}
-
-// 防止意外修改
-config.apiUrl = 'https://evil.com' // ❌ Error
-```
-
-### 8.2. 场景 2：常量数据
-
-```ts
-// ✅ 常量数组
-const WEEKDAYS: readonly string[] = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
-]
-
-WEEKDAYS.push('Funday') // ❌ Error
-
-// ✅ 常量对象
-const HTTP_STATUS: Readonly<Record<string, number>> = {
-  OK: 200,
-  CREATED: 201,
-  BAD_REQUEST: 400,
-  NOT_FOUND: 404,
-  SERVER_ERROR: 500,
-}
-
-HTTP_STATUS.OK = 201 // ❌ Error
-```
-
-### 8.3. 场景 3：不可变数据结构
-
-```ts
-// ✅ 不可变状态
-interface State {
-  readonly count: number
-  readonly user: Readonly<{
-    id: number
-    name: string
-  }>
-}
-
-class Store {
-  private state: DeepReadonly<State>
-
-  constructor(initialState: State) {
-    this.state = initialState
-  }
-
-  // 返回只读状态
-  getState(): DeepReadonly<State> {
-    return this.state
-  }
-
-  // 通过新对象更新状态
-  setState(newState: State): void {
-    this.state = newState
-  }
-}
-```
-
-### 8.4. 场景 4：函数参数
-
-```ts
-// ✅ 函数不应修改参数
-function sum(numbers: readonly number[]): number {
-  return numbers.reduce((a, b) => a + b, 0)
-  // numbers.push(0) // ❌ Error: 防止修改参数
-}
-
-function updateUser(user: Readonly<User>): User {
-  // user.name = 'New Name' // ❌ Error
-
-  // ✅ 返回新对象
-  return {
-    ...user,
-    name: 'New Name',
-  }
-}
-```
-
-### 8.5. 场景 5：React Props
-
-```ts
-// ✅ React 组件的 props 应该是只读的
-interface UserCardProps {
-  readonly user: Readonly<{
-    name: string
-    avatar: string
-  }>
-  readonly onEdit: (user: User) => void
-}
-
-function UserCard({ user, onEdit }: UserCardProps) {
-  // user.name = 'New Name' // ❌ Error
-
-  return (
-    <div>
-      <img src={user.avatar} />
-      <h2>{user.name}</h2>
-    </div>
-  )
-}
-```
-
-### 8.6. 场景 6：Redux Action
-
-```ts
-// ✅ Action 应该是只读的
-interface Action {
-  readonly type: string
-  readonly payload?: any
-}
-
-interface AddTodoAction extends Action {
-  readonly type: 'ADD_TODO'
-  readonly payload: Readonly<{
-    id: number
-    text: string
-  }>
-}
-
-function reducer(state: State, action: Readonly<Action>): State {
-  // action.type = 'NEW_TYPE' // ❌ Error
-
-  switch (action.type) {
-    case 'ADD_TODO':
-      return {
-        ...state,
-        todos: [...state.todos, action.payload],
-      }
-    default:
-      return state
-  }
-}
-```
-
-### 8.7. 场景 7：API 响应
-
-```ts
-// ✅ API 响应数据不应被修改
-interface ApiResponse<T> {
-  readonly data: T
-  readonly status: number
-  readonly message: string
-}
-
-async function fetchUser(id: number): Promise<Readonly<User>> {
-  const response = await fetch(`/api/users/${id}`)
-  const data = await response.json()
-  return data
-}
-
-// 使用
-const user = await fetchUser(1)
-user.name = 'New Name' // ❌ Error
-```
-
-## 9. 🤔 常见错误和最佳实践
-
-### 9.1. 错误 1：期望运行时不可变
-
-```ts
-// ❌ readonly 只在编译时有效
-interface Point {
-  readonly x: number
-  readonly y: number
-}
-
-const point: Point = { x: 10, y: 20 }
-
-// TypeScript 编译后，readonly 消失
-// point.x = 30 // 运行时可以修改
-
-// ✅ 使用 Object.freeze 实现运行时不可变
-const point = Object.freeze({ x: 10, y: 20 })
-point.x = 30 // 运行时也会报错
-```
-
-### 9.2. 错误 2：忽略浅只读
-
-```ts
-// ❌ 以为嵌套对象也是只读的
-interface User {
-  readonly profile: {
-    name: string
-  }
-}
-
-const user: User = {
-  profile: { name: 'Alice' },
-}
-
-user.profile.name = 'Bob' // ✅ 可以修改
-
-// ✅ 使用 DeepReadonly
-type DeepReadonlyUser = DeepReadonly<User>
-
-const user: DeepReadonlyUser = {
-  profile: { name: 'Alice' },
-}
-
-user.profile.name = 'Bob' // ❌ Error
-```
-
-### 9.3. 错误 3：在构造函数外赋值
-
-```ts
-// ❌ 在构造函数外修改只读属性
-class User {
-  readonly id: number
-
-  constructor(id: number) {
-    this.id = id
-  }
-
-  setId(newId: number) {
-    this.id = newId // ❌ Error
-  }
-}
-
-// ✅ 只在构造函数中初始化
-class User {
-  readonly id: number
-
-  constructor(id: number) {
-    this.id = id // ✅
-  }
-}
-```
-
-### 9.4. 最佳实践
-
-```ts
-// ✅ 1. 配置对象使用 readonly
-interface Config {
-  readonly apiUrl: string
-  readonly timeout: number
-}
-
-// ✅ 2. 常量数组使用 readonly
-const COLORS: readonly string[] = ['red', 'green', 'blue']
-
-// ✅ 3. 函数参数使用 readonly
-function process(data: readonly number[]): number[] {
-  return data.map((n) => n * 2)
-}
-
-// ✅ 4. 不可变更新模式
-interface State {
-  readonly count: number
-}
-
-function increment(state: Readonly<State>): State {
-  return { ...state, count: state.count + 1 }
-}
-
-// ✅ 5. 结合 Readonly 工具类型
-type ReadonlyConfig = Readonly<Config>
-
-// ✅ 6. 深层只读使用 DeepReadonly
-type DeepReadonlyState = DeepReadonly<State>
-
-// ✅ 7. 类的只读属性在构造函数初始化
-class Entity {
-  readonly id: number
-
-  constructor(id: number) {
-    this.id = id
-  }
-}
-
-// ✅ 8. 返回只读数据
-function getData(): Readonly<Data> {
-  return data
-}
-
-// ✅ 9. 使用 as const 断言
-const config = {
-  port: 3000,
-  host: 'localhost',
+const user = {
+  name: 'Alice',
+  profile: {
+    age: 25,
+    address: {
+      city: 'New York',
+      country: 'USA',
+    },
+  },
 } as const
-// 类型：{ readonly port: 3000; readonly host: 'localhost' }
+// TS 类型推断结果：
+// const user: {
+//     readonly name: "Alice";
+//     readonly profile: {
+//         readonly age: 25;
+//         readonly address: {
+//             readonly city: "New York";
+//             readonly country: "USA";
+//         };
+//     };
+// }
 
-// ✅ 10. 文档化只读意图
-/**
- * 获取配置（只读）
- * @returns 只读配置对象
- */
-function getConfig(): Readonly<Config> {
-  return config
-}
+user.name = 'Bob' // ❌ Error
+user.profile.age = 30 // ❌ Error
+user.profile.address.city = 'LA' // ❌ Error
 ```
 
-## 10. 🔗 引用
+## 7. 🔗 引用
 
 - [TypeScript Handbook - readonly][1]
 - [TypeScript Handbook - Readonly Utility Type][2]

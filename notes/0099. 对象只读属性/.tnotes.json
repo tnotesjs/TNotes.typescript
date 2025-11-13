@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "只读属性（Readonly Property）使用 readonly 修饰符，表示属性初始化后不能被修改，约束仅体现在 TS 类型层面，对 JS 运行时无影响，若想要实现深度只读，可以考虑 as const 断言，若希望 JS 运行时也是只读的，可以考虑 Object.freeze。",
   "id": "d3f1c1a0-f24b-4848-8f68-6be74aa0a49d",
   "created_at": 1760521823000,
-  "updated_at": 1763028016231
+  "updated_at": 1763037080416
 }
