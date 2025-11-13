@@ -33,7 +33,7 @@
 
 `@ts-ignore` 注释告诉 TypeScript 编译器忽略下一行代码的所有类型错误：
 
-```typescript
+```ts
 // 基本用法
 let value: string = 'hello'
 
@@ -41,8 +41,17 @@ let value: string = 'hello'
 value = 123 // ✅ 不会报错，即使类型不匹配
 
 console.log(value) // 123
+```
 
-// 忽略对象属性错误
+常见示例：
+
+1. 忽略对象属性错误
+2. 忽略函数调用错误
+3. 忽略类型断言错误
+
+::: code-group
+
+```ts [1]
 interface User {
   name: string
   age: number
@@ -53,108 +62,88 @@ const user: User = {
   // @ts-ignore
   age: '25', // ✅ 不会报错，即使类型是 string
 }
+```
 
-// 忽略函数调用错误
+```ts [2]
 function greet(name: string) {
   return `Hello, ${name}`
 }
 
 // @ts-ignore
 greet(123) // ✅ 不会报错
+```
 
-// 忽略类型断言错误
+```ts [3]
 const data: unknown = 'some data'
 
 // @ts-ignore
 const num: number = data // ✅ 不会报错
-
-// 多行忽略
-// @ts-ignore
-const config = {
-  port: '3000', // 应该是 number，但被忽略
-  host: 123, // 应该是 string，但被忽略
-  debug: 'yes', // 应该是 boolean，但被忽略
-}
 ```
 
-**作用范围：**
+:::
 
-```typescript
-// ❌ 错误：@ts-ignore 只影响下一行
-let x: number = 'hello' // Error: Type 'string' is not assignable to type 'number'
-// @ts-ignore
-let y: number = 'world' // ✅ 被忽略
+不支持多行忽略：
 
-// ⚠️ 注意：不能忽略块级错误
-// @ts-ignore
-{
-  let a: number = 'test' // ✅ 被忽略
-  let b: number = 'test' // ❌ 仍然报错
+```ts
+interface Config {
+  port: number
+  host: string
+  debug: boolean
 }
 
-// ✅ 正确：分别忽略
 // @ts-ignore
-let a: number = 'test'
-// @ts-ignore
-let b: number = 'test'
+const config1: Config = {
+  port: '3000', // ❌ 应该是 number，错误不会被忽略
+  host: 123, // ❌ 应该是 string，错误不会被忽略
+  debug: 'yes', // ❌ 应该是 boolean，错误不会被忽略
+}
+
+const config2: Config = {
+  // @ts-ignore
+  port: '3000', // ✅ 错误被忽略
+  // @ts-ignore
+  host: 123, // ✅ 错误被忽略
+  // @ts-ignore
+  debug: 'yes', // ✅ 错误被忽略
+}
 ```
 
 ## 4. 🤔 何时应该使用 @ts-ignore？
 
 只在特定场景下使用 `@ts-ignore`，且必须有充分理由：
 
-```typescript
-// 场景 1：第三方库类型定义不准确
+- 场景 1：第三方库类型定义不准确 - 别人写错了
+- 场景 2：临时解决方案 - 比如迁移期间
+- 场景 3：测试代码中模拟错误状态 - 故意为之
+
+::: code-group
+
+```ts [1]
 import someLibrary from 'some-library'
 
 // @ts-ignore - 库的类型定义有误，实际上支持这个用法
 someLibrary.undocumentedFeature()
+```
 
-// 场景 2：临时解决方案（迁移期间）
+```ts [2]
 // @ts-ignore - TODO: 重构后移除此注释
-// 旧代码使用了不兼容的 API
-legacyFunction({ oldFormat: true })
+legacyFunction({ oldFormat: true }) // 旧代码使用了不兼容的 API
+```
 
-// 场景 3：测试代码中模拟错误状态
+```ts [3]
 describe('Error handling', () => {
   it('should handle invalid input', () => {
     // @ts-ignore - 故意传入错误类型以测试错误处理
     expect(() => processData(null)).toThrow()
   })
 })
-
-// 场景 4：与动态生成的代码交互
-// @ts-ignore - 属性由代码生成工具添加
-window.__GENERATED_CONFIG__ = config
-
-// 场景 5：临时绕过严格的类型检查
-interface StrictConfig {
-  readonly apiKey: string
-  readonly endpoint: string
-}
-
-const config: StrictConfig = {
-  apiKey: 'key',
-  endpoint: 'https://api.example.com',
-}
-
-// @ts-ignore - 开发环境需要修改配置
-config.endpoint = 'http://localhost:3000'
-
-// ❌ 不好的使用示例
-// @ts-ignore
-function badFunction(x: any) {
-  // 使用 any 就不需要 @ts-ignore
-  return x.toString()
-}
-
-// @ts-ignore
-let whatever = 'I give up' // ❌ 放弃类型检查不是解决方案
 ```
 
-**添加说明注释的最佳实践：**
+:::
 
-```typescript
+最佳实践：在使用 `// @ts-ignore` 的时候，同时添加必要上的说明注释，记录你为什么在这里需要使用 `@ts-ignore`
+
+```ts
 // ✅ 好：解释为什么需要忽略
 // @ts-ignore - React Native 的类型定义缺少 __DEV__ 全局变量
 if (__DEV__) {
@@ -180,39 +169,49 @@ const value = getData()
 
 这两个指令的对比和选择建议：
 
-| 特性     | `@ts-ignore`         | `@ts-expect-error` |
-| -------- | -------------------- | ------------------ |
-| 作用     | 忽略下一行的所有错误 | 预期下一行有错误   |
-| 无错误时 | 不报警告             | 报告未使用的指令   |
-| 推荐度   | 较低                 | 较高               |
-| 适用场景 | 临时解决方案         | 测试、已知问题     |
-| 安全性   | 较低                 | 较高               |
+| 特性     | `@ts-ignore`         | `@ts-expect-error`         |
+| -------- | -------------------- | -------------------------- |
+| 作用     | 忽略下一行的所有错误 | 预期下一行有错误           |
+| 有错误时 | 不报警告             | 不报警告                   |
+| 无错误时 | 不报警告             | 报错 `Unexpected no error` |
+| 推荐度   | 较低                 | 较高                       |
+| 适用场景 | 临时解决方案         | 测试、已知问题             |
+| 安全性   | 较低                 | 较高                       |
 
-```typescript
-// 示例对比
+示例对比：
+
+- 场景 1：都能忽略错误
+- 场景 2：代码修复后的不同表现
+- 场景 3：测试错误处理
+- 场景 4：第三方库的类型问题
+
+::: code-group
+
+```ts [1]
 interface User {
   name: string
 }
 
-// 场景 1：都能忽略错误
 // @ts-ignore
 const user1: User = { name: 123 } // ✅ 不报错
 
 // @ts-expect-error
 const user2: User = { name: 123 } // ✅ 不报错
+```
 
-// 场景 2：代码修复后的不同表现
+```ts [2]
 interface FixedUser {
   name: string
 }
 
 // @ts-ignore
-const fixed1: FixedUser = { name: 'Alice' } // ⚠️ 不会提示此注释已无用
+const fixed1: FixedUser = { name: 'Alice' } // ✅ 不会提示此注释已无用
 
 // @ts-expect-error
-const fixed2: FixedUser = { name: 'Alice' } // ✅ Error: Unused '@ts-expect-error' directive
+const fixed2: FixedUser = { name: 'Alice' } // ❌ Error: Unused '@ts-expect-error' directive
+```
 
-// 场景 3：测试错误处理
+```ts [3]
 function process(data: string) {
   return data.toUpperCase()
 }
@@ -230,8 +229,9 @@ describe('Error handling', () => {
     expect(() => process(123)).toThrow()
   })
 })
+```
 
-// 场景 4：第三方库的类型问题
+```ts [4]
 import externalLib from 'external-lib'
 
 // ⚠️ @ts-ignore：如果库更新修复了类型，不会提示
@@ -241,8 +241,13 @@ externalLib.buggyMethod()
 // ✅ @ts-expect-error：库修复后会提示移除注释
 // @ts-expect-error - 库的类型定义有问题
 externalLib.buggyMethod()
+```
 
-// 场景 5：选择建议
+:::
+
+选择建议：
+
+```ts
 // ✅ 使用 @ts-expect-error 当：
 // - 你期望有类型错误
 // - 在测试中故意传入错误类型
@@ -263,7 +268,7 @@ legacySystem.call()
 
 使用 `@ts-ignore` 存在多个潜在问题：
 
-```typescript
+```ts
 // 问题 1：隐藏真正的 bug
 function calculateTotal(items: Array<{ price: number }>) {
   // @ts-ignore - ⚠️ 危险：可能隐藏空数组的问题
@@ -361,9 +366,9 @@ function processData(data: any) {
 processData(null) // ❌ 运行时错误
 ```
 
-**替代方案和改进建议：**
+替代方案和改进建议：
 
-```typescript
+```ts
 // 替代方案 1：使用类型断言
 // ❌ 不好
 // @ts-ignore
