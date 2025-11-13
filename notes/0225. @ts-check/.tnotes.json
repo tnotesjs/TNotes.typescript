@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TS 默认不检查 JS 模块，无需修改后缀 .js -> .ts 使用 @ts-check 就可以在特定 JS 模块中启用 TS 类型检查，而 checkJs: true 可以全局启用对 JS 模块的检查，效果相当于为所有 JS 文件自动添加 @ts-check。",
   "id": "accc0e0b-dc53-4c77-be86-0c8a0f781bf4",
   "created_at": 1760521823000,
-  "updated_at": 1761930504000
+  "updated_at": 1763024838259
 }

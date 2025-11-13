@@ -6,18 +6,14 @@
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 @ts-ignore 的作用是什么？](#3--ts-ignore-的作用是什么)
 - [4. 🤔 何时应该使用 @ts-ignore？](#4--何时应该使用-ts-ignore)
-- [5. 🆚 @ts-ignore vs. @ts-expect-error](#5--ts-ignore-vs-ts-expect-error)
-- [6. 🤔 使用 @ts-ignore 时需要注意哪些问题？](#6--使用-ts-ignore-时需要注意哪些问题)
-- [7. 🔗 引用](#7--引用)
+- [5. 🤔 使用 @ts-ignore 会有什么问题？](#5--使用-ts-ignore-会有什么问题)
+- [6. 🔗 引用](#6--引用)
 
 <!-- endregion:toc -->
 
 ## 1. 🎯 本节内容
 
-- `@ts-ignore` 注释的基本用法
-- 适用场景和最佳实践
-- 与其他注释指令的对比
-- 潜在风险和替代方案
+- `@ts-ignore` 注释简介
 
 ## 2. 🫧 评价
 
@@ -165,293 +161,59 @@ someFunction()
 const value = getData()
 ```
 
-## 5. 🆚 @ts-ignore vs. @ts-expect-error
-
-这两个指令的对比和选择建议：
-
-| 特性     | `@ts-ignore`         | `@ts-expect-error`         |
-| -------- | -------------------- | -------------------------- |
-| 作用     | 忽略下一行的所有错误 | 预期下一行有错误           |
-| 有错误时 | 不报警告             | 不报警告                   |
-| 无错误时 | 不报警告             | 报错 `Unexpected no error` |
-| 推荐度   | 较低                 | 较高                       |
-| 适用场景 | 临时解决方案         | 测试、已知问题             |
-| 安全性   | 较低                 | 较高                       |
-
-示例对比：
-
-- 场景 1：都能忽略错误
-- 场景 2：代码修复后的不同表现
-- 场景 3：测试错误处理
-- 场景 4：第三方库的类型问题
-
-::: code-group
-
-```ts [1]
-interface User {
-  name: string
-}
-
-// @ts-ignore
-const user1: User = { name: 123 } // ✅ 不报错
-
-// @ts-expect-error
-const user2: User = { name: 123 } // ✅ 不报错
-```
-
-```ts [2]
-interface FixedUser {
-  name: string
-}
-
-// @ts-ignore
-const fixed1: FixedUser = { name: 'Alice' } // ✅ 不会提示此注释已无用
-
-// @ts-expect-error
-const fixed2: FixedUser = { name: 'Alice' } // ❌ Error: Unused '@ts-expect-error' directive
-```
-
-```ts [3]
-function process(data: string) {
-  return data.toUpperCase()
-}
-
-describe('Error handling', () => {
-  it('should reject invalid input', () => {
-    // ✅ 推荐：@ts-expect-error 更明确表达意图
-    // @ts-expect-error - 测试类型错误处理
-    expect(() => process(123)).toThrow()
-  })
-
-  it('should reject invalid input', () => {
-    // ⚠️ 不推荐：@ts-ignore 过于宽泛
-    // @ts-ignore
-    expect(() => process(123)).toThrow()
-  })
-})
-```
-
-```ts [4]
-import externalLib from 'external-lib'
-
-// ⚠️ @ts-ignore：如果库更新修复了类型，不会提示
-// @ts-ignore - 库的类型定义有问题
-externalLib.buggyMethod()
-
-// ✅ @ts-expect-error：库修复后会提示移除注释
-// @ts-expect-error - 库的类型定义有问题
-externalLib.buggyMethod()
-```
-
-:::
-
-选择建议：
+## 5. 🤔 使用 @ts-ignore 会有什么问题？
 
 ```ts
-// ✅ 使用 @ts-expect-error 当：
-// - 你期望有类型错误
-// - 在测试中故意传入错误类型
-// - 已知的类型问题，等待修复
-
-// @ts-expect-error
-const expected: number = 'will fix later'
-
-// ⚠️ 使用 @ts-ignore 当：
-// - 临时绕过类型检查（不推荐）
-// - 无法立即修复的遗留代码
-
-// @ts-ignore - TODO: 重构遗留系统
-legacySystem.call()
-```
-
-## 6. 🤔 使用 @ts-ignore 时需要注意哪些问题？
-
-使用 `@ts-ignore` 存在多个潜在问题：
-
-```ts
-// 问题 1：隐藏真正的 bug
-function calculateTotal(items: Array<{ price: number }>) {
-  // @ts-ignore - ⚠️ 危险：可能隐藏空数组的问题
-  return items.reduce((sum, item) => sum + item.price)
-  // 正确做法：处理空数组情况
-  // return items.reduce((sum, item) => sum + item.price, 0);
-}
-
-// 问题 2：阻止类型演进
-interface OldApi {
-  getData(): string
-}
-
-class Service {
-  // @ts-ignore
-  getData(): number {
-    // ⚠️ 类型不匹配但被忽略，接口更新时不会发现
-    return 123
-  }
-}
-
-// ✅ 正确：明确表达类型变化
-interface NewApi {
-  getData(): number
-}
-
-// 问题 3：维护困难
+// ⚠️ 核心问题：维护困难
 // @ts-ignore
-let globalVar = something
+foo.method()
 
 // 几个月后...
-// ❌ 为什么要忽略？原因是什么？
-globalVar.method() // 运行时可能出错
+// 🤔 为什么要忽略？原因是什么？
+foo.method() // 运行时可能出错
 
 // ✅ 正确：添加详细注释
-// @ts-ignore - 等待全局类型定义更新（预计 2024-12）
+// @ts-ignore - 等待全局类型定义更新（预计 2025-12）
 // 参考 issue: https://github.com/project/issues/123
-let globalVar = something
+foo.method()
 
-// 问题 4：作用域意外
-// @ts-ignore
-function problematic() {
-  let x: number = 'oops' // ✅ 被忽略
-  return x
-}
+// ✅ 更加推荐的做法是使用 @ts-expect-error
 
-// ⚠️ 误以为整个函数的类型都被忽略
-function notIgnored() {
-  let y: number = 'error' // ❌ 仍然报错
-  return y
-}
-
-// 问题 5：与类型断言混淆
-// ❌ 不好：滥用 @ts-ignore
-// @ts-ignore
-const data = apiResponse as UserData
-
-// ✅ 好：使用适当的类型断言
-const data = apiResponse as unknown as UserData
-
-// 或更好：类型守卫
-function isUserData(data: unknown): data is UserData {
-  return typeof data === 'object' && data !== null && 'name' in data
-}
-
-if (isUserData(apiResponse)) {
-  const data = apiResponse // ✅ 类型安全
-}
-
-// 问题 6：影响重构
-class OldClass {
-  // @ts-ignore
-  method(x: string) {
-    return x.toUpperCase()
-  }
-}
-
-// 重构时可能遗漏
-class NewClass {
-  method(x: number) {
-    // ⚠️ 参数类型改变，但调用处被 @ts-ignore 隐藏
-    return x.toString()
-  }
-}
-
-// 问题 7：团队协作问题
-// 开发者 A
-// @ts-ignore
-function processData(data: any) {
-  return data.value
-}
-
-// 开发者 B（不知道为什么要忽略）
-// @ts-ignore
-processData(null) // ❌ 运行时错误
+// ⚠️ 假设在 2025-12 时，foo.method() 的类型问题已经得到修复
+// 这意味着此时这条语句的已经是正确的了，我们应该去掉不必要的 // @ts-ignore 注释
+// 但编译器不会有任何提醒
+// 编译器的正确行为应该是提醒我们删除这不必要的注释命令
+// 相较之下，// @ts-expect-error 命令就好的多，它就是专门用来解决这个痛点问题的
+// 当类型错误得到修复之后
+//   如果我们使用的是 @ts-ignore 命令，那么编译器不会提醒我们删除它
+//   如果使用的是 @ts-expect-error 命令，那么编译器会提醒我们删除它
 ```
 
-替代方案和改进建议：
+审查建议：
 
-```ts
-// 替代方案 1：使用类型断言
-// ❌ 不好
-// @ts-ignore
-const value: number = unknownValue
+1. 定期搜索项目中的 @ts-ignore
+2. 在代码审查时特别关注
+3. 设置 ESLint 规则限制使用
+4. 建立移除计划
 
-// ✅ 好：明确的类型转换
-const value = unknownValue as number
+eslint 配置示例：
 
-// 替代方案 2：使用类型守卫
-// ❌ 不好
-// @ts-ignore
-if (typeof value === 'string') {
-  value.toUpperCase()
-}
-
-// ✅ 好：TypeScript 会自动推断
-if (typeof value === 'string') {
-  value.toUpperCase() // ✅ 类型安全
-}
-
-// 替代方案 3：修复类型定义
-// ❌ 不好
-import { BuggyType } from 'buggy-lib'
-// @ts-ignore
-const instance: BuggyType = create()
-
-// ✅ 好：创建类型补丁
-declare module 'buggy-lib' {
-  interface BuggyType {
-    // 添加缺失的属性
-    newProperty: string
+```json
+{
+  "rules": {
+    // 禁止无说明的 @ts-ignore；若使用，必须附 ≥10 字解释（如原因/TODO/issue）
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      {
+        "ts-ignore": "allow-with-description",
+        "minimumDescriptionLength": 10
+      }
+    ]
   }
 }
-
-// 替代方案 4：使用 any（明确放弃类型检查）
-// ❌ 不好：隐含放弃
-// @ts-ignore
-const data = complexOperation()
-
-// ✅ 好：明确表示暂时不处理类型
-const data: any = complexOperation() // 明确知道是 any
-
-// 替代方案 5：重构代码结构
-// ❌ 不好
-// @ts-ignore
-function legacy(x: string | number) {
-  if (typeof x === 'string') {
-    return x.toUpperCase()
-  }
-  return x.toFixed(2)
-}
-
-// ✅ 好：函数重载
-function modern(x: string): string
-function modern(x: number): string
-function modern(x: string | number): string {
-  if (typeof x === 'string') {
-    return x.toUpperCase()
-  }
-  return x.toFixed(2)
-}
-
-// 审查建议
-// 1. 定期搜索项目中的 @ts-ignore
-// 2. 在代码审查时特别关注
-// 3. 设置 ESLint 规则限制使用
-// 4. 建立移除计划
-
-// eslint 配置示例
-// {
-//   "rules": {
-//     "@typescript-eslint/ban-ts-comment": [
-//       "error",
-//       {
-//         "ts-ignore": "allow-with-description",
-//         "minimumDescriptionLength": 10
-//       }
-//     ]
-//   }
-// }
 ```
 
-## 7. 🔗 引用
+## 6. 🔗 引用
 
 - [TypeScript Handbook - Comment Directives][1]
 - [TypeScript 3.9 Release Notes - @ts-expect-error][2]

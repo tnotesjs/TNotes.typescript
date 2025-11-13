@@ -1,0 +1,12 @@
+{
+  "bilibili": [],
+  "tnotes": [],
+  "yuque": [],
+  "done": true,
+  "deprecated": false,
+  "enableDiscussions": true,
+  "description": "@ts-expect-error 用于预期有错的场景（错则忽略，无错反报错），适合测试和临时兜底；@ts-ignore 用于无条件忽略错误（有错无错都沉默），风险更高，应慎用。",
+  "id": "d9eff63d-6793-484e-b726-4a6f4f285e84",
+  "created_at": 1762995919956,
+  "updated_at": 1763000472215
+}

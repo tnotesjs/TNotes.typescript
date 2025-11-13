@@ -1,0 +1,12 @@
+{
+  "bilibili": [],
+  "tnotes": [],
+  "yuque": [],
+  "done": true,
+  "deprecated": false,
+  "enableDiscussions": true,
+  "description": "void 表示函数的返回值毫无意义，你不应该使用它；nerve 表示函数用不结束，不会有返回值。",
+  "id": "b9f046ce-85c2-4142-80ed-5df0e2a358a5",
+  "created_at": 1761871140000,
+  "updated_at": 1763023589456
+}

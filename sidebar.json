@@ -30,6 +30,14 @@
       {
         "text": "✅ 特殊类型之间的兼容性",
         "link": "/notes/0017. 特殊类型之间的兼容性/README"
+      },
+      {
+        "text": "✅ TS 错误码",
+        "link": "/notes/0285. TS 错误码/README"
+      },
+      {
+        "text": "✅ DefinitelyTyped 项目",
+        "link": "/notes/0075. DefinitelyTyped 项目/README"
       }
     ]
   },
@@ -344,20 +352,20 @@
         "link": "/notes/0094. 函数重载/README"
       },
       {
-        "text": "⏰ 构造函数类型",
+        "text": "✅ 构造函数类型",
         "link": "/notes/0095. 构造函数类型/README"
       },
       {
-        "text": "⏰ 函数的 void 返回类型的特殊性",
-        "link": "/notes/0096. 函数的 void 返回类型的特殊性/README"
+        "text": "✅ 函数的 2 个特殊返回类型 void、never",
+        "link": "/notes/0096. 函数的 2 个特殊返回类型 void、never/README"
       },
       {
         "text": "⏰ 函数的 this 参数",
         "link": "/notes/0097. 函数的 this 参数/README"
       },
       {
-        "text": "⏰ 函数类型表达式 vs. 调用签名",
-        "link": "/notes/0098. 函数类型表达式 vs. 调用签名/README"
+        "text": "⏰ 函数类型表达式 vs 调用签名",
+        "link": "/notes/0098. 函数类型表达式 vs 调用签名/README"
       }
     ]
   },
@@ -1040,44 +1048,28 @@
     "collapsed": true,
     "items": [
       {
-        "text": "⏰ @ts-ignore",
+        "text": "✅ @ts-ignore",
         "link": "/notes/0222. @ts-ignore/README"
       },
       {
-        "text": "⏰ @ts-expect-error",
+        "text": "✅ @ts-expect-error",
         "link": "/notes/0223. @ts-expect-error/README"
       },
       {
-        "text": "⏰ @ts-nocheck",
+        "text": "✅ @ts-ignore vs @ts-expect-error",
+        "link": "/notes/0291. @ts-ignore vs @ts-expect-error/README"
+      },
+      {
+        "text": "✅ @ts-nocheck",
         "link": "/notes/0224. @ts-nocheck/README"
       },
       {
-        "text": "⏰ @ts-check",
+        "text": "✅ @ts-check",
         "link": "/notes/0225. @ts-check/README"
       },
       {
-        "text": "⏰ JSDoc 类型注释",
+        "text": "✅ JSDoc 类型注释",
         "link": "/notes/0226. JSDoc 类型注释/README"
-      },
-      {
-        "text": "⏰ @type 标记",
-        "link": "/notes/0227. @type 标记/README"
-      },
-      {
-        "text": "⏰ @param 标记",
-        "link": "/notes/0228. @param 标记/README"
-      },
-      {
-        "text": "⏰ @returns 标记",
-        "link": "/notes/0229. @returns 标记/README"
-      },
-      {
-        "text": "⏰ @template 标记",
-        "link": "/notes/0230. @template 标记/README"
-      },
-      {
-        "text": "⏰ @typedef 标记",
-        "link": "/notes/0231. @typedef 标记/README"
       }
     ]
   },
@@ -1209,14 +1201,6 @@
     "text": "28. 实战技巧",
     "collapsed": true,
     "items": [
-      {
-        "text": "✅ TS 错误码",
-        "link": "/notes/0285. TS 错误码/README"
-      },
-      {
-        "text": "✅ DefinitelyTyped 项目",
-        "link": "/notes/0075. DefinitelyTyped 项目/README"
-      },
       {
         "text": "⏰ 常见类型错误处理",
         "link": "/notes/0268. 常见类型错误处理/README"

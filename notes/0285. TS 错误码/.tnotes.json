@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "这篇文章记录了 TS 内置错误码的源码位置。",
   "id": "0285",
   "created_at": -1,
-  "updated_at": 1762507814030
+  "updated_at": 1763018000470
 }

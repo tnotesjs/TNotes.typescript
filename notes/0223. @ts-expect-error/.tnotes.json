@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "@ts-expect-error 是 TypeScript 3.9 引入的注释指令，用于标记预期会出现类型错误的代码，比 @ts-ignore 更安全。",
   "id": "98bd0e76-bda9-41fd-8ac0-b4186b8f60a3",
   "created_at": 1760521823000,
-  "updated_at": 1761930504000
+  "updated_at": 1763024838259
 }

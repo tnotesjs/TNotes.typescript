@@ -45,6 +45,8 @@
 - [x] [0073. TS 官方文档](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0073.%20TS%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md)
 - [x] [0074. TS Github 仓库](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0074.%20TS%20Github%20%E4%BB%93%E5%BA%93/README.md)
 - [x] [0017. 特殊类型之间的兼容性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0017.%20%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7/README.md)
+- [x] [0285. TS 错误码](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0285.%20TS%20%E9%94%99%E8%AF%AF%E7%A0%81/README.md)
+- [x] [0075. DefinitelyTyped 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0075.%20DefinitelyTyped%20%E9%A1%B9%E7%9B%AE/README.md)
 
 ## 2. TS 简介
 
@@ -135,10 +137,10 @@
 - [x] [0092. 可选参数与默认参数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0092.%20%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E4%B8%8E%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0/README.md)
 - [x] [0093. 剩余参数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0093.%20%E5%89%A9%E4%BD%99%E5%8F%82%E6%95%B0/README.md)
 - [x] [0094. 函数重载](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0094.%20%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD/README.md)
-- [ ] [0095. 构造函数类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0095.%20%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/README.md)
-- [ ] [0096. 函数的 void 返回类型的特殊性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0096.%20%E5%87%BD%E6%95%B0%E7%9A%84%20void%20%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%89%B9%E6%AE%8A%E6%80%A7/README.md)
+- [x] [0095. 构造函数类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0095.%20%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/README.md)
+- [x] [0096. 函数的 2 个特殊返回类型 void、never](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0096.%20%E5%87%BD%E6%95%B0%E7%9A%84%202%20%E4%B8%AA%E7%89%B9%E6%AE%8A%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B%20void%E3%80%81never/README.md)
 - [ ] [0097. 函数的 this 参数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0097.%20%E5%87%BD%E6%95%B0%E7%9A%84%20this%20%E5%8F%82%E6%95%B0/README.md)
-- [ ] [0098. 函数类型表达式 vs. 调用签名](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0098.%20%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E8%A1%A8%E8%BE%BE%E5%BC%8F%20vs.%20%E8%B0%83%E7%94%A8%E7%AD%BE%E5%90%8D/README.md)
+- [ ] [0098. 函数类型表达式 vs 调用签名](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0098.%20%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E8%A1%A8%E8%BE%BE%E5%BC%8F%20vs%20%E8%B0%83%E7%94%A8%E7%AD%BE%E5%90%8D/README.md)
 
 ## 10. 对象类型
 
@@ -333,16 +335,12 @@
 
 ## 25. 注释指令
 
-- [ ] [0222. @ts-ignore](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0222.%20%40ts-ignore/README.md)
-- [ ] [0223. @ts-expect-error](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0223.%20%40ts-expect-error/README.md)
-- [ ] [0224. @ts-nocheck](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0224.%20%40ts-nocheck/README.md)
-- [ ] [0225. @ts-check](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0225.%20%40ts-check/README.md)
-- [ ] [0226. JSDoc 类型注释](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0226.%20JSDoc%20%E7%B1%BB%E5%9E%8B%E6%B3%A8%E9%87%8A/README.md)
-- [ ] [0227. @type 标记](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0227.%20%40type%20%E6%A0%87%E8%AE%B0/README.md)
-- [ ] [0228. @param 标记](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0228.%20%40param%20%E6%A0%87%E8%AE%B0/README.md)
-- [ ] [0229. @returns 标记](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0229.%20%40returns%20%E6%A0%87%E8%AE%B0/README.md)
-- [ ] [0230. @template 标记](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0230.%20%40template%20%E6%A0%87%E8%AE%B0/README.md)
-- [ ] [0231. @typedef 标记](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0231.%20%40typedef%20%E6%A0%87%E8%AE%B0/README.md)
+- [x] [0222. @ts-ignore](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0222.%20%40ts-ignore/README.md)
+- [x] [0223. @ts-expect-error](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0223.%20%40ts-expect-error/README.md)
+- [x] [0291. @ts-ignore vs @ts-expect-error](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0291.%20%40ts-ignore%20vs%20%40ts-expect-error/README.md)
+- [x] [0224. @ts-nocheck](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0224.%20%40ts-nocheck/README.md)
+- [x] [0225. @ts-check](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0225.%20%40ts-check/README.md)
+- [x] [0226. JSDoc 类型注释](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0226.%20JSDoc%20%E7%B1%BB%E5%9E%8B%E6%B3%A8%E9%87%8A/README.md)
 
 ## 26. tsconfig.json 文件
 
@@ -380,8 +378,6 @@
 
 ## 28. 实战技巧
 
-- [x] [0285. TS 错误码](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0285.%20TS%20%E9%94%99%E8%AF%AF%E7%A0%81/README.md)
-- [x] [0075. DefinitelyTyped 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0075.%20DefinitelyTyped%20%E9%A1%B9%E7%9B%AE/README.md)
 - [ ] [0268. 常见类型错误处理](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0268.%20%E5%B8%B8%E8%A7%81%E7%B1%BB%E5%9E%8B%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/README.md)
 - [ ] [0269. 类型收窄技巧](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0269.%20%E7%B1%BB%E5%9E%8B%E6%94%B6%E7%AA%84%E6%8A%80%E5%B7%A7/README.md)
 - [ ] [0270. 类型守卫的使用](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0270.%20%E7%B1%BB%E5%9E%8B%E5%AE%88%E5%8D%AB%E7%9A%84%E4%BD%BF%E7%94%A8/README.md)

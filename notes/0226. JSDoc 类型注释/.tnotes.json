@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "JSDoc 是 JS 的文档注释标准，TS 扩展了 JSDoc 以支持类型注释，让 JS 项目也能享受类型检查的好处。",
   "id": "33d76230-533f-4d7b-8b36-ce52cb99de69",
   "created_at": 1760521823000,
-  "updated_at": 1761930504000
+  "updated_at": 1763024838259
 }

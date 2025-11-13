@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "DefinitelyTyped 是一个集中托管 TypeScript 类型声明文件的 GitHub 仓库，如果你发现你正在使用的某个库 xxx 没有类型支持，可以尝试搜一下 @types/xxx。",
   "id": "3f3d33c0-0d6e-4a77-a4ca-a9d0b94facde",
   "created_at": 1760521823000,
-  "updated_at": 1762507814030
+  "updated_at": 1763018084755
 }
