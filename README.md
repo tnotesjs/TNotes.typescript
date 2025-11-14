@@ -147,8 +147,8 @@
 - [x] [0033. 对象类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0033.%20%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0099. 对象只读属性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0099.%20%E5%AF%B9%E8%B1%A1%E5%8F%AA%E8%AF%BB%E5%B1%9E%E6%80%A7/README.md)
 - [x] [0100. 对象可选属性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0100.%20%E5%AF%B9%E8%B1%A1%E5%8F%AF%E9%80%89%E5%B1%9E%E6%80%A7/README.md)
-- [ ] [0101. 对象索引签名](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0101.%20%E5%AF%B9%E8%B1%A1%E7%B4%A2%E5%BC%95%E7%AD%BE%E5%90%8D/README.md)
-- [ ] [0102. 对象的额外属性检查](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0102.%20%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%A2%9D%E5%A4%96%E5%B1%9E%E6%80%A7%E6%A3%80%E6%9F%A5/README.md)
+- [x] [0101. 对象索引签名](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0101.%20%E5%AF%B9%E8%B1%A1%E7%B4%A2%E5%BC%95%E7%AD%BE%E5%90%8D/README.md)
+- [x] [0102. 对象的额外属性检查](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0102.%20%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%A2%9D%E5%A4%96%E5%B1%9E%E6%80%A7%E6%A3%80%E6%9F%A5/README.md)
 - [ ] [0103. 对象类型的扩展](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0103.%20%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%89%A9%E5%B1%95/README.md)
 - [ ] [0104. 使用 Record 工具类型约束对象](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0104.%20%E4%BD%BF%E7%94%A8%20Record%20%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%9E%8B%E7%BA%A6%E6%9D%9F%E5%AF%B9%E8%B1%A1/README.md)
 

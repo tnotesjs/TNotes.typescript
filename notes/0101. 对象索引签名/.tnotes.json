@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TS 索引签名用于定义允许动态属性对象类型，支持 string、number、symbol 作为键的类型，可与具名属性结合使用，此外，Record 工具类型还能提供更精确的键约束。",
   "id": "aaca2af9-b88c-4a81-a80d-a8de1a6db651",
   "created_at": 1760521823000,
-  "updated_at": 1763028016231
+  "updated_at": 1763109258292
 }

@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "额外属性检查（Excess Property Checking）是 TypeScript 的一个特殊类型检查机制，用于检测对象字面量中的多余属性。",
   "id": "a03ed854-5b2b-4ba2-a656-02ce41dea282",
   "created_at": 1761871140000,
-  "updated_at": 1762946420052
+  "updated_at": 1763109258292
 }
