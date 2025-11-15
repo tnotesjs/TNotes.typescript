@@ -394,11 +394,11 @@
         "link": "/notes/0102. 对象的额外属性检查/README"
       },
       {
-        "text": "⏰ 对象类型的扩展",
+        "text": "✅ 对象类型的扩展",
         "link": "/notes/0103. 对象类型的扩展/README"
       },
       {
-        "text": "⏰ 使用 Record 工具类型约束对象",
+        "text": "✅ 使用 Record 工具类型约束对象",
         "link": "/notes/0104. 使用 Record 工具类型约束对象/README"
       }
     ]
@@ -412,7 +412,7 @@
         "link": "/notes/0052. interface 关键字/README"
       },
       {
-        "text": "⏰ 接口的继承",
+        "text": "✅ 接口的继承",
         "link": "/notes/0105. 接口的继承/README"
       },
       {

@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "本文介绍了 TypeScript 内置工具类型 Record<K, T> 的定义与实现及其用法，说明了其如何为指定键集合映射值类型、与索引签名的差异以及常见的组合用法（嵌套、泛型、Partial、Pick/Omit）。",
   "id": "d95750d9-111b-49fd-bf79-15cdf87dc3ef",
   "created_at": 1761871140000,
-  "updated_at": 1763028016231
+  "updated_at": 1763205454776
 }

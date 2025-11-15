@@ -5,40 +5,20 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是接口继承？](#3--什么是接口继承)
-- [4. 🤔 单一继承](#4--单一继承)
-  - [4.1. 基本语法](#41-基本语法)
-  - [4.2. 添加方法](#42-添加方法)
-  - [4.3. 类型兼容性](#43-类型兼容性)
-- [5. 🤔 多重继承](#5--多重继承)
-  - [5.1. 继承多个接口](#51-继承多个接口)
-  - [5.2. 组合功能接口](#52-组合功能接口)
-  - [5.3. 属性冲突](#53-属性冲突)
-- [6. 🤔 继承链](#6--继承链)
+- [4. 🤔 接口如何实现多重继承？](#4--接口如何实现多重继承)
+- [5. 🤔 接口多重继承中的钻石问题是什么？](#5--接口多重继承中的钻石问题是什么)
+- [6. 🤔 继承链是什么？](#6--继承链是什么)
   - [6.1. 多层继承](#61-多层继承)
-  - [6.2. 继承关系可视化](#62-继承关系可视化)
-  - [6.3. 避免过深的继承链](#63-避免过深的继承链)
-- [7. 🤔 覆盖和扩展](#7--覆盖和扩展)
-  - [7.1. 类型收窄](#71-类型收窄)
-  - [7.2. 添加可选属性](#72-添加可选属性)
-  - [7.3. 添加新属性](#73-添加新属性)
-- [8. 🤔 接口继承类](#8--接口继承类)
-  - [8.1. 基本用法](#81-基本用法)
-  - [8.2. 继承类的公共成员](#82-继承类的公共成员)
-- [9. 🤔 常见使用场景](#9--常见使用场景)
-  - [9.1. 场景 1：API 响应层次](#91-场景-1api-响应层次)
-  - [9.2. 场景 2：实体继承](#92-场景-2实体继承)
-  - [9.3. 场景 3：表单字段](#93-场景-3表单字段)
-  - [9.4. 场景 4：事件系统](#94-场景-4事件系统)
-  - [9.5. 场景 5：配置继承](#95-场景-5配置继承)
-  - [9.6. 场景 6：React 组件 Props](#96-场景-6react-组件-props)
-  - [9.7. 场景 7：权限系统](#97-场景-7权限系统)
-- [10. 🤔 常见错误和最佳实践](#10--常见错误和最佳实践)
-  - [10.1. 错误 1：类型冲突](#101-错误-1类型冲突)
-  - [10.2. 错误 2：过度继承](#102-错误-2过度继承)
-  - [10.3. 错误 3：违反里氏替换原则](#103-错误-3违反里氏替换原则)
-  - [10.4. 错误 4：循环继承](#104-错误-4循环继承)
-  - [10.5. 最佳实践](#105-最佳实践)
-- [11. 🔗 引用](#11--引用)
+  - [6.2. 避免过深的继承链](#62-避免过深的继承链)
+- [7. 🤔 继承的时候可以收窄或拓宽父接口的属性类型吗？](#7--继承的时候可以收窄或拓宽父接口的属性类型吗)
+- [8. 🤔 继承的时候可以修改父接口属性的可选属性吗？](#8--继承的时候可以修改父接口属性的可选属性吗)
+- [9. 🤔 接口可以继承类吗？](#9--接口可以继承类吗)
+- [10. 🤔 关于接口继承的一些实践建议都有哪些？](#10--关于接口继承的一些实践建议都有哪些)
+- [11. 🤖 存在“砖石问题”的编程语言都有哪些？](#11--存在砖石问题的编程语言都有哪些)
+  - [11.1. 存在钻石问题的语言](#111-存在钻石问题的语言)
+  - [11.2. 不存在钻石问题或已解决的语言](#112-不存在钻石问题或已解决的语言)
+  - [11.3. 关键区别](#113-关键区别)
+- [12. 🔗 引用](#12--引用)
 
 <!-- endregion:toc -->
 
@@ -46,10 +26,11 @@
 
 - 接口继承的语法
 - 单一继承和多重继承
+- 钻石问题（Diamond Problem）
 - 继承链
 - 属性覆盖和类型收窄
 - 接口继承类
-- 实际应用场景
+- 接口的实际应用建议
 
 ## 2. 🫧 评价
 
@@ -68,27 +49,23 @@ TypeScript 的接口继承与传统 OOP 的区别：
 - 结构类型：基于结构而非名义，不需要显式声明继承关系
 - 编译时：只在编译时存在，运行时会被擦除
 
-理解接口继承，能帮助你：
-
-1. 构建清晰的类型层次结构
-2. 实现类型的组合和复用
-3. 设计灵活的 API 接口
-4. 编写可维护的大型应用
-
-接口继承是 TypeScript 中最重要的代码复用机制之一，是构建类型系统的基础。
-
 ## 3. 🤔 什么是接口继承？
 
 接口继承允许一个接口扩展另一个接口，继承所有属性和方法。
 
+- extends 关键字：表示继承关系
+- 所有属性继承：子接口包含父接口的所有属性
+- 可以扩展：子接口可以添加新属性
+- 类型兼容性：子类型可以赋值给父类型
+
 ```ts
-// ✅ 基础接口
+// 基础接口
 interface Animal {
   name: string
   age: number
 }
 
-// ✅ 继承 Animal 接口
+// 继承 Animal 接口
 interface Dog extends Animal {
   breed: string
   bark(): void
@@ -104,67 +81,9 @@ const dog: Dog = {
 }
 ```
 
-关键概念：
-
-- extends 关键字：表示继承关系
-- 所有属性继承：子接口包含父接口的所有属性
-- 可以扩展：子接口可以添加新属性
-- 类型兼容：子类型可以赋值给父类型
-
-## 4. 🤔 单一继承
-
-### 4.1. 基本语法
+类型兼容性：子类型可以赋值给父类型
 
 ```ts
-// ✅ 单一继承
-interface Person {
-  name: string
-  age: number
-}
-
-interface Employee extends Person {
-  employeeId: number
-  department: string
-}
-
-const employee: Employee = {
-  name: 'Alice',
-  age: 30,
-  employeeId: 12345,
-  department: 'Engineering',
-}
-```
-
-### 4.2. 添加方法
-
-```ts
-// ✅ 继承并添加方法
-interface Shape {
-  color: string
-  area(): number
-}
-
-interface Circle extends Shape {
-  radius: number
-  circumference(): number
-}
-
-const circle: Circle = {
-  color: 'red',
-  radius: 10,
-  area() {
-    return Math.PI * this.radius  2
-  },
-  circumference() {
-    return 2 * Math.PI * this.radius
-  },
-}
-```
-
-### 4.3. 类型兼容性
-
-```ts
-// ✅ 子类型可以赋值给父类型
 interface Animal {
   name: string
 }
@@ -178,118 +97,206 @@ const dog: Dog = {
   breed: 'Golden Retriever',
 }
 
-// ✅ Dog 是 Animal 的子类型
+// Dog 是 Animal 的子类型
 const animal: Animal = dog // ✅ 可以赋值
 ```
 
-## 5. 🤔 多重继承
-
-### 5.1. 继承多个接口
+## 4. 🤔 接口如何实现多重继承？
 
 ```ts
-// ✅ 同时继承多个接口
-interface Printable {
-  print(): void
+// 接口可以继承多个接口
+interface Flyable {
+  fly(): void
+  altitude: number
 }
 
-interface Serializable {
-  serialize(): string
+interface Swimmable {
+  swim(): void
+  depth: number
 }
 
-interface Loggable {
-  log(): void
+interface Duck extends Flyable, Swimmable {
+  quack(): void
 }
 
-interface Document extends Printable, Serializable, Loggable {
-  title: string
-  content: string
-}
-
-const doc: Document = {
-  title: 'TypeScript Guide',
-  content: 'Content...',
-  print() {
-    console.log(this.content)
+const duck: Duck = {
+  altitude: 100,
+  depth: 10,
+  fly() {
+    console.log(`Flying at ${this.altitude}m`)
   },
-  serialize() {
-    return JSON.stringify(this)
+  swim() {
+    console.log(`Swimming at ${this.depth}m depth`)
   },
-  log() {
-    console.log(`Document: ${this.title}`)
+  quack() {
+    console.log('Quack!')
   },
 }
 ```
 
-### 5.2. 组合功能接口
+注意属性冲突：
+
+- 相同属性必须类型兼容（是父子关系）
+- 相同属性在子类型中表现为交集类型（更窄的类型）
 
 ```ts
-// ✅ 组合不同的功能接口
-interface Identifiable {
-  id: number
-}
-
-interface Timestamped {
-  createdAt: Date
-  updatedAt: Date
-}
-
-interface Deletable {
-  deletedAt: Date | null
-  isDeleted(): boolean
-}
-
-interface User extends Identifiable, Timestamped, Deletable {
-  username: string
-  email: string
-}
-
-const user: User = {
-  id: 1,
-  username: 'alice',
-  email: 'alice@example.com',
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  deletedAt: null,
-  isDeleted() {
-    return this.deletedAt !== null
-  },
-}
-```
-
-### 5.3. 属性冲突
-
-```ts
-// ✅ 相同属性名必须类型兼容
 interface A {
-  value: string | number
-}
-
-interface B {
   value: string
 }
 
-// ✅ B 的 value 更窄，兼容
-interface C extends A, B {
-  // value 的类型是 string（取交集）
+interface B {
+  value: string | number
 }
 
-// ❌ 不兼容的类型会报错
+// ✅ A、B 类型兼容（A 是 B 的子类型）
+interface C extends A, B {
+  value: string
+  // value 的类型是 string（A 和 B 的交集）
+  // C["value"] = A["value"] & B["value"]
+  // = string & (string | number)
+  // = string
+}
+// ⚠️ 注意：value 必须要显式声明为 string 类型，否则会报错：
+// Interface 'C' cannot simultaneously extend types 'A' and 'B'.
+//  Named property 'value' of types 'A' and 'B' are not identical.(2320)
+
+const c: C = {
+  value: 'hello',
+}
+
 interface D {
   value: boolean
 }
 
+// ❌ 不兼容的类型会报错（A、D 不是父子关系）
 interface E extends A, D {
   // ❌ Error: 类型不兼容
-  // value: string | number & boolean = never
+  // string & boolean 得到的结果是 never
+
+  // ⚠️ 注意：如果想要规避报错，可以将 value 显式声明为 never 类型
+  // 不过这么做应该没有什么意义，正确的做法应该是尽可能规避多继承时类型不兼容的情况
+  value: never
+}
+// Interface 'E' cannot simultaneously extend types 'A' and 'D'.
+//  Named property 'value' of types 'A' and 'D' are not identical.(2320)
+```
+
+## 5. 🤔 接口多重继承中的钻石问题是什么？
+
+钻石问题（Diamond Problem）是指在多重继承场景中，当一个子接口通过多条路径继承同一个基接口时可能产生的歧义问题。
+
+示例：
+
+```mermaid
+classDiagram
+    class Base {
+        <<interface>>
+        value: number
+    }
+
+    class Left {
+        <<interface>>
+        left: string
+    }
+
+    class Right {
+        <<interface>>
+        right: string
+    }
+
+    class Bottom {
+        <<interface>>
+        bottom: string
+    }
+
+    Left --|> Base : extends
+    Right --|> Base : extends
+    Bottom --|> Left : extends
+    Bottom --|> Right : extends
+```
+
+- 当接口 `Bottom` 同时继承 `Left` 和 `Right`
+- 而 `Left` 和 `Right` 又都继承自同一个 `Base` 接口
+- 传统 OOP 语言中可能产生“两条继承路径”的歧义
+
+TypeScript 的接口系统能够完美解决钻石问题：
+
+```ts
+interface Base {
+  value: number
+}
+
+interface Left extends Base {
+  left: string
+}
+
+interface Right extends Base {
+  right: string
+}
+
+// 多重继承
+interface Bottom extends Left, Right {
+  bottom: string
+}
+
+const obj: Bottom = {
+  value: 42, // Base 的属性（只有一份）
+  left: 'left',
+  right: 'right',
+  bottom: 'bottom',
 }
 ```
 
-## 6. 🤔 继承链
+- 属性自动合并：`value` 属性只存在一份，不会出现重复
+- 无歧义访问：`Bottom` 类型可以直接访问 `value`，无需指定路径
+- 结构化类型系统：基于属性的兼容性而非继承路径
+
+与传统 OOP 的区别：
+
+| 特性     | 传统 OOP 类继承                    | TypeScript 接口继承 |
+| -------- | ---------------------------------- | ------------------- |
+| 钻石问题 | 通常需要显式解决（如 C++的虚继承） | 自动解决，无歧义    |
+| 属性处理 | 可能产生重复属性                   | 自动合并相同属性    |
+| 实现机制 | 基于名义类型系统                   | 基于结构类型系统    |
+
+在 TypeScript 中，由于接口是“扁平”的结构类型，所有继承路径上的相同属性会被自动合并，因此不会出现传统 OOP 中的钻石问题。这也是 TypeScript 接口多重继承比类多重继承更简单、更安全的原因之一。
+
+## 6. 🤔 继承链是什么？
+
+继承链（Inheritance Chain）就是一个类（或对象）沿着父类、父父类一直往上追溯形成的层级路径，用来描述它从哪些上级类型继承了哪些属性和方法。
 
 ### 6.1. 多层继承
 
+```mermaid
+classDiagram
+    class Entity {
+        <<interface>>
+        +id: number
+    }
+
+    class NamedEntity {
+        <<interface>>
+        +name: string
+    }
+
+    class TimestampedEntity {
+        <<interface>>
+        +createdAt: Date
+        +updatedAt: Date
+    }
+
+    class User {
+        <<interface>>
+        +email: string
+        +password: string
+    }
+
+    NamedEntity --|> Entity : extends
+    TimestampedEntity --|> NamedEntity : extends
+    User --|> TimestampedEntity : extends
+```
+
 ```ts
-// ✅ 建立继承链
 interface Entity {
   id: number
 }
@@ -318,47 +325,14 @@ const user: User = {
 }
 ```
 
-### 6.2. 继承关系可视化
+### 6.2. 避免过深的继承链
+
+继承层级越深，代码越难理解、维护成本越高、耦合越强且修改风险越大，任何上层类的改动都会向下层级连锁影响，导致系统脆弱。
+
+正确的做法应该是使用扁平化的组合，通过多继承的形式来规避过深的继承链。
 
 ```ts
-// ✅ 清晰的继承层次
-interface Vehicle {
-  wheels: number
-  maxSpeed: number
-}
-
-interface MotorVehicle extends Vehicle {
-  engineType: 'gas' | 'electric' | 'hybrid'
-  horsepower: number
-}
-
-interface Car extends MotorVehicle {
-  seats: number
-  doors: number
-}
-
-interface SportsCar extends Car {
-  turbo: boolean
-  topSpeed: number
-}
-
-// SportsCar 包含所有父接口的属性
-const ferrari: SportsCar = {
-  wheels: 4, // Vehicle
-  maxSpeed: 340, // Vehicle
-  engineType: 'gas', // MotorVehicle
-  horsepower: 800, // MotorVehicle
-  seats: 2, // Car
-  doors: 2, // Car
-  turbo: true, // SportsCar
-  topSpeed: 340, // SportsCar
-}
-```
-
-### 6.3. 避免过深的继承链
-
-```ts
-// ⚠️ 过深的继承链（不推荐）
+// ❌ 过深的继承链（不推荐）
 interface A extends B {}
 interface B extends C {}
 interface C extends D {}
@@ -385,9 +359,10 @@ interface Entity extends Identifiable, Timestamped, Deletable {
 }
 ```
 
-## 7. 🤔 覆盖和扩展
+## 7. 🤔 继承的时候可以收窄或拓宽父接口的属性类型吗？
 
-### 7.1. 类型收窄
+- 可以收窄父接口的属性类型
+- 不能扩宽类型
 
 ```ts
 // ✅ 可以收窄父接口的属性类型
@@ -410,453 +385,87 @@ const obj: Derived = {
 interface Invalid extends Base {
   value: string | number | boolean // ❌ Error
 }
+// 报错信息如下：
+// Interface 'Invalid' incorrectly extends interface 'Base'.
+//   Types of property 'value' are incompatible.
+//     Type 'string | number | boolean' is not assignable to type 'string | number'.
+//       Type 'boolean' is not assignable to type 'string | number'.(2430)
 ```
 
-### 7.2. 添加可选属性
+## 8. 🤔 继承的时候可以修改父接口属性的可选属性吗？
+
+- 不能将父接口的必需属性改为可选
+- 可以将父接口的可选属性改为必选
+- 可以添加新的可选属性
 
 ```ts
-// ✅ 将必需属性改为可选
-interface Required {
+interface Base {
   name: string
+  age?: number
+}
+
+// ❌ 不能将父接口的必需属性改为可选
+interface Invalid extends Base {
+  name?: string // ❌
+}
+// Interface 'Invalid' incorrectly extends interface 'Base'.
+//   Property 'name' is optional in type 'Invalid' but required in type 'Base'.(2430)
+
+// ✅ 可以将父接口的可选属性改为必选
+interface Valid extends Base {
   age: number
 }
 
-interface Optional extends Required {
-  name: string // 保持必需
-  email?: string // 添加可选属性
-}
-
-// ⚠️ 不能将必需属性改为可选
-interface Invalid extends Required {
-  name?: string // ❌ Error: 'name' is required in base
+// ✅ 可以添加新的可选属性
+interface Optional extends Base {
+  email?: string
 }
 ```
 
-### 7.3. 添加新属性
+## 9. 🤔 接口可以继承类吗？
+
+可以。
+
+类在 TS 中有两层含义：
+
+- 值层面：跟 JS 中的类、构造函数，是一个概念
+- 类型层面：类似 TS 中的接口类型，它也是可以被子类或者接口继承的
+
+基本用法：
 
 ```ts
-// ✅ 添加新属性和方法
-interface Point {
-  x: number
-  y: number
-}
-
-interface Point3D extends Point {
-  z: number // 添加新属性
-  distanceFromOrigin(): number // 添加新方法
-}
-
-const point: Point3D = {
-  x: 1,
-  y: 2,
-  z: 3,
-  distanceFromOrigin() {
-    return Math.sqrt(this.x  2 + this.y  2 + this.z  2)
-  },
-}
-```
-
-## 8. 🤔 接口继承类
-
-### 8.1. 基本用法
-
-```ts
-// ✅ 接口可以继承类
 class Control {
-  private state: any
+  private state: any = 'test'
 
   constructor(state: any) {
     this.state = state
   }
 }
 
-// ✅ 接口继承类，包括私有成员
+// ✅ 接口可以继承类
 interface SelectableControl extends Control {
   select(): void
 }
 
-// ✅ 类实现该接口必须继承 Control
+// ⚠️ 如果一个类计划实现该接口必须继承 Control
+// class Button implements SelectableControl {
+//   select() {
+//     console.log('Button selected')
+//   }
+// }
+// 报错信息如下：
+// Class 'Button' incorrectly implements interface 'SelectableControl'.
+//   Property 'state' is missing in type 'Button' but required in type 'SelectableControl'.(2420)
+
+// ✅ 正确的写法应该是加上 extends Control
 class Button extends Control implements SelectableControl {
   select() {
     console.log('Button selected')
   }
 }
-
-// ❌ 不继承 Control 的类无法实现接口
-class TextBox implements SelectableControl {
-  // ❌ Error
-  select() {}
-}
 ```
 
-### 8.2. 继承类的公共成员
-
-```ts
-// ✅ 只继承公共成员
-class Point {
-  x: number
-  y: number
-  private id: number
-
-  constructor(x: number, y: number) {
-    this.x = x
-    this.y = y
-    this.id = Math.random()
-  }
-}
-
-interface Point3D extends Point {
-  z: number
-  // 不能访问 private id
-}
-
-const point: Point3D = {
-  x: 1,
-  y: 2,
-  z: 3,
-  // id 不需要实现（私有成员）
-}
-```
-
-## 9. 🤔 常见使用场景
-
-### 9.1. 场景 1：API 响应层次
-
-```ts
-// ✅ 基础响应
-interface BaseResponse {
-  status: number
-  message: string
-  timestamp: Date
-}
-
-// ✅ 成功响应
-interface SuccessResponse<T> extends BaseResponse {
-  data: T
-}
-
-// ✅ 错误响应
-interface ErrorResponse extends BaseResponse {
-  error: {
-    code: string
-    details: string[]
-  }
-}
-
-// ✅ 分页响应
-interface PaginatedResponse<T> extends SuccessResponse<T[]> {
-  pagination: {
-    page: number
-    pageSize: number
-    total: number
-  }
-}
-```
-
-### 9.2. 场景 2：实体继承
-
-```ts
-// ✅ 基础实体
-interface BaseEntity {
-  id: number
-  createdAt: Date
-  updatedAt: Date
-}
-
-// ✅ 用户实体
-interface User extends BaseEntity {
-  username: string
-  email: string
-  role: 'admin' | 'user'
-}
-
-// ✅ 文章实体
-interface Post extends BaseEntity {
-  title: string
-  content: string
-  authorId: number
-  published: boolean
-}
-
-// ✅ 评论实体
-interface Comment extends BaseEntity {
-  content: string
-  postId: number
-  authorId: number
-}
-```
-
-### 9.3. 场景 3：表单字段
-
-```ts
-// ✅ 基础字段
-interface BaseField {
-  name: string
-  label: string
-  required: boolean
-  disabled?: boolean
-}
-
-// ✅ 输入字段
-interface InputField extends BaseField {
-  type: 'text' | 'email' | 'password'
-  placeholder?: string
-  minLength?: number
-  maxLength?: number
-}
-
-// ✅ 选择字段
-interface SelectField extends BaseField {
-  options: Array<{ value: string; label: string }>
-  multiple?: boolean
-}
-
-// ✅ 数字字段
-interface NumberField extends BaseField {
-  min?: number
-  max?: number
-  step?: number
-}
-```
-
-### 9.4. 场景 4：事件系统
-
-```ts
-// ✅ 基础事件
-interface BaseEvent {
-  type: string
-  timestamp: Date
-  target: HTMLElement
-}
-
-// ✅ 鼠标事件
-interface MouseEvent extends BaseEvent {
-  type: 'click' | 'mousedown' | 'mouseup' | 'mousemove'
-  x: number
-  y: number
-  button: number
-}
-
-// ✅ 键盘事件
-interface KeyboardEvent extends BaseEvent {
-  type: 'keydown' | 'keyup' | 'keypress'
-  key: string
-  code: string
-  ctrlKey: boolean
-  shiftKey: boolean
-  altKey: boolean
-}
-
-// ✅ 自定义事件
-interface CustomEvent<T> extends BaseEvent {
-  type: string
-  detail: T
-}
-```
-
-### 9.5. 场景 5：配置继承
-
-```ts
-// ✅ 基础配置
-interface BaseConfig {
-  host: string
-  port: number
-  timeout: number
-}
-
-// ✅ 数据库配置
-interface DatabaseConfig extends BaseConfig {
-  database: string
-  username: string
-  password: string
-  pool: {
-    min: number
-    max: number
-  }
-}
-
-// ✅ 缓存配置
-interface CacheConfig extends BaseConfig {
-  ttl: number
-  maxSize: number
-}
-
-// ✅ 完整应用配置
-interface AppConfig {
-  database: DatabaseConfig
-  cache: CacheConfig
-  api: BaseConfig
-}
-```
-
-### 9.6. 场景 6：React 组件 Props
-
-```ts
-// ✅ 基础 Props
-interface BaseProps {
-  className?: string
-  style?: React.CSSProperties
-  children?: React.ReactNode
-}
-
-// ✅ 按钮 Props
-interface ButtonProps extends BaseProps {
-  text: string
-  onClick: () => void
-  type?: 'primary' | 'secondary' | 'danger'
-  disabled?: boolean
-}
-
-// ✅ 输入框 Props
-interface InputProps extends BaseProps {
-  value: string
-  onChange: (value: string) => void
-  placeholder?: string
-  type?: 'text' | 'email' | 'password'
-}
-
-// ✅ 卡片 Props
-interface CardProps extends BaseProps {
-  title: string
-  subtitle?: string
-  footer?: React.ReactNode
-}
-```
-
-### 9.7. 场景 7：权限系统
-
-```ts
-// ✅ 基础用户
-interface BaseUser {
-  id: number
-  username: string
-  email: string
-}
-
-// ✅ 普通用户
-interface RegularUser extends BaseUser {
-  role: 'user'
-  permissions: ['read']
-}
-
-// ✅ 管理员
-interface AdminUser extends BaseUser {
-  role: 'admin'
-  permissions: ['read', 'write', 'delete']
-  adminLevel: number
-}
-
-// ✅ 超级管理员
-interface SuperAdmin extends AdminUser {
-  role: 'super_admin'
-  permissions: ['read', 'write', 'delete', 'manage_users', 'system_config']
-  canAccessAll: boolean
-}
-
-type User = RegularUser | AdminUser | SuperAdmin
-```
-
-## 10. 🤔 常见错误和最佳实践
-
-### 10.1. 错误 1：类型冲突
-
-```ts
-// ❌ 继承的接口有冲突属性
-interface A {
-  value: string
-}
-
-interface B {
-  value: number
-}
-
-interface C extends A, B {
-  // ❌ Error
-  // value: string & number = never
-}
-
-// ✅ 确保类型兼容
-interface A {
-  value: string | number
-}
-
-interface B {
-  value: number
-}
-
-interface C extends A, B {
-  // ✅
-  // value: number (取交集)
-}
-```
-
-### 10.2. 错误 2：过度继承
-
-```ts
-// ❌ 不必要的继承链
-interface A extends B {}
-interface B extends C {}
-interface C extends D {}
-interface D extends E {}
-interface E {
-  value: string
-}
-
-// ✅ 使用组合
-interface Combined {
-  value: string
-  // 直接定义需要的属性
-}
-```
-
-### 10.3. 错误 3：违反里氏替换原则
-
-```ts
-// ❌ 子接口限制过严，无法替换父接口
-interface Animal {
-  eat(food: string): void
-}
-
-interface Dog extends Animal {
-  eat(food: 'bone'): void // ❌ 过于严格
-}
-
-// ✅ 子接口应该能替换父接口
-interface Dog extends Animal {
-  eat(food: string): void // ✅ 保持兼容
-  bark(): void
-}
-```
-
-### 10.4. 错误 4：循环继承
-
-```ts
-// ❌ 循环继承
-interface A extends B {
-  // ❌ Error
-  a: string
-}
-
-interface B extends A {
-  // ❌ Error
-  b: string
-}
-
-// ✅ 避免循环依赖
-interface Base {
-  common: string
-}
-
-interface A extends Base {
-  a: string
-}
-
-interface B extends Base {
-  b: string
-}
-```
-
-### 10.5. 最佳实践
+## 10. 🤔 关于接口继承的一些实践建议都有哪些？
 
 ```ts
 // ✅ 1. 使用描述性接口名
@@ -954,7 +563,51 @@ type Test1 = AssertExtends<Animal, Dog> // Dog extends Animal
 type Test2 = AssertExtends<BaseEntity, User> // User extends BaseEntity
 ```
 
-## 11. 🔗 引用
+## 11. 🤖 存在“砖石问题”的编程语言都有哪些？
+
+钻石问题（Diamond Problem）主要存在于支持类多重继承的面向对象编程语言中。以下是具体语言分类：
+
+### 11.1. 存在钻石问题的语言
+
+- C++：最典型的例子，类支持多重继承，必须使用虚继承（virtual inheritance） 显式解决
+
+```cpp
+class Base { /*...*/ };
+class Left : virtual public Base { /*...*/ }; // 必须使用 virtual
+class Right : virtual public Base { /*...*/ }; // 必须使用 virtual
+class Bottom : public Left, public Right { /*...*/ };
+```
+
+- Python：虽然支持多重继承，但通过方法解析顺序（MRO） 自动解决
+  - 使用 C3 线性化算法确定继承顺序
+  - 通过 `super()` 正确调用父类方法
+- Scala：通过特质（Traits） 和线性化解决
+  - 使用特质组合代替多重继承
+
+### 11.2. 不存在钻石问题或已解决的语言
+
+- TypeScript：接口多重继承自动解决
+  - 接口是"扁平"的结构类型
+  - 相同属性自动合并，无歧义访问
+  - 如上下文所示：`interface Bottom extends Left, Right` 无需特殊处理
+- Java：
+  - 类只支持单继承，不存在钻石问题
+  - 接口支持多重继承（Java 8+），通过默认方法和显式覆盖解决冲突
+- C#：
+  - 类只支持单继承
+  - 接口支持多重继承，通过显式接口实现解决冲突
+
+### 11.3. 关键区别
+
+| 特性     | 传统 OOP 类多重继承语言 | TypeScript 接口继承    |
+| -------- | ----------------------- | ---------------------- |
+| 钻石问题 | 存在，需特殊处理        | 不存在，自动解决       |
+| 解决机制 | 虚继承、MRO 等          | 结构化类型系统自动合并 |
+| 本质原因 | 名义类型系统            | 结构类型系统           |
+
+钻石问题本质上是类继承系统的问题，在接口继承或单继承系统中要么不存在，要么有特定机制解决。TypeScript 的接口系统由于基于结构类型而非名义类型，天然避免了这一问题。
+
+## 12. 🔗 引用
 
 - [TypeScript Handbook - Interfaces][1]
 - [TypeScript Handbook - Extending Interfaces][2]

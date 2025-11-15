@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TypeScript 接口继承通过结构类型系统支持多重继承并自动解决钻石问题，允许属性类型收窄但禁止必需属性转为可选，建议保持继承链浅层（2-3层）并优先使用组合而非继承，从而在保证类型安全的同时实现代码复用和清晰的类型层次结构。",
   "id": "76141c14-531c-450a-8b8a-a52a6a627f4e",
   "created_at": 1760521823000,
-  "updated_at": 1763028016231
+  "updated_at": 1763205454776
 }
