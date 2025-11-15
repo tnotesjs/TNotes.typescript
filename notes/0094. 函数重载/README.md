@@ -191,6 +191,26 @@ function good(x: number): number
 function good(x: string | number): string | number {
   return typeof x === 'string' ? x : String(x)
 }
+
+// 💡 小技巧：
+// 通常把实现签名写成 any 或 unknown，再在函数体内做类型守卫。
+function add(a: number, b: number): number
+function add(a: string, b: string): string
+function add(a: number[], b: number[]): number[]
+// ✅ Good
+function add(a: unknown, b: unknown) {
+  if (typeof a === 'number' && typeof b === 'number') return a + b
+  if (typeof a === 'string' && typeof b === 'string') return a + b
+  if (Array.isArray(a) && Array.isArray(b)) return a.concat(b)
+  throw new Error('Invalid arguments')
+}
+// ⚠️ Bad
+// function add(a: number | string | number[], b: number | string | number[]): number | string | number[] {
+//   if (typeof a === 'number' && typeof b === 'number') return a + b
+//   if (typeof a === 'string' && typeof b === 'string') return a + b
+//   if (Array.isArray(a) && Array.isArray(b)) return a.concat(b)
+//   throw new Error('Invalid arguments')
+// }
 ```
 
 ## 5. 🤔 函数重载的匹配规则是？
