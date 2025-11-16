@@ -12,6 +12,14 @@
         "link": "/notes/0002. TypeScript（阮一峰）/README"
       },
       {
+        "text": "✅ typescript-book 项目",
+        "link": "/notes/0289. typescript-book 项目/README"
+      },
+      {
+        "text": "✅ clean-code-typescript 项目",
+        "link": "/notes/0290. clean-code-typescript 项目/README"
+      },
+      {
         "text": "✅ 术语表",
         "link": "/notes/0054. 术语表/README"
       },
@@ -1314,14 +1322,52 @@
       {
         "text": "⏰ typescript-go 项目",
         "link": "/notes/0284. typescript-go 项目/README"
+      }
+    ]
+  },
+  {
+    "text": "xxx",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "⏰ new",
+        "link": "/notes/0107. new/README"
       },
       {
         "text": "⏰ new",
-        "link": "/notes/0289. new/README"
+        "link": "/notes/0108. new/README"
       },
       {
         "text": "⏰ new",
-        "link": "/notes/0290. new/README"
+        "link": "/notes/0109. new/README"
+      },
+      {
+        "text": "⏰ new",
+        "link": "/notes/0227. new/README"
+      },
+      {
+        "text": "⏰ new",
+        "link": "/notes/0228. new/README"
+      },
+      {
+        "text": "⏰ new",
+        "link": "/notes/0229. new/README"
+      },
+      {
+        "text": "⏰ new",
+        "link": "/notes/0230. new/README"
+      },
+      {
+        "text": "⏰ new",
+        "link": "/notes/0231. new/README"
+      },
+      {
+        "text": "⏰ new",
+        "link": "/notes/0292. new/README"
+      },
+      {
+        "text": "⏰ new",
+        "link": "/notes/0293. new/README"
       }
     ]
   }

@@ -1,0 +1,12 @@
+{
+  "bilibili": [],
+  "tnotes": [],
+  "yuque": [],
+  "done": true,
+  "deprecated": false,
+  "enableDiscussions": true,
+  "description": "本文介绍了开源 TypeScript 学习资源 typescript-book（TypeScript Deep Dive）的项目背景、作者信息、主要内容模块（涵盖基础到编译器原理）以及特色章节推荐。",
+  "id": "b0027a3c-7cd5-4ba7-af78-581dbee265c1",
+  "created_at": 1762507935606,
+  "updated_at": 1763285250767
+}

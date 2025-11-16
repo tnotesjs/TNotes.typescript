@@ -33,6 +33,7 @@
 - [29. 深入原理](#29-深入原理)
 - [30. 进阶话题](#30-进阶话题)
 - [31. TS 7.0](#31-ts-70)
+- [xxx](#xxx)
 
 <!-- endregion:toc -->
 
@@ -40,6 +41,8 @@
 
 - [x] [0286. 学习资料](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0286.%20%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/README.md)
 - [x] [0002. TypeScript（阮一峰）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0002.%20TypeScript%EF%BC%88%E9%98%AE%E4%B8%80%E5%B3%B0%EF%BC%89/README.md)
+- [x] [0289. typescript-book 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0289.%20typescript-book%20%E9%A1%B9%E7%9B%AE/README.md)
+- [x] [0290. clean-code-typescript 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0290.%20clean-code-typescript%20%E9%A1%B9%E7%9B%AE/README.md)
 - [x] [0054. 术语表](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0054.%20%E6%9C%AF%E8%AF%AD%E8%A1%A8/README.md)
 - [x] [0039. roadmap](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0039.%20roadmap/README.md)
 - [x] [0073. TS 官方文档](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0073.%20TS%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md)
@@ -411,5 +414,16 @@
 ## 31. TS 7.0
 
 - [ ] [0284. typescript-go 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0284.%20typescript-go%20%E9%A1%B9%E7%9B%AE/README.md)
-- [ ] [0289. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0289.%20new/README.md)
-- [ ] [0290. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0290.%20new/README.md)
+
+## xxx
+
+- [ ] [0107. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0107.%20new/README.md)
+- [ ] [0108. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0108.%20new/README.md)
+- [ ] [0109. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0109.%20new/README.md)
+- [ ] [0227. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0227.%20new/README.md)
+- [ ] [0228. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0228.%20new/README.md)
+- [ ] [0229. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0229.%20new/README.md)
+- [ ] [0230. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0230.%20new/README.md)
+- [ ] [0231. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0231.%20new/README.md)
+- [ ] [0292. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0292.%20new/README.md)
+- [ ] [0293. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0293.%20new/README.md)
