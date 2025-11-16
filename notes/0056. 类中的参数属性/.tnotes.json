@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TS 中的参数属性（Parameter Properties）是一种语法糖，允许在构造函数参数前添加访问修饰符（public/private/protected/readonly）自动创建类属性，有效减少样板代码，但不能与同名普通属性共存，且在编译时普通属性初始化会覆盖参数属性的赋值。",
   "id": "363a916f-4e4d-40ff-ae71-dfa5bcffacdb",
   "created_at": 1761381331000,
-  "updated_at": 1761464250000
+  "updated_at": 1763299557218
 }

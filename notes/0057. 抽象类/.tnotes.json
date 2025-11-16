@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "抽象类通过 abstract 关键字定义不可实例化的模板类，既能提供具体实现（属性、方法、构造函数），又能强制子类实现抽象成员，是介于普通类和接口之间的代码复用与规范约束工具。",
   "id": "0437338a-ea0b-4d10-8541-8fcdcceef3e3",
   "created_at": 1761381331000,
-  "updated_at": 1761812359000
+  "updated_at": 1763299710947
 }

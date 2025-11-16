@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TS 的 implements 关键字使类能够承诺实现一个或多个接口的契约，要求类必须完整实现所有接口定义的成员，支持同时实现 interface 和对象类型的 type，但在多接口实现中同名属性必须保持类型兼容以避免编译错误。",
   "id": "50263700-dff6-40bc-94be-529bd6d4557d",
   "created_at": 1761381331000,
-  "updated_at": 1761451452000
+  "updated_at": 1763299683289
 }

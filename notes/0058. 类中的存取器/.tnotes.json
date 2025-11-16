@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TS 的存取器（accessor）通过 getter 和 setter 语法提供对类属性的封装控制，本质上是属性而非方法，使用下划线前缀命名内部字段可避免递归错误，能实现数据验证、计算属性和只读属性等高级功能，是 JS 标准特性在 TS 中的类型安全增强。",
   "id": "8dd582c4-4f8c-4db6-9e60-c5fa516a4a47",
   "created_at": 1761381331000,
-  "updated_at": 1761451452000
+  "updated_at": 1763299638124
 }
