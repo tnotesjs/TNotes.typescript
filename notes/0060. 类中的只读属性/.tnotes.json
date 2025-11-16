@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TS 的 readonly 修饰符提供编译时的只读约束，仅能防止属性重新赋值而无法阻止对象内部属性修改，支持与访问修饰符组合使用，可通过 Readonly、Object.freeze 或 as const 实现深度只读，且与仅含 getter 的存取器不同，其约束仅限于类型检查层面而不影响运行时行为。",
   "id": "fe1c60a4-c59f-4717-b819-13eea53f9da8",
   "created_at": 1761383389000,
-  "updated_at": 1761451452000
+  "updated_at": 1763300043548
 }

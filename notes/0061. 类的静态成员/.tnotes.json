@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TS类的静态成员使用 static 关键字定义，属于类本身而非实例，通过类名直接访问，支持 public/private/protected 修饰符但不可抽象，且可以与实例成员同名，是实现工具方法、计数器和全局配置等场景的重要机制。",
   "id": "874c91a9-a867-4906-8b06-feb48b7483ea",
   "created_at": 1761451986000,
-  "updated_at": 1761612349000
+  "updated_at": 1763300174077
 }

@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TS 的 public、private 和 protected 修饰符仅提供编译时访问控制，其中 public 默认可在任意位置访问，private 仅限类内部访问，protected 允许类及其子类访问，但它们无法提供运行时保护，真正私有性需使用 ES 的#私有字段实现。",
   "id": "bccfef44-b79d-42ec-ab2e-127d2d6e3c6f",
   "created_at": 1761451986000,
-  "updated_at": 1761736152000
+  "updated_at": 1763300386571
 }

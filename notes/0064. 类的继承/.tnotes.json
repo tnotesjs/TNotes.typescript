@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "TS 通过 extends 实现单继承，子类构造函数必须先调用 super()初始化父类部分，支持方法重写和 super 关键字调用父类成员，虽属结构类型系统但对私有成员采用名义类型规则，不支持多继承但可通过接口实现、Mixin 模式或组合替代方案实现类似功能。",
   "id": "7018ed87-a6f3-484d-ba59-a11f438363bd",
   "created_at": 1761451986000,
-  "updated_at": 1761811272000
+  "updated_at": 1763300844788
 }

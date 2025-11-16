@@ -25,7 +25,7 @@
   - [6.2. --inlineSourceMap](#62---inlinesourcemap)
   - [6.3. --listFiles](#63---listfiles)
   - [6.4. --diagnostics](#64---diagnostics)
-- [7. � 项目管理参数？](#7--项目管理参数)
+- [7. 🤔 项目管理参数？](#7--项目管理参数)
   - [7.1. --project](#71---project)
   - [7.2. --build](#72---build)
   - [7.3. --incremental](#73---incremental)
@@ -401,7 +401,7 @@ Emit time:     0.67s
 Total time:    2.69s
 ```
 
-## 7. � 项目管理参数？
+## 7. 🤔 项目管理参数？
 
 ### 7.1. --project
 

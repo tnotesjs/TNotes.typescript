@@ -494,16 +494,8 @@
         "link": "/notes/0065. 类与函数的选择/README"
       },
       {
-        "text": "⏰ 类的类型",
+        "text": "✅ 类的类型",
         "link": "/notes/0111. 类的类型/README"
-      },
-      {
-        "text": "⏰ 类的结构类型",
-        "link": "/notes/0112. 类的结构类型/README"
-      },
-      {
-        "text": "⏰ 类的 implements 子句",
-        "link": "/notes/0113. 类的 implements 子句/README"
       },
       {
         "text": "⏰ 类的静态块",

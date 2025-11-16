@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TS 中类具有双重身份：作为类型时代表实例类型，作为值时代表构造函数，遵循结构化类型系统允许结构兼容的类实例或对象字面量互相赋值，可通过 typeof 获取构造函数类型并用于类型约束。",
   "id": "dac5f2c1-7467-4c53-86e5-dea23060d405",
   "created_at": 1760521823000,
-  "updated_at": 1763299710947
+  "updated_at": 1763304737071
 }
