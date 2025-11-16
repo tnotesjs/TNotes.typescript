@@ -8,10 +8,13 @@
 - [4. 🤔 接口合并的时候出现类型冲突怎么办？](#4--接口合并的时候出现类型冲突怎么办)
 - [5. 🤔 索引签名接口可以合并吗？](#5--索引签名接口可以合并吗)
 - [6. 🤔 泛型接口可以合并吗？](#6--泛型接口可以合并吗)
-- [7. 🤔 函数重载合并](#7--函数重载合并)
-  - [7.1. 方法重载](#71-方法重载)
-  - [7.2. 重载顺序](#72-重载顺序)
-  - [7.3. 构造函数重载](#73-构造函数重载)
+- [7. 🤔 函数重载可以合并吗？](#7--函数重载可以合并吗)
+  - [7.1. 函数签名自动合并](#71-函数签名自动合并)
+  - [7.2. 重载匹配和接口顺序的关系](#72-重载匹配和接口顺序的关系)
+    - [错误的思维方式](#错误的思维方式)
+    - [真实结论](#真实结论)
+    - [示例 1：顺序不影响（有唯一更具体者）](#示例-1顺序不影响有唯一更具体者)
+    - [示例 2：存在“平局”时，后声明者优先](#示例-2存在平局时后声明者优先)
 - [8. 🤔 模块扩展](#8--模块扩展)
   - [8.1. 扩展模块导出](#81-扩展模块导出)
   - [8.2. 扩展第三方库](#82-扩展第三方库)
@@ -268,12 +271,14 @@ const container: Container<number> = {
 }
 ```
 
-## 7. 🤔 函数重载合并
+## 7. 🤔 函数重载可以合并吗？
 
-### 7.1. 方法重载
+不同接口中的同名函数签名会自动合并为函数重载。
+
+### 7.1. 函数签名自动合并
 
 ```ts
-// 函数签名会形成重载
+// 同名函数的签名会形成重载
 interface Calculator {
   add(a: number, b: number): number
 }
@@ -314,44 +319,124 @@ const x2 = calc.add('a', 'b') // const x2: string
 const x3 = calc.add([1], [2]) // const x3: number[]
 ```
 
-### 7.2. 重载顺序
+### 7.2. 重载匹配和接口顺序的关系
+
+#### 错误的思维方式
+
+直接套用之前的惯性思维，认为后者优先级高会覆盖前者（比如对象的展开合并），因此写在后面的会优先匹配。
+
+#### 真实结论
+
+- 重载匹配主要看“谁更具体”（more specific）。有唯一更具体者时，和声明顺序无关。
+- 只有在“没有唯一更具体者（同等具体、彼此不可比）”时，才用“声明顺序”打破平局。
+- 接口声明合并后，TypeScript 会把“后声明的重载”排在“前面”，因此在平局时“后声明者优先”。
+
+#### 示例 1：顺序不影响（有唯一更具体者）
 
 ```ts
-// ✅ 后声明的重载优先级更高
-interface Processor {
-  process(data: string): string
+// 1 写前面：
+// 1
+interface A {
+  process(data: 'a'): 'A'
 }
 
-interface Processor {
-  process(data: number): number // 优先匹配
+// 2
+interface A {
+  process(data: string): 'S'
 }
 
-// 实现时按照重载顺序
-const processor: Processor = {
-  process(data: any): any {
-    if (typeof data === 'number') {
-      return data * 2
-    }
-    return data.toUpperCase()
-  },
-}
+declare const a: A
+// 声明一个变量 a，告诉 TS 它的类型就是 A
+
+const r1 = a.process('a')
+// TS 推断结果：匹配 1
+// const r1: "A"
+
+const r2 = a.process('x')
+// TS 推断结果：匹配 2
+// const r2: "S"
+
+// 字面量重载更具体，顺序无关
+// 无论是 1 写在前面还是 2 写在前面，最终匹配结果都是一样的。
 ```
 
-### 7.3. 构造函数重载
+把顺序反过来得到的结果是一样的：
 
 ```ts
-// ✅ 构造函数也可以重载
-interface DateConstructor {
-  new (): Date
+// 2 写前面：
+// 2
+interface A {
+  process(data: string): 'S'
 }
 
-interface DateConstructor {
-  new (value: number): Date
+// 1
+interface A {
+  process(data: 'a'): 'A'
 }
 
-interface DateConstructor {
-  new (value: string): Date
+declare const a: A
+// 声明一个变量 a，告诉 TS 它的类型就是 A
+
+const r1 = a.process('a')
+// TS 推断结果：匹配 1
+// const r1: "A"
+
+const r2 = a.process('x')
+// TS 推断结果：匹配 2
+// const r2: "S"
+```
+
+#### 示例 2：存在“平局”时，后声明者优先
+
+```ts
+interface P {
+  f(x: 'a' | 'b'): 1
 }
+
+interface P {
+  f(x: 'a' | 'c'): 2 // 后声明 - 平局时它优先
+}
+
+// 合并后：
+// interface P {
+//   f(x: 'a' | 'b'): 1
+//   f(x: 'a' | 'c'): 2
+// }
+
+declare const p: P
+
+const r = p.f('a')
+// TS 推断结果：
+// const r: 2
+
+// 两个重载都适配
+// 没有唯一更具体者（同等具体、彼此不可比）
+// 用“声明顺序”打破平局
+// “后声明”的优先级高
+```
+
+把顺序反过来会得到相反结果：
+
+```ts
+interface P {
+  f(x: 'a' | 'c'): 2
+}
+
+interface P {
+  f(x: 'a' | 'b'): 1 // 后声明 - 平局时它优先
+}
+
+// 合并后：
+// interface P {
+//   f(x: 'a' | 'c'): 2
+//   f(x: 'a' | 'b'): 1
+// }
+
+declare const p: P
+
+const r = p.f('a')
+// TS 推断结果：
+// const r: 1
 ```
 
 ## 8. 🤔 模块扩展
