@@ -20,6 +20,10 @@
         "link": "/notes/0290. clean-code-typescript 项目/README"
       },
       {
+        "text": "✅ type-challenges 项目",
+        "link": "/notes/0107. type-challenges 项目/README"
+      },
+      {
         "text": "✅ 术语表",
         "link": "/notes/0054. 术语表/README"
       },
@@ -426,10 +430,6 @@
       {
         "text": "✅ 接口的合并（声明合并）",
         "link": "/notes/0106. 接口的合并（声明合并）/README"
-      },
-      {
-        "text": "⏰ 混合类型接口",
-        "link": "/notes/0110. 混合类型接口/README"
       },
       {
         "text": "✅ type vs. interface",
@@ -1329,10 +1329,6 @@
     "text": "xxx",
     "collapsed": true,
     "items": [
-      {
-        "text": "⏰ new",
-        "link": "/notes/0107. new/README"
-      },
       {
         "text": "⏰ new",
         "link": "/notes/0108. new/README"

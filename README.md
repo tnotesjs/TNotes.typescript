@@ -43,6 +43,7 @@
 - [x] [0002. TypeScript（阮一峰）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0002.%20TypeScript%EF%BC%88%E9%98%AE%E4%B8%80%E5%B3%B0%EF%BC%89/README.md)
 - [x] [0289. typescript-book 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0289.%20typescript-book%20%E9%A1%B9%E7%9B%AE/README.md)
 - [x] [0290. clean-code-typescript 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0290.%20clean-code-typescript%20%E9%A1%B9%E7%9B%AE/README.md)
+- [x] [0107. type-challenges 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0107.%20type-challenges%20%E9%A1%B9%E7%9B%AE/README.md)
 - [x] [0054. 术语表](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0054.%20%E6%9C%AF%E8%AF%AD%E8%A1%A8/README.md)
 - [x] [0039. roadmap](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0039.%20roadmap/README.md)
 - [x] [0073. TS 官方文档](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0073.%20TS%20%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/README.md)
@@ -160,7 +161,6 @@
 - [x] [0052. interface 关键字](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0052.%20interface%20%E5%85%B3%E9%94%AE%E5%AD%97/README.md)
 - [x] [0105. 接口的继承](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0105.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%BB%A7%E6%89%BF/README.md)
 - [x] [0106. 接口的合并（声明合并）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0106.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%90%88%E5%B9%B6%EF%BC%88%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%EF%BC%89/README.md)
-- [ ] [0110. 混合类型接口](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0110.%20%E6%B7%B7%E5%90%88%E7%B1%BB%E5%9E%8B%E6%8E%A5%E5%8F%A3/README.md)
 - [x] [0053. type vs. interface](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0053.%20type%20vs.%20interface/README.md)
 
 ## 12. Class 类型
@@ -417,7 +417,6 @@
 
 ## xxx
 
-- [ ] [0107. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0107.%20new/README.md)
 - [ ] [0108. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0108.%20new/README.md)
 - [ ] [0109. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0109.%20new/README.md)
 - [ ] [0227. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0227.%20new/README.md)
