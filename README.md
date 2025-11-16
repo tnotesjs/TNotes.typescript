@@ -156,10 +156,7 @@
 
 - [x] [0052. interface 关键字](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0052.%20interface%20%E5%85%B3%E9%94%AE%E5%AD%97/README.md)
 - [x] [0105. 接口的继承](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0105.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%BB%A7%E6%89%BF/README.md)
-- [ ] [0106. 接口的合并（声明合并）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0106.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%90%88%E5%B9%B6%EF%BC%88%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%EF%BC%89/README.md)
-- [ ] [0107. 接口的索引签名](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0107.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%B4%A2%E5%BC%95%E7%AD%BE%E5%90%8D/README.md)
-- [ ] [0108. 接口的调用签名](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0108.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E8%B0%83%E7%94%A8%E7%AD%BE%E5%90%8D/README.md)
-- [ ] [0109. 接口的构造签名](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0109.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%9E%84%E9%80%A0%E7%AD%BE%E5%90%8D/README.md)
+- [x] [0106. 接口的合并（声明合并）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0106.%20%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%90%88%E5%B9%B6%EF%BC%88%E5%A3%B0%E6%98%8E%E5%90%88%E5%B9%B6%EF%BC%89/README.md)
 - [ ] [0110. 混合类型接口](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0110.%20%E6%B7%B7%E5%90%88%E7%B1%BB%E5%9E%8B%E6%8E%A5%E5%8F%A3/README.md)
 - [x] [0053. type vs. interface](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0053.%20type%20vs.%20interface/README.md)
 

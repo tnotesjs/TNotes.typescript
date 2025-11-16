@@ -15,44 +15,40 @@
     - [真实结论](#真实结论)
     - [示例 1：顺序不影响（有唯一更具体者）](#示例-1顺序不影响有唯一更具体者)
     - [示例 2：存在“平局”时，后声明者优先](#示例-2存在平局时后声明者优先)
-- [8. 🤔 模块扩展](#8--模块扩展)
-  - [8.1. 扩展模块导出](#81-扩展模块导出)
-  - [8.2. 扩展第三方库](#82-扩展第三方库)
-  - [8.3. 扩展命名空间](#83-扩展命名空间)
-- [9. 🤔 全局扩展](#9--全局扩展)
-  - [9.1. 扩展全局对象](#91-扩展全局对象)
-  - [9.2. 扩展全局类型](#92-扩展全局类型)
-  - [9.3. 扩展全局命名空间](#93-扩展全局命名空间)
-- [10. 🤔 常见使用场景](#10--常见使用场景)
-  - [10.1. 场景 1：组织大型接口](#101-场景-1组织大型接口)
-  - [10.2. 场景 2：扩展 Express](#102-场景-2扩展-express)
-  - [10.3. 场景 3：扩展 Vue](#103-场景-3扩展-vue)
-  - [10.4. 场景 4：扩展 React Props](#104-场景-4扩展-react-props)
-  - [10.5. 场景 5：扩展 Jest](#105-场景-5扩展-jest)
-  - [10.6. 场景 6：环境变量类型](#106-场景-6环境变量类型)
-  - [10.7. 场景 7：CSS Modules](#107-场景-7css-modules)
-- [11. 🤔 常见错误和最佳实践](#11--常见错误和最佳实践)
-  - [11.1. 错误 1：类型别名不支持合并](#111-错误-1类型别名不支持合并)
-  - [11.2. 错误 2：属性类型冲突](#112-错误-2属性类型冲突)
-  - [11.3. 错误 3：忘记 declare module](#113-错误-3忘记-declare-module)
-  - [11.4. 错误 4：全局污染](#114-错误-4全局污染)
-  - [11.5. 最佳实践](#115-最佳实践)
-- [12. 🔗 引用](#12--引用)
+- [8. 🤔 合并可以跨越模块吗？](#8--合并可以跨越模块吗)
+  - [8.1. 先说结论](#81-先说结论)
+  - [8.2. 示例一：全局脚本之间会自动合并](#82-示例一全局脚本之间会自动合并)
+  - [8.3. 示例二：模块之间不会自动合并](#83-示例二模块之间不会自动合并)
+  - [8.4. 示例三：用模块增强在“目标模块命名空间内”合并](#84-示例三用模块增强在目标模块命名空间内合并)
+  - [8.5. 示例四：为第三方包做模块增强](#85-示例四为第三方包做模块增强)
+  - [8.6. 小结](#86-小结)
+- [9. 🤔 关于接口合并的一些开发建议都有哪些？](#9--关于接口合并的一些开发建议都有哪些)
+- [10. 🔗 引用](#10--引用)
 
 <!-- endregion:toc -->
 
 ## 1. 🎯 本节内容
 
 - 声明合并的概念
-- 接口合并的规则
+- 接口合并的冲突处理
 - 属性和方法的合并
 - 函数重载的合并
-- 模块和命名空间扩展
-- 全局类型扩展
 
 ## 2. 🫧 评价
 
-声明合并（Declaration Merging）是 TypeScript 的一个独特特性，允许多个同名的声明自动合并为一个声明。
+声明合并（Declaration Merging）是 TypeScript 的一个独特特性，允许多个同名的声明自动合并为一个声明，是扩展现有类型的主要方式。
+
+这篇笔记中介绍的内容，在官方文档中有专门的文章说明 -> [TypeScript Handbook - Declaration Merging][1]。
+
+## 3. 🤔 什么是声明合并？
+
+声明合并是指 TypeScript 编译器会将多个同名的声明合并为一个声明。
+
+自动合并：
+
+- 顺序无关：声明顺序不影响结果
+- 累加属性：所有属性都被保留
+- 接口专属：类型别名不支持
 
 接口合并的特点：
 
@@ -70,30 +66,11 @@
 
 与类型别名的区别：
 
-| 特性     | 接口      | 类型别名  |
-| -------- | --------- | --------- |
-| 声明合并 | ✅ 支持   | ❌ 不支持 |
-| 扩展方式 | `extends` | `&`       |
-| 重复声明 | 自动合并  | 报错      |
-
-理解声明合并，能帮助你：
-
-1. 正确扩展第三方库的类型
-2. 理解接口和类型别名的区别
-3. 组织大型类型定义
-4. 解决类型定义冲突
-
-声明合并是 TypeScript 类型系统的强大特性，是扩展现有类型的主要方式。
-
-## 3. 🤔 什么是声明合并？
-
-声明合并是指 TypeScript 编译器会将多个同名的声明合并为一个声明。
-
-自动合并：
-
-- 顺序无关：声明顺序不影响结果
-- 累加属性：所有属性都被保留
-- 接口专属：类型别名不支持
+| 特性     | 接口        | 类型别名                |
+| -------- | ----------- | ----------------------- |
+| 声明合并 | ✅ 支持     | ❌ 不支持               |
+| 扩展方式 | `extends`   | `&`                     |
+| 重复声明 | ✅ 自动合并 | ❌ 报错（相同作用域下） |
 
 ```ts
 // 多个同名接口会自动合并
@@ -439,458 +416,105 @@ const r = p.f('a')
 // const r: 1
 ```
 
-## 8. 🤔 模块扩展
+## 8. 🤔 合并可以跨越模块吗？
 
-### 8.1. 扩展模块导出
+::: tip 💡 温馨提示
+
+- 下面说的“模块”是指带有 import/export 语句的文件
+- 下面说的“全局脚本”是指没有 import/export 的文件
+
+TS 将一个文件识别为“模块”还是“全局脚本”是可以通过配置文件 `tsconfig.json` 中的 `moduleDetection` 来配置的，在默认值 `moduleDetection: "auto"` 配置下，TS 会按照上述这样的逻辑来确定文件是脚本还是模块。
+
+:::
+
+### 8.1. 先说结论
+
+- 不能“自动”跨模块合并 - 同名接口在不同 ES 模块的导出里不会合并
+- 可以跨“全局脚本”合并
+- 想要跨模块扩展，使用 Module Augmentation（模块增强）：`declare module '...' { ... }`
+- 想要向全局增加类型，使用 Global Augmentation（全局增强）：`declare global { ... }`
+
+### 8.2. 示例一：全局脚本之间会自动合并
 
 ```ts
-// ✅ 扩展已有模块
-// types.ts
-export interface User {
-  id: number
+// a.d.ts（无 import/export）
+interface Person {
   name: string
 }
 
-// extensions.ts
-import { User } from './types'
+// b.d.ts（无 import/export）
+interface Person {
+  age: number
+}
 
-declare module './types' {
-  interface User {
-    email: string
+// 任意文件
+const p: Person = { name: 'Ada', age: 37 } // OK，已合并
+```
+
+### 8.3. 示例二：模块之间不会自动合并
+
+```ts
+// a.ts（模块）
+export interface Person {
+  name: string
+}
+
+// b.ts（模块）
+export interface Person {
+  age: number
+}
+
+// use.ts
+import { Person as APerson } from './a'
+import { Person as BPerson } from './b'
+
+let a: APerson = { name: 'Ada' } // OK
+let b: BPerson = { age: 37 } // OK
+// 它们是两个不同的类型，不会合并
+```
+
+### 8.4. 示例三：用模块增强在“目标模块命名空间内”合并
+
+```ts
+// a.ts
+export interface Person {
+  name: string
+}
+
+// augment-a.d.ts
+export {} // 确保本文件是模块
+declare module './a' {
+  interface Person {
     age: number
-  }
+  } // 扩展 a.ts 导出的 Person
 }
 
-// 使用时 User 包含所有属性
-import { User } from './types'
-
-const user: User = {
-  id: 1,
-  name: 'Alice',
-  email: 'alice@example.com',
-  age: 30,
-}
+// use.ts
+import { Person } from './a'
+const p: Person = { name: 'Ada', age: 37 } // OK（已合并）
 ```
 
-### 8.2. 扩展第三方库
+### 8.5. 示例四：为第三方包做模块增强
 
 ```ts
-// ✅ 扩展 Express Request
-import { Request } from 'express'
-
-declare module 'express' {
-  interface Request {
-    user?: {
-      id: number
-      username: string
-    }
-  }
-}
-
-// 使用扩展后的类型
-app.get('/profile', (req, res) => {
-  if (req.user) {
-    res.json({ username: req.user.username })
-  }
-})
-```
-
-### 8.3. 扩展命名空间
-
-```ts
-// ✅ 扩展命名空间
-namespace MyLib {
-  export interface Config {
-    host: string
-  }
-}
-
-namespace MyLib {
-  export interface Config {
-    port: number
-  }
-}
-
-// Config 包含 host 和 port
-const config: MyLib.Config = {
-  host: 'localhost',
-  port: 3000,
-}
-```
-
-## 9. 🤔 全局扩展
-
-### 9.1. 扩展全局对象
-
-```ts
-// ✅ 扩展 Window 对象
-declare global {
-  interface Window {
-    myApp: {
-      version: string
-      config: Record<string, any>
-    }
-  }
-}
-
-// 使用
-window.myApp = {
-  version: '1.0.0',
-  config: {},
-}
-```
-
-### 9.2. 扩展全局类型
-
-```ts
-// ✅ 扩展 Array
-declare global {
-  interface Array<T> {
-    first(): T | undefined
-    last(): T | undefined
-  }
-}
-
-// 实现
-Array.prototype.first = function () {
-  return this[0]
-}
-
-Array.prototype.last = function () {
-  return this[this.length - 1]
-}
-
-// 使用
-const arr = [1, 2, 3]
-arr.first() // 1
-arr.last() // 3
-```
-
-### 9.3. 扩展全局命名空间
-
-```ts
-// ✅ 扩展 NodeJS 命名空间
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      DATABASE_URL: string
-      API_KEY: string
-      NODE_ENV: 'development' | 'production' | 'test'
-    }
-  }
-}
-
-// 使用时有类型检查
-const dbUrl = process.env.DATABASE_URL // string
-const nodeEnv = process.env.NODE_ENV // 'development' | 'production' | 'test'
-```
-
-## 10. 🤔 常见使用场景
-
-### 10.1. 场景 1：组织大型接口
-
-```ts
-// ✅ 将大型接口拆分为多个部分
-// base.ts
-interface User {
-  id: number
-  username: string
-  email: string
-}
-
-// profile.ts
-interface User {
-  firstName: string
-  lastName: string
-  avatar: string
-  bio: string
-}
-
-// settings.ts
-interface User {
-  theme: 'light' | 'dark'
-  language: string
-  notifications: boolean
-}
-
-// 自动合并为完整的 User 接口
-```
-
-### 10.2. 场景 2：扩展 Express
-
-```ts
-// ✅ 为 Express 添加自定义属性
-import express from 'express'
-
+// types/express.d.ts
+export {}
 declare module 'express-serve-static-core' {
   interface Request {
-    user?: {
-      id: number
-      role: 'admin' | 'user'
-    }
-    requestId: string
-  }
-
-  interface Response {
-    success(data: any): void
-    error(message: string): void
+    user?: { id: number; role: string }
   }
 }
-
-// 实现辅助方法
-const app = express()
-
-app.use((req, res, next) => {
-  req.requestId = Math.random().toString(36)
-
-  res.success = (data) => {
-    res.json({ success: true, data })
-  }
-
-  res.error = (message) => {
-    res.status(400).json({ success: false, error: message })
-  }
-
-  next()
-})
-
-// 使用
-app.get('/api/user', (req, res) => {
-  if (!req.user) {
-    return res.error('Unauthorized')
-  }
-  res.success({ username: req.user.id })
-})
+// 确保该 .d.ts 被 tsconfig 的 include/types 收录
 ```
 
-### 10.3. 场景 3：扩展 Vue
+### 8.6. 小结
 
-```ts
-// ✅ 扩展 Vue 组件实例
-import Vue from 'vue'
+- 模块增强文件必须是“模块文件”（包含任意 import/export，常用 export {}）。
+- 只能增强可合并的实体（interface、namespace、enum、类的实例成员等）；type 别名不可合并。
+- 增强只影响类型层面；若改动涉及运行时行为，需配套运行时代码。
+- 声明顺序一般无关；仅在重载“无唯一更具体者”时，合并后的先后顺序才影响选择（后声明者通常排在前面）。
 
-declare module 'vue/types/vue' {
-  interface Vue {
-    $api: {
-      get(url: string): Promise<any>
-      post(url: string, data: any): Promise<any>
-    }
-    $user: {
-      id: number
-      name: string
-    } | null
-  }
-}
-
-// 安装插件
-Vue.prototype.$api = {
-  get: async (url) => fetch(url).then((r) => r.json()),
-  post: async (url, data) =>
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-    }).then((r) => r.json()),
-}
-
-// 在组件中使用
-export default Vue.extend({
-  mounted() {
-    this.$api.get('/api/user').then((user) => {
-      this.$user = user
-    })
-  },
-})
-```
-
-### 10.4. 场景 4：扩展 React Props
-
-```ts
-// ✅ 为所有组件添加通用 props
-import 'react'
-
-declare module 'react' {
-  interface HTMLAttributes<T> {
-    // 为所有 HTML 元素添加 data-testid
-    'data-testid'?: string
-  }
-
-  interface FunctionComponent<P = {}> {
-    // 为函数组件添加 displayName
-    displayName?: string
-  }
-}
-
-// 使用
-const Button: React.FC<{ text: string }> = ({ text, ...props }) => (
-  <button data-testid="my-button" {...props}>
-    {text}
-  </button>
-)
-
-Button.displayName = 'Button'
-```
-
-### 10.5. 场景 5：扩展 Jest
-
-```ts
-// ✅ 添加自定义匹配器
-declare global {
-  namespace jest {
-    interface Matchers<R> {
-      toBeWithinRange(min: number, max: number): R
-    }
-  }
-}
-
-// 实现匹配器
-expect.extend({
-  toBeWithinRange(received: number, min: number, max: number) {
-    const pass = received >= min && received <= max
-    return {
-      pass,
-      message: () => `expected ${received} to be within range ${min} - ${max}`,
-    }
-  },
-})
-
-// 使用
-test('value is within range', () => {
-  expect(10).toBeWithinRange(5, 15)
-})
-```
-
-### 10.6. 场景 6：环境变量类型
-
-```ts
-// ✅ 为环境变量添加类型
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      // 必需的环境变量
-      DATABASE_URL: string
-      REDIS_URL: string
-      JWT_SECRET: string
-
-      // 可选的环境变量
-      PORT?: string
-      LOG_LEVEL?: 'debug' | 'info' | 'warn' | 'error'
-
-      // 特定值的环境变量
-      NODE_ENV: 'development' | 'production' | 'test'
-    }
-  }
-}
-
-// 使用时有完整的类型检查
-const config = {
-  database: process.env.DATABASE_URL, // string
-  port: parseInt(process.env.PORT || '3000'),
-  nodeEnv: process.env.NODE_ENV, // 'development' | 'production' | 'test'
-}
-```
-
-### 10.7. 场景 7：CSS Modules
-
-```ts
-// ✅ 为 CSS Modules 添加类型
-declare module '*.module.css' {
-  const classes: { [key: string]: string }
-  export default classes
-}
-
-declare module '*.module.scss' {
-  const classes: { [key: string]: string }
-  export default classes
-}
-
-// 使用
-import styles from './Button.module.css'
-
-const Button = () => <button className={styles.button}>Click me</button>
-```
-
-## 11. 🤔 常见错误和最佳实践
-
-### 11.1. 错误 1：类型别名不支持合并
-
-```ts
-// ❌ 类型别名不能合并
-type User = {
-  name: string
-}
-
-type User = {
-  // ❌ Error: Duplicate identifier
-  age: number
-}
-
-// ✅ 使用接口
-interface User {
-  name: string
-}
-
-interface User {
-  // ✅ 自动合并
-  age: number
-}
-```
-
-### 11.2. 错误 2：属性类型冲突
-
-```ts
-// ❌ 非函数属性类型必须相同
-interface Config {
-  port: number
-}
-
-interface Config {
-  port: string // ❌ Error
-}
-
-// ✅ 使用联合类型
-interface Config {
-  port: number | string
-}
-
-interface Config {
-  port: number // ✅ number 是子类型
-}
-```
-
-### 11.3. 错误 3：忘记 declare module
-
-```ts
-// ❌ 直接扩展不会生效
-interface Request {
-  user: User
-}
-
-// ✅ 需要使用 declare module
-declare module 'express-serve-static-core' {
-  interface Request {
-    user: User
-  }
-}
-```
-
-### 11.4. 错误 4：全局污染
-
-```ts
-// ❌ 不必要的全局扩展
-declare global {
-  interface String {
-    myMethod(): void
-  }
-}
-
-// ✅ 尽量避免扩展内置类型
-// 使用工具函数代替
-function myStringMethod(str: string): void {
-  // 实现
-}
-```
-
-### 11.5. 最佳实践
+## 9. 🤔 关于接口合并的一些开发建议都有哪些？
 
 ```ts
 // ✅ 1. 使用接口而非类型别名进行扩展
@@ -913,13 +537,13 @@ declare module 'express-serve-static-core' {
 }
 
 // ✅ 3. 文档化扩展
-/
+/**
  * 扩展 Express Request
  * 添加用户认证信息
  */
 declare module 'express-serve-static-core' {
   interface Request {
-    / 当前登录用户 */
+    /** 当前登录用户 */
     user?: {
       id: number
       role: string
@@ -988,19 +612,9 @@ interface Config {
 //   express.d.ts
 //   vue.d.ts
 //   react.d.ts
-
-// ✅ 10. 测试扩展是否生效
-// 创建测试用例验证类型
-const req: Request = {} as any
-req.user // 应该有类型提示
-
-const config: MyApp.Config = {
-  apiUrl: 'http://api.example.com',
-  timeout: 5000,
-}
 ```
 
-## 12. 🔗 引用
+## 10. 🔗 引用
 
 - [TypeScript Handbook - Declaration Merging][1]
 - [TypeScript Handbook - Module Augmentation][2]

@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TS 的声明合并特性支持同名接口自动合并，实现属性累加和函数重载，但要求相同字段必须类型完全一致，且跨模块扩展需通过模块增强技术实现，是扩展第三方库类型和组织大型接口的重要机制。",
   "id": "bb95eb8c-b512-4e38-8b39-a0b086cef115",
   "created_at": 1761871140000,
-  "updated_at": 1763263137670
+  "updated_at": 1763282781759
 }
