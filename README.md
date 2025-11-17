@@ -179,7 +179,6 @@
 - [x] [0055. 类中的 this 参数和 this 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0055.%20%E7%B1%BB%E4%B8%AD%E7%9A%84%20this%20%E5%8F%82%E6%95%B0%E5%92%8C%20this%20%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0065. 类与函数的选择](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0065.%20%E7%B1%BB%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E9%80%89%E6%8B%A9/README.md)
 - [x] [0111. 类的类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0111.%20%E7%B1%BB%E7%9A%84%E7%B1%BB%E5%9E%8B/README.md)
-- [ ] [0112. 类的结构类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0112.%20%E7%B1%BB%E7%9A%84%E7%BB%93%E6%9E%84%E7%B1%BB%E5%9E%8B/README.md)
 - [ ] [0114. 类的静态块](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0114.%20%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E5%9D%97/README.md)
 
 ## 13. 泛型
