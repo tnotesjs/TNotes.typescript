@@ -8,31 +8,29 @@
   - [3.1. 基本语法](#31-基本语法)
   - [3.2. 对象方法中的 this](#32-对象方法中的-this)
   - [3.3. 类方法中的 this](#33-类方法中的-this)
-- [4. 🤔 this 参数的类型推断](#4--this-参数的类型推断)
-  - [4.1. 严格模式下的 this](#41-严格模式下的-this)
-  - [4.2. void this](#42-void-this)
-  - [4.3. 类型推断](#43-类型推断)
-- [5. 🤔 ThisParameterType 和 OmitThisParameter](#5--thisparametertype-和-omitthisparameter)
-  - [5.1. `ThisParameterType<T>`](#51-thisparametertypet)
-  - [5.2. `OmitThisParameter<T>`](#52-omitthisparametert)
-  - [5.3. 实际应用](#53-实际应用)
-- [6. 🤔 箭头函数与 this](#6--箭头函数与-this)
-  - [6.1. 箭头函数没有自己的 this](#61-箭头函数没有自己的-this)
-  - [6.2. 何时使用普通函数 vs 箭头函数](#62-何时使用普通函数-vs-箭头函数)
-- [7. 🤔 常见使用场景](#7--常见使用场景)
-  - [7.1. 场景 1：事件处理器](#71-场景-1事件处理器)
-  - [7.2. 场景 2：jQuery 插件](#72-场景-2jquery-插件)
-  - [7.3. 场景 3：数组方法回调](#73-场景-3数组方法回调)
-  - [7.4. 场景 4：装饰器](#74-场景-4装饰器)
-  - [7.5. 场景 5：Builder 模式](#75-场景-5builder-模式)
-  - [7.6. 场景 6：回调函数库](#76-场景-6回调函数库)
-  - [7.7. 场景 7：状态机](#77-场景-7状态机)
-- [8. 🤔 常见错误和最佳实践](#8--常见错误和最佳实践)
-  - [8.1. 错误 1：箭头函数使用 this 参数](#81-错误-1箭头函数使用-this-参数)
-  - [8.2. 错误 2：this 参数位置错误](#82-错误-2this-参数位置错误)
-  - [8.3. 错误 3：丢失 this 绑定](#83-错误-3丢失-this-绑定)
-  - [8.4. 最佳实践](#84-最佳实践)
-- [9. 🔗 引用](#9--引用)
+- [4. 🤔 将 this 参数约束为 void 类型表示什么意思？](#4--将-this-参数约束为-void-类型表示什么意思)
+- [5. 🤔 如何禁止隐式的 this 类型推断？](#5--如何禁止隐式的-this-类型推断)
+- [6. 🤔 ThisParameterType 和 OmitThisParameter](#6--thisparametertype-和-omitthisparameter)
+  - [6.1. `ThisParameterType<T>`](#61-thisparametertypet)
+  - [6.2. `OmitThisParameter<T>`](#62-omitthisparametert)
+  - [6.3. 实际应用](#63-实际应用)
+- [7. 🤔 箭头函数与 this](#7--箭头函数与-this)
+  - [7.1. 箭头函数没有自己的 this](#71-箭头函数没有自己的-this)
+  - [7.2. 何时使用普通函数 vs 箭头函数](#72-何时使用普通函数-vs-箭头函数)
+- [8. 🤔 常见使用场景](#8--常见使用场景)
+  - [8.1. 场景 1：事件处理器](#81-场景-1事件处理器)
+  - [8.2. 场景 2：jQuery 插件](#82-场景-2jquery-插件)
+  - [8.3. 场景 3：数组方法回调](#83-场景-3数组方法回调)
+  - [8.4. 场景 4：装饰器](#84-场景-4装饰器)
+  - [8.5. 场景 5：Builder 模式](#85-场景-5builder-模式)
+  - [8.6. 场景 6：回调函数库](#86-场景-6回调函数库)
+  - [8.7. 场景 7：状态机](#87-场景-7状态机)
+- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
+  - [9.1. 错误 1：箭头函数使用 this 参数](#91-错误-1箭头函数使用-this-参数)
+  - [9.2. 错误 2：this 参数位置错误](#92-错误-2this-参数位置错误)
+  - [9.3. 错误 3：丢失 this 绑定](#93-错误-3丢失-this-绑定)
+  - [9.4. 最佳实践](#94-最佳实践)
+- [10. 🔗 引用](#10--引用)
 
 <!-- endregion:toc -->
 
@@ -188,73 +186,80 @@ introduce() // ❌ Error
 
 注意：隐式的 this 会导致 this 丢失的错误调用无法被检测。
 
-## 4. 🤔 this 参数的类型推断
+## 4. 🤔 将 this 参数约束为 void 类型表示什么意思？
 
-### 4.1. 严格模式下的 this
-
-```ts
-// tsconfig.json
-{
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitThis": true // 启用 this 类型检查
-  }
-}
-
-// ❌ 没有 this 参数会报错
-function bad() {
-  return this.name // Error: 'this' implicitly has type 'any'
-}
-
-// 显式声明 this 类型
-function good(this: { name: string }) {
-  return this.name
-}
-```
-
-### 4.2. void this
+`this: void` 表示函数不应该使用 `this`。
 
 ```ts
-// this: void 表示函数不应该使用 this
 function standalone(this: void): void {
   console.log('No this here')
   // this.name // ❌ Error: 'this' is of type 'void'
 }
 
-// 可以在任何上下文调用
+// ✅ 可以在任何上下文调用
 standalone()
+
+// ❌ 不允许绑定 this
 standalone.call({ name: 'test' }) // ❌ Error
+// Argument of type '{ name: string; }' is not assignable to parameter of type 'void'.(2345)
 ```
 
-### 4.3. 类型推断
+## 5. 🤔 如何禁止隐式的 this 类型推断？
+
+开启 `noImplicitThis` 配置，会禁止隐式的 this 类型推断。
+
+关闭 `noImplicitThis` 的情况下：
 
 ```ts
-// 类中的 this 自动推断
-class Counter {
-  count = 0
-
-  increment() {
-    this.count++ // this 自动推断为 Counter
+// tsconfig.json
+{
+  "compilerOptions": {
+    "strict": false, // 关闭严格模式
+    "noImplicitThis": false // 关闭 this 类型检查
   }
+}
 
-  // 显式声明可以更严格
-  reset(this: Counter): void {
-    this.count = 0
-  }
+// ✅ 允许没有 this 参数声明 OK
+function foo() {
+  return this.name // ✅ this 被隐式推断为 any 类型
 }
 ```
 
-## 5. 🤔 ThisParameterType 和 OmitThisParameter
-
-### 5.1. `ThisParameterType<T>`
+开启 `noImplicitThis` 的情况下：
 
 ```ts
-// 提取函数的 this 参数类型
-type ThisParameterType<T> = T extends (this: infer U, ...args: any[]) => any
-  ? U
-  : unknown
+// tsconfig.json
+{
+  "compilerOptions": {
+    "strict": true, // 启用严格模式
+    "noImplicitThis": true // 启用 this 类型检查
+  }
+}
 
-// 使用
+// ❌ 没有 this 参数声明会报错
+function bad() {
+  return this.name // ❌ Error
+}
+// 'this' implicitly has type 'any' because it does not have a type annotation.(2683)
+
+// ✅ 需要显式声明 this 参数类型
+function good(this: { name: string }) {
+  return this.name
+}
+```
+
+## 6. 🤔 ThisParameterType 和 OmitThisParameter
+
+### 6.1. `ThisParameterType<T>`
+
+`ThisParameterType<T>` 提取函数类型中 this 参数的类型，若函数类型不含 this 参数则返回 unknown 类型。
+
+```ts
+// 可以使用内置的 ThisParameterType 工具类型提取函数的 this 参数类型
+// ThisParameterType 工具类型的定义如下：
+// type ThisParameterType<T> = T extends (this: infer U, ...args: never) => any ? U : unknown
+
+// 示例：
 interface User {
   name: string
 }
@@ -263,32 +268,53 @@ function greet(this: User): string {
   return `Hello, ${this.name}`
 }
 
-type ThisType = ThisParameterType<typeof greet> // User
+type GreetThisType = ThisParameterType<typeof greet>
+// TS 推断结果：
+// type GreetThisType = User
 ```
 
-### 5.2. `OmitThisParameter<T>`
+### 6.2. `OmitThisParameter<T>`
 
 ```ts
-// 移除函数的 this 参数
-type OmitThisParameter<T> = T extends (this: any, ...args: infer A) => infer R
-  ? (...args: A) => R
-  : T
+// 可以使用内置工具类型 OmitThisParameter 移除函数的 this 参数
+// type OmitThisParameter<T> = unknown extends ThisParameterType<T> ? T : T extends (...args: infer A) => infer R ? (...args: A) => R : T
 
-// 使用
+// 示例：
+interface User {
+  name: string
+}
+
 function greet(this: User, message: string): string {
   return `${message}, ${this.name}`
 }
 
 type GreetWithoutThis = OmitThisParameter<typeof greet>
-// (message: string) => string
+// TS 推断结果：
+// type GreetWithoutThis = (message: string) => string
 
-// 应用场景：绑定 this 后的函数类型
+// 应用场景说明：
+// 情况 1. 如果函数显式声明了 this 参数类型，那么它在被调用的时候，必须先绑定 this 否则会报错
+// 情况 2. 如果被赋值的目标（比如用于回调、高阶函数）不关心或无法提供 this 上下文，就无法完成赋值
+// 情况 3. 这种时候就可以使用 OmitThisParameter 来剥离源函数中的 this 参数类型，来完成源函数到目标函数的赋值
 const user = { name: 'Alice' }
-const boundGreet: GreetWithoutThis = greet.bind(user)
-boundGreet('Hello') //
+
+// 情况 1
+// ❌ 没有绑定 this 直接调用会报错
+greet('0') // function greet(this: User, message: string): string
+// The 'this' context of type 'void' is not assignable to method's 'this' of type 'User'.(2684)
+
+// ✅ 需要先挺定 this，然后再调用
+const greet1 = greet.bind(user) // const greet1: (message: string) => string
+greet1('1')
+
+// 情况 2
+const callback: (message: string) => void = greet
+
+const greet2: GreetWithoutThis = greet.bind(user)
+greet2('2')
 ```
 
-### 5.3. 实际应用
+### 6.3. 实际应用
 
 ```ts
 // 提取和转换函数类型
@@ -315,9 +341,9 @@ const db: Database = {
 const boundQuery: QueryWithoutThis = db.query.bind(db)
 ```
 
-## 6. 🤔 箭头函数与 this
+## 7. 🤔 箭头函数与 this
 
-### 6.1. 箭头函数没有自己的 this
+### 7.1. 箭头函数没有自己的 this
 
 ```ts
 // ❌ 箭头函数不能声明 this 参数
@@ -343,7 +369,7 @@ class Component {
 }
 ```
 
-### 6.2. 何时使用普通函数 vs 箭头函数
+### 7.2. 何时使用普通函数 vs 箭头函数
 
 ```ts
 class EventEmitter {
@@ -366,9 +392,9 @@ const { on } = emitter
 on('event', () => {}) // this 仍然正确
 ```
 
-## 7. 🤔 常见使用场景
+## 8. 🤔 常见使用场景
 
-### 7.1. 场景 1：事件处理器
+### 8.1. 场景 1：事件处理器
 
 ```ts
 // DOM 事件处理器
@@ -392,7 +418,7 @@ el?.addEventListener('click', button.handleClick.bind(button))
 el?.addEventListener('click', button.handleClick)
 ```
 
-### 7.2. 场景 2：jQuery 插件
+### 8.2. 场景 2：jQuery 插件
 
 ```ts
 // jQuery 插件的 this 类型
@@ -409,7 +435,7 @@ $('.button')
   .removeClass('disabled') // this 是 JQuery
 ```
 
-### 7.3. 场景 3：数组方法回调
+### 8.3. 场景 3：数组方法回调
 
 ```ts
 // 数组方法的 thisArg
@@ -435,7 +461,7 @@ class UserManager {
 }
 ```
 
-### 7.4. 场景 4：装饰器
+### 8.4. 场景 4：装饰器
 
 ```ts
 // 方法装饰器中的 this
@@ -456,7 +482,7 @@ class Calculator {
 }
 ```
 
-### 7.5. 场景 5：Builder 模式
+### 8.5. 场景 5：Builder 模式
 
 ```ts
 // 链式调用中的 this
@@ -491,7 +517,7 @@ const query = new QueryBuilder()
   .build()
 ```
 
-### 7.6. 场景 6：回调函数库
+### 8.6. 场景 6：回调函数库
 
 ```ts
 // 定义回调函数的 this 类型
@@ -519,7 +545,7 @@ withContext(function (this: CallbackContext) {
 })
 ```
 
-### 7.7. 场景 7：状态机
+### 8.7. 场景 7：状态机
 
 ```ts
 // 状态机中的 this
@@ -552,9 +578,9 @@ const idleState: State = {
 }
 ```
 
-## 8. 🤔 常见错误和最佳实践
+## 9. 🤔 常见错误和最佳实践
 
-### 8.1. 错误 1：箭头函数使用 this 参数
+### 9.1. 错误 1：箭头函数使用 this 参数
 
 ```ts
 // ❌ 箭头函数不能有 this 参数
@@ -571,7 +597,7 @@ class Component {
 }
 ```
 
-### 8.2. 错误 2：this 参数位置错误
+### 9.2. 错误 2：this 参数位置错误
 
 ```ts
 // ❌ this 参数必须是第一个
@@ -581,7 +607,7 @@ function bad(name: string, this: User) {} // Error
 function good(this: User, name: string) {}
 ```
 
-### 8.3. 错误 3：丢失 this 绑定
+### 9.3. 错误 3：丢失 this 绑定
 
 ```ts
 class Component {
@@ -611,7 +637,7 @@ class Component2 {
 }
 ```
 
-### 8.4. 最佳实践
+### 9.4. 最佳实践
 
 ```ts
 // 1. 启用 noImplicitThis
@@ -686,7 +712,7 @@ it('should maintain this binding', () => {
 })
 ```
 
-## 9. 🔗 引用
+## 10. 🔗 引用
 
 - [TypeScript Handbook - this Parameters][1]
 - [TypeScript Handbook - ThisParameterType][2]
