@@ -10,8 +10,6 @@
   - [4.2. 重构安全保护](#42-重构安全保护)
 - [5. 🤔 noImplicitOverride 编译选项是什么？](#5--noimplicitoverride-编译选项是什么)
 - [6. 🤔 子类重写成员时有哪些类型约束？](#6--子类重写成员时有哪些类型约束)
-  - [6.1. 方法重写约束](#61-方法重写约束)
-  - [6.2. 属性重写约束](#62-属性重写约束)
 - [7. 🤔 属性重写与方法重写有什么区别？](#7--属性重写与方法重写有什么区别)
   - [7.1. 特性对比表](#71-特性对比表)
   - [7.2. 示例](#72-示例)
@@ -338,23 +336,22 @@ class Animal {
   type = 'animal'
 }
 
-// ❌ 不使用 override 会报错
+// 不使用 override 会报错
 class Dog1 extends Animal {
-  move() {
-    // ❌ 错误：缺少 override 关键字
-  }
+  // ❌ 错误：缺少 override 关键字
+  move() {}
   // This member must have an 'override' modifier because it overrides a member in the base class 'Animal'.(4114)
 
   type = 'dog' // ❌ 错误：缺少 override 关键字
   // This member must have an 'override' modifier because it overrides a member in the base class 'Animal'.(4114)
 }
 
-// ✅ 重写父类成员必须加上 override 关键字
+// 重写父类成员必须加上 override 关键字
 class Dog2 extends Animal {
-  override move() {
-    // ✅ 正确
-  }
-  override type = 'dog' // ✅ 正确
+  // ✅ 正确
+  override move() {}
+  // ✅ 正确
+  override type = 'dog'
 }
 ```
 
@@ -362,89 +359,30 @@ class Dog2 extends Animal {
 
 ## 6. 🤔 子类重写成员时有哪些类型约束？
 
-核心原则：子类必须遵守"里氏替换原则"（Liskov Substitution Principle）——子类对象必须能替换父类对象而不破坏程序正确性。
+核心原则：子类必须遵守“里氏替换原则”（Liskov Substitution Principle - 子类对象必须能够替换其父类对象出现的任何地方） —— 子类对象必须能替换父类对象而不破坏程序正确性。
 
-方法、属性的具体约束规则：可以参考 `类型兼容性` 相关笔记。
+示例：
 
-### 6.1. 方法重写约束
-
-| 可修改项 | 规则 | 示例 |
-| --- | --- | --- |
-| 参数类型 | ❌ 不可改变（必须完全一致或更宽泛） | `(x: number)` → `(x: any)` ✅ |
-| 参数数量 | ✅ 可减少（可选参数） | `(a, b)` → `(a)` ✅ |
-| 返回值类型 | ✅ 可返回子类型（协变） | `Animal` → `Dog` ✅ |
-| 访问修饰符 | ✅ 可放宽（不能变严格） | `protected` → `public` ✅ |
-| 可选性 | ❌ 必填参数不能变可选 | `(x: number)` → `(x?: number)` ❌ |
-
-::: code-group
-
-```ts [✅ 合法方法重写]
+```ts
 class Animal {
-  protected move(distance: number): Animal {
-    return this
-  }
+  type: string | number = 'Animal'
 }
 
 class Dog extends Animal {
-  // ✅ 返回值协变 + 访问级别放宽 + 参数变可选
-  override move(distance?: number): Dog {
-    return this
-  }
+  // number 类型可以赋值给 string | number 类型
+  override type: number = 1 // ✅ OK
+
+  // string 类型可以赋值给 string | number 类型
+  // override type: string = 'Dog' // ✅ OK
+
+  // boolean类型不可以赋值给 string | number 类型
+  // override type: boolean = false // ❌ Error
+  // Property 'type' in type 'Dog' is not assignable to the same property in base type 'Animal'.
+  // Type 'boolean' is not assignable to type 'string | number'.(2416)
 }
 ```
 
-```ts [❌ 非法方法重写]
-class Animal {
-  move(distance: number): void {}
-}
-
-class Dog extends Animal {
-  override move(distance: string): void {}
-  // ❌ 错误：参数类型不兼容
-}
-// Property 'move' in type 'Dog' is not assignable to the same property in base type 'Animal'.
-//   Type '(distance: string) => void' is not assignable to type '(distance: number) => void'.
-//     Types of parameters 'distance' and 'distance' are incompatible.
-//       Type 'number' is not assignable to type 'string'.(2416)
-```
-
-:::
-
-### 6.2. 属性重写约束
-
-| 可修改项   | 规则                      | 示例                          |
-| ---------- | ------------------------- | ----------------------------- |
-| 属性类型   | ✅ 可使用子类型（协变）   | `Animal` → `Dog` ✅           |
-| 访问修饰符 | ✅ 可放宽（不能变严格）   | `protected` → `public` ✅     |
-| 可选性     | ✅ 必填可变可选，反之不可 | `x: number` → `x?: number` ✅ |
-
-::: code-group
-
-```ts [✅ 合法属性重写]
-class Animal {
-  protected type: string = 'animal'
-  owner?: string
-}
-
-class Dog extends Animal {
-  override type: 'dog' = 'dog' // ✅ 类型收窄（字面量类型是 string 的子类型）
-  override owner: string = 'John' // ✅ 可选变必填
-}
-```
-
-```ts [❌ 非法属性重写]
-class Animal {
-  type: string = 'animal'
-}
-
-class Dog extends Animal {
-  override type: number = 1 // ❌ 错误：类型不兼容
-}
-// Property 'type' in type 'Dog' is not assignable to the same property in base type 'Animal'.
-//   Type 'number' is not assignable to type 'string'.(2416)
-```
-
-:::
+更多有关方法、属性的具体约束规则：可以参考 `类型兼容性` 相关笔记。
 
 ## 7. 🤔 属性重写与方法重写有什么区别？
 
