@@ -40,15 +40,16 @@ type ThisParameterType<T> = T extends (this: infer U, ...args: never) => any
   : unknown
 ```
 
-**实现原理：**
+实现原理：
 
 1. 条件类型：检查 `T` 是否匹配 `(this: infer U, ...args: never) => any`
 2. 推断变量：使用 `infer U` 捕获 `this` 参数的类型
 3. 忽略参数：使用 `...args: never` 表示忽略其他参数
 4. 返回值：提取到 `this` 类型则返回 `U`，否则返回 `unknown`
 
+基本使用：
+
 ```typescript
-// 基本使用
 interface User {
   name: string
   greet(this: User): void
@@ -56,56 +57,25 @@ interface User {
 
 // 提取 this 参数类型
 type GreetThis = ThisParameterType<User['greet']>
-// User
+// type GreetThis = User
 
 // 函数类型的 this 参数
 type FunctionWithThis = (this: HTMLElement, event: Event) => void
 type ElementThis = ThisParameterType<FunctionWithThis>
-// HTMLElement
+// type ElementThis = HTMLElement
 
 // 没有 this 参数的函数
 type RegularFunction = (x: number) => string
 type NoThis = ThisParameterType<RegularFunction>
-// unknown
+// type NoThis = unknown
 
-// ❌ 错误：普通箭头函数没有 this 参数
+// 箭头函数没有 this 参数
 const arrowFunc = () => {}
 type ArrowThis = ThisParameterType<typeof arrowFunc>
-// unknown
+// type ArrowThis = unknown
 ```
 
-**this 参数的语法：**
-
-```typescript
-// 显式 this 参数语法
-interface Database {
-  query(this: Database, sql: string): Promise<any>
-}
-
-// this 参数必须是第一个参数
-function connect(this: Database, connectionString: string) {
-  // this 的类型是 Database
-  console.log(this)
-}
-
-// ✅ 调用时不需要传递 this
-const db: Database = {
-  query(sql: string) {
-    return Promise.resolve([])
-  },
-}
-
-db.query('SELECT * FROM users') // ✅ this 自动绑定为 db
-
-// ⚠️ 提取 this 类型
-type QueryThis = ThisParameterType<Database['query']>
-// Database
-
-type ConnectThis = ThisParameterType<typeof connect>
-// Database
-```
-
-**与其他类型工具的配合：**
+与其他类型工具的配合：
 
 ```typescript
 class Calculator {
@@ -555,7 +525,7 @@ const normalFunc: MethodWithoutThis = methodWithThis.bind(obj)
 normalFunc(5) // count 变为 5
 ```
 
-**常见陷阱和解决方案：**
+常见陷阱和解决方案：
 
 ```typescript
 // 陷阱 1：接口方法的 this 类型

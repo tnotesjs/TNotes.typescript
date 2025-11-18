@@ -143,7 +143,7 @@
 - [x] [0094. 函数重载](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0094.%20%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD/README.md)
 - [x] [0095. 构造函数类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0095.%20%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0096. 函数的 2 个特殊返回类型 void、never](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0096.%20%E5%87%BD%E6%95%B0%E7%9A%84%202%20%E4%B8%AA%E7%89%B9%E6%AE%8A%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B%20void%E3%80%81never/README.md)
-- [ ] [0097. 函数的 this 参数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0097.%20%E5%87%BD%E6%95%B0%E7%9A%84%20this%20%E5%8F%82%E6%95%B0/README.md)
+- [x] [0097. 函数的 this 参数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0097.%20%E5%87%BD%E6%95%B0%E7%9A%84%20this%20%E5%8F%82%E6%95%B0/README.md)
 - [x] [0098. 函数类型的多种声明方式](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0098.%20%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%9A%E7%A7%8D%E5%A3%B0%E6%98%8E%E6%96%B9%E5%BC%8F/README.md)
 
 ## 10. 对象类型

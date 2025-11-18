@@ -10,27 +10,10 @@
   - [3.3. 类方法中的 this](#33-类方法中的-this)
 - [4. 🤔 将 this 参数约束为 void 类型表示什么意思？](#4--将-this-参数约束为-void-类型表示什么意思)
 - [5. 🤔 如何禁止隐式的 this 类型推断？](#5--如何禁止隐式的-this-类型推断)
-- [6. 🤔 ThisParameterType 和 OmitThisParameter](#6--thisparametertype-和-omitthisparameter)
-  - [6.1. `ThisParameterType<T>`](#61-thisparametertypet)
-  - [6.2. `OmitThisParameter<T>`](#62-omitthisparametert)
-  - [6.3. 实际应用](#63-实际应用)
-- [7. 🤔 箭头函数与 this](#7--箭头函数与-this)
-  - [7.1. 箭头函数没有自己的 this](#71-箭头函数没有自己的-this)
-  - [7.2. 何时使用普通函数 vs 箭头函数](#72-何时使用普通函数-vs-箭头函数)
-- [8. 🤔 常见使用场景](#8--常见使用场景)
-  - [8.1. 场景 1：事件处理器](#81-场景-1事件处理器)
-  - [8.2. 场景 2：jQuery 插件](#82-场景-2jquery-插件)
-  - [8.3. 场景 3：数组方法回调](#83-场景-3数组方法回调)
-  - [8.4. 场景 4：装饰器](#84-场景-4装饰器)
-  - [8.5. 场景 5：Builder 模式](#85-场景-5builder-模式)
-  - [8.6. 场景 6：回调函数库](#86-场景-6回调函数库)
-  - [8.7. 场景 7：状态机](#87-场景-7状态机)
-- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
-  - [9.1. 错误 1：箭头函数使用 this 参数](#91-错误-1箭头函数使用-this-参数)
-  - [9.2. 错误 2：this 参数位置错误](#92-错误-2this-参数位置错误)
-  - [9.3. 错误 3：丢失 this 绑定](#93-错误-3丢失-this-绑定)
-  - [9.4. 最佳实践](#94-最佳实践)
-- [10. 🔗 引用](#10--引用)
+- [6. 🤔 和函数的 this 参数类型相关的 TS 内置工具类型都有哪些？](#6--和函数的-this-参数类型相关的-ts-内置工具类型都有哪些)
+- [7. 🤔 箭头函数可以声明 this 参数类型吗？](#7--箭头函数可以声明-this-参数类型吗)
+- [8. 🤔 关于函数的 this 参数都有哪些最佳实践建议？](#8--关于函数的-this-参数都有哪些最佳实践建议)
+- [9. 🔗 引用](#9--引用)
 
 <!-- endregion:toc -->
 
@@ -38,10 +21,10 @@
 
 - this 参数的概念和语法
 - this 参数的类型注解
-- ThisParameterType 工具类型
-- OmitThisParameter 工具类型
-- 箭头函数与 this 的关系
-- 实际应用场景
+- ThisParameterType
+- OmitThisParameter
+- 箭头函数
+- this 参数类型的实践建议
 
 ## 2. 🫧 评价
 
@@ -248,13 +231,16 @@ function good(this: { name: string }) {
 }
 ```
 
-## 6. 🤔 ThisParameterType 和 OmitThisParameter
+## 6. 🤔 和函数的 this 参数类型相关的 TS 内置工具类型都有哪些？
 
-### 6.1. `ThisParameterType<T>`
+主要有俩：
 
-`ThisParameterType<T>` 提取函数类型中 this 参数的类型，若函数类型不含 this 参数则返回 unknown 类型。
+1. `ThisParameterType<T>` 提取函数类型中 this 参数的类型，若函数类型不含 this 参数则返回 unknown 类型。
+2. `OmitThisParameter<T>` 从函数类型中移除 `this` 参数的类型，得到一个不带 `this` 参数的新函数类型，方便在需要普通函数类型的场景中复用带 `this` 的函数签名，通常结合 `.bind` 一起使用。
 
-```ts
+::: code-group
+
+```ts [1]
 // 可以使用内置的 ThisParameterType 工具类型提取函数的 this 参数类型
 // ThisParameterType 工具类型的定义如下：
 // type ThisParameterType<T> = T extends (this: infer U, ...args: never) => any ? U : unknown
@@ -273,377 +259,139 @@ type GreetThisType = ThisParameterType<typeof greet>
 // type GreetThisType = User
 ```
 
-### 6.2. `OmitThisParameter<T>`
+```ts [2]
+// TypeScript 内置工具 OmitThisParameter 的定义：
+// type OmitThisParameter<T> = unknown extends ThisParameterType<T>
+//   ? T
+//   : T extends (...args: infer A) => infer R
+//   ? (...args: A) => R
+//   : T
 
-```ts
-// 可以使用内置工具类型 OmitThisParameter 移除函数的 this 参数
-// type OmitThisParameter<T> = unknown extends ThisParameterType<T> ? T : T extends (...args: infer A) => infer R ? (...args: A) => R : T
-
-// 示例：
 interface User {
   name: string
 }
 
 function greet(this: User, message: string): string {
-  return `${message}, ${this.name}`
+  return `${message}，${this.name}`
 }
 
+// 提取去掉 this 之后的函数类型
 type GreetWithoutThis = OmitThisParameter<typeof greet>
 // TS 推断结果：
 // type GreetWithoutThis = (message: string) => string
 
-// 应用场景说明：
-// 情况 1. 如果函数显式声明了 this 参数类型，那么它在被调用的时候，必须先绑定 this 否则会报错
-// 情况 2. 如果被赋值的目标（比如用于回调、高阶函数）不关心或无法提供 this 上下文，就无法完成赋值
-// 情况 3. 这种时候就可以使用 OmitThisParameter 来剥离源函数中的 this 参数类型，来完成源函数到目标函数的赋值
-const user = { name: 'Alice' }
+type GreetWithThis = typeof greet
+// TS 推断结果：
+// type Greet = (this: User, message: string) => string
 
-// 情况 1
-// ❌ 没有绑定 this 直接调用会报错
-greet('0') // function greet(this: User, message: string): string
+// 搭配 bind 使用
+const greetWithoutThis = greet.bind({ name: 'Alice' })
+// const greetWithoutThis: (message: string) => string
+
+// greetWithoutThis 已经经过 bind 处理，this 指向已经确定了，因此无需 this
+const foo: GreetWithoutThis = greetWithoutThis
+foo('你好') // 你好，Alice
+
+// 如果将无需 this 的 greetWithoutThis 赋值给需要 this 的 GreetWithThis 类型，在调用的时候会报错
+const bar: GreetWithThis = greetWithoutThis
+bar('你好') // ❌
 // The 'this' context of type 'void' is not assignable to method's 'this' of type 'User'.(2684)
-
-// ✅ 需要先挺定 this，然后再调用
-const greet1 = greet.bind(user) // const greet1: (message: string) => string
-greet1('1')
-
-// 情况 2
-const callback: (message: string) => void = greet
-
-const greet2: GreetWithoutThis = greet.bind(user)
-greet2('2')
 ```
 
-### 6.3. 实际应用
+:::
 
-```ts
-// 提取和转换函数类型
-interface Database {
-  query(this: Database, sql: string): any[]
-  execute(this: Database, sql: string): void
+相关源码 `src/lib/es5.d.ts`：
+
+```ts {1-15,46-51}
+/**
+ * Extracts the type of the 'this' parameter of a function type, or 'unknown' if the function type has no 'this' parameter.
+ */
+type ThisParameterType<T> = T extends (this: infer U, ...args: never) => any
+  ? U
+  : unknown
+
+/**
+ * Removes the 'this' parameter from a function type.
+ */
+type OmitThisParameter<T> = unknown extends ThisParameterType<T>
+  ? T
+  : T extends (...args: infer A) => infer R
+  ? (...args: A) => R
+  : T
+
+interface CallableFunction extends Function {
+  /**
+   * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
+   * @param thisArg The object to be used as the this object.
+   */
+  apply<T, R>(this: (this: T) => R, thisArg: T): R
+
+  /**
+   * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
+   * @param thisArg The object to be used as the this object.
+   * @param args An array of argument values to be passed to the function.
+   */
+  apply<T, A extends any[], R>(
+    this: (this: T, ...args: A) => R,
+    thisArg: T,
+    args: A
+  ): R
+
+  /**
+   * Calls the function with the specified object as the this value and the specified rest arguments as the arguments.
+   * @param thisArg The object to be used as the this object.
+   * @param args Argument values to be passed to the function.
+   */
+  call<T, A extends any[], R>(
+    this: (this: T, ...args: A) => R,
+    thisArg: T,
+    ...args: A
+  ): R
+
+  /**
+   * For a given function, creates a bound function that has the same body as the original function.
+   * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
+   * @param thisArg The object to be used as the this object.
+   */
+  bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>
+
+  /**
+   * For a given function, creates a bound function that has the same body as the original function.
+   * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
+   * @param thisArg The object to be used as the this object.
+   * @param args Arguments to bind to the parameters of the function.
+   */
+  bind<T, A extends any[], B extends any[], R>(
+    this: (this: T, ...args: [...A, ...B]) => R,
+    thisArg: T,
+    ...args: A
+  ): (...args: B) => R
 }
-
-// 提取 this 类型
-type DbThis = ThisParameterType<Database['query']> // Database
-
-// 移除 this 参数
-type QueryWithoutThis = OmitThisParameter<Database['query']>
-// (sql: string) => any[]
-
-// 创建绑定版本
-const db: Database = {
-  query(sql: string) {
-    return []
-  },
-  execute(sql: string) {},
-}
-
-const boundQuery: QueryWithoutThis = db.query.bind(db)
 ```
 
-## 7. 🤔 箭头函数与 this
+`.bind` 的返回值类型就是 `: OmitThisParameter<T>` 类型。
 
-### 7.1. 箭头函数没有自己的 this
+## 7. 🤔 箭头函数可以声明 this 参数类型吗？
 
-```ts
-// ❌ 箭头函数不能声明 this 参数
-const bad = (this: User) => {} // ❌ Error: An arrow function cannot have a 'this' parameter
-
-// 箭头函数继承外层 this
-class Component {
-  name = 'Component'
-
-  // 普通方法：this 需要绑定
-  method() {
-    setTimeout(function () {
-      console.log(this.name) // ❌ this 可能丢失
-    }, 100)
-  }
-
-  // 箭头函数：this 自动绑定
-  arrowMethod() {
-    setTimeout(() => {
-      console.log(this.name) // this 是 Component
-    }, 100)
-  }
-}
-```
-
-### 7.2. 何时使用普通函数 vs 箭头函数
+箭头函数不能声明 this 参数：
 
 ```ts
-class EventEmitter {
-  listeners: Function[] = []
-
-  // 箭头函数：保持 this 绑定
-  on = (event: string, callback: Function) => {
-    this.listeners.push(callback)
-  }
-
-  // 普通方法：允许子类覆盖
-  emit(event: string, ...args: any[]) {
-    this.listeners.forEach((listener) => listener(...args))
-  }
-}
-
-// 使用箭头函数的好处
-const emitter = new EventEmitter()
-const { on } = emitter
-on('event', () => {}) // this 仍然正确
-```
-
-## 8. 🤔 常见使用场景
-
-### 8.1. 场景 1：事件处理器
-
-```ts
-// DOM 事件处理器
-interface Button {
-  text: string
-  handleClick(this: Button, event: MouseEvent): void
-}
-
-const button: Button = {
-  text: 'Click me',
-  handleClick(this: Button, event: MouseEvent) {
-    console.log(`${this.text} was clicked`)
-  },
-}
-
-// 正确绑定
-const el = document.querySelector('button')
-el?.addEventListener('click', button.handleClick.bind(button))
-
-// ❌ 错误：this 丢失
-el?.addEventListener('click', button.handleClick)
-```
-
-### 8.2. 场景 2：jQuery 插件
-
-```ts
-// jQuery 插件的 this 类型
-interface JQuery {
-  addClass(this: JQuery, className: string): JQuery
-  removeClass(this: JQuery, className: string): JQuery
-}
-
-// 链式调用
-declare const $: (selector: string) => JQuery
-
-$('.button')
-  .addClass('active') // this 是 JQuery
-  .removeClass('disabled') // this 是 JQuery
-```
-
-### 8.3. 场景 3：数组方法回调
-
-```ts
-// 数组方法的 thisArg
 interface User {
   name: string
-  age: number
 }
 
-class UserManager {
-  users: User[] = []
-
-  filterAdults(this: UserManager): User[] {
-    // map 的回调可以指定 this
-    return this.users.filter(function (this: UserManager, user) {
-      return user.age >= 18
-    }, this) // 传递 thisArg
-  }
-
-  // 使用箭头函数更简单
-  filterAdultsArrow(): User[] {
-    return this.users.filter((user) => user.age >= 18)
-  }
-}
+const bad = (this: User) => {} // ❌ Error
+// An arrow function cannot have a 'this' parameter.(2730)
 ```
 
-### 8.4. 场景 4：装饰器
-
-```ts
-// 方法装饰器中的 this
-function log(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-  const originalMethod = descriptor.value
-
-  descriptor.value = function (this: any, ...args: any[]) {
-    console.log(`Calling ${propertyKey} with`, args)
-    return originalMethod.apply(this, args)
-  }
-}
-
-class Calculator {
-  @log
-  add(this: Calculator, a: number, b: number): number {
-    return a + b
-  }
-}
-```
-
-### 8.5. 场景 5：Builder 模式
-
-```ts
-// 链式调用中的 this
-class QueryBuilder {
-  private query = ''
-
-  select(this: QueryBuilder, ...fields: string[]): this {
-    this.query += `SELECT ${fields.join(', ')}`
-    return this
-  }
-
-  from(this: QueryBuilder, table: string): this {
-    this.query += ` FROM ${table}`
-    return this
-  }
-
-  where(this: QueryBuilder, condition: string): this {
-    this.query += ` WHERE ${condition}`
-    return this
-  }
-
-  build(this: QueryBuilder): string {
-    return this.query
-  }
-}
-
-// 链式调用
-const query = new QueryBuilder()
-  .select('id', 'name')
-  .from('users')
-  .where('age > 18')
-  .build()
-```
-
-### 8.6. 场景 6：回调函数库
-
-```ts
-// 定义回调函数的 this 类型
-interface CallbackContext {
-  value: number
-  increment(): void
-}
-
-type Callback = (this: CallbackContext) => void
-
-function withContext(callback: Callback): void {
-  const context: CallbackContext = {
-    value: 0,
-    increment() {
-      this.value++
-    },
-  }
-  callback.call(context)
-}
-
-// 使用
-withContext(function (this: CallbackContext) {
-  this.increment()
-  console.log(this.value) // 1
-})
-```
-
-### 8.7. 场景 7：状态机
-
-```ts
-// 状态机中的 this
-interface State {
-  name: string
-  enter(this: StateMachine): void
-  exit(this: StateMachine): void
-}
-
-class StateMachine {
-  currentState: State | null = null
-
-  transition(this: StateMachine, newState: State): void {
-    if (this.currentState) {
-      this.currentState.exit.call(this)
-    }
-    this.currentState = newState
-    newState.enter.call(this)
-  }
-}
-
-const idleState: State = {
-  name: 'idle',
-  enter(this: StateMachine) {
-    console.log('Entering idle state')
-  },
-  exit(this: StateMachine) {
-    console.log('Exiting idle state')
-  },
-}
-```
-
-## 9. 🤔 常见错误和最佳实践
-
-### 9.1. 错误 1：箭头函数使用 this 参数
-
-```ts
-// ❌ 箭头函数不能有 this 参数
-const bad = (this: User) => {} // Error
-
-// 使用普通函数
-const good = function (this: User) {}
-
-// 或使用箭头函数（继承外层 this）
-class Component {
-  handler = () => {
-    // this 自动是 Component
-  }
-}
-```
-
-### 9.2. 错误 2：this 参数位置错误
-
-```ts
-// ❌ this 参数必须是第一个
-function bad(name: string, this: User) {} // Error
-
-// this 参数在第一位
-function good(this: User, name: string) {}
-```
-
-### 9.3. 错误 3：丢失 this 绑定
-
-```ts
-class Component {
-  name = 'Component'
-
-  // ❌ 方法赋值给变量会丢失 this
-  greet(this: Component) {
-    return `Hello from ${this.name}`
-  }
-}
-
-const component = new Component()
-const greet = component.greet
-greet() // ❌ Error: 'this' is void
-
-// 使用 bind
-const boundGreet = component.greet.bind(component)
-boundGreet() //
-
-// 使用箭头函数
-class Component2 {
-  name = 'Component'
-
-  greet = () => {
-    return `Hello from ${this.name}`
-  }
-}
-```
-
-### 9.4. 最佳实践
+## 8. 🤔 关于函数的 this 参数都有哪些最佳实践建议？
 
 ```ts
 // 1. 启用 noImplicitThis
 {
   "compilerOptions": {
-    "noImplicitThis": true
+    "strict": true, // 启用严格模式
+    "noImplicitThis": true // 启用 this 类型检查
   }
 }
 
@@ -712,7 +460,7 @@ it('should maintain this binding', () => {
 })
 ```
 
-## 10. 🔗 引用
+## 9. 🔗 引用
 
 - [TypeScript Handbook - this Parameters][1]
 - [TypeScript Handbook - ThisParameterType][2]

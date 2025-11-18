@@ -45,17 +45,23 @@
 
 成员重写是面向对象编程中实现多态的重要机制。TypeScript 4.3 引入的 `override` 关键字显著提升了代码的可维护性和安全性，它能够明确表达开发者的重写意图，并在编译期捕获潜在的重构错误。
 
-`override` 关键字不仅适用于方法，也适用于属性和访问器。配合 `noImplicitOverride` 编译选项，可以强制要求所有重写成员都显式标记，这在大型项目中尤其有价值——当父类成员被重命名或删除时，编译器能立即发现问题，避免子类成员"意外变成"新成员。
+`override` 关键字不仅适用于方法，也适用于属性和访问器。配合 `noImplicitOverride` 编译选项，可以强制要求所有重写成员都显式标记，这在大型项目中尤其有价值——当父类成员被重命名或删除时，编译器能立即发现问题，避免子类成员“意外变成”新成员。
 
-虽然 `override` 不是必需的，但强烈推荐在团队项目中启用 `noImplicitOverride`，以建立更清晰的继承契约。
+虽然 `override` 不是必需的，但强烈推荐在团队项目中启用 `noImplicitOverride`，以建立更清晰的继承契约，避免因重构导致的多态行为失效。
 
 ## 3. 🤔 什么是成员重写（Member Override）？
 
 成员重写是指子类定义一个与父类同名的成员（方法、属性或访问器），从而替换或扩展父类的实现。这是实现运行时多态的基础。
 
+示例：
+
+1. 方法重写
+2. 属性重写
+3. 访问器重写
+
 ::: code-group
 
-```ts [方法重写]
+```ts [1]
 class Animal {
   move(distance: number = 0) {
     console.log(`Animal moved ${distance}m.`)
@@ -76,7 +82,7 @@ dog.move(10)
 // "Animal moved 10m."
 ```
 
-```ts [属性重写]
+```ts [2]
 class Animal {
   type = 'animal'
   legs = 4
@@ -92,7 +98,7 @@ console.log(dog.type) // "dog"
 console.log(dog.legs) // 4
 ```
 
-```ts [访问器重写]
+```ts [3]
 class Animal {
   protected _age = 0
 
@@ -124,9 +130,15 @@ console.log(dog.age) // 14
 1. 编译期检查：确保父类确实存在同名成员，防止拼写错误
 2. 重构安全：当父类成员被重命名或删除时，编译器会报错
 
+示例：
+
+1. 方法使用 override
+2. 属性使用 override
+3. 访问器使用 override
+
 ::: code-group
 
-```ts [方法使用 override]
+```ts [1]
 class Animal {
   move() {
     console.log('Animal is moving')
@@ -134,35 +146,39 @@ class Animal {
 }
 
 class Dog extends Animal {
+  // ✅ 明确表明这是重写父类方法
   override move() {
-    // ✅ 明确表明这是重写父类方法
     console.log('Dog is running')
   }
 
+  // ❌ 错误：父类没有 fly 方法
   override fly() {
-    // ❌ 错误：父类没有 fly 方法
     console.log('Dogs cannot fly')
   }
+  // 报错：
+  // This member cannot have an 'override' modifier because it is not declared in the base class 'Animal'.(4113)
 }
-// This member cannot have an 'override' modifier because it is not declared in the base class 'Animal'.(4113)
 ```
 
-```ts [属性使用 override]
+```ts [2]
 class Animal {
   kind = 'animal'
 }
 
 class Dog extends Animal {
-  override kind = 'dog' // ✅ 显式重写属性
+  // ✅ 显式重写属性
+  override kind = 'dog'
 }
 
 class Cat extends Animal {
-  override color = 'white' // ❌ 错误：父类没有 color 属性
+  // ❌ 错误：父类没有 color 属性
+  override color = 'white'
 }
+// 报错：
 // This member cannot have an 'override' modifier because it is not declared in the base class 'Animal'.(4113)
 ```
 
-```ts [访问器使用 override]
+```ts [3]
 class Animal {
   get legs(): number {
     return 4
@@ -170,8 +186,8 @@ class Animal {
 }
 
 class Spider extends Animal {
+  // ✅ 重写访问器
   override get legs(): number {
-    // ✅ 重写访问器
     return 8
   }
 }
@@ -183,19 +199,29 @@ class Spider extends Animal {
 
 经典场景：当父类成员被重命名时，`override` 关键字能立即发现问题。
 
+示例：
+
+1. ⚠️ 没有 override：不会报错
+2. 有 override：立即报错
+
 ::: code-group
 
-```ts [❌ 没有 override：静默失败]
+```ts [1]
 class Animal {
+  // 旧名称：
+  // move() {
+  //   console.log('Animal is walking')
+  // }
+
+  // 方法从 move 重命名为 walk
   walk() {
-    // 方法从 move 重命名为 walk
     console.log('Animal is walking')
   }
 }
 
 class Dog extends Animal {
+  // ⚠️ 编译通过，但 move 意外变成了新方法
   move() {
-    // ⚠️ 编译通过，但 move 意外变成了新方法
     console.log('Dog is running')
   }
 }
@@ -205,17 +231,22 @@ dog.walk() // "Animal is walking" ← 预期重写的方法未生效
 dog.move() // "Dog is running"    ← 意外的新方法
 ```
 
-```ts [✅ 有 override：立即报错]
+```ts [2]
 class Animal {
+  // 旧名称：
+  // move() {
+  //   console.log('Animal is walking')
+  // }
+
+  // 方法从 move 重命名为 walk
   walk() {
-    // 方法从 move 重命名为 walk
     console.log('Animal is walking')
   }
 }
 
 class Dog extends Animal {
+  // ❌ 编译错误：父类没有 move 方法
   override move() {
-    // ❌ 编译错误：父类没有 move 方法
     console.log('Dog is running')
   }
 }
@@ -256,8 +287,6 @@ const service = new AdminService()
 
 service.validateAccess() // ❌ 返回 false，预期的重写未生效
 ```
-
-核心价值：`override` 将"重写意图"显式化，避免因重构导致的多态行为失效。
 
 ## 5. 🤔 noImplicitOverride 编译选项是什么？
 

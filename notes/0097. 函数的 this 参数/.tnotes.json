@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "this 参数是 TS 中用于显式声明函数内部 this 类型的特殊伪参数，它作为编译时的类型注解（非实际运行时参数），帮助开发者在编译阶段捕获 this 绑定错误，提高代码的类型安全性和可维护性。",
   "id": "d2c506e1-d327-4ab8-9845-cc4b5ab0d6aa",
   "created_at": 1760521823000,
-  "updated_at": 1763425774052
+  "updated_at": 1763436622390
 }
