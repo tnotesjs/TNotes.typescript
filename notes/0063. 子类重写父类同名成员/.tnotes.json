@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "成员重写是面向对象编程中实现多态的重要机制，TS 4.3 引入的 override 关键字显著提升了代码的可维护性和安全性，它能够明确表达开发者的重写意图，并在编译期捕获潜在的重构错误。",
   "id": "38dfd17b-033e-4873-a8ca-1555e92f57b0",
   "created_at": 1761812359000,
-  "updated_at": 1763448400079
+  "updated_at": 1763460326388
 }
