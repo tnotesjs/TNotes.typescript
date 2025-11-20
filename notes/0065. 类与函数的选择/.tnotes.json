@@ -5,8 +5,8 @@
   "done": true,
   "deprecated": false,
   "enableDiscussions": true,
-  "description": "",
+  "description": "优先使用无状态纯函数处理数据转换与逻辑复用，当需要封装内部状态、实现访问控制、支持多态行为或满足特定接口契约时才考虑使用类。",
   "id": "5b496cc6-ab02-4e05-a3ea-b223be2246d8",
   "created_at": 1761661854000,
-  "updated_at": 1761661854000
+  "updated_at": 1763633604267
 }

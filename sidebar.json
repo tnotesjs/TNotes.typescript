@@ -442,7 +442,7 @@
     "collapsed": true,
     "items": [
       {
-        "text": "⏰ class 类型",
+        "text": "✅ class 类型",
         "link": "/notes/0035. class 类型/README"
       },
       {
@@ -486,8 +486,8 @@
         "link": "/notes/0063. 子类重写父类同名成员/README"
       },
       {
-        "text": "✅ 类中的 this 参数和 this 类型",
-        "link": "/notes/0055. 类中的 this 参数和 this 类型/README"
+        "text": "✅ 类中的 this",
+        "link": "/notes/0055. 类中的 this/README"
       },
       {
         "text": "✅ 类与函数的选择",
@@ -498,7 +498,7 @@
         "link": "/notes/0111. 类的类型/README"
       },
       {
-        "text": "⏰ 类的静态块",
+        "text": "✅ 类的静态块",
         "link": "/notes/0114. 类的静态块/README"
       }
     ]
@@ -508,7 +508,7 @@
     "collapsed": true,
     "items": [
       {
-        "text": "⏰ 泛型",
+        "text": "✅ 泛型",
         "link": "/notes/0038. 泛型/README"
       },
       {

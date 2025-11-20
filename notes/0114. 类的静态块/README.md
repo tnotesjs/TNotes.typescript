@@ -5,91 +5,64 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是静态块？](#3--什么是静态块)
-- [4. 🤔 基本语法](#4--基本语法)
-  - [4.1. 简单初始化](#41-简单初始化)
-  - [4.2. 复杂初始化逻辑](#42-复杂初始化逻辑)
-  - [4.3. 条件初始化](#43-条件初始化)
-- [5. 🤔 静态块的特性](#5--静态块的特性)
-  - [5.1. this 指向类](#51-this-指向类)
-  - [5.2. 异步操作（不推荐）](#52-异步操作不推荐)
-  - [5.3. 变量作用域](#53-变量作用域)
-- [6. 🤔 访问作用域](#6--访问作用域)
-  - [6.1. 访问私有静态成员](#61-访问私有静态成员)
-  - [6.2. 访问私有实例成员（不可以）](#62-访问私有实例成员不可以)
-  - [6.3. 访问外部变量](#63-访问外部变量)
-- [7. 🤔 多个静态块](#7--多个静态块)
-  - [7.1. 按顺序执行](#71-按顺序执行)
-  - [7.2. 块之间的依赖](#72-块之间的依赖)
-  - [7.3. 组织相关初始化](#73-组织相关初始化)
-- [8. 🤔 常见使用场景](#8--常见使用场景)
-  - [8.1. 场景 1：单例模式](#81-场景-1单例模式)
-  - [8.2. 场景 2：注册器模式](#82-场景-2注册器模式)
-  - [8.3. 场景 3：配置加载](#83-场景-3配置加载)
-  - [8.4. 场景 4：常量映射](#84-场景-4常量映射)
-  - [8.5. 场景 5：验证和规范化](#85-场景-5验证和规范化)
-  - [8.6. 场景 6：依赖初始化](#86-场景-6依赖初始化)
-  - [8.7. 场景 7：私有静态成员初始化](#87-场景-7私有静态成员初始化)
-- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
-  - [9.1. 错误 1：在静态块中访问实例成员](#91-错误-1在静态块中访问实例成员)
-  - [9.2. 错误 2：依赖未初始化的静态成员](#92-错误-2依赖未初始化的静态成员)
-  - [9.3. 错误 3：在静态块中抛出错误](#93-错误-3在静态块中抛出错误)
-  - [9.4. 错误 4：过度使用静态块](#94-错误-4过度使用静态块)
-  - [9.5. 最佳实践](#95-最佳实践)
-- [10. 🔗 引用](#10--引用)
+- [4. 🤔 静态块有什么用？](#4--静态块有什么用)
+- [5. 🤔 一个类可以有多个静态块吗？](#5--一个类可以有多个静态块吗)
+- [6. 🤔 静态块使用时的常见错误都有哪些？](#6--静态块使用时的常见错误都有哪些)
+  - [6.1. 错误 1：在静态块中访问实例成员](#61-错误-1在静态块中访问实例成员)
+  - [6.2. 错误 2：依赖未初始化的静态成员](#62-错误-2依赖未初始化的静态成员)
+  - [6.3. 错误 3：在静态块中抛出错误](#63-错误-3在静态块中抛出错误)
+  - [6.4. 错误 4：过度使用静态块](#64-错误-4过度使用静态块)
+- [7. 🤔 关于静态块的一些实践建议都有哪些？](#7--关于静态块的一些实践建议都有哪些)
+- [8. 🔗 引用](#8--引用)
 
 <!-- endregion:toc -->
 
 ## 1. 🎯 本节内容
 
-- 静态块的概念和语法
-- 静态块的执行时机
-- 访问私有静态成员
-- 静态块的作用域和特性
-- 多个静态块的顺序
-- 实际应用场景
+- 静态块的概念、语法、执行时机、编译原理
+- 多个静态块的使用
+- 常见错误介绍
+- 最佳实践介绍
 
 ## 2. 🫧 评价
 
-静态块（Static Block）是 TypeScript 4.4+ 引入的特性，允许在类中编写**静态初始化代码块**。
+静态块（Static Block）是 TypeScript 4.4+ 引入的特性，允许在类中编写静态初始化代码块。
 
 静态块的特点：
 
-- **初始化逻辑**：在类加载时执行一次
-- **访问私有成员**：可以访问私有静态成员
-- **作用域隔离**：块内变量不会污染类作用域
-- **按顺序执行**：多个静态块按声明顺序执行
+- 初始化逻辑：在类加载时执行一次
+- 访问私有成员：可以访问私有静态成员
+- 作用域隔离：块内变量不会污染类作用域
+- 按顺序执行：多个静态块按声明顺序执行
 
 静态块 vs 其他初始化方式：
 
-| 方式             | 优点                   | 缺点                 |
-| ---------------- | ---------------------- | -------------------- |
-| **静态块**       | 逻辑集中、访问私有成员 | 需要 TypeScript 4.4+ |
-| **静态属性**     | 简单直接               | 无法包含复杂逻辑     |
-| **立即执行函数** | 可用于旧版本           | 语法繁琐             |
-| **构造函数**     | 实例初始化             | 每次实例化都执行     |
+| 方式         | 优点                   | 缺点                 |
+| ------------ | ---------------------- | -------------------- |
+| 静态块       | 逻辑集中、访问私有成员 | 需要 TypeScript 4.4+ |
+| 静态属性     | 简单直接               | 无法包含复杂逻辑     |
+| 立即执行函数 | 可用于旧版本           | 语法繁琐             |
+| 构造函数     | 实例初始化             | 每次实例化都执行     |
 
 静态块的优势：
 
-1. **集中初始化**：复杂的静态初始化逻辑
-2. **访问权限**：访问私有静态成员
-3. **代码组织**：相关初始化代码放在一起
-4. **作用域隔离**：避免变量泄露
-
-理解静态块，能帮助你：
-
-1. 优雅地初始化静态成员
-2. 处理复杂的类初始化逻辑
-3. 保护私有静态成员的初始化
-4. 提高代码的可读性和维护性
-
-静态块是现代 TypeScript 类的重要特性，简化了静态成员的初始化。
+1. 集中初始化：复杂的静态初始化逻辑
+2. 访问权限：访问私有静态成员
+3. 代码组织：相关初始化代码放在一起
+4. 作用域隔离：避免变量泄露
 
 ## 3. 🤔 什么是静态块？
 
-静态块是在**类定义时执行一次**的代码块，用于初始化静态成员。
+静态块是在类定义时执行一次的代码块，用于初始化静态成员。
+
+- 执行时机：类定义时立即执行
+- 执行次数：只执行一次
+- this 指向：指向类本身
+- 核心作用：在定义类的同时，完成类静态成员的维护工作
+
+基本静态块：
 
 ```ts
-// ✅ 基本静态块
 class Example {
   static value: number
 
@@ -103,96 +76,35 @@ class Example {
 console.log(Example.value) // 42
 ```
 
-**关键概念**：
+编译后得到的 JS：
 
-- **执行时机**：类定义时立即执行
-- **执行次数**：只执行一次
-- **this 指向**：指向类本身
-- **初始化目的**：初始化静态成员
-
-## 4. 🤔 基本语法
-
-### 4.1. 简单初始化
-
-```ts
-// ✅ 初始化静态属性
-class Config {
-  static apiUrl: string
-  static timeout: number
-  static headers: Record<string, string>
-
-  static {
-    this.apiUrl = 'https://api.example.com'
-    this.timeout = 5000
-    this.headers = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    }
-  }
-}
-
-console.log(Config.apiUrl) // 'https://api.example.com'
-console.log(Config.timeout) // 5000
-console.log(Config.headers) // { ... }
+```js
+'use strict'
+var _a
+class Example {}
+_a = Example
+;(() => {
+  // 静态块在类加载时执行一次
+  console.log('Static block executed')
+  _a.value = 42
+})()
+console.log(Example.value) // 42
 ```
 
-### 4.2. 复杂初始化逻辑
+静态块是 TS 中新增的特性，对比着编译后的 JS 来理解会更简单。
 
-```ts
-// ✅ 包含复杂逻辑的初始化
-class MathConstants {
-  static PI: number
-  static E: number
-  static PHI: number
+核心原理：从编译结果来看，静态块的编译就是在类定义之前新建一个临时变量（比如 `_a`）在类的定义语句结束后，将这个临时变量指向这个类，随后创建一个立即执行函数，将静态块的代码放在这个立即执行函数中执行，同时将静态块中的 `this` 替换为这个临时变量。
 
-  static {
-    // 可以包含任意代码
-    console.log('Initializing math constants...')
+在理解核心原理后，就不难理解：
 
-    this.PI = 3.14159
-    this.E = 2.71828
+1. 静态块中的 this 指向类本身
+2. 静态块中的逻辑是一个独立的作用域
+3. 静态块中的异步行为不会阻塞类的定义
 
-    // 计算黄金比例
-    this.PHI = (1 + Math.sqrt(5)) / 2
+::: code-group
 
-    console.log('Math constants initialized')
-  }
-}
-```
-
-### 4.3. 条件初始化
-
-```ts
-// ✅ 条件逻辑
-class Environment {
-  static mode: 'development' | 'production'
-  static debug: boolean
-  static apiUrl: string
-
-  static {
-    const env = process.env.NODE_ENV || 'development'
-
-    if (env === 'production') {
-      this.mode = 'production'
-      this.debug = false
-      this.apiUrl = 'https://api.production.com'
-    } else {
-      this.mode = 'development'
-      this.debug = true
-      this.apiUrl = 'http://localhost:3000'
-    }
-
-    console.log(`Environment: ${this.mode}`)
-  }
-}
-```
-
-## 5. 🤔 静态块的特性
-
-### 5.1. this 指向类
-
-```ts
-// ✅ this 指向类本身
+```ts [1]
+// this 指向类本身
 class Counter {
   static count = 0
 
@@ -209,32 +121,8 @@ class Counter {
 console.log(Counter.count) // 10
 ```
 
-### 5.2. 异步操作（不推荐）
-
-```ts
-// ⚠️ 静态块是同步的，但可以启动异步操作
-class DataLoader {
-  static data: any[] = []
-  static isLoaded = false
-
-  static {
-    // 启动异步加载（不会阻塞类定义）
-    ;(async () => {
-      const response = await fetch('https://api.example.com/data')
-      this.data = await response.json()
-      this.isLoaded = true
-    })()
-  }
-}
-
-// 注意：类定义完成时，data 可能还未加载
-console.log(DataLoader.isLoaded) // false
-```
-
-### 5.3. 变量作用域
-
-```ts
-// ✅ 块作用域变量
+```ts [2]
+// 块作用域变量
 class Calculator {
   static result: number
 
@@ -256,171 +144,84 @@ class Calculator {
 }
 ```
 
-## 6. 🤔 访问作用域
-
-### 6.1. 访问私有静态成员
-
-```ts
-// ✅ 访问私有静态成员
-class Database {
-  static #connection: any
-  static #isConnected = false
+```ts [3]
+// ⚠️ 静态块是同步的，但可以启动异步操作
+class DataLoader {
+  static data: any[] = []
+  static isLoaded = false
 
   static {
-    // 静态块可以访问私有静态成员
-    console.log('Initializing database connection...')
-    this.#connection = { host: 'localhost', port: 5432 }
-    this.#isConnected = true
-    console.log('Database connected')
-  }
-
-  static getConnection() {
-    if (!this.#isConnected) {
-      throw new Error('Database not connected')
-    }
-    return this.#connection
+    // 启动异步加载（不会阻塞类定义）
+    ;(async () => {
+      const response = await fetch('https://api.example.com/data')
+      this.data = await response.json()
+      this.isLoaded = true
+    })()
   }
 }
+
+// 注意：类定义完成时，data 可能还未加载
+console.log(DataLoader.isLoaded) // false
 ```
 
-### 6.2. 访问私有实例成员（不可以）
+:::
 
-```ts
-// ❌ 静态块不能访问私有实例成员
-class User {
-  #password: string = ''
+## 4. 🤔 静态块有什么用？
 
-  static {
-    // ❌ 不能访问实例的私有成员
-    // console.log(this.#password)  // Error
-  }
-}
-```
+下面是一些常见的使用场景：
 
-### 6.3. 访问外部变量
+1. 初始化静态属性
+2. 使用静态块实现单例
+3. 注册器模式 - 注册类到全局注册表
+4. 配置加载 - 从环境变量加载配置
+5. 初始化常量映射
+6. ……
 
-```ts
-// ✅ 可以访问外部作用域
-const defaultConfig = {
-  timeout: 5000,
-  retries: 3,
-}
+应用场景有很多，总结下来，核心作用就是：在定义类的同时，完成类静态成员的维护工作。
 
-class ApiClient {
-  static config: typeof defaultConfig
+::: code-group
 
-  static {
-    // 可以访问外部变量
-    this.config = { ...defaultConfig }
-    console.log('Config loaded from external variable')
-  }
-}
-```
-
-## 7. 🤔 多个静态块
-
-### 7.1. 按顺序执行
-
-```ts
-// ✅ 多个静态块按声明顺序执行
-class Logger {
-  static level: string
-  static output: string
-  static initialized = false
-
-  static {
-    console.log('Block 1: Setting level')
-    this.level = 'info'
-  }
-
-  static {
-    console.log('Block 2: Setting output')
-    this.output = 'console'
-  }
-
-  static {
-    console.log('Block 3: Finalizing')
-    this.initialized = true
-  }
-}
-
-// 输出顺序：
-// Block 1: Setting level
-// Block 2: Setting output
-// Block 3: Finalizing
-```
-
-### 7.2. 块之间的依赖
-
-```ts
-// ✅ 后面的块可以使用前面块初始化的值
-class Configuration {
-  static baseUrl: string
+```ts [1]
+class Config {
   static apiUrl: string
   static timeout: number
+  static headers: Record<string, string>
 
   static {
-    this.baseUrl = 'https://example.com'
-  }
-
-  static {
-    // 使用前一个块设置的值
-    this.apiUrl = `${this.baseUrl}/api`
-  }
-
-  static {
-    // 进一步处理
-    this.timeout = this.apiUrl.length * 100
-  }
-}
-
-console.log(Configuration.apiUrl) // 'https://example.com/api'
-```
-
-### 7.3. 组织相关初始化
-
-```ts
-// ✅ 使用多个块组织不同的初始化逻辑
-class Application {
-  static config: any
-  static database: any
-  static cache: any
-
-  // 配置初始化
-  static {
-    console.log('Initializing config...')
-    this.config = {
-      port: 3000,
-      host: 'localhost',
-    }
-  }
-
-  // 数据库初始化
-  static {
-    console.log('Initializing database...')
-    this.database = {
-      host: this.config.host,
-      port: 5432,
-    }
-  }
-
-  // 缓存初始化
-  static {
-    console.log('Initializing cache...')
-    this.cache = {
-      ttl: 3600,
-      maxSize: 1000,
+    this.apiUrl = 'https://api.example.com'
+    this.timeout = 5000
+    this.headers = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
     }
   }
 }
+
+console.log(Config.apiUrl) // 'https://api.example.com'
+console.log(Config.timeout) // 5000
+console.log(Config.headers) // { ... }
+
+/* 
+"use strict";
+var _a;
+class Config {
+}
+_a = Config;
+(() => {
+    _a.apiUrl = 'https://api.example.com';
+    _a.timeout = 5000;
+    _a.headers = {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+    };
+})();
+console.log(Config.apiUrl); // 'https://api.example.com'
+console.log(Config.timeout); // 5000
+console.log(Config.headers); // { ... }
+*/
 ```
 
-## 8. 🤔 常见使用场景
-
-### 8.1. 场景 1：单例模式
-
-```ts
-// ✅ 使用静态块实现单例
+```ts [2]
 class Singleton {
   private static instance: Singleton
 
@@ -445,12 +246,32 @@ class Singleton {
 const instance1 = Singleton.getInstance()
 const instance2 = Singleton.getInstance()
 console.log(instance1 === instance2) // true
+/* 
+"use strict";
+var _a;
+class Singleton {
+    constructor() {
+        console.log('Singleton created');
+    }
+    static getInstance() {
+        return this.instance;
+    }
+    someMethod() {
+        console.log('Method called');
+    }
+}
+_a = Singleton;
+(() => {
+    // 在类加载时创建实例
+    _a.instance = new _a();
+})();
+const instance1 = Singleton.getInstance();
+const instance2 = Singleton.getInstance();
+console.log(instance1 === instance2); // true
+ */
 ```
 
-### 8.2. 场景 2：注册器模式
-
-```ts
-// ✅ 注册类到全局注册表
+```ts [3]
 const classRegistry = new Map<string, any>()
 
 class UserService {
@@ -479,12 +300,41 @@ class ProductService {
 // 从注册表获取服务
 const UserServiceClass = classRegistry.get('UserService')
 const service = new UserServiceClass()
+
+/* 
+"use strict";
+var _a, _b;
+const classRegistry = new Map();
+class UserService {
+    getUser(id) {
+        return { id, name: 'Alice' };
+    }
+}
+_a = UserService;
+(() => {
+    // 自动注册到全局注册表
+    classRegistry.set('UserService', _a);
+    console.log('UserService registered');
+})();
+class ProductService {
+    getProduct(id) {
+        return { id, name: 'Product' };
+    }
+}
+_b = ProductService;
+(() => {
+    classRegistry.set('ProductService', _b);
+    console.log('ProductService registered');
+})();
+// 从注册表获取服务
+const UserServiceClass = classRegistry.get('UserService');
+const service = new UserServiceClass();
+*/
 ```
 
-### 8.3. 场景 3：配置加载
-
-```ts
-// ✅ 从环境变量加载配置
+```ts [4]
+// 假设有一个 process 对象，其中 process.env 中存储了一些环境变量信息
+const process: any = {}
 class AppConfig {
   static database: {
     host: string
@@ -525,12 +375,38 @@ class AppConfig {
     console.log('Configuration loaded')
   }
 }
+/* 
+"use strict";
+var _a;
+// 假设有一个 process 对象，其中 process.env 中存储了一些环境变量信息
+const process = {};
+class AppConfig {
+}
+_a = AppConfig;
+(() => {
+    // 从环境变量加载数据库配置
+    _a.database = {
+        host: process.env.DB_HOST || 'localhost',
+        port: parseInt(process.env.DB_PORT || '5432'),
+        name: process.env.DB_NAME || 'myapp',
+    };
+    // Redis 配置
+    _a.redis = {
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379'),
+    };
+    // JWT 配置
+    _a.jwt = {
+        secret: process.env.JWT_SECRET || 'default-secret',
+        expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+    };
+    console.log('Configuration loaded');
+})();
+
+ */
 ```
 
-### 8.4. 场景 4：常量映射
-
-```ts
-// ✅ 初始化常量映射
+```ts [5]
 class HttpStatus {
   static readonly OK = 200
   static readonly CREATED = 201
@@ -557,136 +433,242 @@ class HttpStatus {
 }
 
 console.log(HttpStatus.getMessage(404)) // 'Not Found'
-```
-
-### 8.5. 场景 5：验证和规范化
-
-```ts
-// ✅ 初始化时验证配置
-class ServerConfig {
-  static port: number
-  static host: string
-  static maxConnections: number
-
-  static {
-    // 读取配置
-    const port = parseInt(process.env.PORT || '3000')
-    const host = process.env.HOST || 'localhost'
-    const maxConnections = parseInt(process.env.MAX_CONNECTIONS || '100')
-
-    // 验证
-    if (port < 1 || port > 65535) {
-      throw new Error(`Invalid port: ${port}`)
+/* 
+"use strict";
+var _a;
+class HttpStatus {
+    static getMessage(code) {
+        return this.statusMessages.get(code) || 'Unknown Status';
     }
-
-    if (maxConnections < 1) {
-      throw new Error(`Invalid max connections: ${maxConnections}`)
-    }
-
-    // 设置
-    this.port = port
-    this.host = host
-    this.maxConnections = maxConnections
-
-    console.log(
-      `Server config: ${host}:${port}, max connections: ${maxConnections}`
-    )
-  }
 }
+_a = HttpStatus;
+HttpStatus.OK = 200;
+HttpStatus.CREATED = 201;
+HttpStatus.BAD_REQUEST = 400;
+HttpStatus.UNAUTHORIZED = 401;
+HttpStatus.NOT_FOUND = 404;
+HttpStatus.SERVER_ERROR = 500;
+HttpStatus.statusMessages = new Map();
+(() => {
+    // 初始化状态码到消息的映射
+    _a.statusMessages.set(_a.OK, 'OK');
+    _a.statusMessages.set(_a.CREATED, 'Created');
+    _a.statusMessages.set(_a.BAD_REQUEST, 'Bad Request');
+    _a.statusMessages.set(_a.UNAUTHORIZED, 'Unauthorized');
+    _a.statusMessages.set(_a.NOT_FOUND, 'Not Found');
+    _a.statusMessages.set(_a.SERVER_ERROR, 'Internal Server Error');
+})();
+console.log(HttpStatus.getMessage(404)); // 'Not Found'
+ */
 ```
 
-### 8.6. 场景 6：依赖初始化
+:::
 
-```ts
-// ✅ 初始化类的依赖
+## 5. 🤔 一个类可以有多个静态块吗？
+
+可以，这些块会按照顺序执行，后者可以引用前者初始化好的静态成员，借助此特性，你可以将不同的逻辑组织在不同的块中。
+
+1. 一个类可以有多个静态块，它们会按照声明顺序依次执行。
+2. 后面的块可以使用前面块初始化的值。
+3. 可以使用多个块组织不同的初始化逻辑。
+
+::: code-group
+
+```ts [1]
 class Logger {
-  static log(message: string) {
-    console.log(`[LOG] ${message}`)
-  }
-}
-
-class Database {
-  static connection: any
+  static level: string
+  static output: string
+  static initialized = false
 
   static {
-    Logger.log('Initializing database...')
-    this.connection = { status: 'connected' }
-    Logger.log('Database initialized')
+    console.log('Block 1: Setting level')
+    this.level = 'info'
   }
-}
-
-class Cache {
-  static instance: any
 
   static {
-    Logger.log('Initializing cache...')
-    this.instance = { status: 'ready' }
-    Logger.log('Cache initialized')
+    console.log('Block 2: Setting output')
+    this.output = 'console'
+  }
+
+  static {
+    console.log('Block 3: Finalizing')
+    this.initialized = true
   }
 }
 
+// 输出顺序：
+// Block 1: Setting level
+// Block 2: Setting output
+// Block 3: Finalizing
+/* 
+"use strict";
+var _a;
+class Logger {
+}
+_a = Logger;
+Logger.initialized = false;
+(() => {
+    console.log('Block 1: Setting level');
+    _a.level = 'info';
+})();
+(() => {
+    console.log('Block 2: Setting output');
+    _a.output = 'console';
+})();
+(() => {
+    console.log('Block 3: Finalizing');
+    _a.initialized = true;
+})();
+ */
+```
+
+```ts [2]
+class Configuration {
+  static baseUrl: string
+  static apiUrl: string
+  static timeout: number
+
+  static {
+    this.baseUrl = 'https://example.com'
+  }
+
+  static {
+    // 使用前一个块设置的值
+    this.apiUrl = `${this.baseUrl}/api`
+  }
+
+  static {
+    // 进一步处理
+    this.timeout = this.apiUrl.length * 100
+  }
+}
+
+console.log(Configuration.apiUrl) // 'https://example.com/api'
+/* 
+"use strict";
+var _a;
+class Configuration {
+}
+_a = Configuration;
+(() => {
+    _a.baseUrl = 'https://example.com';
+})();
+(() => {
+    // 使用前一个块设置的值
+    _a.apiUrl = `${_a.baseUrl}/api`;
+})();
+(() => {
+    // 进一步处理
+    _a.timeout = _a.apiUrl.length * 100;
+})();
+console.log(Configuration.apiUrl); // 'https://example.com/api'
+
+ */
+```
+
+```ts [3]
 class Application {
+  static config: any
+  static database: any
+  static cache: any
+
+  // 配置初始化
   static {
-    Logger.log('Application starting...')
-
-    // 确保依赖已初始化
-    const dbStatus = Database.connection.status
-    const cacheStatus = Cache.instance.status
-
-    Logger.log(`Dependencies: DB=${dbStatus}, Cache=${cacheStatus}`)
-    Logger.log('Application started')
-  }
-}
-```
-
-### 8.7. 场景 7：私有静态成员初始化
-
-```ts
-// ✅ 安全地初始化私有静态成员
-class SecureConfig {
-  static #apiKey: string
-  static #secretKey: string
-
-  static {
-    // 从安全源加载密钥
-    this.#apiKey = this.loadFromSecureStore('API_KEY')
-    this.#secretKey = this.loadFromSecureStore('SECRET_KEY')
-
-    // 验证密钥
-    if (!this.#apiKey || !this.#secretKey) {
-      throw new Error('Failed to load secure credentials')
+    console.log('Initializing config...')
+    this.config = {
+      port: 3000,
+      host: 'localhost',
     }
-
-    console.log('Secure credentials loaded')
   }
 
-  private static loadFromSecureStore(key: string): string {
-    // 从安全存储加载
-    return process.env[key] || ''
+  // 数据库初始化
+  static {
+    console.log('Initializing database...')
+    this.database = {
+      host: this.config.host,
+      port: 5432,
+    }
   }
 
-  static getApiKey(): string {
-    return this.#apiKey
+  // 缓存初始化
+  static {
+    console.log('Initializing cache...')
+    this.cache = {
+      ttl: 3600,
+      maxSize: 1000,
+    }
   }
 }
+/* 
+"use strict";
+var _a;
+class Application {
+}
+_a = Application;
+// 配置初始化
+(() => {
+    console.log('Initializing config...');
+    _a.config = {
+        port: 3000,
+        host: 'localhost',
+    };
+})();
+// 数据库初始化
+(() => {
+    console.log('Initializing database...');
+    _a.database = {
+        host: _a.config.host,
+        port: 5432,
+    };
+})();
+// 缓存初始化
+(() => {
+    console.log('Initializing cache...');
+    _a.cache = {
+        ttl: 3600,
+        maxSize: 1000,
+    };
+})();
+ */
 ```
 
-## 9. 🤔 常见错误和最佳实践
+:::
 
-### 9.1. 错误 1：在静态块中访问实例成员
+## 6. 🤔 静态块使用时的常见错误都有哪些？
+
+### 6.1. 错误 1：在静态块中访问实例成员
+
+不能访问实例成员：
 
 ```ts
-// ❌ 不能访问实例成员
 class User {
-  name: string = ''
+  xxx: string = ''
 
   static {
     // ❌ Error: 实例成员不存在
-    // console.log(this.name)
+    console.log(this.xxx)
+    // Property 'xxx' does not exist on type 'typeof User'.(2339)
   }
 }
+/* 
+"use strict";
+var _a;
+class User {
+    constructor() {
+        this.xxx = '';
+    }
+}
+_a = User;
+(() => {
+    // ❌ Error: 实例成员不存在
+    console.log(_a.xxx);
+})();
+ */
+```
 
-// ✅ 只访问静态成员
+只访问静态成员：
+
+```ts
 class User {
   static defaultName: string
 
@@ -694,24 +676,51 @@ class User {
     this.defaultName = 'Guest' // ✅
   }
 }
+/* 
+"use strict";
+var _a;
+class User {
+}
+_a = User;
+(() => {
+    _a.defaultName = 'Guest'; // ✅
+})();
+ */
 ```
 
-### 9.2. 错误 2：依赖未初始化的静态成员
+### 6.2. 错误 2：依赖未初始化的静态成员
+
+依赖顺序错误：
 
 ```ts
-// ❌ 依赖顺序错误
 class Config {
   static apiUrl: string
 
   static {
     // ❌ timeout 尚未声明
     console.log(this.timeout)
+    // Property 'timeout' is used before its initialization.(2729)
   }
 
   static timeout: number = 5000
 }
+/* 
+"use strict";
+var _a;
+class Config {
+}
+_a = Config;
+(() => {
+    // ❌ timeout 尚未声明
+    console.log(_a.timeout);
+})();
+Config.timeout = 5000;
+ */
+```
 
-// ✅ 正确的顺序
+正确的顺序：
+
+```ts
 class Config {
   static timeout: number = 5000
 
@@ -721,39 +730,82 @@ class Config {
 
   static apiUrl: string
 }
+/* 
+"use strict";
+var _a;
+class Config {
+}
+_a = Config;
+Config.timeout = 5000;
+(() => {
+    console.log(_a.timeout); // ✅
+})();
+ */
 ```
 
-### 9.3. 错误 3：在静态块中抛出错误
+### 6.3. 错误 3：在静态块中抛出错误
+
+静态块中的错误会在类定义后抛出，导致类定义后的程序直接崩溃：
 
 ```ts
-// ⚠️ 静态块中的错误会阻止类定义
 class BadConfig {
   static {
     throw new Error('Configuration error') // 类无法使用
   }
 }
+// ❌ 后续代码永远不会执行
+console.log(123)
+// Unreachable code detected.(7027)
+/* 
+"use strict";
+class BadConfig {
+}
+(() => {
+    throw new Error('Configuration error'); // 类无法使用
+})();
+// ❌ 后续代码永远不会执行
+console.log(123);
+// Unreachable code detected.(7027)
+ */
+```
 
-// ✅ 妥善处理错误
+妥善处理错误：可以使用 try-catch 捕获错误，并在控制台输出，但不要直接 `throw`。
+
+```ts
 class GoodConfig {
-  static isValid = false
-  static error: string | null = null
-
+  // ...
   static {
     try {
-      // 初始化逻辑
-      this.isValid = true
+      // ... 一系列类静态成员的维护逻辑
+      throw new Error('发生了未知错误')
     } catch (err) {
-      this.error = String(err)
-      console.error('Config initialization failed:', err)
+      console.error('Config initialization failed:', String(err))
     }
   }
 }
+/* 
+"use strict";
+class GoodConfig {
+}
+// ...
+(() => {
+    try {
+        // ... 一系列类静态成员的维护逻辑
+        throw new Error('发生了未知错误');
+    }
+    catch (err) {
+        console.error('Config initialization failed:', String(err));
+    }
+})();
+
+ */
 ```
 
-### 9.4. 错误 4：过度使用静态块
+### 6.4. 错误 4：过度使用静态块
+
+简单初始化不需要静态块：
 
 ```ts
-// ❌ 简单初始化不需要静态块
 class Config {
   static port: number
 
@@ -761,13 +813,20 @@ class Config {
     this.port = 3000 // 不需要静态块
   }
 }
+```
 
-// ✅ 直接初始化
+直接初始化更合适：
+
+```ts
 class Config {
   static port: number = 3000
 }
+```
 
-// ✅ 静态块用于复杂逻辑
+静态块可以用于一些相对复杂的逻辑，比如：
+
+```ts
+const process: any = {}
 class Config {
   static port: number
   static host: string
@@ -785,7 +844,7 @@ class Config {
 }
 ```
 
-### 9.5. 最佳实践
+## 7. 🤔 关于静态块的一些实践建议都有哪些？
 
 ```ts
 // ✅ 1. 用于复杂的初始化逻辑
@@ -955,7 +1014,7 @@ class DocumentedInit {
 }
 ```
 
-## 10. 🔗 引用
+## 8. 🔗 引用
 
 - [TypeScript 4.4 Release Notes - Static Blocks][1]
 - [MDN - Static initialization blocks][2]

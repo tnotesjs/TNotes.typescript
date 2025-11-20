@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "静态块（Static Block）是 TS 4.4+ 引入的特性，允许在类中编写静态初始化代码块。",
   "id": "3c889e4e-5dbe-4cc1-9343-35cae1abb5fc",
   "created_at": 1760521823000,
-  "updated_at": 1761896147000
+  "updated_at": 1763633604267
 }

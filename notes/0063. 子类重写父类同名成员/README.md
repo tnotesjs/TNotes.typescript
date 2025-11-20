@@ -275,7 +275,7 @@ service.validateAccess() // ❌ 返回 false，预期的重写未生效
 
 ## 5. 🤔 什么时候应该使用 override 关键字？
 
-推荐策略：
+选择策略：
 
 1. 新项目：从一开始就启用 `noImplicitOverride` + 强制使用 `override`
 2. 现有项目：
@@ -309,9 +309,12 @@ service.validateAccess() // ❌ 返回 false，预期的重写未生效
 
 效果对比：
 
+1. 不启用 `noImplicitOverride`
+2. 启用 `noImplicitOverride`
+
 ::: code-group
 
-```ts [不启用 noImplicitOverride]
+```ts [1]
 // tsconfig.json
 // {
 //   "compilerOptions": {
@@ -331,7 +334,7 @@ class Dog extends Animal {
 }
 ```
 
-```ts [启用 noImplicitOverride]
+```ts [2]
 // tsconfig.json
 // {
 //   "compilerOptions": {
@@ -406,7 +409,7 @@ class Dog extends Animal {
 
 1. ✅ 只读变可写
 2. ❌ 返回类型不兼容
-3. ⚠️ 可写变只读的 Bug
+3. ⚠️ 可写变只读 - TS 允许，但是 JS 运行时会报错，这是一个 Bug
 
 ::: code-group
 
@@ -524,6 +527,18 @@ animal.age = 3;
 :::
 
 最佳实践：如果父类同时有 getter 和 setter，子类重写时也应该同时重写两者，避免混淆。
+
+::: warning ⚠️ TypeScript 的已知设计缺陷
+
+3 中提到的这个问题在 [Issue #43662][4] 中被提出，但官方决定不修复，主要原因：
+
+1. 修复会导致大量现有代码破坏性变更
+2. TypeScript 的类型系统本就接受某些不安全的情况作为权衡
+3. 实际开发中影响相对有限
+
+推荐做法：如果父类有 setter，子类重写时也应提供 setter，避免运行时错误。
+
+:::
 
 ## 9. 🤔 属性重写与方法重写有什么区别？
 
@@ -842,7 +857,9 @@ class Dog extends Animal {
 - [noImplicitOverride][1]
 - [TypeScript 4.3 Release Notes - override][2]
 - [Classes 类][3]
+- [Allow setter type to be incompatible with the getter type #43662][4]
 
 [1]: https://www.typescriptlang.org/tsconfig/#noImplicitOverride
 [2]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-3.html#override-and-the-noimplicitoverride-flag
 [3]: https://www.typescriptlang.org/docs/handbook/2/classes.html
+[4]: https://github.com/microsoft/TypeScript/issues/43662

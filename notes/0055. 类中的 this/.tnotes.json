@@ -1,0 +1,12 @@
+{
+  "bilibili": [],
+  "tnotes": [],
+  "yuque": [],
+  "done": true,
+  "deprecated": false,
+  "enableDiscussions": true,
+  "description": "本文介绍 class 中 this 相关的内容，包括 this 参数（用于约束方法调用时的上下文绑定）、this 类型（随继承自动收窄为最具体子类的自引用类型）、this is Type（基于 this 的类型守卫机制）。",
+  "id": "6d5517f3-17fd-474c-84a5-469abc6eba13",
+  "created_at": 1761381331000,
+  "updated_at": 1763632119789
+}
