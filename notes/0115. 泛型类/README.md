@@ -5,41 +5,34 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是泛型类？](#3--什么是泛型类)
-- [4. 🤔 基本语法](#4--基本语法)
-  - [4.1. 单个类型参数](#41-单个类型参数)
-  - [4.2. 泛型属性](#42-泛型属性)
-  - [4.3. 泛型方法](#43-泛型方法)
-  - [4.4. 默认类型参数](#44-默认类型参数)
-- [5. 🤔 泛型约束](#5--泛型约束)
-  - [5.1. 基本约束](#51-基本约束)
-  - [5.2. 约束为对象类型](#52-约束为对象类型)
-  - [5.3. 多重约束](#53-多重约束)
-  - [5.4. keyof 约束](#54-keyof-约束)
-- [6. 🤔 多个类型参数](#6--多个类型参数)
-  - [6.1. 两个类型参数](#61-两个类型参数)
-  - [6.2. 映射类](#62-映射类)
-  - [6.3. 转换类](#63-转换类)
-- [7. 🤔 静态成员与泛型](#7--静态成员与泛型)
-  - [7.1. 静态成员不能使用类型参数](#71-静态成员不能使用类型参数)
-  - [7.2. 工厂模式](#72-工厂模式)
-- [8. 🤔 泛型类的继承](#8--泛型类的继承)
-  - [8.1. 继承泛型类](#81-继承泛型类)
-  - [8.2. 实现泛型接口](#82-实现泛型接口)
-  - [8.3. 泛型类继承泛型类](#83-泛型类继承泛型类)
-- [9. 🤔 常见使用场景](#9--常见使用场景)
-  - [9.1. 场景 1：数据结构](#91-场景-1数据结构)
-  - [9.2. 场景 2：响应包装器](#92-场景-2响应包装器)
-  - [9.3. 场景 3：状态管理](#93-场景-3状态管理)
-  - [9.4. 场景 4：缓存系统](#94-场景-4缓存系统)
-  - [9.5. 场景 5：事件发射器](#95-场景-5事件发射器)
-  - [9.6. 场景 6：验证器](#96-场景-6验证器)
-- [10. 🤔 常见错误和最佳实践](#10--常见错误和最佳实践)
-  - [10.1. 错误 1：在静态成员中使用类型参数](#101-错误-1在静态成员中使用类型参数)
-  - [10.2. 错误 2：忘记类型约束](#102-错误-2忘记类型约束)
-  - [10.3. 错误 3：过度使用泛型](#103-错误-3过度使用泛型)
-  - [10.4. 错误 4：泛型参数命名不清晰](#104-错误-4泛型参数命名不清晰)
-  - [10.5. 最佳实践](#105-最佳实践)
-- [11. 🔗 引用](#11--引用)
+- [4. 🤔 如何给泛型添加约束？](#4--如何给泛型添加约束)
+  - [4.1. extends 约束](#41-extends-约束)
+  - [4.2. keyof 约束](#42-keyof-约束)
+- [5. 🤔 多个类型参数](#5--多个类型参数)
+  - [5.1. 两个类型参数](#51-两个类型参数)
+  - [5.2. 映射类](#52-映射类)
+  - [5.3. 转换类](#53-转换类)
+- [6. 🤔 静态成员与泛型](#6--静态成员与泛型)
+  - [6.1. 静态成员不能使用类型参数](#61-静态成员不能使用类型参数)
+  - [6.2. 工厂模式](#62-工厂模式)
+- [7. 🤔 泛型类的继承](#7--泛型类的继承)
+  - [7.1. 继承泛型类](#71-继承泛型类)
+  - [7.2. 实现泛型接口](#72-实现泛型接口)
+  - [7.3. 泛型类继承泛型类](#73-泛型类继承泛型类)
+- [8. 🤔 常见使用场景](#8--常见使用场景)
+  - [8.1. 场景 1：数据结构](#81-场景-1数据结构)
+  - [8.2. 场景 2：响应包装器](#82-场景-2响应包装器)
+  - [8.3. 场景 3：状态管理](#83-场景-3状态管理)
+  - [8.4. 场景 4：缓存系统](#84-场景-4缓存系统)
+  - [8.5. 场景 5：事件发射器](#85-场景-5事件发射器)
+  - [8.6. 场景 6：验证器](#86-场景-6验证器)
+- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
+  - [9.1. 错误 1：在静态成员中使用类型参数](#91-错误-1在静态成员中使用类型参数)
+  - [9.2. 错误 2：忘记类型约束](#92-错误-2忘记类型约束)
+  - [9.3. 错误 3：过度使用泛型](#93-错误-3过度使用泛型)
+  - [9.4. 错误 4：泛型参数命名不清晰](#94-错误-4泛型参数命名不清晰)
+  - [9.5. 最佳实践](#95-最佳实践)
+- [10. 🔗 引用](#10--引用)
 
 <!-- endregion:toc -->
 
@@ -80,15 +73,6 @@
 3. 智能提示：IDE 能提供准确的类型提示
 4. 约束灵活：可以对类型参数添加约束
 
-理解泛型类，能帮助你：
-
-1. 设计通用的数据结构
-2. 构建类型安全的工具类
-3. 提高代码的可维护性
-4. 实现高级类型模式
-
-泛型类是 TypeScript 最强大的特性之一，是构建可复用代码的核心工具。
-
 ## 3. 🤔 什么是泛型类？
 
 泛型类在定义时使用类型参数，在实例化时指定具体类型。
@@ -98,8 +82,9 @@
 - 类型一致性：所有使用 T 的地方类型相同
 - 类型推断：可以省略类型参数，由构造函数参数推断
 
+基本泛型类：
+
 ```ts
-// ✅ 基本泛型类
 class Box<T> {
   private value: T
 
@@ -123,16 +108,26 @@ const num: number = numberBox.getValue() // 类型安全
 const stringBox = new Box<string>('hello')
 const str: string = stringBox.getValue() // 类型安全
 
-// 类型推断
+// 通常不需要显式声明类型，TS 的类型推断会自动识别泛型的具体类型。
 const boolBox = new Box(true) // Box<boolean>
+// 我们传入了 true
+// constructor(value: T) { ... } 这个位置就能推断出 T 是 boolean 类型
+// 类中的所有 T 的位置都会被推断为 boolean 类型
+// 因此，上述的写法其实也可以简写：
+// new Box<number>(42) 可以简写为 new Box(42)
+// new Box<string>('hello') 可以简写为 new Box('hello')
 ```
 
-## 4. 🤔 基本语法
+基本语法：
 
-### 4.1. 单个类型参数
+1. 单个类型参数
+2. 泛型属性
+3. 泛型方法
+4. 默认类型参数
 
-```ts
-// ✅ 单个类型参数
+::: code-group
+
+```ts [1]
 class Stack<T> {
   private items: T[] = []
 
@@ -160,18 +155,21 @@ class Stack<T> {
 const numberStack = new Stack<number>()
 numberStack.push(1)
 numberStack.push(2)
+
+// 推入错误类型会立刻报错
+// numberStack.push('3') // ❌
+// Argument of type 'string' is not assignable to parameter of type 'number'.(2345)
+
 console.log(numberStack.pop()) // 2
 
 const stringStack = new Stack<string>()
 stringStack.push('a')
 stringStack.push('b')
-console.log(stringStack.pop()) // 'b'
+stringStack.push('c')
+console.log(stringStack.pop()) // 'c'
 ```
 
-### 4.2. 泛型属性
-
-```ts
-// ✅ 泛型属性
+```ts [2]
 class Container<T> {
   // 泛型属性
   public content: T
@@ -189,14 +187,12 @@ class Container<T> {
   }
 }
 
-const container = new Container<number>(100)
-console.log(container.content) // 100
+const container = new Container<number>(100) // 可简写 new Container(100)
+const content = container.content // TS 会推断出 content 的类型是 number 类型
+console.log(content) // 100
 ```
 
-### 4.3. 泛型方法
-
-```ts
-// ✅ 泛型方法
+```ts [3]
 class Mapper<T> {
   constructor(private items: T[]) {}
 
@@ -204,27 +200,23 @@ class Mapper<T> {
   map<U>(fn: (item: T) => U): U[] {
     return this.items.map(fn)
   }
-
-  // 类的泛型 + 方法的泛型
-  transform<U, V>(fn1: (item: T) => U, fn2: (item: U) => V): V[] {
-    return this.items.map((item) => fn2(fn1(item)))
-  }
 }
 
 const numbers = new Mapper([1, 2, 3])
-const strings = numbers.map((n) => n.toString()) // string[]
-const doubled = numbers.map((n) => n * 2) // number[]
+const strings = numbers.map((n) => n.toString()) // 推断结果 string[]
+const doubled = numbers.map((n) => n * 2) // 推断结果 number[]
 ```
 
-### 4.4. 默认类型参数
-
-```ts
-// ✅ 默认类型参数
+```ts [4]
 class Result<T = string> {
-  constructor(public success: boolean, public data: T, public error?: string) {}
+  constructor(
+    public success: boolean,
+    public data: any,
+    public error?: string
+  ) {}
 
-  isSuccess(): boolean {
-    return this.success
+  getResult(): T {
+    return this.data
   }
 }
 
@@ -235,21 +227,31 @@ const result1 = new Result(true, 'success') // Result<string>
 const result2 = new Result<number>(true, 42) // Result<number>
 ```
 
-## 5. 🤔 泛型约束
+:::
 
-### 5.1. 基本约束
+## 4. 🤔 如何给泛型添加约束？
 
-```ts
-// ✅ 使用 extends 约束类型
+### 4.1. extends 约束
+
+1. 基本约束
+2. 多重约束 - 可以使用交叉类型实现多重约束
+
+::: code-group
+
+```ts [1]
+// 使用 extends 约束类型
 interface Lengthwise {
   length: number
 }
 
+// T extends Lengthwise
+// 这么写意味着 T 类型必须满足 Lengthwise 接口
+// 表示 T 类型必须具备属性 length: number
 class LengthChecker<T extends Lengthwise> {
   constructor(private value: T) {}
 
   getLength(): number {
-    return this.value.length // ✅ 类型安全
+    return this.value.length // 类型安全
   }
 
   compare(other: T): number {
@@ -257,54 +259,13 @@ class LengthChecker<T extends Lengthwise> {
   }
 }
 
-const checker1 = new LengthChecker('hello') // ✅ string 有 length
-const checker2 = new LengthChecker([1, 2, 3]) // ✅ array 有 length
+const checker1 = new LengthChecker('hello') // string 有 length
+const checker2 = new LengthChecker([1, 2, 3]) // array 有 length
 // const checker3 = new LengthChecker(42)  // ❌ Error: number 没有 length
+// Argument of type 'number' is not assignable to parameter of type 'Lengthwise'.(2345)
 ```
 
-### 5.2. 约束为对象类型
-
-```ts
-// ✅ 约束为对象类型
-interface Identifiable {
-  id: number
-}
-
-class Repository<T extends Identifiable> {
-  private items: T[] = []
-
-  add(item: T): void {
-    this.items.push(item)
-  }
-
-  findById(id: number): T | undefined {
-    return this.items.find((item) => item.id === id)
-  }
-
-  remove(id: number): boolean {
-    const index = this.items.findIndex((item) => item.id === id)
-    if (index > -1) {
-      this.items.splice(index, 1)
-      return true
-    }
-    return false
-  }
-}
-
-interface User {
-  id: number
-  name: string
-}
-
-const userRepo = new Repository<User>()
-userRepo.add({ id: 1, name: 'Alice' })
-const user = userRepo.findById(1)
-```
-
-### 5.3. 多重约束
-
-```ts
-// ✅ 使用交叉类型实现多重约束
+```ts [2]
 interface Named {
   name: string
 }
@@ -313,15 +274,13 @@ interface Aged {
   age: number
 }
 
+// T extends Named & Aged
+// 这么写意味着 T 必须同时满足 Named、Aged 接口
 class PersonManager<T extends Named & Aged> {
   constructor(private person: T) {}
 
   introduce(): string {
     return `${this.person.name} is ${this.person.age} years old`
-  }
-
-  isAdult(): boolean {
-    return this.person.age >= 18
   }
 }
 
@@ -340,14 +299,19 @@ const manager = new PersonManager<Student>({
 console.log(manager.introduce()) // 'Alice is 20 years old'
 ```
 
-### 5.4. keyof 约束
+:::
+
+### 4.2. keyof 约束
+
+使用 `keyof` 可以约束类型参数必须是某个对象类型的键。
 
 ```ts
-// ✅ 使用 keyof 约束
+// T 是对象类型，K 必须是 T 的键之一
 class PropertyGetter<T, K extends keyof T> {
   constructor(private obj: T, private key: K) {}
 
   getValue(): T[K] {
+    // T[K] 是索引访问类型，表示对象 T 中键 K 对应的值的类型
     return this.obj[this.key]
   }
 
@@ -362,18 +326,22 @@ interface Person {
 }
 
 const person: Person = { name: 'Alice', age: 30 }
+
+// K 被推断为 'name'，因此 getValue() 返回 string 类型
 const nameGetter = new PropertyGetter(person, 'name')
 console.log(nameGetter.getValue()) // 'Alice'
 
-// const invalidGetter = new PropertyGetter(person, 'invalid')  // ❌ Error
+// ❌ 'invalid' 不是 Person 的键，编译错误
+// const invalidGetter = new PropertyGetter(person, 'invalid')
+// Argument of type '"invalid"' is not assignable to parameter of type 'keyof Person'.(2345)
 ```
 
-## 6. 🤔 多个类型参数
+## 5. 🤔 多个类型参数
 
-### 6.1. 两个类型参数
+### 5.1. 两个类型参数
 
 ```ts
-// ✅ 两个类型参数
+// 两个类型参数
 class Pair<K, V> {
   constructor(public key: K, public value: V) {}
 
@@ -398,10 +366,10 @@ console.log(pair1.getKey()) // 'age'
 console.log(pair1.getValue()) // 30
 ```
 
-### 6.2. 映射类
+### 5.2. 映射类
 
 ```ts
-// ✅ 键值对映射
+// 键值对映射
 class Dictionary<K extends string | number, V> {
   private items = new Map<K, V>()
 
@@ -436,10 +404,10 @@ dict.set('two', 2)
 console.log(dict.get('one')) // 1
 ```
 
-### 6.3. 转换类
+### 5.3. 转换类
 
 ```ts
-// ✅ 类型转换器
+// 类型转换器
 class Converter<TInput, TOutput> {
   constructor(private converter: (input: TInput) => TOutput) {}
 
@@ -460,9 +428,9 @@ const numberToString = new Converter<number, string>((num) => num.toString())
 console.log(numberToString.convert(42)) // '42'
 ```
 
-## 7. 🤔 静态成员与泛型
+## 6. 🤔 静态成员与泛型
 
-### 7.1. 静态成员不能使用类型参数
+### 6.1. 静态成员不能使用类型参数
 
 ```ts
 // ❌ 静态成员不能引用类型参数
@@ -477,7 +445,7 @@ class Container<T> {
   }
 }
 
-// ✅ 静态成员可以有自己的泛型
+// 静态成员可以有自己的泛型
 class Container<T> {
   private value: T
 
@@ -485,12 +453,12 @@ class Container<T> {
     this.value = value
   }
 
-  // ✅ 静态泛型方法
+  // 静态泛型方法
   static create<U>(value: U): Container<U> {
     return new Container(value)
   }
 
-  // ✅ 静态方法不依赖类的泛型
+  // 静态方法不依赖类的泛型
   static merge<A, B>(a: Container<A>, b: Container<B>): Container<[A, B]> {
     return new Container([a.value, b.value] as [A, B])
   }
@@ -499,10 +467,10 @@ class Container<T> {
 const container = Container.create(42) // Container<number>
 ```
 
-### 7.2. 工厂模式
+### 6.2. 工厂模式
 
 ```ts
-// ✅ 使用静态方法作为工厂
+// 使用静态方法作为工厂
 class Result<T> {
   private constructor(
     public readonly success: boolean,
@@ -531,12 +499,12 @@ if (success.isSuccess()) {
 }
 ```
 
-## 8. 🤔 泛型类的继承
+## 7. 🤔 泛型类的继承
 
-### 8.1. 继承泛型类
+### 7.1. 继承泛型类
 
 ```ts
-// ✅ 继承泛型类
+// 继承泛型类
 class Container<T> {
   constructor(protected value: T) {}
 
@@ -571,10 +539,10 @@ class PairContainer<T, U> extends Container<T> {
 }
 ```
 
-### 8.2. 实现泛型接口
+### 7.2. 实现泛型接口
 
 ```ts
-// ✅ 实现泛型接口
+// 实现泛型接口
 interface Comparable<T> {
   compareTo(other: T): number
 }
@@ -606,10 +574,10 @@ const v2 = new Version(2, 0, 0)
 console.log(v1.compareTo(v2)) // -1
 ```
 
-### 8.3. 泛型类继承泛型类
+### 7.3. 泛型类继承泛型类
 
 ```ts
-// ✅ 泛型类继承泛型类
+// 泛型类继承泛型类
 class Collection<T> {
   protected items: T[] = []
 
@@ -644,12 +612,12 @@ numbers.add(2)
 console.log(numbers.getAll()) // [1, 2, 3]
 ```
 
-## 9. 🤔 常见使用场景
+## 8. 🤔 常见使用场景
 
-### 9.1. 场景 1：数据结构
+### 8.1. 场景 1：数据结构
 
 ```ts
-// ✅ 泛型链表
+// 泛型链表
 class ListNode<T> {
   constructor(public value: T, public next: ListNode<T> | null = null) {}
 }
@@ -722,10 +690,10 @@ list.prepend(0)
 console.log(list.toArray()) // [0, 1, 2]
 ```
 
-### 9.2. 场景 2：响应包装器
+### 8.2. 场景 2：响应包装器
 
 ```ts
-// ✅ API 响应包装器
+// API 响应包装器
 class ApiResponse<T> {
   constructor(
     public readonly status: number,
@@ -770,10 +738,10 @@ const errorResponse = ApiResponse.error<User>('User not found', 404)
 const defaultUser = errorResponse.getOrDefault({ id: 0, name: 'Guest' })
 ```
 
-### 9.3. 场景 3：状态管理
+### 8.3. 场景 3：状态管理
 
 ```ts
-// ✅ 泛型状态管理器
+// 泛型状态管理器
 type StateListener<T> = (state: T) => void
 
 class Store<T> {
@@ -830,10 +798,10 @@ store.setState({ user: { name: 'Alice', age: 30 } })
 store.setState({ isLoading: true })
 ```
 
-### 9.4. 场景 4：缓存系统
+### 8.4. 场景 4：缓存系统
 
 ```ts
-// ✅ 泛型缓存
+// 泛型缓存
 interface CacheOptions {
   ttl?: number // 过期时间（毫秒）
   maxSize?: number // 最大缓存数
@@ -912,10 +880,10 @@ userCache.set(1, { id: 1, name: 'Alice' })
 console.log(userCache.get(1)) // { id: 1, name: 'Alice' }
 ```
 
-### 9.5. 场景 5：事件发射器
+### 8.5. 场景 5：事件发射器
 
 ```ts
-// ✅ 泛型事件发射器
+// 泛型事件发射器
 type EventHandler<T> = (data: T) => void
 
 class EventEmitter<T extends Record<string, any>> {
@@ -969,10 +937,10 @@ emitter.on('userLogin', (data) => {
 emitter.emit('userLogin', { userId: 1, timestamp: new Date() })
 ```
 
-### 9.6. 场景 6：验证器
+### 8.6. 场景 6：验证器
 
 ```ts
-// ✅ 泛型验证器
+// 泛型验证器
 type ValidationRule<T> = (value: T) => string | null
 
 class Validator<T> {
@@ -1041,9 +1009,9 @@ const result = emailValidator.validate('test@example.com')
 console.log(result) // { valid: true, errors: [] }
 ```
 
-## 10. 🤔 常见错误和最佳实践
+## 9. 🤔 常见错误和最佳实践
 
-### 10.1. 错误 1：在静态成员中使用类型参数
+### 9.1. 错误 1：在静态成员中使用类型参数
 
 ```ts
 // ❌ 静态成员不能使用类型参数
@@ -1052,7 +1020,7 @@ class Container<T> {
   // static defaultValue: T
 }
 
-// ✅ 使用静态泛型方法
+// 使用静态泛型方法
 class Container<T> {
   static create<U>(value: U): Container<U> {
     return new Container(value)
@@ -1062,7 +1030,7 @@ class Container<T> {
 }
 ```
 
-### 10.2. 错误 2：忘记类型约束
+### 9.2. 错误 2：忘记类型约束
 
 ```ts
 // ❌ 没有约束，无法安全使用成员
@@ -1074,7 +1042,7 @@ class Sorter<T> {
   }
 }
 
-// ✅ 添加约束
+// 添加约束
 interface Comparable {
   compareTo(other: this): number
 }
@@ -1086,7 +1054,7 @@ class Sorter<T extends Comparable> {
 }
 ```
 
-### 10.3. 错误 3：过度使用泛型
+### 9.3. 错误 3：过度使用泛型
 
 ```ts
 // ❌ 不必要的泛型
@@ -1096,7 +1064,7 @@ class UserService<T extends User> {
   }
 }
 
-// ✅ 简单情况直接使用具体类型
+// 简单情况直接使用具体类型
 class UserService {
   getUser(id: number): User {
     return { id, name: 'Alice' }
@@ -1109,7 +1077,7 @@ interface User {
 }
 ```
 
-### 10.4. 错误 4：泛型参数命名不清晰
+### 9.4. 错误 4：泛型参数命名不清晰
 
 ```ts
 // ❌ 命名不清晰
@@ -1117,37 +1085,37 @@ class Map<X, Y> {
   constructor(public x: X, public y: Y) {}
 }
 
-// ✅ 使用有意义的名称
+// 使用有意义的名称
 class Map<TKey, TValue> {
   constructor(public key: TKey, public value: TValue) {}
 }
 
-// ✅ 或使用常见约定
+// 或使用常见约定
 // T = Type, K = Key, V = Value, E = Element
 class Dictionary<K, V> {
   // ...
 }
 ```
 
-### 10.5. 最佳实践
+### 9.5. 最佳实践
 
 ```ts
-// ✅ 1. 使用有意义的类型参数名
+// 1. 使用有意义的类型参数名
 class Repository<TEntity extends { id: number }> {
   // TEntity 清楚表明这是实体类型
 }
 
-// ✅ 2. 添加必要的约束
+// 2. 添加必要的约束
 class Validator<T extends object> {
   // 约束 T 为对象类型
 }
 
-// ✅ 3. 提供默认类型参数
+// 3. 提供默认类型参数
 class Response<T = any> {
   constructor(public data: T) {}
 }
 
-// ✅ 4. 使用泛型提高可复用性
+// 4. 使用泛型提高可复用性
 class Collection<T> {
   private items: T[] = []
 
@@ -1164,7 +1132,7 @@ class Collection<T> {
   }
 }
 
-// ✅ 5. 静态工厂方法
+// 5. 静态工厂方法
 class Result<T> {
   private constructor(
     public readonly success: boolean,
@@ -1180,7 +1148,7 @@ class Result<T> {
   }
 }
 
-// ✅ 6. 链式调用
+// 6. 链式调用
 class QueryBuilder<T> {
   private conditions: Array<(item: T) => boolean> = []
 
@@ -1196,7 +1164,7 @@ class QueryBuilder<T> {
   }
 }
 
-// ✅ 7. 组合泛型类
+// 7. 组合泛型类
 class Optional<T> {
   constructor(private value: T | null) {}
 
@@ -1212,7 +1180,7 @@ class Optional<T> {
   }
 }
 
-// ✅ 8. 文档化泛型参数
+// 8. 文档化泛型参数
 /
  * 泛型容器类
  * @template T - 容器中存储的元素类型
@@ -1221,7 +1189,7 @@ class Container<T> {
   constructor(private value: T) {}
 }
 
-// ✅ 9. 使用类型推断
+// 9. 使用类型推断
 class Box<T> {
   constructor(public value: T) {}
 
@@ -1232,11 +1200,11 @@ class Box<T> {
 
 const box = Box.from(42) // Box<number>
 
-// ✅ 10. 避免过度嵌套
+// 10. 避免过度嵌套
 // ❌ 难以理解
 class Complex<T extends Container<Array<Map<string, Set<T>>>>> {}
 
-// ✅ 使用类型别名简化
+// 使用类型别名简化
 type EntityMap<T> = Map<string, Set<T>>
 type EntityArray<T> = Array<EntityMap<T>>
 type EntityContainer<T> = Container<EntityArray<T>>
@@ -1244,7 +1212,7 @@ type EntityContainer<T> = Container<EntityArray<T>>
 class Simple<T extends EntityContainer<T>> {}
 ```
 
-## 11. 🔗 引用
+## 10. 🔗 引用
 
 - [TypeScript Handbook - Generics][1]
 - [TypeScript Handbook - Classes][2]
