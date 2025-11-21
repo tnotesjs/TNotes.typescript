@@ -28,22 +28,13 @@
   - [8.2. 接口中的泛型函数](#82-接口中的泛型函数)
   - [8.3. 回调函数类型](#83-回调函数类型)
   - [8.4. 高阶函数](#84-高阶函数)
-- [9. 🤔 常见使用场景](#9--常见使用场景)
-  - [9.1. 场景 1：数组操作](#91-场景-1数组操作)
-  - [9.2. 场景 2：Promise 包装](#92-场景-2promise-包装)
-  - [9.3. 场景 3：类型转换](#93-场景-3类型转换)
-  - [9.4. 场景 4：缓存和记忆化](#94-场景-4缓存和记忆化)
-  - [9.5. 场景 5：管道和组合](#95-场景-5管道和组合)
-  - [9.6. 场景 6：验证和断言](#96-场景-6验证和断言)
-  - [9.7. 场景 7：延迟执行](#97-场景-7延迟执行)
-  - [9.8. 场景 8：对象操作](#98-场景-8对象操作)
-- [10. 🤔 常见错误和最佳实践](#10--常见错误和最佳实践)
-  - [10.1. 错误 1：过度使用泛型](#101-错误-1过度使用泛型)
-  - [10.2. 错误 2：泛型参数过多](#102-错误-2泛型参数过多)
-  - [10.3. 错误 3：忽略类型约束](#103-错误-3忽略类型约束)
-  - [10.4. 错误 4：类型推断不准确](#104-错误-4类型推断不准确)
-  - [10.5. 最佳实践](#105-最佳实践)
-- [11. 🔗 引用](#11--引用)
+- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
+  - [9.1. 错误 1：过度使用泛型](#91-错误-1过度使用泛型)
+  - [9.2. 错误 2：泛型参数过多](#92-错误-2泛型参数过多)
+  - [9.3. 错误 3：忽略类型约束](#93-错误-3忽略类型约束)
+  - [9.4. 错误 4：类型推断不准确](#94-错误-4类型推断不准确)
+  - [9.5. 最佳实践](#95-最佳实践)
+- [10. 🔗 引用](#10--引用)
 
 <!-- endregion:toc -->
 
@@ -440,326 +431,9 @@ const name = getter(person, 'name') // string
 const age = getter(person, 'age') // number
 ```
 
-## 9. 🤔 常见使用场景
+## 9. 🤔 常见错误和最佳实践
 
-### 9.1. 场景 1：数组操作
-
-```ts
-// ✅ 通用数组工具函数
-function first<T>(arr: T[]): T | undefined {
-  return arr[0]
-}
-
-function last<T>(arr: T[]): T | undefined {
-  return arr[arr.length - 1]
-}
-
-function chunk<T>(arr: T[], size: number): T[][] {
-  const result: T[][] = []
-  for (let i = 0; i < arr.length; i += size) {
-    result.push(arr.slice(i, i + size))
-  }
-  return result
-}
-
-function unique<T>(arr: T[]): T[] {
-  return Array.from(new Set(arr))
-}
-
-function flatten<T>(arr: (T | T[])[]): T[] {
-  return arr.reduce<T[]>((acc, item) => {
-    return acc.concat(Array.isArray(item) ? flatten(item) : item)
-  }, [])
-}
-
-const numbers = [1, 2, 3, 4, 5]
-console.log(first(numbers)) // 1
-console.log(last(numbers)) // 5
-console.log(chunk(numbers, 2)) // [[1, 2], [3, 4], [5]]
-console.log(unique([1, 2, 2, 3, 3, 3])) // [1, 2, 3]
-```
-
-### 9.2. 场景 2：Promise 包装
-
-```ts
-// ✅ Promise 工具函数
-async function retry<T>(
-  fn: () => Promise<T>,
-  maxAttempts: number = 3,
-  delay: number = 1000
-): Promise<T> {
-  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    try {
-      return await fn()
-    } catch (error) {
-      if (attempt === maxAttempts) {
-        throw error
-      }
-      await new Promise((resolve) => setTimeout(resolve, delay))
-    }
-  }
-  throw new Error('Max attempts reached')
-}
-
-async function timeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-  return Promise.race([
-    promise,
-    new Promise<T>((_, reject) =>
-      setTimeout(() => reject(new Error('Timeout')), ms)
-    ),
-  ])
-}
-
-async function parallel<T>(promises: Promise<T>[]): Promise<T[]> {
-  return Promise.all(promises)
-}
-
-// 使用
-const result = await retry(() => fetch('/api/data'))
-const data = await timeout(fetch('/api/data'), 5000)
-```
-
-### 9.3. 场景 3：类型转换
-
-```ts
-// ✅ 类型转换函数
-function parseJSON<T>(json: string): T {
-  return JSON.parse(json)
-}
-
-function toRecord<T extends string | number, U>(
-  arr: U[],
-  keySelector: (item: U) => T
-): Record<T, U> {
-  return arr.reduce((acc, item) => {
-    acc[keySelector(item)] = item
-    return acc
-  }, {} as Record<T, U>)
-}
-
-function pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
-  const result = {} as Pick<T, K>
-  keys.forEach((key) => {
-    result[key] = obj[key]
-  })
-  return result
-}
-
-function omit<T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
-  const result = { ...obj }
-  keys.forEach((key) => {
-    delete result[key]
-  })
-  return result
-}
-
-interface User {
-  id: number
-  name: string
-  email: string
-  password: string
-}
-
-const user: User = {
-  id: 1,
-  name: 'Alice',
-  email: 'alice@example.com',
-  password: 'secret',
-}
-
-const publicUser = omit(user, ['password']) // { id, name, email }
-const credentials = pick(user, ['email', 'password']) // { email, password }
-```
-
-### 9.4. 场景 4：缓存和记忆化
-
-```ts
-// ✅ 记忆化函数
-function memoize<T extends (...args: any[]) => any>(fn: T): T {
-  const cache = new Map<string, ReturnType<T>>()
-
-  return ((...args: Parameters<T>) => {
-    const key = JSON.stringify(args)
-    if (cache.has(key)) {
-      return cache.get(key)!
-    }
-    const result = fn(...args)
-    cache.set(key, result)
-    return result
-  }) as T
-}
-
-// 使用
-function fibonacci(n: number): number {
-  if (n <= 1) return n
-  return fibonacci(n - 1) + fibonacci(n - 2)
-}
-
-const memoizedFib = memoize(fibonacci)
-console.log(memoizedFib(40)) // 快速计算
-```
-
-### 9.5. 场景 5：管道和组合
-
-```ts
-// ✅ 函数组合
-function pipe<A, B>(fn1: (arg: A) => B): (arg: A) => B
-
-function pipe<A, B, C>(fn1: (arg: A) => B, fn2: (arg: B) => C): (arg: A) => C
-
-function pipe<A, B, C, D>(
-  fn1: (arg: A) => B,
-  fn2: (arg: B) => C,
-  fn3: (arg: C) => D
-): (arg: A) => D
-
-function pipe(...fns: Array<(arg: any) => any>) {
-  return (arg: any) => fns.reduce((result, fn) => fn(result), arg)
-}
-
-// 使用
-const addOne = (n: number) => n + 1
-const double = (n: number) => n * 2
-const toString = (n: number) => n.toString()
-
-const transform = pipe(addOne, double, toString)
-console.log(transform(5)) // '12'
-```
-
-### 9.6. 场景 6：验证和断言
-
-```ts
-// ✅ 类型守卫和验证
-function isDefined<T>(value: T | undefined | null): value is T {
-  return value !== undefined && value !== null
-}
-
-function isArray<T>(value: any): value is T[] {
-  return Array.isArray(value)
-}
-
-function isString(value: any): value is string {
-  return typeof value === 'string'
-}
-
-function assert<T>(condition: any, message: string): asserts condition is T {
-  if (!condition) {
-    throw new Error(message)
-  }
-}
-
-// 使用
-function processValue(value: string | undefined) {
-  if (isDefined(value)) {
-    console.log(value.toUpperCase()) // ✅ value 是 string
-  }
-}
-
-function processArray<T>(arr: any) {
-  assert<T[]>(isArray(arr), 'Expected an array')
-  // arr 现在是 T[]
-  arr.forEach((item) => console.log(item))
-}
-```
-
-### 9.7. 场景 7：延迟执行
-
-```ts
-// ✅ 延迟执行和节流
-function debounce<T extends (...args: any[]) => any>(
-  fn: T,
-  delay: number
-): (...args: Parameters<T>) => void {
-  let timeoutId: NodeJS.Timeout | null = null
-
-  return (...args: Parameters<T>) => {
-    if (timeoutId) {
-      clearTimeout(timeoutId)
-    }
-    timeoutId = setTimeout(() => {
-      fn(...args)
-    }, delay)
-  }
-}
-
-function throttle<T extends (...args: any[]) => any>(
-  fn: T,
-  delay: number
-): (...args: Parameters<T>) => void {
-  let lastCall = 0
-
-  return (...args: Parameters<T>) => {
-    const now = Date.now()
-    if (now - lastCall >= delay) {
-      lastCall = now
-      fn(...args)
-    }
-  }
-}
-
-// 使用
-const handleInput = debounce((value: string) => {
-  console.log('Input:', value)
-}, 300)
-
-const handleScroll = throttle(() => {
-  console.log('Scrolled')
-}, 100)
-```
-
-### 9.8. 场景 8：对象操作
-
-```ts
-// ✅ 深度克隆和合并
-function deepClone<T>(obj: T): T {
-  if (obj === null || typeof obj !== 'object') {
-    return obj
-  }
-
-  if (Array.isArray(obj)) {
-    return obj.map((item) => deepClone(item)) as any
-  }
-
-  const cloned = {} as T
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      cloned[key] = deepClone(obj[key])
-    }
-  }
-  return cloned
-}
-
-function deepMerge<T extends object, U extends object>(
-  target: T,
-  source: U
-): T & U {
-  const result = { ...target } as T & U
-
-  for (const key in source) {
-    if (source.hasOwnProperty(key)) {
-      const sourceValue = source[key]
-      const targetValue = (target as any)[key]
-
-      if (
-        typeof sourceValue === 'object' &&
-        sourceValue !== null &&
-        typeof targetValue === 'object' &&
-        targetValue !== null
-      ) {
-        ;(result as any)[key] = deepMerge(targetValue, sourceValue)
-      } else {
-        ;(result as any)[key] = sourceValue
-      }
-    }
-  }
-
-  return result
-}
-```
-
-## 10. 🤔 常见错误和最佳实践
-
-### 10.1. 错误 1：过度使用泛型
+### 9.1. 错误 1：过度使用泛型
 
 ```ts
 // ❌ 不必要的泛型
@@ -773,7 +447,7 @@ function add(a: number, b: number): number {
 }
 ```
 
-### 10.2. 错误 2：泛型参数过多
+### 9.2. 错误 2：泛型参数过多
 
 ```ts
 // ❌ 泛型参数过多，难以理解
@@ -793,7 +467,7 @@ function simple(params: Params): Params {
 }
 ```
 
-### 10.3. 错误 3：忽略类型约束
+### 9.3. 错误 3：忽略类型约束
 
 ```ts
 // ❌ 没有约束，无法安全使用
@@ -808,7 +482,7 @@ function getLength<T extends { length: number }>(arg: T): number {
 }
 ```
 
-### 10.4. 错误 4：类型推断不准确
+### 9.4. 错误 4：类型推断不准确
 
 ```ts
 // ❌ 推断为 any[]
@@ -828,7 +502,7 @@ function createArrayFrom<T>(item: T) {
 }
 ```
 
-### 10.5. 最佳实践
+### 9.5. 最佳实践
 
 ```ts
 // ✅ 1. 使用有意义的类型参数名
@@ -919,7 +593,7 @@ function fetchData<T>(url: string): Promise<T> {
 }
 ```
 
-## 11. 🔗 引用
+## 10. 🔗 引用
 
 - [TypeScript Handbook - Generics][1]
 - [TypeScript Handbook - More on Functions][2]

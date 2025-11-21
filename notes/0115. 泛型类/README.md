@@ -5,75 +5,35 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是泛型类？](#3--什么是泛型类)
+  - [3.1. 泛型类](#31-泛型类)
+  - [3.2. 基本语法](#32-基本语法)
+  - [3.3. 泛型类的特点](#33-泛型类的特点)
+  - [3.4. 泛型类 vs 普通类](#34-泛型类-vs-普通类)
+  - [3.5. 泛型类的优势](#35-泛型类的优势)
 - [4. 🤔 如何给泛型添加约束？](#4--如何给泛型添加约束)
   - [4.1. extends 约束](#41-extends-约束)
   - [4.2. keyof 约束](#42-keyof-约束)
-- [5. 🤔 多个类型参数](#5--多个类型参数)
-  - [5.1. 两个类型参数](#51-两个类型参数)
-  - [5.2. 映射类](#52-映射类)
-  - [5.3. 转换类](#53-转换类)
-- [6. 🤔 静态成员与泛型](#6--静态成员与泛型)
-  - [6.1. 静态成员不能使用类型参数](#61-静态成员不能使用类型参数)
-  - [6.2. 工厂模式](#62-工厂模式)
-- [7. 🤔 泛型类的继承](#7--泛型类的继承)
-  - [7.1. 继承泛型类](#71-继承泛型类)
-  - [7.2. 实现泛型接口](#72-实现泛型接口)
-  - [7.3. 泛型类继承泛型类](#73-泛型类继承泛型类)
-- [8. 🤔 常见使用场景](#8--常见使用场景)
-  - [8.1. 场景 1：数据结构](#81-场景-1数据结构)
-  - [8.2. 场景 2：响应包装器](#82-场景-2响应包装器)
-  - [8.3. 场景 3：状态管理](#83-场景-3状态管理)
-  - [8.4. 场景 4：缓存系统](#84-场景-4缓存系统)
-  - [8.5. 场景 5：事件发射器](#85-场景-5事件发射器)
-  - [8.6. 场景 6：验证器](#86-场景-6验证器)
-- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
-  - [9.1. 错误 1：在静态成员中使用类型参数](#91-错误-1在静态成员中使用类型参数)
-  - [9.2. 错误 2：忘记类型约束](#92-错误-2忘记类型约束)
-  - [9.3. 错误 3：过度使用泛型](#93-错误-3过度使用泛型)
-  - [9.4. 错误 4：泛型参数命名不清晰](#94-错误-4泛型参数命名不清晰)
-  - [9.5. 最佳实践](#95-最佳实践)
-- [10. 🔗 引用](#10--引用)
+- [5. 🤔 如何给泛型类添加多个类型参数？](#5--如何给泛型类添加多个类型参数)
+- [6. 🤔 静态成员可以使用类的泛型参数吗？](#6--静态成员可以使用类的泛型参数吗)
+- [7. 🤔 如何继承泛型类？](#7--如何继承泛型类)
+- [8. 🤔 类如何实现泛型接口？](#8--类如何实现泛型接口)
+- [9. 🤔 泛型类可以继承泛型类吗？](#9--泛型类可以继承泛型类吗)
+- [10. 🤔 关于泛型类，都有哪些实践建议？](#10--关于泛型类都有哪些实践建议)
+- [11. 🔗 引用](#11--引用)
 
 <!-- endregion:toc -->
 
 ## 1. 🎯 本节内容
 
 - 泛型类的定义和使用
-- 泛型约束和默认类型
-- 多个类型参数
-- 静态成员的限制
-- 泛型类的继承
-- 实际应用场景
 
 ## 2. 🫧 评价
 
 泛型类（Generic Class）是使用类型参数的类，可以在实例化时指定具体类型。
 
-泛型类的特点：
-
-- 类型参数化：类的类型可以作为参数传入
-- 类型安全：编译时检查类型一致性
-- 代码复用：同一个类适用于多种类型
-- 灵活性：在使用时指定具体类型
-
-泛型类 vs 普通类：
-
-| 特性       | 泛型类       | 普通类     |
-| ---------- | ------------ | ---------- |
-| 类型灵活性 | 高           | 低         |
-| 代码复用   | 高           | 需要继承   |
-| 类型安全   | 编译时检查   | 编译时检查 |
-| 复杂度     | 稍高         | 简单       |
-| 适用场景   | 容器、工具类 | 业务类     |
-
-泛型类的优势：
-
-1. 类型安全：避免类型转换和运行时错误
-2. 代码复用：一套代码适用多种类型
-3. 智能提示：IDE 能提供准确的类型提示
-4. 约束灵活：可以对类型参数添加约束
-
 ## 3. 🤔 什么是泛型类？
+
+### 3.1. 泛型类
 
 泛型类在定义时使用类型参数，在实例化时指定具体类型。
 
@@ -118,7 +78,7 @@ const boolBox = new Box(true) // Box<boolean>
 // new Box<string>('hello') 可以简写为 new Box('hello')
 ```
 
-基本语法：
+### 3.2. 基本语法
 
 1. 单个类型参数
 2. 泛型属性
@@ -229,6 +189,30 @@ const result2 = new Result<number>(true, 42) // Result<number>
 
 :::
 
+### 3.3. 泛型类的特点
+
+- 类型参数化：类的类型可以作为参数传入
+- 类型安全：编译时检查类型一致性
+- 代码复用：同一个类适用于多种类型
+- 灵活性：在使用时指定具体类型
+
+### 3.4. 泛型类 vs 普通类
+
+| 特性       | 泛型类       | 普通类     |
+| ---------- | ------------ | ---------- |
+| 类型灵活性 | 高           | 低         |
+| 代码复用   | 高           | 需要继承   |
+| 类型安全   | 编译时检查   | 编译时检查 |
+| 复杂度     | 稍高         | 简单       |
+| 适用场景   | 容器、工具类 | 业务类     |
+
+### 3.5. 泛型类的优势
+
+1. 类型安全：避免类型转换和运行时错误
+2. 代码复用：一套代码适用多种类型
+3. 智能提示：IDE 能提供准确的类型提示
+4. 约束灵活：可以对类型参数添加约束
+
 ## 4. 🤔 如何给泛型添加约束？
 
 ### 4.1. extends 约束
@@ -336,12 +320,9 @@ console.log(nameGetter.getValue()) // 'Alice'
 // Argument of type '"invalid"' is not assignable to parameter of type 'keyof Person'.(2345)
 ```
 
-## 5. 🤔 多个类型参数
-
-### 5.1. 两个类型参数
+## 5. 🤔 如何给泛型类添加多个类型参数？
 
 ```ts
-// 两个类型参数
 class Pair<K, V> {
   constructor(public key: K, public value: V) {}
 
@@ -366,77 +347,20 @@ console.log(pair1.getKey()) // 'age'
 console.log(pair1.getValue()) // 30
 ```
 
-### 5.2. 映射类
+## 6. 🤔 静态成员可以使用类的泛型参数吗？
 
-```ts
-// 键值对映射
-class Dictionary<K extends string | number, V> {
-  private items = new Map<K, V>()
+不能。
 
-  set(key: K, value: V): void {
-    this.items.set(key, value)
-  }
+1. 静态成员属性：不能使用类的泛型参数
+2. 静态成员方法：不能使用类的泛型参数（但是允许有自己的泛型参数）
 
-  get(key: K): V | undefined {
-    return this.items.get(key)
-  }
+::: code-group
 
-  has(key: K): boolean {
-    return this.items.has(key)
-  }
-
-  delete(key: K): boolean {
-    return this.items.delete(key)
-  }
-
-  keys(): K[] {
-    return Array.from(this.items.keys())
-  }
-
-  values(): V[] {
-    return Array.from(this.items.values())
-  }
-}
-
-const dict = new Dictionary<string, number>()
-dict.set('one', 1)
-dict.set('two', 2)
-console.log(dict.get('one')) // 1
-```
-
-### 5.3. 转换类
-
-```ts
-// 类型转换器
-class Converter<TInput, TOutput> {
-  constructor(private converter: (input: TInput) => TOutput) {}
-
-  convert(input: TInput): TOutput {
-    return this.converter(input)
-  }
-
-  convertAll(inputs: TInput[]): TOutput[] {
-    return inputs.map(this.converter)
-  }
-}
-
-const stringToNumber = new Converter<string, number>((str) => parseInt(str))
-console.log(stringToNumber.convert('42')) // 42
-console.log(stringToNumber.convertAll(['1', '2', '3'])) // [1, 2, 3]
-
-const numberToString = new Converter<number, string>((num) => num.toString())
-console.log(numberToString.convert(42)) // '42'
-```
-
-## 6. 🤔 静态成员与泛型
-
-### 6.1. 静态成员不能使用类型参数
-
-```ts
-// ❌ 静态成员不能引用类型参数
+```ts [1]
 class Container<T> {
   // ❌ Error: 静态成员不能引用类型参数
   // static defaultValue: T
+  // Static members cannot reference class type parameters.(2302)
 
   private value: T
 
@@ -444,8 +368,9 @@ class Container<T> {
     this.value = value
   }
 }
+```
 
-// 静态成员可以有自己的泛型
+```ts [2]
 class Container<T> {
   private value: T
 
@@ -453,58 +378,30 @@ class Container<T> {
     this.value = value
   }
 
-  // 静态泛型方法
+  // 静态成员方法可以有自己的泛型，比如这里的 U
   static create<U>(value: U): Container<U> {
     return new Container(value)
   }
-
-  // 静态方法不依赖类的泛型
-  static merge<A, B>(a: Container<A>, b: Container<B>): Container<[A, B]> {
-    return new Container([a.value, b.value] as [A, B])
-  }
 }
 
-const container = Container.create(42) // Container<number>
+const container = Container.create(42)
+// 推断结果：
+// const container = Container<number>
 ```
 
-### 6.2. 工厂模式
+:::
 
-```ts
-// 使用静态方法作为工厂
-class Result<T> {
-  private constructor(
-    public readonly success: boolean,
-    public readonly data?: T,
-    public readonly error?: string
-  ) {}
+## 7. 🤔 如何继承泛型类？
 
-  static success<T>(data: T): Result<T> {
-    return new Result(true, data, undefined)
-  }
+在继承一个泛型类的时候，你可以做以下操作：
 
-  static failure<T>(error: string): Result<T> {
-    return new Result(false, undefined, error)
-  }
+1. 可以指定具体类型
+2. 可以保持原有的泛型信息，或在原有泛型信息的基础上添加新的约束规则
+3. 可以在原有泛型信息的基础上添加新的泛型参数
 
-  isSuccess(): this is Result<T> & { data: T } {
-    return this.success
-  }
-}
+::: code-group
 
-const success = Result.success(42)
-const failure = Result.failure<number>('Error occurred')
-
-if (success.isSuccess()) {
-  console.log(success.data) // 42
-}
-```
-
-## 7. 🤔 泛型类的继承
-
-### 7.1. 继承泛型类
-
-```ts
-// 继承泛型类
+```ts [1]
 class Container<T> {
   constructor(protected value: T) {}
 
@@ -513,21 +410,49 @@ class Container<T> {
   }
 }
 
-// 1. 指定具体类型
+// 指定具体类型
 class StringContainer extends Container<string> {
   getUpperCase(): string {
     return this.value.toUpperCase()
   }
 }
+```
 
-// 2. 保持泛型
+```ts [2]
+class Container<T> {
+  constructor(protected value: T) {}
+
+  getValue(): T {
+    return this.value
+  }
+}
+
+// 保持原有的泛型信息
+class LogContainer<T> extends Container<T> {
+  log(): void {
+    console.log(this.value)
+  }
+}
+
+// 在原有泛型信息的基础上添加新的约束规则
 class NumberContainer<T extends number> extends Container<T> {
   double(): T {
     return (this.value * 2) as T
   }
 }
+```
 
-// 3. 添加新的类型参数
+```ts [3]
+class Container<T> {
+  constructor(protected value: T) {}
+
+  getValue(): T {
+    return this.value
+  }
+}
+
+// 在原有泛型信息的基础上添加新的泛型参数
+// 比如这里的 U 就是新增的泛型参数
 class PairContainer<T, U> extends Container<T> {
   constructor(value: T, private secondValue: U) {
     super(value)
@@ -539,10 +464,16 @@ class PairContainer<T, U> extends Container<T> {
 }
 ```
 
-### 7.2. 实现泛型接口
+:::
 
-```ts
-// 实现泛型接口
+## 8. 🤔 类如何实现泛型接口？
+
+1. 普通类（非泛型类）在实现泛型接口时，必须显式指定泛型的具体类型。因为普通类本身没有类型参数可以“传递”给接口，所以必须在实现时“固化”接口中的泛型类型，以便 TypeScript 进行类型检查。
+2. 泛型类在实现泛型接口时，可以将类的类型参数传递给接口。这样，接口的类型参数就由类的实例化类型决定，保持了类型的灵活性。
+
+::: code-group
+
+```ts [1]
 interface Comparable<T> {
   compareTo(other: T): number
 }
@@ -574,548 +505,119 @@ const v2 = new Version(2, 0, 0)
 console.log(v1.compareTo(v2)) // -1
 ```
 
-### 7.3. 泛型类继承泛型类
+```ts [2]
+interface IContainer<T> {
+  value: T
+  getValue(): T
+}
 
-```ts
-// 泛型类继承泛型类
+// 泛型类实现泛型接口
+// 这里的 T 是 Box 类的类型参数，传递给了 IContainer 接口
+class Box<T> implements IContainer<T> {
+  constructor(public value: T) {}
+
+  getValue(): T {
+    return this.value
+  }
+}
+
+const box1 = new Box<string>('hello')
+console.log(box1.getValue()) // 'hello'
+
+const box2 = new Box(100) // 等价于 new Box<number>(100)
+// TS 推断结果：
+// const box2: Box<number>
+// 在这个示例中，TS 会根据我们传入的值自动推断出泛型 T 的类型是 number
+console.log(box2.getValue()) // 100
+```
+
+:::
+
+## 9. 🤔 泛型类可以继承泛型类吗？
+
+可以。这完全符合泛型类的继承规则，你依然可以灵活地处理类型参数：
+
+1. 部分指定：父类有多个类型参数时，子类可以固定其中一部分，保留一部分。
+2. 完全传递：子类完全保留父类的泛型参数，甚至可以添加额外的约束。
+3. 扩展参数：子类在继承父类泛型的基础上，定义新的泛型参数。
+
+::: code-group
+
+```ts [1]
+// 1. 部分指定类型
+class KeyValue<K, V> {
+  constructor(public key: K, public value: V) {}
+}
+
+// 子类固定了 K 为 string，但 V 依然是泛型
+// 因此 StringKeyMap 依然是一个泛型类
+class StringKeyMap<V> extends KeyValue<string, V> {
+  constructor(key: string, value: V) {
+    super(key, value)
+  }
+}
+
+const map = new StringKeyMap<number>('id', 1)
+```
+
+```ts [2]
+// 2. 完全传递（可添加约束）
 class Collection<T> {
   protected items: T[] = []
-
-  add(item: T): void {
+  add(item: T) {
     this.items.push(item)
   }
-
-  getAll(): T[] {
-    return [...this.items]
-  }
 }
 
-class SortedCollection<T> extends Collection<T> {
-  constructor(private compareFn: (a: T, b: T) => number) {
-    super()
-  }
-
-  add(item: T): void {
-    super.add(item)
-    this.items.sort(this.compareFn)
-  }
-
-  getSorted(): T[] {
-    return [...this.items].sort(this.compareFn)
-  }
-}
-
-const numbers = new SortedCollection<number>((a, b) => a - b)
-numbers.add(3)
-numbers.add(1)
-numbers.add(2)
-console.log(numbers.getAll()) // [1, 2, 3]
-```
-
-## 8. 🤔 常见使用场景
-
-### 8.1. 场景 1：数据结构
-
-```ts
-// 泛型链表
-class ListNode<T> {
-  constructor(public value: T, public next: ListNode<T> | null = null) {}
-}
-
-class LinkedList<T> {
-  private head: ListNode<T> | null = null
-  private tail: ListNode<T> | null = null
-  private length = 0
-
-  append(value: T): void {
-    const node = new ListNode(value)
-
-    if (!this.head) {
-      this.head = node
-      this.tail = node
-    } else {
-      this.tail!.next = node
-      this.tail = node
-    }
-
-    this.length++
-  }
-
-  prepend(value: T): void {
-    const node = new ListNode(value)
-    node.next = this.head
-    this.head = node
-
-    if (!this.tail) {
-      this.tail = node
-    }
-
-    this.length++
-  }
-
-  find(predicate: (value: T) => boolean): T | null {
-    let current = this.head
-
-    while (current) {
-      if (predicate(current.value)) {
-        return current.value
-      }
-      current = current.next
-    }
-
-    return null
-  }
-
-  toArray(): T[] {
-    const result: T[] = []
-    let current = this.head
-
-    while (current) {
-      result.push(current.value)
-      current = current.next
-    }
-
-    return result
-  }
-
-  getLength(): number {
-    return this.length
-  }
-}
-
-const list = new LinkedList<number>()
-list.append(1)
-list.append(2)
-list.prepend(0)
-console.log(list.toArray()) // [0, 1, 2]
-```
-
-### 8.2. 场景 2：响应包装器
-
-```ts
-// API 响应包装器
-class ApiResponse<T> {
-  constructor(
-    public readonly status: number,
-    public readonly data: T | null,
-    public readonly error: string | null,
-    public readonly timestamp: Date = new Date()
-  ) {}
-
-  static success<T>(data: T, status: number = 200): ApiResponse<T> {
-    return new ApiResponse(status, data, null)
-  }
-
-  static error<T>(error: string, status: number = 500): ApiResponse<T> {
-    return new ApiResponse(status, null, error)
-  }
-
-  isSuccess(): boolean {
-    return this.status >= 200 && this.status < 300 && this.error === null
-  }
-
-  getData(): T {
-    if (!this.isSuccess() || this.data === null) {
-      throw new Error(this.error || 'No data available')
-    }
-    return this.data
-  }
-
-  getOrDefault(defaultValue: T): T {
-    return this.isSuccess() && this.data !== null ? this.data : defaultValue
-  }
-}
-
-interface User {
-  id: number
-  name: string
-}
-
-const userResponse = ApiResponse.success<User>({ id: 1, name: 'Alice' })
-const user = userResponse.getData()
-
-const errorResponse = ApiResponse.error<User>('User not found', 404)
-const defaultUser = errorResponse.getOrDefault({ id: 0, name: 'Guest' })
-```
-
-### 8.3. 场景 3：状态管理
-
-```ts
-// 泛型状态管理器
-type StateListener<T> = (state: T) => void
-
-class Store<T> {
-  private state: T
-  private listeners: StateListener<T>[] = []
-
-  constructor(initialState: T) {
-    this.state = initialState
-  }
-
-  getState(): T {
-    return this.state
-  }
-
-  setState(newState: Partial<T>): void {
-    this.state = { ...this.state, ...newState }
-    this.notifyListeners()
-  }
-
-  subscribe(listener: StateListener<T>): () => void {
-    this.listeners.push(listener)
-
-    // 返回取消订阅函数
-    return () => {
-      const index = this.listeners.indexOf(listener)
-      if (index > -1) {
-        this.listeners.splice(index, 1)
-      }
-    }
-  }
-
-  private notifyListeners(): void {
-    this.listeners.forEach((listener) => listener(this.state))
-  }
-}
-
-interface AppState {
-  user: { name: string; age: number } | null
-  isLoading: boolean
-  error: string | null
-}
-
-const store = new Store<AppState>({
-  user: null,
-  isLoading: false,
-  error: null,
-})
-
-const unsubscribe = store.subscribe((state) => {
-  console.log('State changed:', state)
-})
-
-store.setState({ user: { name: 'Alice', age: 30 } })
-store.setState({ isLoading: true })
-```
-
-### 8.4. 场景 4：缓存系统
-
-```ts
-// 泛型缓存
-interface CacheOptions {
-  ttl?: number // 过期时间（毫秒）
-  maxSize?: number // 最大缓存数
-}
-
-class Cache<K extends string | number, V> {
-  private cache = new Map<K, { value: V; expiry: number }>()
-  private options: Required<CacheOptions>
-
-  constructor(options: CacheOptions = {}) {
-    this.options = {
-      ttl: options.ttl || 60000, // 默认 1 分钟
-      maxSize: options.maxSize || 100,
-    }
-  }
-
-  set(key: K, value: V, ttl?: number): void {
-    // 检查缓存大小
-    if (this.cache.size >= this.options.maxSize) {
-      // 删除最老的条目
-      const firstKey = this.cache.keys().next().value
-      this.cache.delete(firstKey)
-    }
-
-    const expiry = Date.now() + (ttl || this.options.ttl)
-    this.cache.set(key, { value, expiry })
-  }
-
-  get(key: K): V | undefined {
-    const item = this.cache.get(key)
-
-    if (!item) {
-      return undefined
-    }
-
-    // 检查是否过期
-    if (Date.now() > item.expiry) {
-      this.cache.delete(key)
-      return undefined
-    }
-
-    return item.value
-  }
-
-  has(key: K): boolean {
-    return this.get(key) !== undefined
-  }
-
-  delete(key: K): boolean {
-    return this.cache.delete(key)
-  }
-
-  clear(): void {
-    this.cache.clear()
-  }
-
-  size(): number {
-    // 清理过期条目
-    const now = Date.now()
-    for (const [key, item] of this.cache.entries()) {
-      if (now > item.expiry) {
-        this.cache.delete(key)
-      }
-    }
-    return this.cache.size
-  }
-}
-
-interface User {
-  id: number
-  name: string
-}
-
-const userCache = new Cache<number, User>({ ttl: 5000 })
-userCache.set(1, { id: 1, name: 'Alice' })
-console.log(userCache.get(1)) // { id: 1, name: 'Alice' }
-```
-
-### 8.5. 场景 5：事件发射器
-
-```ts
-// 泛型事件发射器
-type EventHandler<T> = (data: T) => void
-
-class EventEmitter<T extends Record<string, any>> {
-  private handlers = new Map<keyof T, EventHandler<any>[]>()
-
-  on<K extends keyof T>(event: K, handler: EventHandler<T[K]>): void {
-    if (!this.handlers.has(event)) {
-      this.handlers.set(event, [])
-    }
-    this.handlers.get(event)!.push(handler)
-  }
-
-  off<K extends keyof T>(event: K, handler: EventHandler<T[K]>): void {
-    const handlers = this.handlers.get(event)
-    if (handlers) {
-      const index = handlers.indexOf(handler)
-      if (index > -1) {
-        handlers.splice(index, 1)
-      }
-    }
-  }
-
-  emit<K extends keyof T>(event: K, data: T[K]): void {
-    const handlers = this.handlers.get(event)
-    if (handlers) {
-      handlers.forEach((handler) => handler(data))
-    }
-  }
-
-  once<K extends keyof T>(event: K, handler: EventHandler<T[K]>): void {
-    const onceHandler = (data: T[K]) => {
-      handler(data)
-      this.off(event, onceHandler)
-    }
-    this.on(event, onceHandler)
-  }
-}
-
-interface AppEvents {
-  userLogin: { userId: number; timestamp: Date }
-  userLogout: { userId: number }
-  dataLoaded: { count: number }
-}
-
-const emitter = new EventEmitter<AppEvents>()
-
-emitter.on('userLogin', (data) => {
-  console.log(`User ${data.userId} logged in at ${data.timestamp}`)
-})
-
-emitter.emit('userLogin', { userId: 1, timestamp: new Date() })
-```
-
-### 8.6. 场景 6：验证器
-
-```ts
-// 泛型验证器
-type ValidationRule<T> = (value: T) => string | null
-
-class Validator<T> {
-  private rules: ValidationRule<T>[] = []
-
-  addRule(rule: ValidationRule<T>): this {
-    this.rules.push(rule)
-    return this
-  }
-
-  validate(value: T): { valid: boolean; errors: string[] } {
-    const errors: string[] = []
-
-    for (const rule of this.rules) {
-      const error = rule(value)
-      if (error) {
-        errors.push(error)
-      }
-    }
-
-    return {
-      valid: errors.length === 0,
-      errors,
-    }
-  }
-
-  static required<T>(): ValidationRule<T> {
-    return (value: T) => {
-      if (value === null || value === undefined || value === '') {
-        return 'This field is required'
-      }
-      return null
-    }
-  }
-
-  static minLength(min: number): ValidationRule<string> {
-    return (value: string) => {
-      if (value.length < min) {
-        return `Minimum length is ${min}`
-      }
-      return null
-    }
-  }
-
-  static range(min: number, max: number): ValidationRule<number> {
-    return (value: number) => {
-      if (value < min || value > max) {
-        return `Value must be between ${min} and ${max}`
-      }
-      return null
-    }
-  }
-}
-
-const emailValidator = new Validator<string>()
-  .addRule(Validator.required())
-  .addRule(Validator.minLength(5))
-  .addRule((value) => {
-    if (!value.includes('@')) {
-      return 'Invalid email format'
-    }
-    return null
-  })
-
-const result = emailValidator.validate('test@example.com')
-console.log(result) // { valid: true, errors: [] }
-```
-
-## 9. 🤔 常见错误和最佳实践
-
-### 9.1. 错误 1：在静态成员中使用类型参数
-
-```ts
-// ❌ 静态成员不能使用类型参数
-class Container<T> {
-  // ❌ Error
-  // static defaultValue: T
-}
-
-// 使用静态泛型方法
-class Container<T> {
-  static create<U>(value: U): Container<U> {
-    return new Container(value)
-  }
-
-  constructor(private value: T) {}
-}
-```
-
-### 9.2. 错误 2：忘记类型约束
-
-```ts
-// ❌ 没有约束，无法安全使用成员
-class Sorter<T> {
-  sort(items: T[]): T[] {
-    // ❌ 不知道 T 是否有 compareTo 方法
-    // return items.sort((a, b) => a.compareTo(b))
-    return items
-  }
-}
-
-// 添加约束
 interface Comparable {
   compareTo(other: this): number
 }
 
-class Sorter<T extends Comparable> {
-  sort(items: T[]): T[] {
-    return items.sort((a, b) => a.compareTo(b))
+// 子类继承了 T，并添加了 extends Comparable 约束
+class SortedCollection<T extends Comparable> extends Collection<T> {
+  sort() {
+    // ...
   }
 }
 ```
 
-### 9.3. 错误 3：过度使用泛型
+```ts [3]
+// 3. 扩展新参数
+class BaseResponse<T> {
+  constructor(public data: T) {}
+}
 
-```ts
-// ❌ 不必要的泛型
-class UserService<T extends User> {
-  getUser(id: number): T {
-    return { id, name: 'Alice' } as T
+// 子类引入了新的泛型参数 M
+class PagedResponse<T, M> extends BaseResponse<T> {
+  constructor(data: T, public meta: M) {
+    super(data)
   }
 }
 
-// 简单情况直接使用具体类型
-class UserService {
-  getUser(id: number): User {
-    return { id, name: 'Alice' }
-  }
-}
-
-interface User {
-  id: number
-  name: string
-}
+const res = new PagedResponse<string[], number>(['a', 'b'], 2)
 ```
 
-### 9.4. 错误 4：泛型参数命名不清晰
+:::
+
+## 10. 🤔 关于泛型类，都有哪些实践建议？
 
 ```ts
-// ❌ 命名不清晰
-class Map<X, Y> {
-  constructor(public x: X, public y: Y) {}
-}
-
-// 使用有意义的名称
-class Map<TKey, TValue> {
-  constructor(public key: TKey, public value: TValue) {}
-}
-
-// 或使用常见约定
-// T = Type, K = Key, V = Value, E = Element
-class Dictionary<K, V> {
-  // ...
-}
-```
-
-### 9.5. 最佳实践
-
-```ts
-// 1. 使用有意义的类型参数名
+// ✅ 使用有意义的类型参数名
 class Repository<TEntity extends { id: number }> {
   // TEntity 清楚表明这是实体类型
 }
 
-// 2. 添加必要的约束
+// ✅ 添加必要的约束
 class Validator<T extends object> {
   // 约束 T 为对象类型
 }
 
-// 3. 提供默认类型参数
+// ✅ 提供默认类型参数
 class Response<T = any> {
   constructor(public data: T) {}
 }
 
-// 4. 使用泛型提高可复用性
+// ✅ 合理使用泛型提高可复用性
 class Collection<T> {
   private items: T[] = []
 
@@ -1132,56 +634,8 @@ class Collection<T> {
   }
 }
 
-// 5. 静态工厂方法
-class Result<T> {
-  private constructor(
-    public readonly success: boolean,
-    public readonly data?: T
-  ) {}
-
-  static ok<T>(data: T): Result<T> {
-    return new Result(true, data)
-  }
-
-  static fail<T>(): Result<T> {
-    return new Result(false)
-  }
-}
-
-// 6. 链式调用
-class QueryBuilder<T> {
-  private conditions: Array<(item: T) => boolean> = []
-
-  where(condition: (item: T) => boolean): this {
-    this.conditions.push(condition)
-    return this
-  }
-
-  execute(items: T[]): T[] {
-    return items.filter((item) =>
-      this.conditions.every((condition) => condition(item))
-    )
-  }
-}
-
-// 7. 组合泛型类
-class Optional<T> {
-  constructor(private value: T | null) {}
-
-  map<U>(fn: (value: T) => U): Optional<U> {
-    if (this.value === null) {
-      return new Optional<U>(null)
-    }
-    return new Optional(fn(this.value))
-  }
-
-  orElse(defaultValue: T): T {
-    return this.value ?? defaultValue
-  }
-}
-
-// 8. 文档化泛型参数
-/
+// ✅ 文档化泛型参数
+/**
  * 泛型容器类
  * @template T - 容器中存储的元素类型
  */
@@ -1189,7 +643,7 @@ class Container<T> {
   constructor(private value: T) {}
 }
 
-// 9. 使用类型推断
+// ✅ 使用类型推断
 class Box<T> {
   constructor(public value: T) {}
 
@@ -1200,11 +654,11 @@ class Box<T> {
 
 const box = Box.from(42) // Box<number>
 
-// 10. 避免过度嵌套
-// ❌ 难以理解
+// ✅ 避免过度嵌套
 class Complex<T extends Container<Array<Map<string, Set<T>>>>> {}
+// 这么写难以理解
 
-// 使用类型别名简化
+// 可以使用类型别名简化
 type EntityMap<T> = Map<string, Set<T>>
 type EntityArray<T> = Array<EntityMap<T>>
 type EntityContainer<T> = Container<EntityArray<T>>
@@ -1212,7 +666,7 @@ type EntityContainer<T> = Container<EntityArray<T>>
 class Simple<T extends EntityContainer<T>> {}
 ```
 
-## 10. 🔗 引用
+## 11. 🔗 引用
 
 - [TypeScript Handbook - Generics][1]
 - [TypeScript Handbook - Classes][2]

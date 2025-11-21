@@ -23,21 +23,13 @@
   - [7.1. 推断优先于默认值](#71-推断优先于默认值)
   - [7.2. 无法推断时使用默认值](#72-无法推断时使用默认值)
   - [7.3. 部分推断](#73-部分推断)
-- [8. 🤔 常见使用场景](#8--常见使用场景)
-  - [8.1. 场景 1：API 响应类型](#81-场景-1api-响应类型)
-  - [8.2. 场景 2：状态管理](#82-场景-2状态管理)
-  - [8.3. 场景 3：Promise 包装器](#83-场景-3promise-包装器)
-  - [8.4. 场景 4：事件发射器](#84-场景-4事件发射器)
-  - [8.5. 场景 5：缓存系统](#85-场景-5缓存系统)
-  - [8.6. 场景 6：数据验证器](#86-场景-6数据验证器)
-  - [8.7. 场景 7：查询构建器](#87-场景-7查询构建器)
-- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
-  - [9.1. 错误 1：默认值不满足约束](#91-错误-1默认值不满足约束)
-  - [9.2. 错误 2：默认值顺序错误](#92-错误-2默认值顺序错误)
-  - [9.3. 错误 3：过度使用 any](#93-错误-3过度使用-any)
-  - [9.4. 错误 4：忽略类型推断](#94-错误-4忽略类型推断)
-  - [9.5. 最佳实践](#95-最佳实践)
-- [10. 🔗 引用](#10--引用)
+- [8. 🤔 常见错误和最佳实践](#8--常见错误和最佳实践)
+  - [8.1. 错误 1：默认值不满足约束](#81-错误-1默认值不满足约束)
+  - [8.2. 错误 2：默认值顺序错误](#82-错误-2默认值顺序错误)
+  - [8.3. 错误 3：过度使用 any](#83-错误-3过度使用-any)
+  - [8.4. 错误 4：忽略类型推断](#84-错误-4忽略类型推断)
+  - [8.5. 最佳实践](#85-最佳实践)
+- [9. 🔗 引用](#9--引用)
 
 <!-- endregion:toc -->
 
@@ -425,331 +417,9 @@ const result1 = convert(42) // T=number, U=string(默认)
 const result2 = convert<number, boolean>(42) // T=number, U=boolean
 ```
 
-## 8. 🤔 常见使用场景
+## 8. 🤔 常见错误和最佳实践
 
-### 8.1. 场景 1：API 响应类型
-
-```ts
-// ✅ 通用 API 响应
-interface ApiResponse<T = unknown, E = Error> {
-  data?: T
-  error?: E
-  status: number
-  message: string
-}
-
-// 简单使用（使用默认值）
-const response1: ApiResponse = {
-  data: { anything: true },
-  status: 200,
-  message: 'OK',
-}
-
-// 指定数据类型
-interface User {
-  id: number
-  name: string
-}
-
-const response2: ApiResponse<User> = {
-  data: { id: 1, name: 'Alice' },
-  status: 200,
-  message: 'OK',
-}
-
-// 指定数据和错误类型
-interface ValidationError {
-  field: string
-  message: string
-}
-
-const response3: ApiResponse<User[], ValidationError[]> = {
-  error: [{ field: 'email', message: 'Invalid format' }],
-  status: 400,
-  message: 'Validation failed',
-}
-```
-
-### 8.2. 场景 2：状态管理
-
-```ts
-// ✅ Redux 风格的 Action
-interface Action<T = any> {
-  type: string
-  payload?: T
-  error?: boolean
-  meta?: any
-}
-
-// 简单 action
-const action1: Action = {
-  type: 'RESET',
-}
-
-// 带 payload
-const action2: Action<User> = {
-  type: 'USER_LOADED',
-  payload: { id: 1, name: 'Alice' },
-}
-
-// 错误 action
-const action3: Action<Error> = {
-  type: 'LOAD_FAILED',
-  payload: new Error('Failed to load'),
-  error: true,
-}
-```
-
-### 8.3. 场景 3：Promise 包装器
-
-```ts
-// ✅ 带重试的 Promise
-interface RetryOptions {
-  maxRetries: number
-  delay: number
-}
-
-class RetryablePromise<T = void> {
-  constructor(
-    private executor: () => Promise<T>,
-    private options: RetryOptions = { maxRetries: 3, delay: 1000 }
-  ) {}
-
-  async execute(): Promise<T> {
-    let lastError: Error | undefined
-
-    for (let i = 0; i < this.options.maxRetries; i++) {
-      try {
-        return await this.executor()
-      } catch (error) {
-        lastError = error as Error
-        await this.delay()
-      }
-    }
-
-    throw lastError
-  }
-
-  private delay(): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, this.options.delay))
-  }
-}
-
-// 使用默认类型
-const retry1 = new RetryablePromise(async () => {
-  console.log('执行操作')
-})
-
-// 指定返回类型
-const retry2 = new RetryablePromise<User>(async () => {
-  return { id: 1, name: 'Alice' }
-})
-```
-
-### 8.4. 场景 4：事件发射器
-
-```ts
-// ✅ 类型安全的事件发射器
-interface EventMap {
-  [event: string]: any
-}
-
-class TypedEventEmitter<T extends EventMap = EventMap> {
-  private handlers = new Map<keyof T, Array<(data: any) => void>>()
-
-  on<K extends keyof T>(event: K, handler: (data: T[K]) => void): void {
-    if (!this.handlers.has(event)) {
-      this.handlers.set(event, [])
-    }
-    this.handlers.get(event)!.push(handler)
-  }
-
-  emit<K extends keyof T>(event: K, data: T[K]): void {
-    const handlers = this.handlers.get(event)
-    if (handlers) {
-      handlers.forEach((handler) => handler(data))
-    }
-  }
-}
-
-// 使用默认类型（any events）
-const emitter1 = new TypedEventEmitter()
-emitter1.on('any-event', (data) => console.log(data))
-
-// 指定具体事件类型
-interface AppEvents {
-  'user:login': { userId: number }
-  'user:logout': { userId: number }
-  'data:updated': { count: number }
-}
-
-const emitter2 = new TypedEventEmitter<AppEvents>()
-emitter2.on('user:login', (data) => {
-  console.log(data.userId) // 类型安全
-})
-```
-
-### 8.5. 场景 5：缓存系统
-
-```ts
-// ✅ 通用缓存
-interface CacheOptions {
-  ttl?: number
-  maxSize?: number
-}
-
-class Cache<K = string, V = any> {
-  private store = new Map<K, { value: V; expiry: number }>()
-
-  constructor(private options: CacheOptions = {}) {}
-
-  set(key: K, value: V): void {
-    const expiry = this.options.ttl ? Date.now() + this.options.ttl : Infinity
-
-    this.store.set(key, { value, expiry })
-
-    if (this.options.maxSize && this.store.size > this.options.maxSize) {
-      const firstKey = this.store.keys().next().value
-      this.store.delete(firstKey)
-    }
-  }
-
-  get(key: K): V | undefined {
-    const item = this.store.get(key)
-
-    if (!item) return undefined
-
-    if (Date.now() > item.expiry) {
-      this.store.delete(key)
-      return undefined
-    }
-
-    return item.value
-  }
-
-  has(key: K): boolean {
-    return this.get(key) !== undefined
-  }
-
-  clear(): void {
-    this.store.clear()
-  }
-}
-
-// 使用默认类型
-const cache1 = new Cache()
-cache1.set('key', 'value')
-
-// 指定键值类型
-const cache2 = new Cache<number, User>()
-cache2.set(1, { id: 1, name: 'Alice' })
-```
-
-### 8.6. 场景 6：数据验证器
-
-```ts
-// ✅ 通用验证器
-type ValidationResult<T = any> = {
-  valid: boolean
-  data?: T
-  errors?: string[]
-}
-
-interface Validator<T = any> {
-  validate(value: unknown): ValidationResult<T>
-}
-
-class StringValidator implements Validator<string> {
-  validate(value: unknown): ValidationResult<string> {
-    if (typeof value !== 'string') {
-      return { valid: false, errors: ['Must be a string'] }
-    }
-    return { valid: true, data: value }
-  }
-}
-
-class NumberValidator implements Validator<number> {
-  validate(value: unknown): ValidationResult<number> {
-    if (typeof value !== 'number') {
-      return { valid: false, errors: ['Must be a number'] }
-    }
-    return { valid: true, data: value }
-  }
-}
-
-// 使用
-const stringValidator = new StringValidator()
-const result1 = stringValidator.validate('hello')
-
-const numberValidator = new NumberValidator()
-const result2 = numberValidator.validate(42)
-```
-
-### 8.7. 场景 7：查询构建器
-
-```ts
-// ✅ 类型安全的查询构建器
-interface QueryOptions<T = any> {
-  filter?: Partial<T>
-  sort?: Array<{
-    field: keyof T
-    order: 'asc' | 'desc'
-  }>
-  limit?: number
-  offset?: number
-}
-
-class QueryBuilder<T = any> {
-  private options: QueryOptions<T> = {}
-
-  where(filter: Partial<T>): this {
-    this.options.filter = { ...this.options.filter, ...filter }
-    return this
-  }
-
-  orderBy(field: keyof T, order: 'asc' | 'desc' = 'asc'): this {
-    if (!this.options.sort) {
-      this.options.sort = []
-    }
-    this.options.sort.push({ field, order })
-    return this
-  }
-
-  limit(limit: number): this {
-    this.options.limit = limit
-    return this
-  }
-
-  offset(offset: number): this {
-    this.options.offset = offset
-    return this
-  }
-
-  build(): QueryOptions<T> {
-    return this.options
-  }
-}
-
-// 使用默认类型
-const query1 = new QueryBuilder().where({ anything: true }).limit(10).build()
-
-// 指定具体类型
-interface Product {
-  id: number
-  name: string
-  price: number
-}
-
-const query2 = new QueryBuilder<Product>()
-  .where({ price: 100 })
-  .orderBy('name', 'asc')
-  .limit(10)
-  .build()
-```
-
-## 9. 🤔 常见错误和最佳实践
-
-### 9.1. 错误 1：默认值不满足约束
+### 8.1. 错误 1：默认值不满足约束
 
 ```ts
 // ❌ 默认值不满足约束
@@ -761,7 +431,7 @@ interface Container<T extends number = 0> {
 }
 ```
 
-### 9.2. 错误 2：默认值顺序错误
+### 8.2. 错误 2：默认值顺序错误
 
 ```ts
 // ❌ 有默认值的参数不能在无默认值的参数之前
@@ -774,7 +444,7 @@ interface Valid<T, U = any> {
 }
 ```
 
-### 9.3. 错误 3：过度使用 any
+### 8.3. 错误 3：过度使用 any
 
 ```ts
 // ❌ 默认值为 any 失去类型安全
@@ -794,7 +464,7 @@ interface Response<T = void> {
 }
 ```
 
-### 9.4. 错误 4：忽略类型推断
+### 8.4. 错误 4：忽略类型推断
 
 ```ts
 // ❌ 不必要的类型标注
@@ -808,7 +478,7 @@ const result = wrap<string>('hello') // 不必要，会自动推断
 const result2 = wrap('hello') // 自动推断为 string
 ```
 
-### 9.5. 最佳实践
+### 8.5. 最佳实践
 
 ```ts
 // ✅ 1. 使用 unknown 而不是 any
@@ -882,7 +552,7 @@ interface ExtendedResponse<T = void, E = Error> extends Response<T> {
 }
 ```
 
-## 10. 🔗 引用
+## 9. 🔗 引用
 
 - [TypeScript Handbook - Generics][1]
 - [TypeScript 3.0 - Generic Parameter Defaults][2]

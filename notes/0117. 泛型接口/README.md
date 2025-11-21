@@ -26,21 +26,13 @@
   - [8.1. 继承泛型接口](#81-继承泛型接口)
   - [8.2. 多继承](#82-多继承)
   - [8.3. 类型参数传递](#83-类型参数传递)
-- [9. 🤔 常见使用场景](#9--常见使用场景)
-  - [9.1. 场景 1：API 响应接口](#91-场景-1api-响应接口)
-  - [9.2. 场景 2：数据仓储接口](#92-场景-2数据仓储接口)
-  - [9.3. 场景 3：状态管理接口](#93-场景-3状态管理接口)
-  - [9.4. 场景 4：事件系统接口](#94-场景-4事件系统接口)
-  - [9.5. 场景 5：缓存接口](#95-场景-5缓存接口)
-  - [9.6. 场景 6：验证器接口](#96-场景-6验证器接口)
-  - [9.7. 场景 7：查询构建器接口](#97-场景-7查询构建器接口)
-- [10. 🤔 常见错误和最佳实践](#10--常见错误和最佳实践)
-  - [10.1. 错误 1：忘记指定类型参数](#101-错误-1忘记指定类型参数)
-  - [10.2. 错误 2：类型参数过于宽泛](#102-错误-2类型参数过于宽泛)
-  - [10.3. 错误 3：混淆接口级和方法级泛型](#103-错误-3混淆接口级和方法级泛型)
-  - [10.4. 错误 4：过度使用泛型](#104-错误-4过度使用泛型)
-  - [10.5. 最佳实践](#105-最佳实践)
-- [11. 🔗 引用](#11--引用)
+- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
+  - [9.1. 错误 1：忘记指定类型参数](#91-错误-1忘记指定类型参数)
+  - [9.2. 错误 2：类型参数过于宽泛](#92-错误-2类型参数过于宽泛)
+  - [9.3. 错误 3：混淆接口级和方法级泛型](#93-错误-3混淆接口级和方法级泛型)
+  - [9.4. 错误 4：过度使用泛型](#94-错误-4过度使用泛型)
+  - [9.5. 最佳实践](#95-最佳实践)
+- [10. 🔗 引用](#10--引用)
 
 <!-- endregion:toc -->
 
@@ -549,462 +541,9 @@ interface SortableRepository<T> extends FilterableRepository<T> {
 }
 ```
 
-## 9. 🤔 常见使用场景
+## 9. 🤔 常见错误和最佳实践
 
-### 9.1. 场景 1：API 响应接口
-
-```ts
-// ✅ 统一的 API 响应格式
-interface ApiResponse<T> {
-  code: number
-  message: string
-  data: T
-  timestamp: number
-}
-
-interface PagedResponse<T> extends ApiResponse<T[]> {
-  total: number
-  page: number
-  pageSize: number
-}
-
-// 使用
-interface User {
-  id: number
-  name: string
-  email: string
-}
-
-const userResponse: ApiResponse<User> = {
-  code: 200,
-  message: 'Success',
-  data: { id: 1, name: 'Alice', email: 'alice@example.com' },
-  timestamp: Date.now(),
-}
-
-const usersResponse: PagedResponse<User> = {
-  code: 200,
-  message: 'Success',
-  data: [
-    { id: 1, name: 'Alice', email: 'alice@example.com' },
-    { id: 2, name: 'Bob', email: 'bob@example.com' },
-  ],
-  total: 100,
-  page: 1,
-  pageSize: 10,
-  timestamp: Date.now(),
-}
-```
-
-### 9.2. 场景 2：数据仓储接口
-
-```ts
-// ✅ 通用仓储模式
-interface Entity {
-  id: number | string
-}
-
-interface Repository<T extends Entity> {
-  findById(id: T['id']): Promise<T | null>
-  findAll(): Promise<T[]>
-  create(entity: Omit<T, 'id'>): Promise<T>
-  update(id: T['id'], entity: Partial<T>): Promise<T>
-  delete(id: T['id']): Promise<boolean>
-}
-
-interface QueryOptions<T> {
-  filter?: Partial<T>
-  sort?: Array<{
-    field: keyof T
-    order: 'asc' | 'desc'
-  }>
-  limit?: number
-  offset?: number
-}
-
-interface AdvancedRepository<T extends Entity> extends Repository<T> {
-  findMany(options: QueryOptions<T>): Promise<T[]>
-  count(filter?: Partial<T>): Promise<number>
-  exists(id: T['id']): Promise<boolean>
-}
-
-// 实现
-interface User extends Entity {
-  id: number
-  name: string
-  email: string
-  age: number
-}
-
-class UserRepository implements AdvancedRepository<User> {
-  async findById(id: number): Promise<User | null> {
-    // 实现
-    return null
-  }
-
-  async findAll(): Promise<User[]> {
-    return []
-  }
-
-  async create(entity: Omit<User, 'id'>): Promise<User> {
-    return { id: 1, ...entity }
-  }
-
-  async update(id: number, entity: Partial<User>): Promise<User> {
-    return { id, name: '', email: '', age: 0, ...entity }
-  }
-
-  async delete(id: number): Promise<boolean> {
-    return true
-  }
-
-  async findMany(options: QueryOptions<User>): Promise<User[]> {
-    return []
-  }
-
-  async count(filter?: Partial<User>): Promise<number> {
-    return 0
-  }
-
-  async exists(id: number): Promise<boolean> {
-    return false
-  }
-}
-```
-
-### 9.3. 场景 3：状态管理接口
-
-```ts
-// ✅ 状态管理器接口
-interface State<T> {
-  value: T
-  setValue(value: T): void
-  subscribe(listener: (value: T) => void): () => void
-}
-
-interface ComputedState<T, U> extends State<T> {
-  compute(fn: (value: T) => U): ComputedState<T, U>
-}
-
-interface Store<T> {
-  getState(): T
-  setState(updater: Partial<T> | ((prev: T) => T)): void
-  subscribe(listener: (state: T) => void): () => void
-  select<K extends keyof T>(key: K): State<T[K]>
-}
-
-// 使用
-interface AppState {
-  user: User | null
-  isLoading: boolean
-  error: string | null
-}
-
-class SimpleStore<T> implements Store<T> {
-  private state: T
-  private listeners: Array<(state: T) => void> = []
-
-  constructor(initialState: T) {
-    this.state = initialState
-  }
-
-  getState(): T {
-    return this.state
-  }
-
-  setState(updater: Partial<T> | ((prev: T) => T)): void {
-    if (typeof updater === 'function') {
-      this.state = updater(this.state)
-    } else {
-      this.state = { ...this.state, ...updater }
-    }
-    this.listeners.forEach((listener) => listener(this.state))
-  }
-
-  subscribe(listener: (state: T) => void): () => void {
-    this.listeners.push(listener)
-    return () => {
-      const index = this.listeners.indexOf(listener)
-      if (index > -1) {
-        this.listeners.splice(index, 1)
-      }
-    }
-  }
-
-  select<K extends keyof T>(key: K): State<T[K]> {
-    const self = this
-    return {
-      value: this.state[key],
-      setValue(value: T[K]) {
-        self.setState({ [key]: value } as Partial<T>)
-      },
-      subscribe(listener: (value: T[K]) => void) {
-        return self.subscribe((state) => listener(state[key]))
-      },
-    }
-  }
-}
-```
-
-### 9.4. 场景 4：事件系统接口
-
-```ts
-// ✅ 类型安全的事件系统
-interface EventMap {
-  [eventName: string]: any
-}
-
-interface EventEmitter<T extends EventMap> {
-  on<K extends keyof T>(event: K, handler: (data: T[K]) => void): void
-  off<K extends keyof T>(event: K, handler: (data: T[K]) => void): void
-  emit<K extends keyof T>(event: K, data: T[K]): void
-  once<K extends keyof T>(event: K, handler: (data: T[K]) => void): void
-}
-
-// 定义应用的事件类型
-interface AppEvents {
-  'user:login': { userId: number; timestamp: Date }
-  'user:logout': { userId: number }
-  'data:loaded': { count: number; source: string }
-  error: { message: string; code: number }
-}
-
-class TypedEventEmitter<T extends EventMap> implements EventEmitter<T> {
-  private handlers = new Map<keyof T, Array<(data: any) => void>>()
-
-  on<K extends keyof T>(event: K, handler: (data: T[K]) => void): void {
-    if (!this.handlers.has(event)) {
-      this.handlers.set(event, [])
-    }
-    this.handlers.get(event)!.push(handler)
-  }
-
-  off<K extends keyof T>(event: K, handler: (data: T[K]) => void): void {
-    const handlers = this.handlers.get(event)
-    if (handlers) {
-      const index = handlers.indexOf(handler)
-      if (index > -1) {
-        handlers.splice(index, 1)
-      }
-    }
-  }
-
-  emit<K extends keyof T>(event: K, data: T[K]): void {
-    const handlers = this.handlers.get(event)
-    if (handlers) {
-      handlers.forEach((handler) => handler(data))
-    }
-  }
-
-  once<K extends keyof T>(event: K, handler: (data: T[K]) => void): void {
-    const onceHandler = (data: T[K]) => {
-      handler(data)
-      this.off(event, onceHandler)
-    }
-    this.on(event, onceHandler)
-  }
-}
-
-const emitter = new TypedEventEmitter<AppEvents>()
-
-// 类型安全的事件处理
-emitter.on('user:login', (data) => {
-  console.log(`User ${data.userId} logged in at ${data.timestamp}`)
-})
-
-emitter.emit('user:login', { userId: 1, timestamp: new Date() })
-```
-
-### 9.5. 场景 5：缓存接口
-
-```ts
-// ✅ 泛型缓存接口
-interface CacheEntry<T> {
-  value: T
-  expiry: number
-}
-
-interface Cache<K extends string | number, V> {
-  get(key: K): V | undefined
-  set(key: K, value: V, ttl?: number): void
-  has(key: K): boolean
-  delete(key: K): boolean
-  clear(): void
-  size(): number
-  keys(): K[]
-  values(): V[]
-}
-
-interface CacheWithStats<K extends string | number, V> extends Cache<K, V> {
-  hits: number
-  misses: number
-  getStats(): {
-    hits: number
-    misses: number
-    hitRate: number
-  }
-  resetStats(): void
-}
-
-class MemoryCache<K extends string | number, V>
-  implements CacheWithStats<K, V>
-{
-  private cache = new Map<K, CacheEntry<V>>()
-  hits = 0
-  misses = 0
-  private defaultTTL = 60000 // 1 分钟
-
-  get(key: K): V | undefined {
-    const entry = this.cache.get(key)
-
-    if (!entry) {
-      this.misses++
-      return undefined
-    }
-
-    if (Date.now() > entry.expiry) {
-      this.cache.delete(key)
-      this.misses++
-      return undefined
-    }
-
-    this.hits++
-    return entry.value
-  }
-
-  set(key: K, value: V, ttl?: number): void {
-    const expiry = Date.now() + (ttl || this.defaultTTL)
-    this.cache.set(key, { value, expiry })
-  }
-
-  has(key: K): boolean {
-    return this.get(key) !== undefined
-  }
-
-  delete(key: K): boolean {
-    return this.cache.delete(key)
-  }
-
-  clear(): void {
-    this.cache.clear()
-  }
-
-  size(): number {
-    // 清理过期条目
-    const now = Date.now()
-    for (const [key, entry] of this.cache.entries()) {
-      if (now > entry.expiry) {
-        this.cache.delete(key)
-      }
-    }
-    return this.cache.size
-  }
-
-  keys(): K[] {
-    return Array.from(this.cache.keys())
-  }
-
-  values(): V[] {
-    return Array.from(this.cache.values()).map((entry) => entry.value)
-  }
-
-  getStats() {
-    const total = this.hits + this.misses
-    return {
-      hits: this.hits,
-      misses: this.misses,
-      hitRate: total > 0 ? this.hits / total : 0,
-    }
-  }
-
-  resetStats(): void {
-    this.hits = 0
-    this.misses = 0
-  }
-}
-```
-
-### 9.6. 场景 6：验证器接口
-
-```ts
-// ✅ 类型安全的验证器
-interface ValidationResult {
-  valid: boolean
-  errors: string[]
-}
-
-interface Validator<T> {
-  validate(value: T): ValidationResult
-  validateAsync(value: T): Promise<ValidationResult>
-}
-
-interface Rule<T> {
-  check(value: T): boolean
-  message: string
-}
-
-interface ValidatorBuilder<T> {
-  addRule(rule: Rule<T>): ValidatorBuilder<T>
-  required(message?: string): ValidatorBuilder<T>
-  custom(check: (value: T) => boolean, message: string): ValidatorBuilder<T>
-  build(): Validator<T>
-}
-
-// 字符串验证器
-interface StringValidator extends Validator<string> {
-  minLength(min: number): StringValidator
-  maxLength(max: number): StringValidator
-  pattern(regex: RegExp, message?: string): StringValidator
-  email(message?: string): StringValidator
-}
-
-// 数字验证器
-interface NumberValidator extends Validator<number> {
-  min(value: number): NumberValidator
-  max(value: number): NumberValidator
-  integer(message?: string): NumberValidator
-  positive(message?: string): NumberValidator
-}
-
-// 对象验证器
-interface ObjectValidator<T extends object> extends Validator<T> {
-  shape<K extends keyof T>(validators: {
-    [P in K]: Validator<T[P]>
-  }): ObjectValidator<T>
-}
-```
-
-### 9.7. 场景 7：查询构建器接口
-
-```ts
-// ✅ 类型安全的查询构建器
-interface QueryBuilder<T> {
-  where(condition: Partial<T> | ((item: T) => boolean)): QueryBuilder<T>
-  select<K extends keyof T>(...keys: K[]): QueryBuilder<Pick<T, K>>
-  orderBy<K extends keyof T>(key: K, order?: 'asc' | 'desc'): QueryBuilder<T>
-  limit(count: number): QueryBuilder<T>
-  offset(count: number): QueryBuilder<T>
-  execute(): Promise<T[]>
-  first(): Promise<T | null>
-  count(): Promise<number>
-}
-
-interface JoinableQueryBuilder<T> extends QueryBuilder<T> {
-  join<U, K extends keyof T>(
-    other: QueryBuilder<U>,
-    on: (left: T, right: U) => boolean
-  ): QueryBuilder<T & U>
-
-  leftJoin<U, K extends keyof T>(
-    other: QueryBuilder<U>,
-    on: (left: T, right: U) => boolean
-  ): QueryBuilder<T & Partial<U>>
-}
-```
-
-## 10. 🤔 常见错误和最佳实践
-
-### 10.1. 错误 1：忘记指定类型参数
+### 9.1. 错误 1：忘记指定类型参数
 
 ```ts
 // ❌ 忘记指定类型参数
@@ -1025,7 +564,7 @@ interface Box<T = any> {
 const box2: Box = { value: 42 } // ✅
 ```
 
-### 10.2. 错误 2：类型参数过于宽泛
+### 9.2. 错误 2：类型参数过于宽泛
 
 ```ts
 // ❌ 没有约束，无法安全使用
@@ -1045,7 +584,7 @@ interface Comparator<T extends number | string> {
 }
 ```
 
-### 10.3. 错误 3：混淆接口级和方法级泛型
+### 9.3. 错误 3：混淆接口级和方法级泛型
 
 ```ts
 // ❌ 混淆
@@ -1063,7 +602,7 @@ interface Container<T> {
 }
 ```
 
-### 10.4. 错误 4：过度使用泛型
+### 9.4. 错误 4：过度使用泛型
 
 ```ts
 // ❌ 不必要的泛型
@@ -1083,7 +622,7 @@ interface Repository<T> {
 }
 ```
 
-### 10.5. 最佳实践
+### 9.5. 最佳实践
 
 ```ts
 // ✅ 1. 使用有意义的类型参数名
@@ -1161,7 +700,7 @@ interface ApiData<T> {
 }
 ```
 
-## 11. 🔗 引用
+## 10. 🔗 引用
 
 - [TypeScript Handbook - Generics][1]
 - [TypeScript Handbook - Interfaces][2]

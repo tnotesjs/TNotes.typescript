@@ -29,20 +29,13 @@
   - [8.2. 约束多个键](#82-约束多个键)
   - [8.3. 约束为特定类型的键](#83-约束为特定类型的键)
   - [8.4. 约束嵌套属性](#84-约束嵌套属性)
-- [9. 🤔 常见使用场景](#9--常见使用场景)
-  - [9.1. 场景 1：数据库操作](#91-场景-1数据库操作)
-  - [9.2. 场景 2：表单验证](#92-场景-2表单验证)
-  - [9.3. 场景 3：事件处理](#93-场景-3事件处理)
-  - [9.4. 场景 4：状态管理](#94-场景-4状态管理)
-  - [9.5. 场景 5：API 客户端](#95-场景-5api-客户端)
-  - [9.6. 场景 6：深度只读](#96-场景-6深度只读)
-- [10. 🤔 常见错误和最佳实践](#10--常见错误和最佳实践)
-  - [10.1. 错误 1：约束过于严格](#101-错误-1约束过于严格)
-  - [10.2. 错误 2：忘记添加必要约束](#102-错误-2忘记添加必要约束)
-  - [10.3. 错误 3：约束类型不兼容](#103-错误-3约束类型不兼容)
-  - [10.4. 错误 4：过度使用约束](#104-错误-4过度使用约束)
-  - [10.5. 最佳实践](#105-最佳实践)
-- [11. 🔗 引用](#11--引用)
+- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
+  - [9.1. 错误 1：约束过于严格](#91-错误-1约束过于严格)
+  - [9.2. 错误 2：忘记添加必要约束](#92-错误-2忘记添加必要约束)
+  - [9.3. 错误 3：约束类型不兼容](#93-错误-3约束类型不兼容)
+  - [9.4. 错误 4：过度使用约束](#94-错误-4过度使用约束)
+  - [9.5. 最佳实践](#95-最佳实践)
+- [10. 🔗 引用](#10--引用)
 
 <!-- endregion:toc -->
 
@@ -512,379 +505,9 @@ const user = {
 const city = getNestedValue(user, 'address.city') // 'New York'
 ```
 
-## 9. 🤔 常见使用场景
+## 9. 🤔 常见错误和最佳实践
 
-### 9.1. 场景 1：数据库操作
-
-```ts
-// ✅ 带约束的数据库仓储
-interface Entity {
-  id: number
-}
-
-interface Repository<T extends Entity> {
-  findById(id: number): Promise<T | null>
-  findAll(): Promise<T[]>
-  create(entity: Omit<T, 'id'>): Promise<T>
-  update(id: number, entity: Partial<T>): Promise<T>
-  delete(id: number): Promise<boolean>
-}
-
-interface User extends Entity {
-  name: string
-  email: string
-  age: number
-}
-
-class UserRepository implements Repository<User> {
-  async findById(id: number): Promise<User | null> {
-    // 实现
-    return null
-  }
-
-  async findAll(): Promise<User[]> {
-    return []
-  }
-
-  async create(entity: Omit<User, 'id'>): Promise<User> {
-    return { id: 1, ...entity }
-  }
-
-  async update(id: number, entity: Partial<User>): Promise<User> {
-    return { id, name: '', email: '', age: 0, ...entity }
-  }
-
-  async delete(id: number): Promise<boolean> {
-    return true
-  }
-}
-```
-
-### 9.2. 场景 2：表单验证
-
-```ts
-// ✅ 类型安全的表单验证
-type ValidationRule<T> = {
-  validate: (value: T) => boolean
-  message: string
-}
-
-interface Validator<T extends object> {
-  rules: {
-    [K in keyof T]?: Array<ValidationRule<T[K]>>
-  }
-
-  validate(data: T): {
-    valid: boolean
-    errors: Partial<Record<keyof T, string[]>>
-  }
-}
-
-interface LoginForm {
-  email: string
-  password: string
-}
-
-const loginValidator: Validator<LoginForm> = {
-  rules: {
-    email: [
-      {
-        validate: (value) => value.includes('@'),
-        message: 'Invalid email format',
-      },
-      {
-        validate: (value) => value.length > 0,
-        message: 'Email is required',
-      },
-    ],
-    password: [
-      {
-        validate: (value) => value.length >= 8,
-        message: 'Password must be at least 8 characters',
-      },
-    ],
-  },
-
-  validate(data) {
-    const errors: Partial<Record<keyof LoginForm, string[]>> = {}
-    let valid = true
-
-    for (const key in this.rules) {
-      const rules = this.rules[key as keyof LoginForm]
-      if (rules) {
-        const fieldErrors: string[] = []
-        for (const rule of rules) {
-          if (!rule.validate(data[key as keyof LoginForm])) {
-            fieldErrors.push(rule.message)
-            valid = false
-          }
-        }
-        if (fieldErrors.length > 0) {
-          errors[key as keyof LoginForm] = fieldErrors
-        }
-      }
-    }
-
-    return { valid, errors }
-  },
-}
-```
-
-### 9.3. 场景 3：事件处理
-
-```ts
-// ✅ 类型安全的事件系统
-interface EventMap {
-  [key: string]: any
-}
-
-interface TypedEventEmitter<T extends EventMap> {
-  on<K extends keyof T>(event: K, handler: (data: T[K]) => void): void
-
-  off<K extends keyof T>(event: K, handler: (data: T[K]) => void): void
-
-  emit<K extends keyof T>(event: K, data: T[K]): void
-}
-
-interface AppEvents {
-  'user:login': { userId: number; timestamp: Date }
-  'user:logout': { userId: number }
-  'data:updated': { count: number }
-}
-
-class EventEmitter<T extends EventMap> implements TypedEventEmitter<T> {
-  private handlers = new Map<keyof T, Array<(data: any) => void>>()
-
-  on<K extends keyof T>(event: K, handler: (data: T[K]) => void): void {
-    if (!this.handlers.has(event)) {
-      this.handlers.set(event, [])
-    }
-    this.handlers.get(event)!.push(handler)
-  }
-
-  off<K extends keyof T>(event: K, handler: (data: T[K]) => void): void {
-    const handlers = this.handlers.get(event)
-    if (handlers) {
-      const index = handlers.indexOf(handler)
-      if (index > -1) {
-        handlers.splice(index, 1)
-      }
-    }
-  }
-
-  emit<K extends keyof T>(event: K, data: T[K]): void {
-    const handlers = this.handlers.get(event)
-    if (handlers) {
-      handlers.forEach((handler) => handler(data))
-    }
-  }
-}
-
-const emitter = new EventEmitter<AppEvents>()
-emitter.on('user:login', (data) => {
-  console.log(`User ${data.userId} logged in`)
-})
-```
-
-### 9.4. 场景 4：状态管理
-
-```ts
-// ✅ 类型安全的状态更新
-interface State {
-  [key: string]: any
-}
-
-interface StateManager<T extends State> {
-  getState(): T
-  setState<K extends keyof T>(key: K, value: T[K]): void
-  updateState(updates: Partial<T>): void
-  select<K extends keyof T>(key: K): T[K]
-  subscribe<K extends keyof T>(
-    key: K,
-    listener: (value: T[K]) => void
-  ): () => void
-}
-
-class Store<T extends State> implements StateManager<T> {
-  private state: T
-  private listeners = new Map<keyof T, Array<(value: any) => void>>()
-
-  constructor(initialState: T) {
-    this.state = initialState
-  }
-
-  getState(): T {
-    return this.state
-  }
-
-  setState<K extends keyof T>(key: K, value: T[K]): void {
-    this.state[key] = value
-    this.notifyListeners(key, value)
-  }
-
-  updateState(updates: Partial<T>): void {
-    Object.assign(this.state, updates)
-    for (const key in updates) {
-      this.notifyListeners(key as keyof T, updates[key])
-    }
-  }
-
-  select<K extends keyof T>(key: K): T[K] {
-    return this.state[key]
-  }
-
-  subscribe<K extends keyof T>(
-    key: K,
-    listener: (value: T[K]) => void
-  ): () => void {
-    if (!this.listeners.has(key)) {
-      this.listeners.set(key, [])
-    }
-    this.listeners.get(key)!.push(listener)
-
-    return () => {
-      const listeners = this.listeners.get(key)!
-      const index = listeners.indexOf(listener)
-      if (index > -1) {
-        listeners.splice(index, 1)
-      }
-    }
-  }
-
-  private notifyListeners<K extends keyof T>(key: K, value: T[K]): void {
-    const listeners = this.listeners.get(key)
-    if (listeners) {
-      listeners.forEach((listener) => listener(value))
-    }
-  }
-}
-```
-
-### 9.5. 场景 5：API 客户端
-
-```ts
-// ✅ 类型安全的 API 路由
-interface ApiRoutes {
-  [endpoint: string]: {
-    request: any
-    response: any
-  }
-}
-
-interface ApiClient<T extends ApiRoutes> {
-  get<K extends keyof T>(
-    endpoint: K,
-    params?: T[K]['request']
-  ): Promise<T[K]['response']>
-
-  post<K extends keyof T>(
-    endpoint: K,
-    data: T[K]['request']
-  ): Promise<T[K]['response']>
-
-  put<K extends keyof T>(
-    endpoint: K,
-    data: T[K]['request']
-  ): Promise<T[K]['response']>
-
-  delete<K extends keyof T>(endpoint: K): Promise<T[K]['response']>
-}
-
-interface MyApiRoutes extends ApiRoutes {
-  '/users': {
-    request: { page?: number; limit?: number }
-    response: User[]
-  }
-  '/users/:id': {
-    request: { id: number }
-    response: User
-  }
-  '/posts': {
-    request: { title: string; content: string }
-    response: Post
-  }
-}
-
-interface User {
-  id: number
-  name: string
-}
-
-interface Post {
-  id: number
-  title: string
-  content: string
-}
-
-class HttpClient<T extends ApiRoutes> implements ApiClient<T> {
-  async get<K extends keyof T>(
-    endpoint: K,
-    params?: T[K]['request']
-  ): Promise<T[K]['response']> {
-    // 实现
-    return null as any
-  }
-
-  async post<K extends keyof T>(
-    endpoint: K,
-    data: T[K]['request']
-  ): Promise<T[K]['response']> {
-    return null as any
-  }
-
-  async put<K extends keyof T>(
-    endpoint: K,
-    data: T[K]['request']
-  ): Promise<T[K]['response']> {
-    return null as any
-  }
-
-  async delete<K extends keyof T>(endpoint: K): Promise<T[K]['response']> {
-    return null as any
-  }
-}
-
-const client = new HttpClient<MyApiRoutes>()
-const users = await client.get('/users', { page: 1, limit: 10 }) // User[]
-```
-
-### 9.6. 场景 6：深度只读
-
-```ts
-// ✅ 深度只读约束
-type DeepReadonly<T> = {
-  readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P]
-}
-
-function freeze<T extends object>(obj: T): DeepReadonly<T> {
-  Object.freeze(obj)
-  Object.keys(obj).forEach((key) => {
-    const value = obj[key as keyof T]
-    if (typeof value === 'object' && value !== null) {
-      freeze(value)
-    }
-  })
-  return obj as DeepReadonly<T>
-}
-
-const config = freeze({
-  database: {
-    host: 'localhost',
-    port: 5432,
-    credentials: {
-      username: 'admin',
-      password: 'secret',
-    },
-  },
-})
-
-// config.database.host = 'newhost'  // ❌ Error: readonly
-// config.database.credentials.password = 'new'  // ❌ Error: readonly
-```
-
-## 10. 🤔 常见错误和最佳实践
-
-### 10.1. 错误 1：约束过于严格
+### 9.1. 错误 1：约束过于严格
 
 ```ts
 // ❌ 约束过严，限制了灵活性
@@ -900,7 +523,7 @@ function process<T extends { id: number }>(item: T): void {
 }
 ```
 
-### 10.2. 错误 2：忘记添加必要约束
+### 9.2. 错误 2：忘记添加必要约束
 
 ```ts
 // ❌ 没有约束，无法安全访问属性
@@ -915,7 +538,7 @@ function compare<T extends number>(a: T, b: T): number {
 }
 ```
 
-### 10.3. 错误 3：约束类型不兼容
+### 9.3. 错误 3：约束类型不兼容
 
 ```ts
 // ❌ 约束冲突
@@ -939,7 +562,7 @@ function process<T extends C>(item: T): void {
 }
 ```
 
-### 10.4. 错误 4：过度使用约束
+### 9.4. 错误 4：过度使用约束
 
 ```ts
 // ❌ 不必要的约束
@@ -953,7 +576,7 @@ function identity<T>(arg: T): T {
 }
 ```
 
-### 10.5. 最佳实践
+### 9.5. 最佳实践
 
 ```ts
 // ✅ 1. 只约束必要的属性
@@ -1057,7 +680,7 @@ function serialize<T extends Serializable>(value: T): string {
 }
 ```
 
-## 11. 🔗 引用
+## 10. 🔗 引用
 
 - [TypeScript Handbook - Generics][1]
 - [TypeScript Handbook - Type Constraints][2]

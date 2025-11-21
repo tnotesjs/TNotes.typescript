@@ -24,21 +24,13 @@
   - [7.1. 三个参数的约束链](#71-三个参数的约束链)
   - [7.2. 复杂约束关系](#72-复杂约束关系)
   - [7.3. 递归约束](#73-递归约束)
-- [8. 🤔 常见使用场景](#8--常见使用场景)
-  - [8.1. 场景 1：对象属性操作](#81-场景-1对象属性操作)
-  - [8.2. 场景 2：映射和转换](#82-场景-2映射和转换)
-  - [8.3. 场景 3：排序和比较](#83-场景-3排序和比较)
-  - [8.4. 场景 4：分组和聚合](#84-场景-4分组和聚合)
-  - [8.5. 场景 5：验证器](#85-场景-5验证器)
-  - [8.6. 场景 6：深度路径访问](#86-场景-6深度路径访问)
-  - [8.7. 场景 7：条件属性操作](#87-场景-7条件属性操作)
-- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
-  - [9.1. 错误 1：约束顺序错误](#91-错误-1约束顺序错误)
-  - [9.2. 错误 2：过度约束](#92-错误-2过度约束)
-  - [9.3. 错误 3：循环约束](#93-错误-3循环约束)
-  - [9.4. 错误 4：忽略类型兼容性](#94-错误-4忽略类型兼容性)
-  - [9.5. 最佳实践](#95-最佳实践)
-- [10. 🔗 引用](#10--引用)
+- [8. 🤔 常见错误和最佳实践](#8--常见错误和最佳实践)
+  - [8.1. 错误 1：约束顺序错误](#81-错误-1约束顺序错误)
+  - [8.2. 错误 2：过度约束](#82-错误-2过度约束)
+  - [8.3. 错误 3：循环约束](#83-错误-3循环约束)
+  - [8.4. 错误 4：忽略类型兼容性](#84-错误-4忽略类型兼容性)
+  - [8.5. 最佳实践](#85-最佳实践)
+- [9. 🔗 引用](#9--引用)
 
 <!-- endregion:toc -->
 
@@ -479,272 +471,9 @@ const customConfig = deepMerge(defaultConfig, {
 })
 ```
 
-## 8. 🤔 常见使用场景
+## 8. 🤔 常见错误和最佳实践
 
-### 8.1. 场景 1：对象属性操作
-
-```ts
-// ✅ 类型安全的属性更新
-function updateProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): T {
-  return { ...obj, [key]: value }
-}
-
-function updateProperties<T, K extends keyof T>(
-  obj: T,
-  updates: Pick<T, K>
-): T {
-  return { ...obj, ...updates }
-}
-
-interface User {
-  id: number
-  name: string
-  email: string
-  age: number
-}
-
-const user: User = { id: 1, name: 'Alice', email: 'alice@example.com', age: 30 }
-
-const updated1 = updateProperty(user, 'name', 'Bob')
-const updated2 = updateProperties(user, { name: 'Bob', age: 31 })
-```
-
-### 8.2. 场景 2：映射和转换
-
-```ts
-// ✅ 类型安全的映射函数
-function mapObject<T, K extends keyof T, R>(
-  obj: T,
-  mapper: (value: T[K], key: K) => R
-): Record<K, R> {
-  const result = {} as Record<K, R>
-
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      result[key as K] = mapper(obj[key], key as K)
-    }
-  }
-
-  return result
-}
-
-const numbers = { a: 1, b: 2, c: 3 }
-const doubled = mapObject(numbers, (value) => value * 2)
-// { a: 2, b: 4, c: 6 }
-```
-
-### 8.3. 场景 3：排序和比较
-
-```ts
-// ✅ 按指定属性排序
-function sortBy<T, K extends keyof T>(
-  arr: T[],
-  key: K,
-  order: 'asc' | 'desc' = 'asc'
-): T[] {
-  return [...arr].sort((a, b) => {
-    const aVal = a[key]
-    const bVal = b[key]
-
-    if (aVal < bVal) return order === 'asc' ? -1 : 1
-    if (aVal > bVal) return order === 'asc' ? 1 : -1
-    return 0
-  })
-}
-
-interface User {
-  id: number
-  name: string
-  age: number
-}
-
-const users: User[] = [
-  { id: 3, name: 'Charlie', age: 25 },
-  { id: 1, name: 'Alice', age: 30 },
-  { id: 2, name: 'Bob', age: 28 },
-]
-
-const sortedById = sortBy(users, 'id')
-const sortedByName = sortBy(users, 'name', 'desc')
-const sortedByAge = sortBy(users, 'age')
-```
-
-### 8.4. 场景 4：分组和聚合
-
-```ts
-// ✅ 按属性分组
-function groupBy<T, K extends keyof T>(arr: T[], key: K): Record<string, T[]> {
-  return arr.reduce((groups, item) => {
-    const groupKey = String(item[key])
-    if (!groups[groupKey]) {
-      groups[groupKey] = []
-    }
-    groups[groupKey].push(item)
-    return groups
-  }, {} as Record<string, T[]>)
-}
-
-interface Product {
-  id: number
-  name: string
-  category: string
-  price: number
-}
-
-const products: Product[] = [
-  { id: 1, name: 'Laptop', category: 'Electronics', price: 999 },
-  { id: 2, name: 'Phone', category: 'Electronics', price: 599 },
-  { id: 3, name: 'Desk', category: 'Furniture', price: 299 },
-]
-
-const byCategory = groupBy(products, 'category')
-// {
-//   Electronics: [...],
-//   Furniture: [...]
-// }
-```
-
-### 8.5. 场景 5：验证器
-
-```ts
-// ✅ 属性级验证
-interface Validator<T> {
-  validate(value: T): boolean
-  message: string
-}
-
-function validateProperty<T, K extends keyof T>(
-  obj: T,
-  key: K,
-  validator: Validator<T[K]>
-): { valid: boolean; message?: string } {
-  const value = obj[key]
-  const valid = validator.validate(value)
-
-  return {
-    valid,
-    message: valid ? undefined : validator.message,
-  }
-}
-
-interface User {
-  name: string
-  age: number
-  email: string
-}
-
-const user: User = {
-  name: 'Alice',
-  age: 17,
-  email: 'invalid-email',
-}
-
-const ageValidator: Validator<number> = {
-  validate: (age) => age >= 18,
-  message: 'Must be 18 or older',
-}
-
-const emailValidator: Validator<string> = {
-  validate: (email) => email.includes('@'),
-  message: 'Invalid email format',
-}
-
-const ageResult = validateProperty(user, 'age', ageValidator)
-const emailResult = validateProperty(user, 'email', emailValidator)
-```
-
-### 8.6. 场景 6：深度路径访问
-
-```ts
-// ✅ 类型安全的深度路径
-type PathImpl<T, K extends keyof T> = K extends string
-  ? T[K] extends Record<string, any>
-    ? T[K] extends ArrayLike<any>
-      ? K | `${K}.${PathImpl<T[K], Exclude<keyof T[K], keyof any[]>>}`
-      : K | `${K}.${PathImpl<T[K], keyof T[K]>}`
-    : K
-  : never
-
-type Path<T> = PathImpl<T, keyof T> | keyof T
-
-type PathValue<T, P extends Path<T>> = P extends `${infer K}.${infer Rest}`
-  ? K extends keyof T
-    ? Rest extends Path<T[K]>
-      ? PathValue<T[K], Rest>
-      : never
-    : never
-  : P extends keyof T
-  ? T[P]
-  : never
-
-function get<T, P extends Path<T>>(
-  obj: T,
-  path: P
-): PathValue<T, P> | undefined {
-  const keys = (path as string).split('.')
-  let value: any = obj
-
-  for (const key of keys) {
-    if (value === null || value === undefined) {
-      return undefined
-    }
-    value = value[key]
-  }
-
-  return value
-}
-
-const user = {
-  id: 1,
-  profile: {
-    name: 'Alice',
-    address: {
-      city: 'New York',
-      zip: '10001',
-    },
-  },
-}
-
-const city = get(user, 'profile.address.city') // string | undefined
-const name = get(user, 'profile.name') // string | undefined
-// const invalid = get(user, 'profile.invalid')  // ❌ Error
-```
-
-### 8.7. 场景 7：条件属性操作
-
-```ts
-// ✅ 只操作特定类型的属性
-type KeysMatching<T, V> = {
-  [K in keyof T]: T[K] extends V ? K : never
-}[keyof T]
-
-function incrementNumbers<T, K extends KeysMatching<T, number>>(
-  obj: T,
-  ...keys: K[]
-): T {
-  const result = { ...obj }
-  keys.forEach((key) => {
-    ;(result[key] as any)++
-  })
-  return result
-}
-
-const stats = {
-  name: 'User Stats',
-  views: 100,
-  likes: 50,
-  active: true,
-  score: 95.5,
-}
-
-const updated = incrementNumbers(stats, 'views', 'likes')
-// stats.views 和 stats.likes 增加
-// incrementNumbers(stats, 'name')  // ❌ Error: name 不是 number
-```
-
-## 9. 🤔 常见错误和最佳实践
-
-### 9.1. 错误 1：约束顺序错误
+### 8.1. 错误 1：约束顺序错误
 
 ```ts
 // ❌ K 在 T 之前使用
@@ -758,7 +487,7 @@ function pick<T, K extends keyof T>(obj: T, key: K): T[K] {
 }
 ```
 
-### 9.2. 错误 2：过度约束
+### 8.2. 错误 2：过度约束
 
 ```ts
 // ❌ 约束过严
@@ -775,7 +504,7 @@ function assign<T extends object, U extends Partial<T>>(
 }
 ```
 
-### 9.3. 错误 3：循环约束
+### 8.3. 错误 3：循环约束
 
 ```ts
 // ❌ 循环约束导致错误
@@ -787,7 +516,7 @@ function valid<T, U extends T>(source: T, target: U): U {
 }
 ```
 
-### 9.4. 错误 4：忽略类型兼容性
+### 8.4. 错误 4：忽略类型兼容性
 
 ```ts
 // ❌ 没有确保兼容性
@@ -801,7 +530,7 @@ function merge<T extends object, U extends object>(a: T, b: U): T & U {
 }
 ```
 
-### 9.5. 最佳实践
+### 8.5. 最佳实践
 
 ```ts
 // ✅ 1. 明确约束关系
@@ -928,7 +657,7 @@ const users: User[] = [
 const result = new QueryBuilder<User>().where('age', 30).execute(users)
 ```
 
-## 10. 🔗 引用
+## 9. 🔗 引用
 
 - [TypeScript Handbook - Generics][1]
 - [TypeScript Handbook - Generic Constraints][2]

@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "泛型类（Generic Class）是 TS 中通过类型参数 <T> 实现类型参数化的类，允许在实例化时指定具体类型，既能确保类型安全又能提高代码复用性，适用于容器类、工具类等需要处理多种数据类型的场景。",
   "id": "c56e096a-a29f-4c78-85c1-aa2bd54f431a",
   "created_at": 1760521823000,
-  "updated_at": 1763636240557
+  "updated_at": 1763741211666
 }

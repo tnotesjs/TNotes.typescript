@@ -23,20 +23,13 @@
   - [7.1. 访问原型方法](#71-访问原型方法)
   - [7.2. 混入模式](#72-混入模式)
   - [7.3. 装饰器模式](#73-装饰器模式)
-- [8. 🤔 常见使用场景](#8--常见使用场景)
-  - [8.1. 场景 1：依赖注入容器](#81-场景-1依赖注入容器)
-  - [8.2. 场景 2：对象池](#82-场景-2对象池)
-  - [8.3. 场景 3：序列化器](#83-场景-3序列化器)
-  - [8.4. 场景 4：ORM 模型](#84-场景-4orm-模型)
-  - [8.5. 场景 5：插件系统](#85-场景-5插件系统)
-  - [8.6. 场景 6：测试工具](#86-场景-6测试工具)
-- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
-  - [9.1. 错误 1：忘记 new 关键字](#91-错误-1忘记-new-关键字)
-  - [9.2. 错误 2：类型断言不当](#92-错误-2类型断言不当)
-  - [9.3. 错误 3：忽略构造函数参数](#93-错误-3忽略构造函数参数)
-  - [9.4. 错误 4：混淆类和实例](#94-错误-4混淆类和实例)
-  - [9.5. 最佳实践](#95-最佳实践)
-- [10. 🔗 引用](#10--引用)
+- [8. 🤔 常见错误和最佳实践](#8--常见错误和最佳实践)
+  - [8.1. 错误 1：忘记 new 关键字](#81-错误-1忘记-new-关键字)
+  - [8.2. 错误 2：类型断言不当](#82-错误-2类型断言不当)
+  - [8.3. 错误 3：忽略构造函数参数](#83-错误-3忽略构造函数参数)
+  - [8.4. 错误 4：混淆类和实例](#84-错误-4混淆类和实例)
+  - [8.5. 最佳实践](#85-最佳实践)
+- [9. 🔗 引用](#9--引用)
 
 <!-- endregion:toc -->
 
@@ -575,305 +568,9 @@ class Service {
 }
 ```
 
-## 8. 🤔 常见使用场景
+## 8. 🤔 常见错误和最佳实践
 
-### 8.1. 场景 1：依赖注入容器
-
-```ts
-// ✅ 简单的 IoC 容器
-class Container {
-  private services = new Map<any, any>()
-
-  register<T>(token: new (...args: any[]) => T, instance?: T): void {
-    this.services.set(token, instance || new token())
-  }
-
-  resolve<T>(token: new (...args: any[]) => T): T {
-    const instance = this.services.get(token)
-    if (!instance) {
-      throw new Error(`Service ${token.name} not registered`)
-    }
-    return instance
-  }
-}
-
-class Logger {
-  log(message: string): void {
-    console.log(`[LOG] ${message}`)
-  }
-}
-
-class UserService {
-  constructor(private logger: Logger) {}
-
-  createUser(name: string): void {
-    this.logger.log(`Creating user: ${name}`)
-  }
-}
-
-const container = new Container()
-container.register(Logger)
-container.register(UserService, new UserService(container.resolve(Logger)))
-
-const userService = container.resolve(UserService)
-userService.createUser('Alice')
-```
-
-### 8.2. 场景 2：对象池
-
-```ts
-// ✅ 对象池模式
-class ObjectPool<T> {
-  private available: T[] = []
-  private inUse = new Set<T>()
-
-  constructor(private ctor: new () => T, private maxSize: number = 10) {}
-
-  acquire(): T {
-    let obj = this.available.pop()
-
-    if (!obj) {
-      if (this.inUse.size < this.maxSize) {
-        obj = new this.ctor()
-      } else {
-        throw new Error('Pool exhausted')
-      }
-    }
-
-    this.inUse.add(obj)
-    return obj
-  }
-
-  release(obj: T): void {
-    if (this.inUse.has(obj)) {
-      this.inUse.delete(obj)
-      this.available.push(obj)
-    }
-  }
-
-  clear(): void {
-    this.available = []
-    this.inUse.clear()
-  }
-}
-
-class Connection {
-  id = Math.random()
-
-  connect(): void {
-    console.log(`Connection ${this.id} established`)
-  }
-
-  disconnect(): void {
-    console.log(`Connection ${this.id} closed`)
-  }
-}
-
-const pool = new ObjectPool(Connection, 5)
-const conn1 = pool.acquire()
-const conn2 = pool.acquire()
-pool.release(conn1)
-```
-
-### 8.3. 场景 3：序列化器
-
-```ts
-// ✅ 类型安全的序列化
-interface Serializable {
-  toJSON(): object
-}
-
-class Serializer {
-  static serialize<T extends Serializable>(obj: T): string {
-    return JSON.stringify(obj.toJSON())
-  }
-
-  static deserialize<T extends Serializable>(
-    json: string,
-    ctor: new (...args: any[]) => T
-  ): T {
-    const data = JSON.parse(json)
-    return Object.assign(new ctor(), data)
-  }
-}
-
-class User implements Serializable {
-  constructor(
-    public id: number = 0,
-    public name: string = '',
-    public email: string = ''
-  ) {}
-
-  toJSON(): object {
-    return {
-      id: this.id,
-      name: this.name,
-      email: this.email,
-    }
-  }
-}
-
-const user = new User(1, 'Alice', 'alice@example.com')
-const json = Serializer.serialize(user)
-const restored = Serializer.deserialize(json, User)
-```
-
-### 8.4. 场景 4：ORM 模型
-
-```ts
-// ✅ 简单的 ORM 基类
-abstract class Model {
-  static tableName: string
-
-  static async find<T extends Model>(
-    this: new () => T,
-    id: number
-  ): Promise<T | null> {
-    // 模拟数据库查询
-    console.log(`SELECT * FROM ${this.name} WHERE id = ${id}`)
-    return new this()
-  }
-
-  static async findAll<T extends Model>(this: new () => T): Promise<T[]> {
-    console.log(`SELECT * FROM ${this.name}`)
-    return [new this()]
-  }
-
-  async save(): Promise<void> {
-    const tableName = (this.constructor as typeof Model).tableName
-    console.log(`SAVE to ${tableName}`, this)
-  }
-}
-
-class User extends Model {
-  static tableName = 'users'
-
-  id: number = 0
-  name: string = ''
-  email: string = ''
-}
-
-class Post extends Model {
-  static tableName = 'posts'
-
-  id: number = 0
-  title: string = ''
-  content: string = ''
-}
-
-async function example() {
-  const user = await User.find(1)
-  const users = await User.findAll()
-
-  const post = new Post()
-  post.title = 'Hello'
-  await post.save()
-}
-```
-
-### 8.5. 场景 5：插件系统
-
-```ts
-// ✅ 可扩展的插件系统
-interface Plugin {
-  name: string
-  initialize(): void
-  execute(): void
-}
-
-class PluginManager {
-  private plugins = new Map<string, Plugin>()
-
-  register<T extends Plugin>(ctor: new () => T): void {
-    const plugin = new ctor()
-    this.plugins.set(plugin.name, plugin)
-    plugin.initialize()
-  }
-
-  get(name: string): Plugin | undefined {
-    return this.plugins.get(name)
-  }
-
-  executeAll(): void {
-    for (const plugin of this.plugins.values()) {
-      plugin.execute()
-    }
-  }
-}
-
-class LoggingPlugin implements Plugin {
-  name = 'logging'
-
-  initialize(): void {
-    console.log('Logging plugin initialized')
-  }
-
-  execute(): void {
-    console.log('Logging plugin executed')
-  }
-}
-
-class CachePlugin implements Plugin {
-  name = 'cache'
-
-  initialize(): void {
-    console.log('Cache plugin initialized')
-  }
-
-  execute(): void {
-    console.log('Cache plugin executed')
-  }
-}
-
-const manager = new PluginManager()
-manager.register(LoggingPlugin)
-manager.register(CachePlugin)
-manager.executeAll()
-```
-
-### 8.6. 场景 6：测试工具
-
-```ts
-// ✅ 测试对象创建器
-class TestFactory {
-  static create<T>(ctor: new (...args: any[]) => T, overrides?: Partial<T>): T {
-    const instance = new ctor()
-    if (overrides) {
-      Object.assign(instance, overrides)
-    }
-    return instance
-  }
-
-  static createMany<T>(
-    ctor: new (...args: any[]) => T,
-    count: number,
-    overrides?: Array<Partial<T>>
-  ): T[] {
-    return Array.from({ length: count }, (_, i) => {
-      return this.create(ctor, overrides?.[i])
-    })
-  }
-}
-
-class User {
-  id = 0
-  name = 'Test User'
-  email = 'test@example.com'
-  active = true
-}
-
-// 测试中使用
-const user = TestFactory.create(User, { name: 'Alice' })
-const users = TestFactory.createMany(User, 3, [
-  { name: 'Alice' },
-  { name: 'Bob' },
-  { name: 'Charlie' },
-])
-```
-
-## 9. 🤔 常见错误和最佳实践
-
-### 9.1. 错误 1：忘记 new 关键字
+### 8.1. 错误 1：忘记 new 关键字
 
 ```ts
 // ❌ 缺少 new 关键字
@@ -888,7 +585,7 @@ function create<T>(ctor: new (...args: any[]) => T): T {
 }
 ```
 
-### 9.2. 错误 2：类型断言不当
+### 8.2. 错误 2：类型断言不当
 
 ```ts
 // ❌ 不安全的类型断言
@@ -902,7 +599,7 @@ function create<T>(ctor: new () => T): T {
 }
 ```
 
-### 9.3. 错误 3：忽略构造函数参数
+### 8.3. 错误 3：忽略构造函数参数
 
 ```ts
 // ❌ 没有考虑构造函数参数
@@ -916,7 +613,7 @@ function create<T>(ctor: new (...args: any[]) => T, ...args: any[]): T {
 }
 ```
 
-### 9.4. 错误 4：混淆类和实例
+### 8.4. 错误 4：混淆类和实例
 
 ```ts
 // ❌ 类型混淆
@@ -933,7 +630,7 @@ function createUser(ctor: typeof User): User {
 }
 ```
 
-### 9.5. 最佳实践
+### 8.5. 最佳实践
 
 ```ts
 // ✅ 1. 定义清晰的构造函数类型
@@ -1048,7 +745,7 @@ class CompositeFactory<T> {
 }
 ```
 
-## 10. 🔗 引用
+## 9. 🔗 引用
 
 - [TypeScript Handbook - Generics][1]
 - [TypeScript Handbook - Classes][2]

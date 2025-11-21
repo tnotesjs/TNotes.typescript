@@ -184,7 +184,7 @@
 ## 13. 泛型
 
 - [x] [0038. 泛型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0038.%20%E6%B3%9B%E5%9E%8B/README.md)
-- [ ] [0115. 泛型类](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0115.%20%E6%B3%9B%E5%9E%8B%E7%B1%BB/README.md)
+- [x] [0115. 泛型类](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0115.%20%E6%B3%9B%E5%9E%8B%E7%B1%BB/README.md)
 - [ ] [0116. 泛型函数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0116.%20%E6%B3%9B%E5%9E%8B%E5%87%BD%E6%95%B0/README.md)
 - [ ] [0117. 泛型接口](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0117.%20%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3/README.md)
 - [ ] [0118. 泛型约束](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0118.%20%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F/README.md)
