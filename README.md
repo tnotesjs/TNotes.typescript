@@ -184,13 +184,11 @@
 ## 13. 泛型
 
 - [x] [0038. 泛型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0038.%20%E6%B3%9B%E5%9E%8B/README.md)
-- [x] [0115. 泛型类](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0115.%20%E6%B3%9B%E5%9E%8B%E7%B1%BB/README.md)
-- [ ] [0116. 泛型函数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0116.%20%E6%B3%9B%E5%9E%8B%E5%87%BD%E6%95%B0/README.md)
-- [ ] [0117. 泛型接口](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0117.%20%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3/README.md)
-- [ ] [0118. 泛型约束](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0118.%20%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F/README.md)
-- [ ] [0119. 在泛型约束中使用类型参数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0119.%20%E5%9C%A8%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0/README.md)
-- [ ] [0120. 在泛型中使用类类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0120.%20%E5%9C%A8%E6%B3%9B%E5%9E%8B%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%B1%BB%E7%B1%BB%E5%9E%8B/README.md)
 - [ ] [0121. 泛型默认值](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0121.%20%E6%B3%9B%E5%9E%8B%E9%BB%98%E8%AE%A4%E5%80%BC/README.md)
+- [x] [0115. 泛型类](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0115.%20%E6%B3%9B%E5%9E%8B%E7%B1%BB/README.md)
+- [x] [0116. 泛型函数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0116.%20%E6%B3%9B%E5%9E%8B%E5%87%BD%E6%95%B0/README.md)
+- [x] [0117. 泛型接口](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0117.%20%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3/README.md)
+- [x] [0118. 泛型约束](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0118.%20%E6%B3%9B%E5%9E%8B%E7%BA%A6%E6%9D%9F/README.md)
 - [ ] [0122. 泛型的最佳实践](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0122.%20%E6%B3%9B%E5%9E%8B%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/README.md)
 
 ## 14. Enum 类型
@@ -313,6 +311,7 @@
 
 ## 24. 类型工具
 
+- [ ] [0108. 类型工具的本质](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0108.%20%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%AC%E8%B4%A8/README.md)
 - [ ] [0205. Partial T](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0205.%20Partial%20T/README.md)
 - [ ] [0206. Required T](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0206.%20Required%20T/README.md)
 - [ ] [0207. Readonly T](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0207.%20Readonly%20T/README.md)
@@ -415,7 +414,6 @@
 
 ## xxx
 
-- [ ] [0108. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0108.%20new/README.md)
 - [ ] [0109. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0109.%20new/README.md)
 - [ ] [0227. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0227.%20new/README.md)
 - [ ] [0228. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0228.%20new/README.md)

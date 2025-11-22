@@ -512,32 +512,24 @@
         "link": "/notes/0038. 泛型/README"
       },
       {
+        "text": "⏰ 泛型默认值",
+        "link": "/notes/0121. 泛型默认值/README"
+      },
+      {
         "text": "✅ 泛型类",
         "link": "/notes/0115. 泛型类/README"
       },
       {
-        "text": "⏰ 泛型函数",
+        "text": "✅ 泛型函数",
         "link": "/notes/0116. 泛型函数/README"
       },
       {
-        "text": "⏰ 泛型接口",
+        "text": "✅ 泛型接口",
         "link": "/notes/0117. 泛型接口/README"
       },
       {
-        "text": "⏰ 泛型约束",
+        "text": "✅ 泛型约束",
         "link": "/notes/0118. 泛型约束/README"
-      },
-      {
-        "text": "⏰ 在泛型约束中使用类型参数",
-        "link": "/notes/0119. 在泛型约束中使用类型参数/README"
-      },
-      {
-        "text": "⏰ 在泛型中使用类类型",
-        "link": "/notes/0120. 在泛型中使用类类型/README"
-      },
-      {
-        "text": "⏰ 泛型默认值",
-        "link": "/notes/0121. 泛型默认值/README"
       },
       {
         "text": "⏰ 泛型的最佳实践",
@@ -962,6 +954,10 @@
     "collapsed": true,
     "items": [
       {
+        "text": "⏰ 类型工具的本质",
+        "link": "/notes/0108. 类型工具的本质/README"
+      },
+      {
         "text": "⏰ Partial T",
         "link": "/notes/0205. Partial T/README"
       },
@@ -1321,10 +1317,6 @@
     "text": "xxx",
     "collapsed": true,
     "items": [
-      {
-        "text": "⏰ new",
-        "link": "/notes/0108. new/README"
-      },
       {
         "text": "⏰ new",
         "link": "/notes/0109. new/README"

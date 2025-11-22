@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "泛型接口（Generic Interface）是使用类型参数的接口，可以在使用时指定具体类型，具体用法跟泛型类非常类似。",
   "id": "6904247c-ce74-436c-a77f-b89bcf8a979c",
   "created_at": 1760521823000,
-  "updated_at": 1763741211666
+  "updated_at": 1763821206066
 }

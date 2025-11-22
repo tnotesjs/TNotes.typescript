@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "泛型约束（Generic Constraints）就是使用 extends 关键字限制泛型参数的范围。",
   "id": "931ffccd-e052-493d-9092-f525152b7f33",
   "created_at": 1760521823000,
-  "updated_at": 1763741211666
+  "updated_at": 1763821206066
 }
