@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "泛型默认值允许为类型参数指定默认类型，当无法通过推断确定类型时自动使用默认值，支持引用其他泛型参数、配合约束使用，以及通过条件类型实现动态默认值。",
   "id": "3be71045-d505-441d-aedf-19662ab766fb",
   "created_at": 1760521823000,
-  "updated_at": 1763741211666
+  "updated_at": 1763869820872
 }

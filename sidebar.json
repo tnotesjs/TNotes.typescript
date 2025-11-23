@@ -512,10 +512,6 @@
         "link": "/notes/0038. 泛型/README"
       },
       {
-        "text": "⏰ 泛型默认值",
-        "link": "/notes/0121. 泛型默认值/README"
-      },
-      {
         "text": "✅ 泛型类",
         "link": "/notes/0115. 泛型类/README"
       },
@@ -530,6 +526,10 @@
       {
         "text": "✅ 泛型约束",
         "link": "/notes/0118. 泛型约束/README"
+      },
+      {
+        "text": "✅ 泛型默认值",
+        "link": "/notes/0121. 泛型默认值/README"
       },
       {
         "text": "⏰ 泛型的最佳实践",

@@ -5,30 +5,11 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是泛型默认值？](#3--什么是泛型默认值)
-- [4. 🤔 基本语法](#4--基本语法)
-  - [4.1. 简单默认值](#41-简单默认值)
-  - [4.2. 函数中的默认值](#42-函数中的默认值)
-  - [4.3. 类中的默认值](#43-类中的默认值)
-  - [4.4. 类型别名中的默认值](#44-类型别名中的默认值)
-- [5. 🤔 多个泛型参数的默认值](#5--多个泛型参数的默认值)
-  - [5.1. 部分默认值](#51-部分默认值)
-  - [5.2. 依赖前面的参数](#52-依赖前面的参数)
-  - [5.3. 链式默认值](#53-链式默认值)
-  - [5.4. 顺序要求](#54-顺序要求)
-- [6. 🤔 默认值与约束结合](#6--默认值与约束结合)
-  - [6.1. 带约束的默认值](#61-带约束的默认值)
-  - [6.2. 约束与默认值的关系](#62-约束与默认值的关系)
-  - [6.3. 复杂约束场景](#63-复杂约束场景)
-- [7. 🤔 默认值的推断规则](#7--默认值的推断规则)
-  - [7.1. 推断优先于默认值](#71-推断优先于默认值)
-  - [7.2. 无法推断时使用默认值](#72-无法推断时使用默认值)
-  - [7.3. 部分推断](#73-部分推断)
-- [8. 🤔 常见错误和最佳实践](#8--常见错误和最佳实践)
-  - [8.1. 错误 1：默认值不满足约束](#81-错误-1默认值不满足约束)
-  - [8.2. 错误 2：默认值顺序错误](#82-错误-2默认值顺序错误)
-  - [8.3. 错误 3：过度使用 any](#83-错误-3过度使用-any)
-  - [8.4. 错误 4：忽略类型推断](#84-错误-4忽略类型推断)
-  - [8.5. 最佳实践](#85-最佳实践)
+- [4. 🤔 在什么情况下，泛型会使用默认值？](#4--在什么情况下泛型会使用默认值)
+- [5. 🤔 泛型参数的默认值是否可以引用另一个泛型参数？](#5--泛型参数的默认值是否可以引用另一个泛型参数)
+- [6. 🤔 带有默认值的泛型参数的位置有什么要求？](#6--带有默认值的泛型参数的位置有什么要求)
+- [7. 🤔 泛型参数的默认值可以跟泛型约束一并使用吗？](#7--泛型参数的默认值可以跟泛型约束一并使用吗)
+- [8. 🤔 如何定义条件默认值？](#8--如何定义条件默认值)
 - [9. 🔗 引用](#9--引用)
 
 <!-- endregion:toc -->
@@ -36,168 +17,91 @@
 ## 1. 🎯 本节内容
 
 - 泛型默认值的概念和语法
-- 单个和多个默认值
-- 默认值与约束的组合
-- 类型推断优先级
-- 实际应用场景
+- 默认泛型参数的位置要求
+- 默认值与约束的组合使用
+- 使用默认值的判断机制
+- 动态的条件默认值
 
 ## 2. 🫧 评价
 
-泛型默认值（Generic Default Parameters）允许为**类型参数指定默认类型**。
-
-泛型默认值的特点：
-
-- **可选类型参数**：不指定时使用默认值
-- **简化使用**：减少重复的类型标注
-- **向后兼容**：渐进式添加类型参数
-- **灵活性**：在需要时可以覆盖默认值
-
-泛型默认值 vs 无默认值：
-
-| 特性           | 有默认值 | 无默认值 |
-| -------------- | -------- | -------- |
-| **必须指定**   | 否       | 是       |
-| **使用便捷性** | 高       | 中       |
-| **代码简洁**   | 更简洁   | 较冗长   |
-| **灵活性**     | 可覆盖   | 必须指定 |
-| **适用场景**   | 常见类型 | 特殊类型 |
-
-泛型默认值的优势：
-
-1. **减少样板代码**：常见情况不需要指定类型
-2. **提高可读性**：代码更简洁清晰
-3. **渐进增强**：可以逐步添加类型参数
-4. **保持兼容性**：不破坏现有 API
-
-理解泛型默认值，能帮助你：
-
-1. 设计更友好的 API
-2. 简化常见用例
-3. 提高代码可维护性
-4. 实现渐进式类型化
-
-泛型默认值是 TypeScript 3.0+ 的重要特性，是构建灵活类型系统的有力工具。
+泛型默认值（Generic Default Parameters）允许为类型参数指定默认类型。
 
 ## 3. 🤔 什么是泛型默认值？
 
-泛型默认值在**类型参数声明时指定默认类型**，当使用时不提供类型参数则使用默认值。
+泛型默认值允许为泛型参数指定默认类型，当使用时若无法根据已知信息推断出类型参数的类型时，则使用默认值。
+
+无默认值：必须指定类型
 
 ```ts
-// ❌ 无默认值：必须指定类型
 interface Container<T> {
   value: T
 }
 
-// const box: Container = { value: 42 }  // ❌ Error: 需要类型参数
+const box: Container = { value: 42 } // ❌ Error: 需要类型参数
+// Generic type 'Container<T>' requires 1 type argument(s).(2314)
+```
 
-// ✅ 有默认值：可以省略类型参数
-interface Container<T = any> {
+有默认值：可以省略类型参数
+
+```ts
+interface Box<T = any> {
   value: T
 }
 
-const box1: Container = { value: 42 } // ✅ T 默认为 any
-const box2: Container<number> = { value: 42 } // ✅ 明确指定为 number
-const box3: Container<string> = { value: 'hello' } // ✅ 明确指定为 string
+const box1: Box = { value: 42 } // T 默认为 any
+const box2: Box<number> = { value: 42 } // 明确指定为 number
+const box3: Box<string> = { value: 'hello' } // 明确指定为 string
 ```
 
-**关键概念**：
+## 4. 🤔 在什么情况下，泛型会使用默认值？
 
-- **= 语法**：使用 `=` 指定默认类型
-- **可选**：不提供类型参数时使用默认值
-- **可覆盖**：可以显式指定其他类型
-- **推断优先**：类型推断优先于默认值
+“❌ 若不提供类型参数则使用默认值” —— 这种说法并不十分严谨，因为在“显式声明类型”和“省略类型声明”的中间还有一层类型推断。更加准确一些的说法应该是 “✅ 若无法根据已知信息推断出类型参数的类型时，则使用默认值”。
 
-## 4. 🤔 基本语法
-
-### 4.1. 简单默认值
+优先级：显式声明 > 类型推断 > 默认值
 
 ```ts
-// ✅ 基本默认值
-interface Response<T = unknown> {
-  data: T
-  status: number
-  message: string
+function wrap<T = string>(value: T): T {
+  return value
 }
 
-// 使用默认值
-const response1: Response = {
-  data: { anything: true },
-  status: 200,
-  message: 'OK',
+// 1. 显式声明
+const wrapped1 = wrap<string>(42 as any) // T 为 string
+
+// 2. 类型推断
+const wrapped2 = wrap('hello') // T 推断为 'hello'
+const wrapped3 = wrap(42) // T 推断为 42
+
+let wrapped4 = wrap('hello') // T 推断为 string
+let wrapped5 = wrap(42) // T 推断为 number
+
+// ⚠️ 仔细观察你会发现，上述提供的泛型默认值确实起不到什么作用！
+// 因为 wrap 函数的调用必须传递实参 value
+// 在 TS 中，每个值都是有类型的
+// TS 会将 value 的类型传给 T，也就是说 T 不可能为空，也就不可能会启用默认值
+
+// 在这个例子中，如果要让泛型定义的默认值有意义，需要函数参数也有默认值。
+function wrapWithDefault<T = string>(value?: T): T | undefined {
+  return value
 }
 
-// 指定具体类型
-interface User {
-  id: number
-  name: string
-}
-
-const response2: Response<User> = {
-  data: { id: 1, name: 'Alice' },
-  status: 200,
-  message: 'OK',
-}
+const wrapped6 = wrapWithDefault() // T 使用默认值 string | undefined
+const wrapped7 = wrapWithDefault('hello') // T 推断为 'hello' | undefined
+const wrapped8 = wrapWithDefault<number>() // T 为 number | undefined
 ```
 
-### 4.2. 函数中的默认值
+## 5. 🤔 泛型参数的默认值是否可以引用另一个泛型参数？
+
+可以。
 
 ```ts
-// ✅ 函数泛型默认值
-function wrap<T = string>(value: T): { value: T } {
-  return { value }
-}
-
-const wrapped1 = wrap('hello') // { value: string }
-const wrapped2 = wrap<number>(42) // { value: number }
-const wrapped3 = wrap(true) // { value: boolean } - 类型推断
-```
-
-### 4.3. 类中的默认值
-
-```ts
-// ✅ 类泛型默认值
-class Box<T = any> {
-  constructor(public value: T) {}
-
-  getValue(): T {
-    return this.value
-  }
-}
-
-const box1 = new Box('hello') // Box<string> - 推断
-const box2 = new Box<number>(42) // Box<number> - 明确指定
-const box3: Box = new Box(true) // Box<any> - 使用默认值
-```
-
-### 4.4. 类型别名中的默认值
-
-```ts
-// ✅ 类型别名默认值
-type Result<T = void, E = Error> =
-  | { success: true; data: T }
-  | { success: false; error: E }
-
-const result1: Result = { success: true, data: undefined } // void, Error
-const result2: Result<number> = { success: true, data: 42 } // number, Error
-const result3: Result<string, string> = {
-  success: false,
-  error: 'Custom error',
-} // string, string
-```
-
-## 5. 🤔 多个泛型参数的默认值
-
-### 5.1. 部分默认值
-
-```ts
-// ✅ 部分参数有默认值
-interface Map<K, V = K> {
+// 部分参数有默认值
+interface KeyValueStore<K, V = K> {
   get(key: K): V | undefined
   set(key: K, value: V): void
 }
 
 // V 默认与 K 相同
-const map1: Map<string> = {
+const store1: KeyValueStore<string> = {
   get(key) {
     return key
   },
@@ -205,7 +109,7 @@ const map1: Map<string> = {
 }
 
 // 明确指定不同的 V
-const map2: Map<string, number> = {
+const store2: KeyValueStore<string, number> = {
   get(key) {
     return 0
   },
@@ -213,66 +117,28 @@ const map2: Map<string, number> = {
 }
 ```
 
-### 5.2. 依赖前面的参数
+在上述示例中，`V = K` 表示泛型 V 使用的默认值是泛型参数 K 的类型。
+
+## 6. 🤔 带有默认值的泛型参数的位置有什么要求？
+
+所有带有默认值的泛型参数必须位于必填的泛型参数之后。
 
 ```ts
-// ✅ 默认值依赖前面的类型参数
-interface Transformer<T, U = T> {
-  transform(input: T): U
-}
-
-const identity: Transformer<number> = {
-  transform(input) {
-    return input
-  }, // U 默认为 number
-}
-
-const toString: Transformer<number, string> = {
-  transform(input) {
-    return input.toString()
-  },
-}
-```
-
-### 5.3. 链式默认值
-
-```ts
-// ✅ 多层默认值
-interface Config<T = string, U = T[], V = Promise<U>> {
-  value: T
-  list: U
-  async: V
-}
-
-const config1: Config = {
-  value: '',
-  list: [],
-  async: Promise.resolve([]),
-} // string, string[], Promise<string[]>
-
-const config2: Config<number> = {
-  value: 0,
-  list: [],
-  async: Promise.resolve([]),
-} // number, number[], Promise<number[]>
-```
-
-### 5.4. 顺序要求
-
-```ts
-// ✅ 有默认值的参数必须在后面
+// 有默认值的参数必须在后面
 interface Valid<T, U = string> {
   first: T
   second: U
 }
 
 // ❌ 不能在前面的参数后添加必需参数
-// interface Invalid<T = string, U> {  // Error
+// interface Invalid<T = string, U> {  // ❌ Error
 //   first: T
 //   second: U
 // }
+// 报错信息：
+// Required type parameters may not follow optional type parameters.(2706)
 
-// ✅ 正确：所有默认值参数都在后面
+// 所有带有默认值的泛型参数必须位于必填的泛型参数之后
 interface Correct<T, U = string, V = number> {
   first: T
   second: U
@@ -280,20 +146,29 @@ interface Correct<T, U = string, V = number> {
 }
 ```
 
-## 6. 🤔 默认值与约束结合
+## 7. 🤔 泛型参数的默认值可以跟泛型约束一并使用吗？
 
-### 6.1. 带约束的默认值
+可以，前提是默认值必须满足约束。
 
 ```ts
-// ✅ 默认值必须满足约束
 interface Lengthwise {
   length: number
 }
 
+// 默认值必须满足约束
+// 比如这里的 string 类型，就满足 Lengthwise 接口约束
 interface Container<T extends Lengthwise = string> {
   value: T
   getLength(): number
 }
+
+// number 不满足 Lengthwise 接口约束，会报错。
+// interface Container2<T extends Lengthwise = number> { // ❌ Error
+//   value: T
+//   getLength(): number
+// }
+// 报错信息：
+// Type 'number' does not satisfy the constraint 'Lengthwise'.(2344)
 
 const container1: Container = {
   value: 'hello', // string 满足 Lengthwise
@@ -310,222 +185,12 @@ const container2: Container<number[]> = {
 }
 ```
 
-### 6.2. 约束与默认值的关系
+## 8. 🤔 如何定义条件默认值？
+
+泛型默认值可以使用条件类型，根据泛型参数的类型动态决定默认值。
 
 ```ts
-// ✅ 默认值受约束限制
-interface Comparable<T extends number | string = number> {
-  compare(a: T, b: T): number
-}
-
-const numberComp: Comparable = {
-  compare(a, b) {
-    return a - b
-  }, // T 默认为 number
-}
-
-const stringComp: Comparable<string> = {
-  compare(a, b) {
-    return a.localeCompare(b)
-  },
-}
-
-// ❌ 默认值不满足约束会报错
-// interface Invalid<T extends number = string> {}  // Error
-```
-
-### 6.3. 复杂约束场景
-
-```ts
-// ✅ 复杂约束与默认值
-interface Entity {
-  id: number
-}
-
-interface Repository<T extends Entity = Entity, K extends keyof T = 'id'> {
-  findBy(key: K, value: T[K]): T | undefined
-}
-
-interface User extends Entity {
-  name: string
-  email: string
-}
-
-const repo1: Repository = {
-  findBy(key, value) {
-    return undefined
-  },
-} // Entity, 'id'
-
-const repo2: Repository<User> = {
-  findBy(key, value) {
-    return undefined
-  },
-} // User, 'id'
-
-const repo3: Repository<User, 'email'> = {
-  findBy(key, value) {
-    return undefined
-  },
-} // User, 'email'
-```
-
-## 7. 🤔 默认值的推断规则
-
-### 7.1. 推断优先于默认值
-
-```ts
-// ✅ 类型推断优先
-function wrap<T = string>(value: T): T {
-  return value
-}
-
-const wrapped1 = wrap('hello') // T 推断为 string
-const wrapped2 = wrap(42) // T 推断为 number
-const wrapped3 = wrap(true) // T 推断为 boolean
-
-// 显式指定优先于推断
-const wrapped4 = wrap<string>(42 as any) // T 为 string
-```
-
-### 7.2. 无法推断时使用默认值
-
-```ts
-// ✅ 无法推断时才使用默认值
-function create<T = object>(): T {
-  return {} as T
-}
-
-const obj1 = create() // object - 使用默认值
-const obj2 = create<User>() // User - 明确指定
-
-interface User {
-  id: number
-  name: string
-}
-```
-
-### 7.3. 部分推断
-
-```ts
-// ✅ 部分参数推断，部分使用默认值
-function convert<T, U = string>(value: T): U {
-  return String(value) as any
-}
-
-const result1 = convert(42) // T=number, U=string(默认)
-const result2 = convert<number, boolean>(42) // T=number, U=boolean
-```
-
-## 8. 🤔 常见错误和最佳实践
-
-### 8.1. 错误 1：默认值不满足约束
-
-```ts
-// ❌ 默认值不满足约束
-// interface Container<T extends number = string> {}  // Error
-
-// ✅ 默认值必须满足约束
-interface Container<T extends number = 0> {
-  value: T
-}
-```
-
-### 8.2. 错误 2：默认值顺序错误
-
-```ts
-// ❌ 有默认值的参数不能在无默认值的参数之前
-// interface Invalid<T = any, U> {}  // Error
-
-// ✅ 正确顺序
-interface Valid<T, U = any> {
-  first: T
-  second: U
-}
-```
-
-### 8.3. 错误 3：过度使用 any
-
-```ts
-// ❌ 默认值为 any 失去类型安全
-interface Container<T = any> {
-  value: T
-}
-
-// ✅ 使用更具体的默认值
-interface Container<T = unknown> {
-  value: T
-}
-
-// ✅ 或使用有意义的默认类型
-interface Response<T = void> {
-  data: T
-  status: number
-}
-```
-
-### 8.4. 错误 4：忽略类型推断
-
-```ts
-// ❌ 不必要的类型标注
-function wrap<T = string>(value: T): T {
-  return value
-}
-
-const result = wrap<string>('hello') // 不必要，会自动推断
-
-// ✅ 让类型推断工作
-const result2 = wrap('hello') // 自动推断为 string
-```
-
-### 8.5. 最佳实践
-
-```ts
-// ✅ 1. 使用 unknown 而不是 any
-interface Response<T = unknown> {
-  data: T
-}
-
-// ✅ 2. 为常见情况提供合理默认值
-interface ApiResult<T = void, E = Error> {
-  data?: T
-  error?: E
-}
-
-// ✅ 3. 默认值应该是最通用的情况
-interface Collection<T = any[]> {
-  items: T
-  size: number
-}
-
-// ✅ 4. 依赖关系的默认值
-interface Converter<TInput, TOutput = TInput> {
-  convert(input: TInput): TOutput
-}
-
-// ✅ 5. 文档化默认值的选择理由
-/**
- * 容器接口
- * @template T - 内容类型，默认为 unknown 以保持类型安全
- */
-interface Container<T = unknown> {
-  value: T
-}
-
-// ✅ 6. 为可选操作提供默认值
-interface Options<T = string> {
-  format?: (value: T) => string
-  validate?: (value: T) => boolean
-}
-
-// ✅ 7. 链式默认值
-interface Config<T = string, U = T[], V = Promise<U>> {
-  value: T
-  list: U
-  async: V
-}
-
-// ✅ 8. 条件默认值
+// 条件默认值
 type DefaultType<T> = T extends string ? string[] : T[]
 
 interface Container<T, U = DefaultType<T>> {
@@ -533,22 +198,87 @@ interface Container<T, U = DefaultType<T>> {
   list: U
 }
 
-// ✅ 9. 与工具类型结合
-interface UpdateRequest<T = any> {
-  id: number
-  data: Partial<T>
+// T 是 string，U 默认为 string[]
+const container1: Container<string> = {
+  value: 'hello',
+  list: ['a', 'b', 'c'], // string[]
 }
 
-// ✅ 10. 保持向后兼容
-// 添加新的可选类型参数
-interface Response<T = void> {
-  // 原有
-  data: T
+// T 是 number，U 默认为 number[]
+const container2: Container<number> = {
+  value: 42,
+  list: [1, 2, 3], // number[]
 }
 
-// 扩展时添加默认值
-interface ExtendedResponse<T = void, E = Error> extends Response<T> {
-  error?: E
+// 显式指定 U，覆盖默认值
+const container3: Container<string, Set<string>> = {
+  value: 'hello',
+  list: new Set(['a', 'b']), // Set<string>
+}
+```
+
+三目运算符 `? :` 的运算也支持嵌套，实现更复杂的条件默认值。
+
+```ts
+// 根据类型特征决定默认值
+type SmartDefault<T> = T extends (...args: any[]) => any
+  ? ReturnType<T> // 如果是函数，默认为返回值类型
+  : T extends Array<infer U>
+  ? U // 如果是数组，默认为元素类型
+  : T // 否则就是 T 本身
+
+interface Wrapper<T, U = SmartDefault<T>> {
+  input: T
+  output: U
+}
+
+// T 是函数，U 默认为返回值类型
+const wrapper1: Wrapper<() => number> = {
+  input: () => 42,
+  output: 100, // number
+}
+
+// T 是数组，U 默认为元素类型
+const wrapper2: Wrapper<string[]> = {
+  input: ['a', 'b'],
+  output: 'c', // string
+}
+
+// T 是普通类型，U 就是 T
+const wrapper3: Wrapper<boolean> = {
+  input: true,
+  output: false, // boolean
+}
+```
+
+实际应用场景示例：API 响应包装器
+
+```ts
+type ApiData<T> = T extends { data: infer D } ? D : T
+// 解释说明：
+// T extends { data: ... }：检查类型 T 是否包含 data 属性
+// infer D：如果 T 有 data 属性，就推断出 data 的类型，并将其赋值给临时类型变量 D
+// ? D   // 如果 T 有 data 属性，返回 data 的类型 D
+// : T   // 否则，返回 T 本身
+
+interface ApiResponse<T, D = ApiData<T>> {
+  raw: T
+  data: D
+  timestamp: number
+}
+
+// T 有 data 属性，D 默认提取 data 的类型
+const response1: ApiResponse<{ data: string; code: number }> = {
+  raw: { data: 'hello', code: 200 },
+  data: 'hello', // string
+  timestamp: Date.now(),
+}
+
+// T 没有 data 属性，D 默认就是 T
+const response2: ApiResponse<number> = {
+  raw: 42,
+  data: 42, // number
+  timestamp: Date.now(),
 }
 ```
 
