@@ -5,38 +5,29 @@
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
 - [3. 🤔 什么是数字枚举？](#3--什么是数字枚举)
-- [4. 🤔 基本语法](#4--基本语法)
-  - [4.1. 默认从 0 开始](#41-默认从-0-开始)
-  - [4.2. 自定义起始值](#42-自定义起始值)
-  - [4.3. 完全手动赋值](#43-完全手动赋值)
-  - [4.4. 编译结果](#44-编译结果)
-- [5. 🤔 初始化规则](#5--初始化规则)
-  - [5.1. 自动递增](#51-自动递增)
-  - [5.2. 多段递增](#52-多段递增)
-  - [5.3. 负数和间隔](#53-负数和间隔)
-- [6. 🤔 反向映射](#6--反向映射)
-  - [6.1. 双向访问](#61-双向访问)
-  - [6.2. 实际应用](#62-实际应用)
-  - [6.3. 类型安全的反向映射](#63-类型安全的反向映射)
-- [7. 🤔 计算成员](#7--计算成员)
-  - [7.1. 常量表达式](#71-常量表达式)
-  - [7.2. 运算表达式](#72-运算表达式)
-  - [7.3. 常量成员 vs 计算成员](#73-常量成员-vs-计算成员)
-- [8. 🤔 常见使用场景](#8--常见使用场景)
-  - [8.1. 场景 1：状态码](#81-场景-1状态码)
-  - [8.2. 场景 2：优先级和等级](#82-场景-2优先级和等级)
-  - [8.3. 场景 3：状态机](#83-场景-3状态机)
-  - [8.4. 场景 4：权限管理](#84-场景-4权限管理)
-  - [8.5. 场景 5：游戏开发](#85-场景-5游戏开发)
-  - [8.6. 场景 6：配置选项](#86-场景-6配置选项)
-  - [8.7. 场景 7：错误代码](#87-场景-7错误代码)
-- [9. 🤔 常见错误和最佳实践](#9--常见错误和最佳实践)
-  - [9.1. 错误 1：枚举值冲突](#91-错误-1枚举值冲突)
-  - [9.2. 错误 2：混用计算和非计算成员](#92-错误-2混用计算和非计算成员)
-  - [9.3. 错误 3：反向映射的误用](#93-错误-3反向映射的误用)
-  - [9.4. 错误 4：枚举比较错误](#94-错误-4枚举比较错误)
-  - [9.5. 最佳实践](#95-最佳实践)
-- [10. 🔗 引用](#10--引用)
+- [4. 🆚 数字枚举 vs 字符串枚举](#4--数字枚举-vs-字符串枚举)
+- [5. 🤔 数字枚举自动递增的处理机制是？](#5--数字枚举自动递增的处理机制是)
+- [6. 🤔 数字枚举中如果出现了相同的值怎么办？](#6--数字枚举中如果出现了相同的值怎么办)
+- [7. 🤔 数字枚举中的反向映射是什么？](#7--数字枚举中的反向映射是什么)
+- [8. 🤔 计算成员](#8--计算成员)
+  - [8.1. 常量表达式](#81-常量表达式)
+  - [8.2. 运算表达式](#82-运算表达式)
+  - [8.3. 常量成员 vs 计算成员](#83-常量成员-vs-计算成员)
+- [9. 🤔 常见使用场景](#9--常见使用场景)
+  - [9.1. 场景 1：状态码](#91-场景-1状态码)
+  - [9.2. 场景 2：优先级和等级](#92-场景-2优先级和等级)
+  - [9.3. 场景 3：状态机](#93-场景-3状态机)
+  - [9.4. 场景 4：权限管理](#94-场景-4权限管理)
+  - [9.5. 场景 5：游戏开发](#95-场景-5游戏开发)
+  - [9.6. 场景 6：配置选项](#96-场景-6配置选项)
+  - [9.7. 场景 7：错误代码](#97-场景-7错误代码)
+- [10. 🤔 常见错误和最佳实践](#10--常见错误和最佳实践)
+  - [10.1. 错误 1：枚举值冲突](#101-错误-1枚举值冲突)
+  - [10.2. 错误 2：混用计算和非计算成员](#102-错误-2混用计算和非计算成员)
+  - [10.3. 错误 3：反向映射的误用](#103-错误-3反向映射的误用)
+  - [10.4. 错误 4：枚举比较错误](#104-错误-4枚举比较错误)
+  - [10.5. 最佳实践](#105-最佳实践)
+- [11. 🔗 引用](#11--引用)
 
 <!-- endregion:toc -->
 
@@ -52,36 +43,19 @@
 
 数字枚举（Numeric Enum）是 TypeScript 中使用数字作为值的枚举类型。
 
-数字枚举的特点：
-
-- 自动递增：成员值自动递增
-- 反向映射：支持从值获取名称
-- 类型安全：编译时检查
-- 编译产物：编译为 JavaScript 对象
-
-数字枚举 vs 字符串枚举：
-
-| 特性     | 数字枚举 | 字符串枚举 |
-| -------- | -------- | ---------- |
-| 值类型   | 数字     | 字符串     |
-| 自动递增 | 支持     | 不支持     |
-| 反向映射 | 支持     | 不支持     |
-| 可读性   | 较差     | 较好       |
-| 序列化   | 数字     | 字符串     |
-
-数字枚举的优势：
-
-1. 简洁性：不需要为每个成员赋值
-2. 性能：数字比较更快
-3. 兼容性：与 JavaScript 数字无缝集成
-4. 反向查找：可以通过值获取名称
-
 ## 3. 🤔 什么是数字枚举？
 
 数字枚举是成员值为数字的枚举类型，默认从 0 开始自动递增。
 
+- 自动递增：未赋值的成员自动递增
+- 简洁：不需要为每个成员赋值
+- 数字值：成员值是数字类型
+- 反向映射：既可以通过名称访问值，也可以通过值访问名称
+- 编译结果：编译为双向映射的对象
+
+基本数字枚举示例：
+
 ```ts
-// ✅ 基本数字枚举
 enum Direction {
   Up, // 0
   Down, // 1
@@ -93,7 +67,25 @@ const dir: Direction = Direction.Up
 console.log(dir) // 0
 console.log(Direction[0]) // 'Up' - 反向映射
 
-// ✅ 手动指定起始值
+// 编译后得到的 JS：
+/* 
+"use strict";
+var Direction;
+(function (Direction) {
+    Direction[Direction["Up"] = 0] = "Up";
+    Direction[Direction["Down"] = 1] = "Down";
+    Direction[Direction["Left"] = 2] = "Left";
+    Direction[Direction["Right"] = 3] = "Right";
+})(Direction || (Direction = {}));
+const dir = Direction.Up;
+console.log(dir); // 0
+console.log(Direction[0]); // 'Up' - 反向映射
+ */
+```
+
+也可以手动指定起始值：
+
+```ts
 enum Status {
   Pending = 1,
   Active, // 2
@@ -101,70 +93,32 @@ enum Status {
   Deleted, // 4
 }
 
-// ✅ 使用枚举
 function getStatusName(status: Status): string {
   return Status[status]
 }
 
 console.log(getStatusName(Status.Active)) // 'Active'
-```
 
-关键概念：
-
-- 自动递增：未赋值的成员自动递增
-- 数字值：成员值是数字类型
-- 反向映射：既可以通过名称访问值，也可以通过值访问名称
-- 编译结果：编译为双向映射的对象
-
-## 4. 🤔 基本语法
-
-### 4.1. 默认从 0 开始
-
-```ts
-// ✅ 默认从 0 开始递增
-enum Color {
-  Red, // 0
-  Green, // 1
-  Blue, // 2
+// 编译后得到的 JS：
+/* 
+"use strict";
+var Status;
+(function (Status) {
+    Status[Status["Pending"] = 1] = "Pending";
+    Status[Status["Active"] = 2] = "Active";
+    Status[Status["Inactive"] = 3] = "Inactive";
+    Status[Status["Deleted"] = 4] = "Deleted";
+})(Status || (Status = {}));
+function getStatusName(status) {
+    return Status[status];
 }
-
-console.log(Color.Red) // 0
-console.log(Color.Green) // 1
-console.log(Color.Blue) // 2
-
-// 反向映射
-console.log(Color[0]) // 'Red'
-console.log(Color[1]) // 'Green'
-console.log(Color[2]) // 'Blue'
+console.log(getStatusName(Status.Active)); // 'Active'
+ */
 ```
 
-### 4.2. 自定义起始值
+可以完全手动赋值 - 每个成员都手动赋值：
 
 ```ts
-// ✅ 从 1 开始
-enum Month {
-  January = 1,
-  February, // 2
-  March, // 3
-  April, // 4
-  May, // 5
-  June, // 6
-  July, // 7
-  August, // 8
-  September, // 9
-  October, // 10
-  November, // 11
-  December, // 12
-}
-
-console.log(Month.January) // 1
-console.log(Month.December) // 12
-```
-
-### 4.3. 完全手动赋值
-
-```ts
-// ✅ 每个成员手动赋值
 enum HttpStatus {
   OK = 200,
   Created = 201,
@@ -186,64 +140,73 @@ function handleStatus(status: HttpStatus): void {
       console.log('Other status')
   }
 }
+
+// 编译后得到的 JS：
+/* 
+"use strict";
+var HttpStatus;
+(function (HttpStatus) {
+    HttpStatus[HttpStatus["OK"] = 200] = "OK";
+    HttpStatus[HttpStatus["Created"] = 201] = "Created";
+    HttpStatus[HttpStatus["BadRequest"] = 400] = "BadRequest";
+    HttpStatus[HttpStatus["Unauthorized"] = 401] = "Unauthorized";
+    HttpStatus[HttpStatus["NotFound"] = 404] = "NotFound";
+    HttpStatus[HttpStatus["InternalServerError"] = 500] = "InternalServerError";
+})(HttpStatus || (HttpStatus = {}));
+function handleStatus(status) {
+    switch (status) {
+        case HttpStatus.OK:
+            console.log('Success');
+            break;
+        case HttpStatus.NotFound:
+            console.log('Not found');
+            break;
+        default:
+            console.log('Other status');
+    }
+}
+ */
 ```
 
-### 4.4. 编译结果
+## 4. 🆚 数字枚举 vs 字符串枚举
 
-```ts
-// TypeScript 代码
-enum Direction {
-  Up,
-  Down,
-  Left,
-  Right,
-}
+| 特性     | 数字枚举 | 字符串枚举                   |
+| -------- | -------- | ---------------------------- |
+| 值类型   | 数字     | 字符串                       |
+| 自动递增 | 支持     | 不支持（因此必须显式初始化） |
+| 反向映射 | 支持     | 不支持                       |
 
-// 编译为 JavaScript
-var Direction
-;(function (Direction) {
-  Direction[(Direction['Up'] = 0)] = 'Up'
-  Direction[(Direction['Down'] = 1)] = 'Down'
-  Direction[(Direction['Left'] = 2)] = 'Left'
-  Direction[(Direction['Right'] = 3)] = 'Right'
-})(Direction || (Direction = {}))
+## 5. 🤔 数字枚举自动递增的处理机制是？
 
-// 等价于
-const Direction = {
-  Up: 0,
-  Down: 1,
-  Left: 2,
-  Right: 3,
-  0: 'Up',
-  1: 'Down',
-  2: 'Left',
-  3: 'Right',
-}
-```
+如果某个成员显式设置了值，那么后续未设置值的成员会自动 +1 递增。
 
-## 5. 🤔 初始化规则
+1. 自动递增 - 从第一个初始化成员开始递增
+2. 多段递增 - 可以有多个初始化点
+3. 负数 - 可以使用负数
+4. 间隔 - 可以有间隔
 
-### 5.1. 自动递增
+::: code-group
 
-```ts
-// ✅ 从第一个初始化成员开始递增
+```ts [1]
 enum Level {
   Low, // 0
   Medium, // 1
   High = 5, // 5
   Critical, // 6 - 从 5 开始递增
 }
-
-console.log(Level.Low) // 0
-console.log(Level.Medium) // 1
-console.log(Level.High) // 5
-console.log(Level.Critical) // 6
+/* 
+"use strict";
+var Level;
+(function (Level) {
+    Level[Level["Low"] = 0] = "Low";
+    Level[Level["Medium"] = 1] = "Medium";
+    Level[Level["High"] = 5] = "High";
+    Level[Level["Critical"] = 6] = "Critical";
+})(Level || (Level = {}));
+ */
 ```
 
-### 5.2. 多段递增
-
-```ts
-// ✅ 可以有多个初始化点
+```ts [2]
 enum Priority {
   Lowest = 0,
   Low, // 1
@@ -251,16 +214,20 @@ enum Priority {
   High, // 6
   Highest = 10,
 }
-
-console.log(Priority.Low) // 1
-console.log(Priority.High) // 6
-console.log(Priority.Highest) // 10
+/* 
+"use strict";
+var Priority;
+(function (Priority) {
+    Priority[Priority["Lowest"] = 0] = "Lowest";
+    Priority[Priority["Low"] = 1] = "Low";
+    Priority[Priority["Medium"] = 5] = "Medium";
+    Priority[Priority["High"] = 6] = "High";
+    Priority[Priority["Highest"] = 10] = "Highest";
+})(Priority || (Priority = {}));
+ */
 ```
 
-### 5.3. 负数和间隔
-
-```ts
-// ✅ 可以使用负数
+```ts [3]
 enum Temperature {
   FreezingPoint = -10,
   Cold, // -9
@@ -269,22 +236,100 @@ enum Temperature {
   Hot, // 11
   Boiling = 100,
 }
+/* 
+"use strict";
+var Temperature;
+(function (Temperature) {
+    Temperature[Temperature["FreezingPoint"] = -10] = "FreezingPoint";
+    Temperature[Temperature["Cold"] = -9] = "Cold";
+    Temperature[Temperature["Cool"] = -8] = "Cool";
+    Temperature[Temperature["Warm"] = 10] = "Warm";
+    Temperature[Temperature["Hot"] = 11] = "Hot";
+    Temperature[Temperature["Boiling"] = 100] = "Boiling";
+})(Temperature || (Temperature = {}));
+ */
+```
 
-// ✅ 可以有间隔
+```ts [4]
 enum ErrorCode {
   Success = 0,
   Warning = 100,
   Error = 200,
   Critical = 300,
 }
+/* 
+"use strict";
+var ErrorCode;
+(function (ErrorCode) {
+    ErrorCode[ErrorCode["Success"] = 0] = "Success";
+    ErrorCode[ErrorCode["Warning"] = 100] = "Warning";
+    ErrorCode[ErrorCode["Error"] = 200] = "Error";
+    ErrorCode[ErrorCode["Critical"] = 300] = "Critical";
+})(ErrorCode || (ErrorCode = {}));
+ */
 ```
 
-## 6. 🤔 反向映射
+:::
 
-### 6.1. 双向访问
+## 6. 🤔 数字枚举中如果出现了相同的值怎么办？
+
+值冲突：不会报错，后者覆盖前者。
+
+示例：
 
 ```ts
-// ✅ 数字枚举支持反向映射
+enum Level {
+  Low = 5, // 5
+  Medium, // 6
+  High = 5, // 5
+  Critical, // 6
+}
+/* 
+"use strict";
+var Level;
+(function (Level) {
+    Level[Level["Low"] = 5] = "Low";
+    Level[Level["Medium"] = 6] = "Medium";
+    Level[Level["High"] = 5] = "High";
+    Level[Level["Critical"] = 6] = "Critical";
+})(Level || (Level = {}));
+ */
+```
+
+上述这种情况 TS 并不会报错，从最终编译结果来看，出现值冲突的情况，最终效果是后者覆盖前者。
+
+## 7. 🤔 数字枚举中的反向映射是什么？
+
+- 正向映射：名称 -> 值
+- 反向映射：值 -> 名称
+
+你可以通过 key 隐射到 val，也可以通过 val 隐射到 key。
+
+这一特性，可以通过直接观察编译结果 JS 来熟悉实现原理：
+
+```ts
+enum Level {
+  Low,
+  Medium,
+  High,
+  Critical,
+}
+// 编译后得到的 JS：
+/* 
+"use strict";
+var Level;
+(function (Level) {
+    Level[Level["Low"] = 0] = "Low";
+    Level[Level["Medium"] = 1] = "Medium";
+    Level[Level["High"] = 2] = "High";
+    Level[Level["Critical"] = 3] = "Critical";
+})(Level || (Level = {}));
+ */
+```
+
+示例：
+
+```ts
 enum Status {
   Draft,
   Published,
@@ -300,56 +345,9 @@ console.log(Status[0]) // 'Draft'
 console.log(Status[1]) // 'Published'
 ```
 
-### 6.2. 实际应用
+## 8. 🤔 计算成员
 
-```ts
-// ✅ 动态获取枚举名称
-enum UserRole {
-  Guest = 1,
-  User,
-  Admin,
-  SuperAdmin,
-}
-
-function getRoleName(role: UserRole): string {
-  return UserRole[role]
-}
-
-console.log(getRoleName(UserRole.Admin)) // 'Admin'
-console.log(getRoleName(3)) // 'Admin'
-
-// ✅ 遍历枚举
-function getAllRoles(): string[] {
-  return Object.keys(UserRole).filter((key) => isNaN(Number(key)))
-}
-
-console.log(getAllRoles()) // ['Guest', 'User', 'Admin', 'SuperAdmin']
-```
-
-### 6.3. 类型安全的反向映射
-
-```ts
-// ✅ 类型安全的反向查找
-enum Color {
-  Red,
-  Green,
-  Blue,
-}
-
-function getColorName(value: number): string | undefined {
-  if (value in Color && typeof Color[value] === 'string') {
-    return Color[value]
-  }
-  return undefined
-}
-
-console.log(getColorName(0)) // 'Red'
-console.log(getColorName(99)) // undefined
-```
-
-## 7. 🤔 计算成员
-
-### 7.1. 常量表达式
+### 8.1. 常量表达式
 
 ```ts
 // ✅ 使用常量表达式
@@ -366,7 +364,7 @@ console.log(FileAccess.Write) // 2
 console.log(FileAccess.ReadWrite) // 3
 ```
 
-### 7.2. 运算表达式
+### 8.2. 运算表达式
 
 ```ts
 // ✅ 数学运算
@@ -395,7 +393,7 @@ console.log(hasPermission(userPerms, Permissions.Read)) // true
 console.log(hasPermission(userPerms, Permissions.Delete)) // false
 ```
 
-### 7.3. 常量成员 vs 计算成员
+### 8.3. 常量成员 vs 计算成员
 
 ```ts
 // ✅ 常量成员
@@ -425,9 +423,9 @@ enum MixedEnum {
 }
 ```
 
-## 8. 🤔 常见使用场景
+## 9. 🤔 常见使用场景
 
-### 8.1. 场景 1：状态码
+### 9.1. 场景 1：状态码
 
 ```ts
 // ✅ HTTP 状态码
@@ -466,7 +464,7 @@ function handleResponse(status: HttpStatusCode): void {
 }
 ```
 
-### 8.2. 场景 2：优先级和等级
+### 9.2. 场景 2：优先级和等级
 
 ```ts
 // ✅ 日志级别
@@ -510,7 +508,7 @@ logger.info('Info message') // 不输出
 logger.error('Error message') // 输出
 ```
 
-### 8.3. 场景 3：状态机
+### 9.3. 场景 3：状态机
 
 ```ts
 // ✅ 订单状态
@@ -562,7 +560,7 @@ order.transitionTo(OrderStatus.Confirmed)
 console.log(order.getStatusName()) // 'Confirmed'
 ```
 
-### 8.4. 场景 4：权限管理
+### 9.4. 场景 4：权限管理
 
 ```ts
 // ✅ 位标志权限
@@ -623,7 +621,7 @@ console.log(pm.has(Permission.Delete)) // false
 console.log(pm.getPermissions()) // ['Read', 'Write']
 ```
 
-### 8.5. 场景 5：游戏开发
+### 9.5. 场景 5：游戏开发
 
 ```ts
 // ✅ 游戏方向
@@ -678,7 +676,7 @@ player.move(Direction.East, 3)
 console.log(player.getPosition()) // { x: 3, y: 5 }
 ```
 
-### 8.6. 场景 6：配置选项
+### 9.6. 场景 6：配置选项
 
 ```ts
 // ✅ 缓存策略
@@ -728,7 +726,7 @@ const cache = new Cache({
 console.log(cache.getStrategyName()) // 'Memory'
 ```
 
-### 8.7. 场景 7：错误代码
+### 9.7. 场景 7：错误代码
 
 ```ts
 // ✅ 应用错误码
@@ -783,9 +781,9 @@ const error = new AppError(ErrorCode.InvalidInput, 'Invalid email format')
 handleError(error)
 ```
 
-## 9. 🤔 常见错误和最佳实践
+## 10. 🤔 常见错误和最佳实践
 
-### 9.1. 错误 1：枚举值冲突
+### 10.1. 错误 1：枚举值冲突
 
 ```ts
 // ❌ 不同成员具有相同的值
@@ -806,7 +804,7 @@ enum Good {
 }
 ```
 
-### 9.2. 错误 2：混用计算和非计算成员
+### 10.2. 错误 2：混用计算和非计算成员
 
 ```ts
 // ❌ 计算成员后必须初始化
@@ -825,7 +823,7 @@ enum Good {
 }
 ```
 
-### 9.3. 错误 3：反向映射的误用
+### 10.3. 错误 3：反向映射的误用
 
 ```ts
 // ❌ 假设所有枚举都有反向映射
@@ -845,7 +843,7 @@ enum NumberEnum {
 console.log(NumberEnum[0]) // 'A'
 ```
 
-### 9.4. 错误 4：枚举比较错误
+### 10.4. 错误 4：枚举比较错误
 
 ```ts
 // ❌ 直接比较枚举和数字
@@ -864,7 +862,7 @@ if (status === Status.Active) {
 }
 ```
 
-### 9.5. 最佳实践
+### 10.5. 最佳实践
 
 ```ts
 // ✅ 1. 显式指定所有值或只指定第一个
@@ -1023,7 +1021,7 @@ const config: Config = {
 }
 ```
 
-## 10. 🔗 引用
+## 11. 🔗 引用
 
 - [TypeScript Handbook - Enums][1]
 - [TypeScript Deep Dive - Enums][2]
