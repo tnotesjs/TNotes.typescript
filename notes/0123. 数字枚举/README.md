@@ -9,10 +9,10 @@
 - [5. 🤔 数字枚举自动递增的处理机制是？](#5--数字枚举自动递增的处理机制是)
 - [6. 🤔 数字枚举中如果出现了相同的值怎么办？](#6--数字枚举中如果出现了相同的值怎么办)
 - [7. 🤔 数字枚举中的反向映射是什么？](#7--数字枚举中的反向映射是什么)
-- [8. 🤔 计算成员](#8--计算成员)
-  - [8.1. 常量表达式](#81-常量表达式)
-  - [8.2. 运算表达式](#82-运算表达式)
-  - [8.3. 常量成员 vs 计算成员](#83-常量成员-vs-计算成员)
+- [8. 🤔 上面是计算成员与常量成员？](#8--上面是计算成员与常量成员)
+  - [8.1. 官方定义](#81-官方定义)
+  - [8.2. 作用](#82-作用)
+  - [8.3. 小结](#83-小结)
 - [9. 🤔 常见使用场景](#9--常见使用场景)
   - [9.1. 场景 1：状态码](#91-场景-1状态码)
   - [9.2. 场景 2：优先级和等级](#92-场景-2优先级和等级)
@@ -345,81 +345,132 @@ console.log(Status[0]) // 'Draft'
 console.log(Status[1]) // 'Published'
 ```
 
-## 8. 🤔 计算成员
+## 8. 🤔 上面是计算成员与常量成员？
 
-### 8.1. 常量表达式
+这一部分内容在官方文档有专门的小节来介绍。
+
+![img](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-11-26-08-16-34.png)
+
+### 8.1. 官方定义
+
+Computed and constant members
+
+计算成员与常量成员
+
+Each enum member has a value associated with it which can be either constant or computed. An enum member is considered constant if:
+
+每个枚举成员都有一个与之关联的值，该值可以是常量或计算值。在以下情况下，枚举成员被视为常量：
+
+- It is the first member in the enum and it has no initializer, in which case it’s assigned the value 0: -> 这是枚举中的第一个成员，且没有初始化器，因此它被赋值为 0：
 
 ```ts
-// ✅ 使用常量表达式
+// E.X is constant:
+enum E {
+  X,
+}
+```
+
+- It does not have an initializer and the preceding enum member was a numeric constant. In this case the value of the current enum member will be the value of the preceding enum member plus one. -> 该枚举成员没有初始化器且前一个枚举成员是数字常量。这种情况下，当前枚举成员的值会是前一个枚举成员的值加一。
+
+```ts
+// All enum members in 'E1' and 'E2' are constant.
+
+enum E1 {
+  X,
+  Y,
+  Z,
+}
+
+enum E2 {
+  A = 1,
+  B,
+  C,
+}
+```
+
+- The enum member is initialized with a constant enum expression. A constant enum expression is a subset of TypeScript expressions that can be fully evaluated at compile time. An expression is a constant enum expression if it is: -> 枚举成员通过常量枚举表达式进行初始化。常量枚举表达式是 TypeScript 表达式的子集，可在编译时被完整计算。以下情况属于常量枚举表达式：
+  1. a literal enum expression (basically a string literal or a numeric literal) -> 字面量枚举表达式（基本就是字符串字面量或数字字面量）
+  2. a reference to previously defined constant enum member (which can originate from a different enum) -> 对之前定义的常量枚举成员的引用（可能来自不同枚举）
+  3. a parenthesized constant enum expression -> 带括号的常量枚举表达式
+  4. one of the `+`, `-`, `~` unary operators applied to constant enum expression -> `+` 、 `-` 、 `~` 一元运算符之一作用于常量枚举表达式
+  5. `+`, `-`, `_`, `/`, `%`, `<<`, `>>`, `>>>`, `&`, `|`, `^` binary operators with constant enum expressions as operands -> 以常量枚举表达式为操作数的 `+` 、 `-` 、 `_` 、 `/` 、 `%` 、 `<<` 、 `>>` 、 `>>>` 、 `&` 、 `|` 、 `^` 二元运算符
+- It is a compile time error for constant enum expressions to be evaluated to NaN or Infinity. -> 若常量枚举表达式的求值结果为 NaN 或 Infinity ，则会导致编译时错误。
+
+In all other cases enum member is considered computed.
+
+在所有其他情况下，枚举成员被视为计算值。
+
+```ts
 enum FileAccess {
-  None = 0,
-  Read = 1 << 0, // 1
-  Write = 1 << 1, // 2
-  ReadWrite = Read | Write, // 3
-  Execute = 1 << 2, // 4
+  // constant members
+  None,
+  Read = 1 << 1,
+  Write = 1 << 2,
+  ReadWrite = Read | Write,
+  // computed member
+  G = '123'.length,
 }
-
-console.log(FileAccess.Read) // 1
-console.log(FileAccess.Write) // 2
-console.log(FileAccess.ReadWrite) // 3
 ```
 
-### 8.2. 运算表达式
+### 8.2. 作用
+
+实际作用几乎没有。这只是 TypeScript 规范中定义的一个概念，用于描述枚举成员的求值方式，但在真实开发中几乎不会影响代码的编写和运行。
 
 ```ts
-// ✅ 数学运算
-enum Size {
-  Small = 10,
-  Medium = Small * 2, // 20
-  Large = Medium * 2, // 40
-  XLarge = Large + 10, // 50
-}
-
-// ✅ 位运算
-enum Permissions {
-  None = 0,
-  Read = 1 << 0, // 1
-  Write = 1 << 1, // 2
-  Delete = 1 << 2, // 4
-  Admin = Read | Write | Delete, // 7
-}
-
-function hasPermission(user: number, permission: Permissions): boolean {
-  return (user & permission) === permission
-}
-
-const userPerms = Permissions.Read | Permissions.Write
-console.log(hasPermission(userPerms, Permissions.Read)) // true
-console.log(hasPermission(userPerms, Permissions.Delete)) // false
-```
-
-### 8.3. 常量成员 vs 计算成员
-
-```ts
-// ✅ 常量成员
+// 常量成员
 enum ConstantEnum {
   A = 1,
-  B = A * 2, // 常量表达式
-  C = 1 + 2, // 常量表达式
+  B = 2,
+  C = A + B, // 常量表达式
 }
 
-// ❌ 计算成员（需要运行时计算）
-const value = 10
+// 计算成员
 enum ComputedEnum {
   A = 1,
-  // B = value,        // Error: 需要常量表达式
-  // C = Math.random() // Error: 需要常量表达式
-}
-
-// ✅ 使用函数（const enum 不支持）
-function getValue() {
-  return 10
-}
-
-enum MixedEnum {
-  A = 1,
   B = 2,
-  // C = getValue()  // Error in const enum
+  C = Math.random(), // 计算成员
+}
+
+// 在实际使用中，两者没有任何区别
+const c1 = ConstantEnum.C // 使用方式完全相同
+const c2 = ComputedEnum.C // 使用方式完全相同
+```
+
+唯一需要注意的场景：计算成员后面的成员必须显式初始化，否则会报错。
+
+```ts
+enum Example {
+  A = 1,
+  B = Math.random(), // 计算成员
+
+  // C, // ❌ Error
+  // 报错信息：Enum member must have initializer.(1061)
+
+  C = 3, // ✅ 显式初始化
+}
+```
+
+### 8.3. 小结
+
+区分计算成员与常量成员的意义：
+
+- 理论层面：帮助理解 TypeScript 的枚举实现机制
+- 实践层面：几乎无影响，只需记住计算成员后必须显式初始化即可
+- 最佳实践：尽可能避免使用计算成员，保持枚举简单明了
+
+```ts
+// ✅ 推荐：使用简单的字面量
+enum Status {
+  Pending = 0,
+  Active = 1,
+  Inactive = 2,
+}
+
+// ⚠️ 不推荐：使用计算成员
+enum BadStatus {
+  Pending = 0,
+  Active = Math.floor(Math.random() * 100),
+  Inactive = 2,
 }
 ```
 
