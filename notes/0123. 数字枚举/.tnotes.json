@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "数字枚举（Numeric Enum）是 TS 中使用数字作为值的枚举类型，具备自动自增和反向映射等特性。",
   "id": "824af718-06f4-42c6-afdd-ecc58b1aa5ca",
   "created_at": 1760521823000,
-  "updated_at": 1764117671251
+  "updated_at": 1764160138003
 }
