@@ -195,7 +195,7 @@
 
 - [x] [0037. Enum 类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0037.%20Enum%20%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0123. 数字枚举](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0123.%20%E6%95%B0%E5%AD%97%E6%9E%9A%E4%B8%BE/README.md)
-- [ ] [0124. 字符串枚举](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0124.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9E%9A%E4%B8%BE/README.md)
+- [x] [0124. 字符串枚举](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0124.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9E%9A%E4%B8%BE/README.md)
 - [x] [0227. 字符串枚举 vs 数字枚举](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0227.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9E%9A%E4%B8%BE%20vs%20%E6%95%B0%E5%AD%97%E6%9E%9A%E4%B8%BE/README.md)
 - [x] [0109. 混合枚举](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0109.%20%E6%B7%B7%E5%90%88%E6%9E%9A%E4%B8%BE/README.md)
 - [ ] [0125. 异构枚举](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0125.%20%E5%BC%82%E6%9E%84%E6%9E%9A%E4%B8%BE/README.md)

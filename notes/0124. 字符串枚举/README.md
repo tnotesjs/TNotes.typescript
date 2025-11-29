@@ -14,10 +14,7 @@
 ## 1. 🎯 本节内容
 
 - 字符串枚举的定义和特性
-- 与数字枚举的区别
-- 混合枚举的使用
-- 序列化和调试优势
-- 实际应用场景
+- 字符串枚举的一些使用建议
 
 ## 2. 🫧 评价
 
@@ -91,6 +88,7 @@ enum HttpMethod {
   PUT = 'PUT',
   DELETE = 'DELETE',
 }
+// 这么做的话，key 和 val 都是同名的，也就无所谓什么反向映射了
 
 // ✅ 2. 使用 const enum 优化
 const enum Direction {
@@ -102,27 +100,27 @@ const dir = Direction.UP // 编译为: const dir = "UP"
 
 // ✅ 3. 导出枚举值类型
 enum Status {
-  Active = 'ACTIVE',
-  Inactive = 'INACTIVE',
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
 }
 
 export type StatusValue = `${Status}`
 // 等价于: type StatusValue = 'ACTIVE' | 'INACTIVE'
 
-// ✅ 8. 使用 satisfies 确保完整性
+// ✅ 4. 使用 satisfies 确保完整性
 enum Color {
-  Red = 'RED',
-  Green = 'GREEN',
-  Blue = 'BLUE',
+  RED = 'RED',
+  GREEN = 'GREEN',
+  BLUE = 'BLUE',
 }
 
 const colorNames = {
-  [Color.Red]: '红色',
-  [Color.Green]: '绿色',
-  [Color.Blue]: '蓝色',
+  [Color.RED]: '红色',
+  [Color.GREEN]: '绿色',
+  [Color.BLUE]: '蓝色',
 } satisfies Record<Color, string>
 
-// ✅ 9. 文档化枚举
+// ✅ 5. 文档化枚举
 /**
  * HTTP 请求方法
  *
@@ -141,39 +139,6 @@ enum HttpMethod {
   /** DELETE 方法用于删除资源 */
   DELETE = 'DELETE',
 }
-
-// ✅ 10. 使用工具函数
-enum Status {
-  Draft = 'DRAFT',
-  Published = 'PUBLISHED',
-  Archived = 'ARCHIVED',
-}
-
-// 获取所有枚举值
-function getEnumValues<T extends Record<string, string>>(
-  enumObj: T
-): T[keyof T][] {
-  return Object.values(enumObj)
-}
-
-// 获取所有枚举键
-function getEnumKeys<T extends Record<string, string>>(
-  enumObj: T
-): (keyof T)[] {
-  return Object.keys(enumObj) as (keyof T)[]
-}
-
-// 检查值是否有效
-function isEnumValue<T extends Record<string, string>>(
-  enumObj: T,
-  value: any
-): value is T[keyof T] {
-  return Object.values(enumObj).includes(value)
-}
-
-console.log(getEnumValues(Status)) // ['DRAFT', 'PUBLISHED', 'ARCHIVED']
-console.log(getEnumKeys(Status)) // ['Draft', 'Published', 'Archived']
-console.log(isEnumValue(Status, 'DRAFT')) // true
 ```
 
 ## 6. 🔗 引用
