@@ -554,6 +554,10 @@
         "link": "/notes/0124. 字符串枚举/README"
       },
       {
+        "text": "✅ 字符串枚举 vs 数字枚举",
+        "link": "/notes/0227. 字符串枚举 vs 数字枚举/README"
+      },
+      {
         "text": "✅ 混合枚举",
         "link": "/notes/0109. 混合枚举/README"
       },
@@ -1321,10 +1325,6 @@
     "text": "xxx",
     "collapsed": true,
     "items": [
-      {
-        "text": "⏰ new",
-        "link": "/notes/0227. new/README"
-      },
       {
         "text": "⏰ new",
         "link": "/notes/0228. new/README"
