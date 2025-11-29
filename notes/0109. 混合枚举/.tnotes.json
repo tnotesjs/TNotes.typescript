@@ -1,0 +1,12 @@
+{
+  "bilibili": [],
+  "tnotes": [],
+  "yuque": [],
+  "done": true,
+  "deprecated": false,
+  "enableDiscussions": true,
+  "description": "混合枚举是指同时包含数字枚举和字符串枚举成员的枚举类型，实际开发时不推荐使用混合枚举。",
+  "id": "adc0347f-af70-4ba4-b8d8-2905f0f945f8",
+  "created_at": 1763286320202,
+  "updated_at": 1764241821852
+}

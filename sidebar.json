@@ -554,6 +554,10 @@
         "link": "/notes/0124. 字符串枚举/README"
       },
       {
+        "text": "✅ 混合枚举",
+        "link": "/notes/0109. 混合枚举/README"
+      },
+      {
         "text": "⏰ 异构枚举",
         "link": "/notes/0125. 异构枚举/README"
       },
@@ -1317,10 +1321,6 @@
     "text": "xxx",
     "collapsed": true,
     "items": [
-      {
-        "text": "⏰ new",
-        "link": "/notes/0109. new/README"
-      },
       {
         "text": "⏰ new",
         "link": "/notes/0227. new/README"
