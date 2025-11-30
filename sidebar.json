@@ -584,24 +584,8 @@
     "collapsed": true,
     "items": [
       {
-        "text": "⏰ 类型断言",
+        "text": "✅ 类型断言",
         "link": "/notes/0051. 类型断言/README"
-      },
-      {
-        "text": "⏰ 类型断言的条件",
-        "link": "/notes/0040. 类型断言的条件/README"
-      },
-      {
-        "text": "⏰ as const 断言",
-        "link": "/notes/0048. as const 断言/README"
-      },
-      {
-        "text": "⏰ 非空断言",
-        "link": "/notes/0049. 非空断言/README"
-      },
-      {
-        "text": "⏰ 断言函数",
-        "link": "/notes/0050. 断言函数/README"
       },
       {
         "text": "⏰ 双重断言",

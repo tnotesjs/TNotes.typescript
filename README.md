@@ -205,11 +205,7 @@
 
 ## 15. 类型断言
 
-- [ ] [0051. 类型断言](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0051.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/README.md)
-- [ ] [0040. 类型断言的条件](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0040.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E6%9D%A1%E4%BB%B6/README.md)
-- [ ] [0048. as const 断言](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0048.%20as%20const%20%E6%96%AD%E8%A8%80/README.md)
-- [ ] [0049. 非空断言](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0049.%20%E9%9D%9E%E7%A9%BA%E6%96%AD%E8%A8%80/README.md)
-- [ ] [0050. 断言函数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0050.%20%E6%96%AD%E8%A8%80%E5%87%BD%E6%95%B0/README.md)
+- [x] [0051. 类型断言](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0051.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/README.md)
 - [ ] [0131. 双重断言](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0131.%20%E5%8F%8C%E9%87%8D%E6%96%AD%E8%A8%80/README.md)
 - [ ] [0132. 类型断言的使用场景](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0132.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/README.md)
 - [ ] [0133. 类型断言 vs. 类型声明](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0133.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%20vs.%20%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E/README.md)
