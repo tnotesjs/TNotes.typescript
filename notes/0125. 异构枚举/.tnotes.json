@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "异构枚举（Heterogeneous Enum）允许 TS 枚举类型中同时包含“数字”和“字符串”成员，实际开发中，并不推荐这样混合使用。",
   "id": "78b0b6fd-eb34-47ac-b2f3-3d9ad6d94d11",
   "created_at": 1760521823000,
-  "updated_at": 1764429909312
+  "updated_at": 1764464550274
 }
