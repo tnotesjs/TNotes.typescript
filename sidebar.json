@@ -546,6 +546,10 @@
         "link": "/notes/0037. Enum 类型/README"
       },
       {
+        "text": "✅ 枚举 vs. 对象字面量 as const",
+        "link": "/notes/0130. 枚举 vs. 对象字面量 as const/README"
+      },
+      {
         "text": "✅ 数字枚举",
         "link": "/notes/0123. 数字枚举/README"
       },
@@ -572,10 +576,6 @@
       {
         "text": "✅ 反向映射",
         "link": "/notes/0129. 反向映射/README"
-      },
-      {
-        "text": "⏰ 枚举 vs. 对象字面量",
-        "link": "/notes/0130. 枚举 vs. 对象字面量/README"
       }
     ]
   },

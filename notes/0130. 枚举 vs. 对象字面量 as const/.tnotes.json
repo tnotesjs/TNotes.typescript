@@ -1,0 +1,12 @@
+{
+  "bilibili": [],
+  "tnotes": [],
+  "yuque": [],
+  "done": true,
+  "deprecated": false,
+  "enableDiscussions": true,
+  "description": "枚举 和 对象字面量 as const 是 TS 中定义常量集合的两种主要方式，TS 官方和社区都推荐使用后者，而不推荐使用枚举。",
+  "id": "e7dcb5cd-1e5e-461c-8444-73a80f0b57f1",
+  "created_at": 1761873900000,
+  "updated_at": 1764507049583
+}
