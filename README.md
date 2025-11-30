@@ -200,7 +200,6 @@
 - [x] [0125. 异构枚举](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0125.%20%E5%BC%82%E6%9E%84%E6%9E%9A%E4%B8%BE/README.md)
 - [x] [0126. 常量枚举（const enum）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0126.%20%E5%B8%B8%E9%87%8F%E6%9E%9A%E4%B8%BE%EF%BC%88const%20enum%EF%BC%89/README.md)
 - [x] [0127. 外部枚举（ambient enum）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0127.%20%E5%A4%96%E9%83%A8%E6%9E%9A%E4%B8%BE%EF%BC%88ambient%20enum%EF%BC%89/README.md)
-- [ ] [0128. 枚举成员的类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0128.%20%E6%9E%9A%E4%B8%BE%E6%88%90%E5%91%98%E7%9A%84%E7%B1%BB%E5%9E%8B/README.md)
 - [ ] [0129. 反向映射](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0129.%20%E5%8F%8D%E5%90%91%E6%98%A0%E5%B0%84/README.md)
 - [ ] [0130. 枚举 vs. 对象字面量](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0130.%20%E6%9E%9A%E4%B8%BE%20vs.%20%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F/README.md)
 
