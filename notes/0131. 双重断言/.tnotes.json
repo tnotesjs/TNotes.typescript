@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "双重断言（Double Assertion）是 TS 中通过 unknown 或 any 中转，强制断言到任意类型的技术，不建议使用，少数情况下会用它来纠正一些第三方库的错误类型。",
   "id": "68666f68-c254-4827-9229-204c95a42159",
   "created_at": 1760521823000,
-  "updated_at": 1763881280694
+  "updated_at": 1764590607012
 }

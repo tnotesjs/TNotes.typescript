@@ -588,12 +588,8 @@
         "link": "/notes/0051. 类型断言/README"
       },
       {
-        "text": "⏰ 双重断言",
+        "text": "✅ 双重断言",
         "link": "/notes/0131. 双重断言/README"
-      },
-      {
-        "text": "⏰ 类型断言的使用场景",
-        "link": "/notes/0132. 类型断言的使用场景/README"
       },
       {
         "text": "⏰ 类型断言 vs. 类型声明",
