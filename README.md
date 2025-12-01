@@ -207,7 +207,6 @@
 
 - [x] [0051. 类型断言](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0051.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/README.md)
 - [x] [0131. 双重断言](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0131.%20%E5%8F%8C%E9%87%8D%E6%96%AD%E8%A8%80/README.md)
-- [ ] [0133. 类型断言 vs. 类型声明](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0133.%20%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%20vs.%20%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E/README.md)
 
 ## 16. 模块
 
