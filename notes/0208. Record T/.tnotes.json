@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "Record<K, T> 创建一个对象类型，其属性键为 K，属性值为 T，其中 K 的类型必须兼容 string | number | symbol。",
   "id": "d5e1e00c-1e9a-419f-bcc1-62bd7351cd07",
   "created_at": 1760521823000,
-  "updated_at": 1761930504000
+  "updated_at": 1764653288187
 }

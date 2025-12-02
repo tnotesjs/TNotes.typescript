@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "Pick<T, K> 从类型 T 中选取指定的属性 K，创建新类型，常用来提取某个类型的子集。",
   "id": "79689193-1b0c-4e4a-ae3d-cf0712655a86",
   "created_at": 1760521823000,
-  "updated_at": 1761930504000
+  "updated_at": 1764653288187
 }
