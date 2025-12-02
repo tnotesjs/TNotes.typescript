@@ -5,8 +5,8 @@
   "done": false,
   "deprecated": false,
   "enableDiscussions": false,
-  "description": "",
+  "description": "TS 条件类型是通过 extends 检查一个类型是否满足约束，然后根据结果为 true 或 false 选择不同类型分支的类型运算技术。",
   "id": "f1324b9c-dca4-4b17-a454-c259506936de",
   "created_at": 1760521823000,
-  "updated_at": 1764655398320
+  "updated_at": 1764669797070
 }

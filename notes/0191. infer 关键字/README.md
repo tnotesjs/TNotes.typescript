@@ -4,9 +4,9 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 infer 关键字?](#3--什么是-infer-关键字)
-  - [3.1. 基本语法](#31-基本语法)
-  - [3.2. infer 的位置](#32-infer-的位置)
+- [3. 🤔 infer 关键字是什么?](#3--infer-关键字是什么)
+  - [3.1. `ReturnType` 工具类型的实现原理](#31-returntype-工具类型的实现原理)
+  - [3.2. `infer` 可以出现在“条件类型模式 Pattern”匹配的任何位置](#32-infer-可以出现在条件类型模式-pattern匹配的任何位置)
 - [4. 🤔 如何使用 infer 推断类型？](#4--如何使用-infer-推断类型)
   - [4.1. 推断函数返回值](#41-推断函数返回值)
   - [4.2. 推断函数参数](#42-推断函数参数)
@@ -34,64 +34,93 @@
 
 ## 2. 🫧 评价
 
-这篇笔记详细介绍了 TypeScript 中的 `infer` 关键字，这是条件类型中用于类型推断的强大工具。
+TS 中的 `infer` 关键字主要在条件类型中用于类型推断。
 
-- `infer` 只能在条件类型的 `extends` 子句中使用
-- `infer` 用于声明一个类型变量，让 TypeScript 自动推断其类型
+## 3. 🤔 infer 关键字是什么?
+
+TS 中的 `infer` 关键字主要在条件类型中用于类型推断。
+
+- `infer` 只能在条件类型的 `extends` 子句中使用，这是因为 `infer` 的语义本质是：在模式匹配过程中提取类型
+- `infer` 用于声明一个类型变量，让 TS 自动推断其类型
 - `infer` 是实现 `ReturnType`、`Parameters` 等内置工具类型的核心
 - 合理使用 `infer` 可以提取复杂类型中的特定部分
 - 支持多个 `infer` 同时使用，可以推断多个类型
-- 掌握 `infer` 是编写高级类型工具的关键技能
-
-## 3. 🤔 什么是 infer 关键字?
-
-### 3.1. 基本语法
 
 `infer` 关键字用于在条件类型中声明一个待推断的类型变量。
 
+### 3.1. `ReturnType` 工具类型的实现原理
+
+分析 `ReturnType` 工具类型的实现原理，以此来了解 `infer` 的工作原理。
+
 ```ts
 // 基本语法：T extends Pattern ? infer R : FallbackType
-// infer R 表示：如果 T 匹配 Pattern，则推断出类型 R
+// 解释：
+// 1. T extends Pattern：检查类型 T 是否符合 Pattern 模式
+// 2. infer R：如果匹配成功，则从 Pattern 中提取特定位置，并命名为 R
+// 3. ? R : FallbackType：如果匹配成功，返回推断出的 R；否则返回 FallbackType
 
-type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never
+// TS 内置的工具类型 ReturnType 的定义：
+// type ReturnType<T extends (...args: any) => any> =
+// T extends (...args: any) => infer R ? R : any
+//
+// 1. 外层约束：T extends (...args: any) => any
+//    - 限制 ReturnType 只能接受函数类型
+//    - 这是泛型约束，确保类型安全
+// 2. 条件类型：T extends (...args: any) => infer R ? R : any
+//    - 检查 T 是否匹配函数模式 (...args: any) => infer R
+//    - infer R 表示：“从函数的返回类型位置提取一个类型，命名为 R”
+//    - 如果匹配成功 -> 返回推断出的 R（函数返回类型）
+//    - 如果匹配失败 -> 返回 any（实际上由于外层约束，这种情况不会发生）
+//
+// 关键点：
+// - infer 是在“模式匹配”过程中工作的
+// - (...args: any) => infer R 是一个“带捕获孔的模式”
+// - R 的类型是在匹配时动态推断出来的，不是预先声明的
 
 function getString(): string {
   return 'hello'
 }
 
 type R = ReturnType<typeof getString> // string
+// R 被推断为 string，因为 getString 的返回类型是 string
+
+// ReturnType 的工作过程解析：
+// 1. typeof getString -> () => string
+// 2. ReturnType<() => string> -> 触发条件类型
+// 3. 检查：() => string 是否匹配 (...args: any) => infer R
+//    匹配！因为：
+//    - 参数模式 (...args: any) 匹配空参数 ()
+//    - 返回位置：infer R 捕获到 string
+// 4. 推断结果：R = string
+// 5. 返回：R（即 string）
 ```
 
-**工作原理：**
+### 3.2. `infer` 可以出现在“条件类型模式 Pattern”匹配的任何位置
 
-```ts
-// 1. TypeScript 检查 T 是否 extends Pattern
-// 2. 如果匹配，infer R 会捕获对应位置的类型
-// 3. 返回推断的类型 R
+🤔 Pattern 模式是什么？
 
-type ElementType<T> = T extends (infer E)[] ? E : never
+就是 `extends` 之后 `?` 之前的那一坨内容。
 
-type T1 = ElementType<string[]> // string
-type T2 = ElementType<number[]> // number
-type T3 = ElementType<string> // never (不匹配数组模式)
-```
+以下是 infer 经常出现的一些位置示例：
 
-### 3.2. infer 的位置
+1. 函数返回值位置
+2. 函数参数位置
+3. 数组元素位置
+4. 对象属性值位置
+5. …… 等等
 
-`infer` 可以出现在条件类型模式匹配的任何位置。
+::: code-group
 
-**函数返回值位置：**
-
-```ts
-type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never
+```ts [1]
+// TS 内置的工具类型 ReturnType 的定义：
+// type ReturnType<T extends (...args: any) => any> =
+// T extends (...args: any) => infer R ? R : any
 
 type T1 = ReturnType<() => string> // string
 type T2 = ReturnType<(x: number) => number> // number
 ```
 
-**函数参数位置：**
-
-```ts
+```ts [2]
 type FirstParameter<T> = T extends (arg: infer P, ...args: any[]) => any
   ? P
   : never
@@ -100,18 +129,14 @@ type T1 = FirstParameter<(x: string) => void> // string
 type T2 = FirstParameter<(x: number, y: string) => void> // number
 ```
 
-**数组元素位置：**
-
-```ts
+```ts [3]
 type ArrayElement<T> = T extends (infer E)[] ? E : never
 
 type T1 = ArrayElement<string[]> // string
 type T2 = ArrayElement<number[]> // number
 ```
 
-**对象属性值位置：**
-
-```ts
+```ts [4]
 type PropertyType<T> = T extends { value: infer V } ? V : never
 
 type T1 = PropertyType<{ value: string }> // string
@@ -119,11 +144,13 @@ type T2 = PropertyType<{ value: number }> // number
 type T3 = PropertyType<{ name: string }> // never
 ```
 
+:::
+
 ## 4. 🤔 如何使用 infer 推断类型？
 
 ### 4.1. 推断函数返回值
 
-**基本返回类型：**
+基本返回类型：
 
 ```ts
 type MyReturnType<T> = T extends (...args: any[]) => infer R ? R : never
@@ -140,7 +167,7 @@ type T1 = MyReturnType<typeof add> // number
 type T2 = MyReturnType<typeof greet> // string
 ```
 
-**异步函数返回类型：**
+异步函数返回类型：
 
 ```ts
 type AsyncReturnType<T> = T extends (...args: any[]) => Promise<infer R>
@@ -161,7 +188,7 @@ type User = AsyncReturnType<typeof fetchUser>
 
 ### 4.2. 推断函数参数
 
-**所有参数：**
+所有参数：
 
 ```ts
 type MyParameters<T> = T extends (...args: infer P) => any ? P : never
@@ -174,7 +201,7 @@ type CalcParams = MyParameters<typeof calculate>
 // type CalcParams = [a: number, b: number, op: string]
 ```
 
-**第一个参数：**
+第一个参数：
 
 ```ts
 type FirstArg<T> = T extends (first: infer F, ...args: any[]) => any ? F : never
@@ -186,7 +213,7 @@ function log(message: string, level: number): void {
 type FirstParam = FirstArg<typeof log> // string
 ```
 
-**最后一个参数：**
+最后一个参数：
 
 ```ts
 type LastArg<T> = T extends (...args: [...any[], infer L]) => any ? L : never
@@ -196,7 +223,7 @@ type LastParam = LastArg<typeof log> // number
 
 ### 4.3. 推断数组元素类型
 
-**一维数组：**
+一维数组：
 
 ```ts
 type ElementOf<T> = T extends (infer E)[] ? E : never
@@ -206,7 +233,7 @@ type T2 = ElementOf<number[]> // number
 type T3 = ElementOf<(string | number)[]> // string | number
 ```
 
-**二维数组：**
+二维数组：
 
 ```ts
 type MatrixElement<T> = T extends (infer E)[][] ? E : never
@@ -215,7 +242,7 @@ type T1 = MatrixElement<string[][]> // string
 type T2 = MatrixElement<number[][]> // number
 ```
 
-**只读数组：**
+只读数组：
 
 ```ts
 type ReadonlyArrayElement<T> = T extends ReadonlyArray<infer E> ? E : never
@@ -228,7 +255,7 @@ type T2 = ReadonlyArrayElement<readonly number[]> // number
 
 ### 5.1. 推断 Promise 值类型
 
-**基本 Promise：**
+基本 Promise：
 
 ```ts
 type Awaited<T> = T extends Promise<infer U> ? U : T
@@ -238,7 +265,7 @@ type T2 = Awaited<Promise<number>> // number
 type T3 = Awaited<string> // string
 ```
 
-**嵌套 Promise：**
+嵌套 Promise：
 
 ```ts
 type DeepAwaited<T> = T extends Promise<infer U> ? DeepAwaited<U> : T
@@ -247,7 +274,7 @@ type T1 = DeepAwaited<Promise<Promise<string>>> // string
 type T2 = DeepAwaited<Promise<Promise<Promise<number>>>> // number
 ```
 
-**Promise 数组：**
+Promise 数组：
 
 ```ts
 type PromiseArrayValue<T> = T extends Promise<infer U>[] ? U : never
@@ -258,7 +285,7 @@ type T2 = PromiseArrayValue<Promise<number>[]> // number
 
 ### 5.2. 推断构造函数类型
 
-**构造函数参数：**
+构造函数参数：
 
 ```ts
 type ConstructorParameters<T> = T extends new (...args: infer P) => any
@@ -273,7 +300,7 @@ type PersonParams = ConstructorParameters<typeof Person>
 // type PersonParams = [name: string, age: number]
 ```
 
-**构造函数实例类型：**
+构造函数实例类型：
 
 ```ts
 type InstanceType<T> = T extends new (...args: any[]) => infer R ? R : never
@@ -282,7 +309,7 @@ type PersonInstance = InstanceType<typeof Person>
 // type PersonInstance = Person
 ```
 
-**抽象构造函数：**
+抽象构造函数：
 
 ```ts
 type AbstractConstructorParameters<T> = T extends abstract new (
@@ -301,7 +328,7 @@ type AnimalParams = AbstractConstructorParameters<typeof Animal>
 
 ### 5.3. 推断元组类型
 
-**元组第一个元素：**
+元组第一个元素：
 
 ```ts
 type First<T> = T extends [infer F, ...any[]] ? F : never
@@ -311,7 +338,7 @@ type T2 = First<[number]> // number
 type T3 = First<[]> // never
 ```
 
-**元组最后一个元素：**
+元组最后一个元素：
 
 ```ts
 type Last<T> = T extends [...any[], infer L] ? L : never
@@ -321,7 +348,7 @@ type T2 = Last<[number]> // number
 type T3 = Last<[]> // never
 ```
 
-**元组剩余部分：**
+元组剩余部分：
 
 ```ts
 type Tail<T> = T extends [any, ...infer Rest] ? Rest : never
@@ -331,7 +358,7 @@ type T2 = Tail<[number]> // []
 type T3 = Tail<[]> // never
 ```
 
-**元组转联合类型：**
+元组转联合类型：
 
 ```ts
 type TupleToUnion<T> = T extends (infer E)[] ? E : never
@@ -344,7 +371,7 @@ type T2 = TupleToUnion<[1, 2, 3]> // 1 | 2 | 3
 
 ### 6.1. 实现工具类型
 
-**提取对象所有函数的返回类型：**
+提取对象所有函数的返回类型：
 
 ```ts
 type FunctionReturnTypes<T> = {
@@ -365,7 +392,7 @@ type APIReturnTypes = FunctionReturnTypes<API>
 // }
 ```
 
-**提取事件处理器的参数类型：**
+提取事件处理器的参数类型：
 
 ```ts
 type EventPayload<T> = T extends (event: infer E) => any ? E : never
@@ -382,7 +409,7 @@ type KeyDownEvent = EventPayload<EventHandlers['onKeyDown']> // KeyboardEvent
 
 ### 6.2. 类型转换
 
-**扁平化嵌套数组类型：**
+扁平化嵌套数组类型：
 
 ```ts
 type Flatten<T> = T extends (infer U)[] ? (U extends any[] ? Flatten<U> : U) : T
@@ -393,7 +420,7 @@ type T3 = Flatten<number[][][]> // number
 type T4 = Flatten<string> // string
 ```
 
-**提取联合类型中的函数：**
+提取联合类型中的函数：
 
 ```ts
 type ExtractFunction<T> = T extends (...args: any[]) => infer R ? T : never
@@ -405,7 +432,7 @@ type Funcs = ExtractFunction<Mixed>
 
 ### 6.3. 深度类型提取
 
-**深度获取属性类型：**
+深度获取属性类型：
 
 ```ts
 type DeepPropertyType<
@@ -432,7 +459,7 @@ type City = DeepPropertyType<User, 'profile.address.city'> // string
 type Zip = DeepPropertyType<User, 'profile.address.zip'> // number
 ```
 
-**提取泛型类型的参数：**
+提取泛型类型的参数：
 
 ```ts
 type UnboxPromise<T> = T extends Promise<infer U> ? U : T
@@ -446,7 +473,7 @@ type T3 = UnboxMap<Map<string, number>> // number
 
 ## 7. 🤔 infer 有哪些注意事项？
 
-**1. infer 只能在条件类型中使用**
+1. infer 只能在条件类型中使用
 
 ```ts
 // ❌ 错误：infer 不能单独使用
@@ -459,7 +486,7 @@ type Wrong2<T> = infer R extends T ? R : never
 type Correct<T> = T extends (infer R)[] ? R : never
 ```
 
-**2. 多个 infer 的协变位置**
+2. 多个 infer 的协变位置
 
 ```ts
 // 多个 infer 在协变位置（返回值）会推断为联合类型
@@ -477,7 +504,7 @@ type T = ReturnTypes<{
 // type T = string | number (联合类型)
 ```
 
-**3. 多个 infer 的逆变位置**
+3. 多个 infer 的逆变位置
 
 ```ts
 // 多个 infer 在逆变位置（参数）会推断为交叉类型
@@ -495,7 +522,7 @@ type T = ParamTypes<{
 // type T = string & number (交叉类型，实际上是 never)
 ```
 
-**4. infer 的作用域**
+4. infer 的作用域
 
 ```ts
 // infer 声明的类型变量只在条件类型的真值分支中可用
@@ -507,7 +534,7 @@ type Test<T> = T extends (infer R)[]
 type Correct<T> = T extends (infer R)[] ? R : never
 ```
 
-**5. infer 与分布式条件类型**
+5. infer 与分布式条件类型
 
 ```ts
 // 当 T 是联合类型时，infer 会分别应用
@@ -523,7 +550,7 @@ type Returns2 = NonDistributive<Funcs>
 // type Returns2 = never (因为联合类型不匹配单个函数签名)
 ```
 
-**6. 嵌套 infer 的推断优先级**
+6. 嵌套 infer 的推断优先级
 
 ```ts
 type NestedArray<T> = T extends (infer U)[]
@@ -537,7 +564,7 @@ type T2 = NestedArray<string[]> // string
 type T3 = NestedArray<string> // string
 ```
 
-**7. infer 与泛型约束**
+7. infer 与泛型约束
 
 ```ts
 // ❌ 错误：不能为 infer 添加约束

@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
+  "enableDiscussions": true,
   "description": "JS 中也有 in 运算符，主要用于属性检查是否存在，本节主要介绍 TS 中的 in 运算符，重点介绍在类型运算中 in 运算符的作用，它是实现 Partial、Required、Readonly 等工具类型的基础。",
   "id": "e0bfbf06-02fb-488a-bce5-f48646e8a0fe",
   "created_at": 1760521823000,
-  "updated_at": 1764663074725
+  "updated_at": 1764669797070
 }
