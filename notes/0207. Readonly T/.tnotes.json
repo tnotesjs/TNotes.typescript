@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "Readonly<T> 用于将类型 T 的所有属性变为只读属性，如果只是想要实现部分属性只读的效果，直接使用 readonly 修饰符即可。",
   "id": "7d6a0554-dcee-4637-8a72-96ef81d55343",
   "created_at": 1760521823000,
-  "updated_at": 1761930504000
+  "updated_at": 1764644802607
 }
