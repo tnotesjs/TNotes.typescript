@@ -305,7 +305,7 @@
 
 ## 24. 类型工具
 
-- [ ] [0108. 类型工具的本质](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0108.%20%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%AC%E8%B4%A8/README.md)
+- [x] [0108. 类型工具的本质](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0108.%20%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7%E7%9A%84%E6%9C%AC%E8%B4%A8/README.md)
 - [ ] [0205. Partial T](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0205.%20Partial%20T/README.md)
 - [ ] [0206. Required T](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0206.%20Required%20T/README.md)
 - [ ] [0207. Readonly T](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0207.%20Readonly%20T/README.md)
