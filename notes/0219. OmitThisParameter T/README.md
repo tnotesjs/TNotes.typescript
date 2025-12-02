@@ -35,7 +35,7 @@
 
 `OmitThisParameter<T>` 的源码定义如下：
 
-```typescript
+```ts
 type OmitThisParameter<T> = unknown extends ThisParameterType<T>
   ? T
   : T extends (...args: infer A) => infer R
@@ -50,7 +50,7 @@ type OmitThisParameter<T> = unknown extends ThisParameterType<T>
 3. 有 `this` 参数：使用条件类型 `T extends (...args: infer A) => infer R` 提取参数和返回值
 4. 重构函数：返回 `(...args: A) => R`，不包含 `this` 参数
 
-```typescript
+```ts
 // 基本使用
 function greet(this: { name: string }, greeting: string): string {
   return `${greeting}, ${this.name}`
@@ -80,7 +80,7 @@ type AddWithoutThis = OmitThisParameter<typeof add>
 
 **工作流程示例：**
 
-```typescript
+```ts
 // 步骤 1：原始方法类型
 class Calculator {
   value: number = 0
@@ -113,7 +113,7 @@ const typedAdd: AddWithoutThis = boundAdd
 
 **与其他工具类型的组合：**
 
-```typescript
+```ts
 interface Service {
   data: string[]
   process(this: Service, input: string): Promise<string>
@@ -148,7 +148,7 @@ type ReconstructedMethod = (
 
 在需要将方法转换为独立函数或处理绑定后的方法时，`OmitThisParameter<T>` 很有用：
 
-```typescript
+```ts
 // 场景 1：方法绑定
 class Counter {
   count: number = 0
@@ -290,7 +290,7 @@ console.log(boundMethods.getTasks()) // ['Task 1', 'Task 2']
 | 典型应用     | 装饰器、类型守卫                 | 回调函数、独立函数     |
 | 配合使用     | 提取 → 验证                      | 提取 → 移除 → 重构     |
 
-```typescript
+```ts
 // 对比示例
 class DataProcessor {
   data: string[] = []
@@ -368,7 +368,7 @@ const analysis = analyzeMethod(processor.process)
 
 在处理函数绑定、回调和方法提取时，`OmitThisParameter<T>` 提供精确的类型表示：
 
-```typescript
+```ts
 // 应用 1：React 事件处理器
 class ReactComponent {
   state = { count: 0 }
@@ -524,7 +524,7 @@ readFileAsync('file.txt').then((content) => {
 
 在使用 `OmitThisParameter<T>` 时，有以下几点需要注意：
 
-```typescript
+```ts
 // 注意 1：箭头函数没有影响
 const arrowMethod = (x: number) => x * 2
 type ArrowWithoutThis = OmitThisParameter<typeof arrowMethod>
@@ -619,7 +619,7 @@ boundAppend('Hello').append('World') // Error: append 不存在
 
 **常见陷阱和解决方案：**
 
-```typescript
+```ts
 // 陷阱 1：丢失方法链
 class FluentAPI {
   value: number = 0

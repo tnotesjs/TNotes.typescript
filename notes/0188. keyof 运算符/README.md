@@ -51,7 +51,7 @@
 
 **基本用法：**
 
-```typescript
+```ts
 // 定义一个对象类型
 interface Person {
   name: string
@@ -76,7 +76,7 @@ const key4: PersonKeys = 'address' // ❌ 错误：不存在的键
 
 **字符串键：**
 
-```typescript
+```ts
 interface User {
   id: number
   name: string
@@ -88,7 +88,7 @@ type UserKeys = keyof User
 
 **数字键：**
 
-```typescript
+```ts
 interface NumericKeys {
   [key: number]: string
 }
@@ -99,7 +99,7 @@ type Keys = keyof NumericKeys
 
 **混合键：**
 
-```typescript
+```ts
 interface MixedKeys {
   name: string
   [key: number]: string
@@ -115,7 +115,7 @@ type Keys = keyof MixedKeys
 
 **接口类型：**
 
-```typescript
+```ts
 interface Book {
   title: string
   author: string
@@ -143,7 +143,7 @@ getBookProperty(myBook, 'price') // ❌ 错误
 
 **类型别名：**
 
-```typescript
+```ts
 type Product = {
   id: number
   name: string
@@ -158,7 +158,7 @@ type ProductKeys = keyof Product
 
 对数组使用 `keyof` 会得到数组所有方法和属性的键。
 
-```typescript
+```ts
 type ArrayKeys = keyof any[]
 // 包含所有数组方法和属性：
 // "length" | "toString" | "push" | "pop" | "concat" | "join" | ...
@@ -178,7 +178,7 @@ const key3: ArrKeys = 0 // ✅ 数字索引
 
 元组的 `keyof` 包含索引和数组方法。
 
-```typescript
+```ts
 type Tuple = [string, number, boolean]
 
 type TupleKeys = keyof Tuple
@@ -202,7 +202,7 @@ getTupleValue(myTuple, 0) // ✅ 也可以用数字
 
 对类使用 `keyof` 只会获取公开属性和方法。
 
-```typescript
+```ts
 class Person {
   public name: string
   private age: number
@@ -234,7 +234,7 @@ type PersonKeys = keyof Person
 
 **类型安全的属性获取：**
 
-```typescript
+```ts
 interface User {
   id: number
   name: string
@@ -266,7 +266,7 @@ const invalid = getPropertySafe(user, 'xxx') // ❌ 编译错误
 
 **类型安全的属性设置：**
 
-```typescript
+```ts
 function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): void {
   obj[key] = value
 }
@@ -288,7 +288,7 @@ setProperty(user, 'invalid', 'test') // ❌ 错误：属性不存在
 
 **约束泛型参数必须是对象的键：**
 
-```typescript
+```ts
 interface Product {
   id: number
   name: string
@@ -320,7 +320,7 @@ sortBy(products, 'invalid') // ❌ 错误
 
 **结合映射类型创建新类型：**
 
-```typescript
+```ts
 interface Person {
   name: string
   age: number
@@ -356,7 +356,7 @@ type ReadonlyPerson = Readonly<Person>
 
 **Pick 实现：**
 
-```typescript
+```ts
 // Pick 从类型中选择指定的属性
 type MyPick<T, K extends keyof T> = {
   [P in K]: T[P]
@@ -378,7 +378,7 @@ type UserBasic = MyPick<User, 'id' | 'name'>
 
 **Omit 实现：**
 
-```typescript
+```ts
 // Omit 从类型中排除指定的属性
 type MyOmit<T, K extends keyof T> = {
   [P in keyof T as P extends K ? never : P]: T[P]
@@ -394,7 +394,7 @@ type UserWithoutEmail = MyOmit<User, 'email'>
 
 **Record 实现：**
 
-```typescript
+```ts
 // Record 创建具有指定键和值类型的对象类型
 type MyRecord<K extends keyof any, T> = {
   [P in K]: T
@@ -413,7 +413,7 @@ type Permissions = MyRecord<Roles, boolean>
 
 **字符串索引签名：**
 
-```typescript
+```ts
 interface StringMap {
   [key: string]: any
 }
@@ -425,7 +425,7 @@ type Keys = keyof StringMap
 
 **数字索引签名：**
 
-```typescript
+```ts
 interface NumberMap {
   [key: number]: string
 }
@@ -436,7 +436,7 @@ type Keys = keyof NumberMap
 
 **混合使用：**
 
-```typescript
+```ts
 interface MixedMap {
   name: string // 明确的属性
   [key: string]: any // 字符串索引签名
@@ -457,7 +457,7 @@ function getValue<T extends { [key: string]: any }>(
 
 **限制索引签名：**
 
-```typescript
+```ts
 // 只允许已知的键
 interface StrictObject {
   id: number
@@ -482,7 +482,7 @@ type FlexibleKeys = keyof FlexibleObject
 
 **1. keyof 与联合类型**
 
-```typescript
+```ts
 interface A {
   a: string
   common: string
@@ -504,7 +504,7 @@ type IntersectionKeys = keyof (A & B)
 
 **2. keyof 不能用于值**
 
-```typescript
+```ts
 const obj = {
   name: 'Alice',
   age: 25,
@@ -520,7 +520,7 @@ type Keys = keyof typeof obj
 
 **3. 可选属性也会被包含**
 
-```typescript
+```ts
 interface User {
   id: number
   name: string
@@ -534,7 +534,7 @@ type Keys = keyof User
 
 **4. 与 never 类型**
 
-```typescript
+```ts
 interface Empty {}
 
 type Keys = keyof Empty
@@ -550,7 +550,7 @@ type Test2 = NonEmptyKeys<{ a: 1 }> // 'a'
 
 **5. 性能考虑**
 
-```typescript
+```ts
 // ❌ 不好：在循环中重复计算
 function processObjects<T>(objects: T[]) {
   for (const obj of objects) {
@@ -570,7 +570,7 @@ function processObjectsBetter<T>(objects: T[]) {
 
 **6. 实际案例：类型安全的深度路径访问**
 
-```typescript
+```ts
 type DeepKeys<T> = T extends object
   ? {
       [K in keyof T]: K extends string

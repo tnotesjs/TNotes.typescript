@@ -55,7 +55,7 @@
 
 ### 3.1. 基本问题
 
-```typescript
+```ts
 // ❌ 危险：断言可能不正确
 function processValue(value: unknown) {
   const str = value as string
@@ -76,7 +76,7 @@ function processValue(value: unknown) {
 
 ### 3.2. 隐藏的类型错误
 
-```typescript
+```ts
 interface User {
   name: string
   age: number
@@ -99,7 +99,7 @@ const user: User = {
 
 ### 3.3. 维护困难
 
-```typescript
+```ts
 // ❌ 断言使重构变得困难
 interface OldUser {
   name: string
@@ -140,7 +140,7 @@ if (isNewUser(userData)) {
 
 ### 4.1. 你确实比编译器知道得更多
 
-```typescript
+```ts
 // ✅ 合理：从第三方库获取数据
 import { parseJSON } from 'some-library'
 
@@ -155,7 +155,7 @@ const config = parseJSON(jsonString) as Config
 
 ### 4.2. 窄化类型
 
-```typescript
+```ts
 // ✅ 合理：从宽类型窄化到窄类型
 function processElement(element: Element) {
   // 你确定这是一个 HTMLInputElement
@@ -168,7 +168,7 @@ function processElement(element: Element) {
 
 ### 4.3. const 断言
 
-```typescript
+```ts
 // ✅ 好：使用 as const
 const config = {
   apiUrl: 'https://api.example.com',
@@ -182,7 +182,7 @@ const colors = ['red', 'green', 'blue'] as const
 
 ### 4.4. 类型兼容性
 
-```typescript
+```ts
 // ✅ 合理：处理类型系统的限制
 interface Base {
   id: number
@@ -201,7 +201,7 @@ const extended = base as Extended
 
 ### 5.1. 使用类型守卫
 
-```typescript
+```ts
 // ❌ 断言
 function processValue(value: unknown) {
   const str = value as string
@@ -223,7 +223,7 @@ function processValue(value: unknown) {
 
 ### 5.2. 使用类型声明
 
-```typescript
+```ts
 // ❌ 断言
 const user = {
   name: 'Tom',
@@ -239,7 +239,7 @@ const user: User = {
 
 ### 5.3. 使用泛型
 
-```typescript
+```ts
 // ❌ 断言
 function parseJSON(json: string): unknown {
   return JSON.parse(json)
@@ -257,7 +257,7 @@ const user = parseJSON<User>(userJson)
 
 ### 5.4. 使用类型谓词
 
-```typescript
+```ts
 // ❌ 断言
 function getUser(data: unknown): User {
   return data as User
@@ -289,7 +289,7 @@ function getUser(data: unknown): User {
 
 ### 6.1. 双重断言的危险
 
-```typescript
+```ts
 // ❌ 非常危险：双重断言
 const value = 'hello' as unknown as number
 console.log(value.toFixed()) // 运行时错误
@@ -310,7 +310,7 @@ console.log(b.b.toFixed()) // 运行时错误
 
 ### 6.2. 为什么会用双重断言
 
-```typescript
+```ts
 // 情况：类型不兼容
 interface Cat {
   meow(): void
@@ -332,7 +332,7 @@ dog.bark() // 运行时错误！
 
 ### 6.3. 正确的解决方案
 
-```typescript
+```ts
 // ✅ 重新思考设计
 interface Animal {
   makeSound(): void
@@ -374,7 +374,7 @@ DOM 操作是常见的需要类型断言的场景，但有更安全的方法。
 
 ### 7.1. querySelector 的问题
 
-```typescript
+```ts
 // ❌ 不安全：可能返回 null
 const input = document.querySelector('#username') as HTMLInputElement
 input.value = 'Tom' // 如果元素不存在，运行时错误
@@ -394,7 +394,7 @@ if (input instanceof HTMLInputElement) {
 
 ### 7.2. 类型安全的 DOM 辅助函数
 
-```typescript
+```ts
 // ✅ 创建类型安全的辅助函数
 function getElement<T extends HTMLElement>(
   selector: string,
@@ -421,7 +421,7 @@ try {
 
 ### 7.3. 可选的元素查询
 
-```typescript
+```ts
 // ✅ 返回可选类型
 function queryElement<T extends HTMLElement>(
   selector: string,
@@ -440,7 +440,7 @@ if (input) {
 
 ### 7.4. 事件处理
 
-```typescript
+```ts
 // ❌ 不安全
 button.addEventListener('click', (event) => {
   const target = event.target as HTMLButtonElement

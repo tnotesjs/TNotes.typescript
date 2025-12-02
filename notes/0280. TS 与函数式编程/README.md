@@ -45,7 +45,7 @@ TypeScript 的类型系统非常适合函数式编程。
 
 ### 3.1. 纯函数定义
 
-```typescript
+```ts
 // ✅ 纯函数：相同输入总是产生相同输出，无副作用
 function add(a: number, b: number): number {
   return a + b
@@ -68,7 +68,7 @@ console.log(doubleAll([1, 2, 3])) // [2, 4, 6]
 
 ### 3.2. 柯里化
 
-```typescript
+```ts
 // ✅ 柯里化函数
 function curry<A, B, C>(fn: (a: A, b: B) => C): (a: A) => (b: B) => C {
   return (a) => (b) => fn(a, b)
@@ -103,7 +103,7 @@ console.log(curriedAdd3(1)(2)(3)) // 6
 
 ### 4.1. Compose 和 Pipe
 
-```typescript
+```ts
 // ✅ Compose：从右向左执行
 function compose<A, B, C>(f: (b: B) => C, g: (a: A) => B): (a: A) => C {
   return (a) => f(g(a))
@@ -145,7 +145,7 @@ Functor 和 Monad 是函数式编程的核心概念。
 
 ### 5.1. Functor
 
-```typescript
+```ts
 // ✅ Functor：可以被 map 的容器
 interface Functor<T> {
   map<U>(fn: (value: T) => U): Functor<U>
@@ -174,7 +174,7 @@ console.log(result) // 12
 
 ### 5.2. Monad
 
-```typescript
+```ts
 // ✅ Monad：支持 flatMap 的 Functor
 interface Monad<T> extends Functor<T> {
   flatMap<U>(fn: (value: T) => Monad<U>): Monad<U>
@@ -214,7 +214,7 @@ console.log(result2) // 1
 
 ### 6.1. Option 实现
 
-```typescript
+```ts
 // ✅ Option 类型
 type Option<T> = { type: 'Some'; value: T } | { type: 'None' }
 
@@ -266,7 +266,7 @@ console.log(getOrElse(noUserName, 'Unknown')) // "Unknown"
 
 ### 7.1. Result 实现
 
-```typescript
+```ts
 // ✅ Result 类型
 type Result<T, E> = { type: 'Ok'; value: T } | { type: 'Err'; error: E }
 
@@ -338,7 +338,7 @@ console.log(
 
 ### 7.2. 实际应用
 
-```typescript
+```ts
 // ✅ API 调用示例
 async function fetchUser(id: number): Promise<Result<User, Error>> {
   try {

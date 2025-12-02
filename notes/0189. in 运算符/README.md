@@ -51,7 +51,7 @@
 
 **基本用法：**
 
-```typescript
+```ts
 const person = {
   name: 'Alice',
   age: 25,
@@ -67,7 +67,7 @@ console.log('toString' in person) // true（继承自 Object.prototype）
 
 **与 hasOwnProperty 的区别：**
 
-```typescript
+```ts
 const obj = {
   own: 'value',
 }
@@ -86,7 +86,7 @@ obj.hasOwnProperty('own') // true
 
 **基本语法：**
 
-```typescript
+```ts
 // 语法：[K in Keys]: Type
 type Keys = 'a' | 'b' | 'c'
 
@@ -107,7 +107,7 @@ type Obj = {
 
 **将联合类型转换为对象类型：**
 
-```typescript
+```ts
 type Status = 'pending' | 'success' | 'error'
 
 type StatusMap = {
@@ -129,7 +129,7 @@ const statusFlags: StatusMap = {
 
 **指定不同的值类型：**
 
-```typescript
+```ts
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
 type Handlers = {
@@ -163,7 +163,7 @@ const apiHandlers: Handlers = {
 
 **从数字创建对象：**
 
-```typescript
+```ts
 type Range = 0 | 1 | 2 | 3 | 4
 
 type RangeMap = {
@@ -180,7 +180,7 @@ type RangeMap = {
 
 **结合模板字面量类型：**
 
-```typescript
+```ts
 type Direction = 'top' | 'right' | 'bottom' | 'left'
 
 type Margins = {
@@ -205,7 +205,7 @@ const margins: Margins = {
 
 **遍历对象的所有键：**
 
-```typescript
+```ts
 interface Person {
   name: string
   age: number
@@ -235,7 +235,7 @@ type ReadonlyPerson = {
 
 **添加属性修饰符：**
 
-```typescript
+```ts
 type Mutable<T> = {
   -readonly [K in keyof T]: T[K]
 }
@@ -255,7 +255,7 @@ type Required<T> = {
 
 使用 `in` 运算符可以在运行时检查属性是否存在，TypeScript 会据此收窄类型。
 
-```typescript
+```ts
 interface Dog {
   bark(): void
   name: string
@@ -284,7 +284,7 @@ function makeSound(pet: Pet) {
 
 **多个类型的判断：**
 
-```typescript
+```ts
 interface Square {
   kind: 'square'
   size: number
@@ -324,7 +324,7 @@ function getArea(shape: Shape): number {
 
 **可选属性的处理：**
 
-```typescript
+```ts
 interface User {
   id: number
   name: string
@@ -348,7 +348,7 @@ function sendNotification(user: User) {
 
 **与其他类型守卫结合：**
 
-```typescript
+```ts
 interface ApiSuccess {
   status: 'success'
   data: any
@@ -377,7 +377,7 @@ function handleResponse(response: ApiResponse) {
 
 **Partial 的实现：**
 
-```typescript
+```ts
 type MyPartial<T> = {
   [K in keyof T]?: T[K]
 }
@@ -398,7 +398,7 @@ type PartialTodo = MyPartial<Todo>
 
 **Required 的实现：**
 
-```typescript
+```ts
 type MyRequired<T> = {
   [K in keyof T]-?: T[K]
 }
@@ -413,7 +413,7 @@ type RequiredTodo = MyRequired<PartialTodo>
 
 **Pick 的实现：**
 
-```typescript
+```ts
 type MyPick<T, K extends keyof T> = {
   [P in K]: T[P]
 }
@@ -429,7 +429,7 @@ type TodoPreview = MyPick<Todo, 'title' | 'completed'>
 
 **将对象值类型转换：**
 
-```typescript
+```ts
 interface Config {
   timeout: number
   retries: number
@@ -458,7 +458,7 @@ function toStringConfig(config: Config): StringConfig {
 
 **创建 Getter 类型：**
 
-```typescript
+```ts
 type Getters<T> = {
   [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K]
 }
@@ -485,7 +485,7 @@ const stateGetters: StateGetters = {
 
 **安全地处理不同的响应类型：**
 
-```typescript
+```ts
 interface UserResponse {
   user: {
     id: number
@@ -525,7 +525,7 @@ async function processUser(id: number) {
 
 **1. in 与原型链**
 
-```typescript
+```ts
 const obj = { name: 'Alice' }
 
 // in 会检查原型链
@@ -546,7 +546,7 @@ function check(obj: object): obj is WithToString {
 
 **2. in 不能检查可选属性的值**
 
-```typescript
+```ts
 interface User {
   name: string
   email?: string
@@ -567,7 +567,7 @@ if ('email' in user && user.email !== undefined) {
 
 **3. 映射类型中的 never**
 
-```typescript
+```ts
 type ExcludeKey<T, K extends keyof T> = {
   [P in keyof T as P extends K ? never : P]: T[P]
 }
@@ -587,7 +587,7 @@ type PublicUser = ExcludeKey<User, 'password'>
 
 **4. 性能考虑**
 
-```typescript
+```ts
 // ❌ 不好：频繁使用 in 检查
 function process(items: any[]) {
   for (const item of items) {
@@ -628,7 +628,7 @@ function processBetter(items: any[]) {
 
 **5. 与联合类型的配合**
 
-```typescript
+```ts
 // ✅ 好的实践
 type Action =
   | { type: 'INCREMENT'; payload: number }

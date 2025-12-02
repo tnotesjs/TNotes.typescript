@@ -56,7 +56,7 @@
 
 类装饰器是应用在类声明上的特殊函数，用于观察、修改或替换类定义。
 
-```typescript
+```ts
 // ✅ 类装饰器的本质
 function Logger(constructor: Function) {
   console.log('装饰器执行了')
@@ -81,7 +81,7 @@ const user = new User('Alice') // 装饰器不会再次执行
 
 ### 4.1. 基本形式
 
-```typescript
+```ts
 // ✅ 简单的类装饰器
 function Sealed(constructor: Function) {
   Object.seal(constructor)
@@ -100,7 +100,7 @@ class Product {
 
 ::: code-group
 
-```typescript [新版装饰器（Stage 3）]
+```ts [新版装饰器（Stage 3）]
 // ✅ TypeScript 5.0+ 标准装饰器
 type ClassDecorator = <T extends { new (...args: any[]): {} }>(
   target: T,
@@ -121,7 +121,7 @@ class User {
 }
 ```
 
-```typescript [旧版装饰器（Stage 2）]
+```ts [旧版装饰器（Stage 2）]
 // ✅ TypeScript 5.0 之前的装饰器
 type ClassDecorator = <TFunction extends Function>(
   target: TFunction
@@ -146,7 +146,7 @@ class User {
 
 ### 5.1. 添加属性和方法
 
-```typescript
+```ts
 // ✅ 为类添加时间戳属性
 function Timestamped<T extends { new (...args: any[]): {} }>(constructor: T) {
   return class extends constructor {
@@ -171,7 +171,7 @@ console.log(doc.getTimestamp()) // ISO 时间字符串
 
 ### 5.2. 修改构造函数行为
 
-```typescript
+```ts
 // ✅ 在构造函数执行前后添加逻辑
 function TrackInstances<T extends { new (...args: any[]): {} }>(
   constructor: T
@@ -203,7 +203,7 @@ console.log(User.getInstanceCount()) // 2
 
 ### 5.3. 实现单例模式
 
-```typescript
+```ts
 // ✅ 使用装饰器实现单例
 function Singleton<T extends { new (...args: any[]): {} }>(constructor: T) {
   let instance: any
@@ -241,7 +241,7 @@ console.log(db2.url) // 'localhost:5432'（使用第一次的参数）
 
 ### 6.1. 基本装饰器工厂
 
-```typescript
+```ts
 // ✅ 装饰器工厂接收参数
 function Component(config: { selector: string; template: string }) {
   return function <T extends { new (...args: any[]): {} }>(constructor: T) {
@@ -270,7 +270,7 @@ app.render() // 渲染 app-root：<h1>Hello World</h1>
 
 ### 6.2. 带验证的装饰器工厂
 
-```typescript
+```ts
 // ✅ 根据环境启用不同行为
 function Logger(enabled: boolean) {
   return function <T extends { new (...args: any[]): {} }>(constructor: T) {
@@ -309,7 +309,7 @@ const admin = new AdminService('admin-service')
 
 ### 6.3. 配置元数据
 
-```typescript
+```ts
 // ✅ 存储元数据供框架使用
 interface RouteConfig {
   path: string
@@ -344,7 +344,7 @@ console.log(controller.getBasePath()) // '/api/users'
 
 类装饰器在类定义时立即执行，而不是在实例化时执行。
 
-```typescript
+```ts
 // ✅ 装饰器执行时机演示
 console.log('1. 脚本开始执行')
 
@@ -380,7 +380,7 @@ console.log('7. 实例化完成')
 
 ### 7.1. 多个装饰器的执行顺序
 
-```typescript
+```ts
 // ✅ 多个装饰器从下到上执行
 function First() {
   console.log('First 工厂被调用')
@@ -411,7 +411,7 @@ class Example {}
 
 ### 8.1. 依赖注入
 
-```typescript
+```ts
 // ✅ 实现简单的依赖注入
 const serviceRegistry = new Map<string, any>()
 
@@ -451,7 +451,7 @@ class UserService {
 
 ### 8.2. 性能监控
 
-```typescript
+```ts
 // ✅ 监控类方法的执行时间
 function PerformanceMonitor<T extends { new (...args: any[]): {} }>(
   constructor: T
@@ -505,7 +505,7 @@ processor.aggregate([1, 2, 3, 4, 5])
 
 ### 8.3. 自动序列化
 
-```typescript
+```ts
 // ✅ 为类添加序列化能力
 interface SerializableClass {
   toJSON(): any
@@ -548,7 +548,7 @@ console.log(newUser.name) // 'Alice'
 
 ### 8.4. 访问控制
 
-```typescript
+```ts
 // ✅ 实现权限控制
 function RequireAuth(roles: string[]) {
   return function <T extends { new (...args: any[]): {} }>(constructor: T) {
@@ -590,7 +590,7 @@ try {
 
 ### 9.1. 类型安全问题
 
-```typescript
+```ts
 // ❌ 装饰器返回的新类可能导致类型丢失
 function AddMethod<T extends { new (...args: any[]): {} }>(constructor: T) {
   return class extends constructor {
@@ -609,7 +609,7 @@ const user = new User()
 // user.newMethod(); // ❌ 类型错误：Property 'newMethod' does not exist
 ```
 
-```typescript
+```ts
 // ✅ 使用类型断言或重新定义类型
 function AddMethod<T extends { new (...args: any[]): {} }>(constructor: T) {
   return class extends constructor {
@@ -630,7 +630,7 @@ user.newMethod() // ✅ 正常工作
 
 ### 9.2. 继承问题
 
-```typescript
+```ts
 // ❌ 装饰器修改可能影响继承
 function Frozen<T extends { new (...args: any[]): {} }>(constructor: T) {
   return class extends constructor {
@@ -657,7 +657,7 @@ class Derived extends Base {
 
 ### 9.3. 性能考虑
 
-```typescript
+```ts
 // ❌ 避免在装饰器中执行耗时操作
 function ExpensiveDecorator<T extends { new (...args: any[]): {} }>(
   constructor: T
@@ -673,7 +673,7 @@ function ExpensiveDecorator<T extends { new (...args: any[]): {} }>(
 class User {}
 ```
 
-```typescript
+```ts
 // ✅ 将耗时操作延迟到实例化或方法调用时
 function LazyInit<T extends { new (...args: any[]): {} }>(constructor: T) {
   return class extends constructor {
@@ -703,7 +703,7 @@ class User {
 
 ### 9.4. 装饰器顺序
 
-```typescript
+```ts
 // ✅ 注意装饰器的执行顺序
 function Validate<T extends { new (...args: any[]): {} }>(constructor: T) {
   console.log('验证装饰器')

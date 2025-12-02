@@ -94,7 +94,7 @@ my-project/
 
 指定的文件所依赖的文件会自动包含。
 
-```typescript
+```ts
 // src/index.ts
 import { helper } from './utils'
 import { User } from './models/user'
@@ -294,7 +294,7 @@ error TS6053: File 'src/missing.ts' not found.
 
 ### 6.3. 依赖的自动包含
 
-```typescript
+```ts
 // src/index.ts
 import { User } from './models/user'
 import { Config } from './config'
@@ -324,7 +324,7 @@ export const config = { apiUrl: '...' }
 
 ### 6.4. 动态导入
 
-```typescript
+```ts
 // src/index.ts
 async function loadModule() {
   const mod = await import('./dynamic') // ⚠️ 动态导入
@@ -342,7 +342,7 @@ async function loadModule() {
 
 ### 6.5. 类型引用
 
-```typescript
+```ts
 // src/index.ts
 /// <reference types="node" />
 

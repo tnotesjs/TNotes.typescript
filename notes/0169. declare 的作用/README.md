@@ -47,7 +47,7 @@ declare 关键字用于告诉 TypeScript 某个变量、函数、类等已经在
 
 declare 关键字用于声明已经存在但 TypeScript 不知道的变量、函数、类等的类型。
 
-```typescript
+```ts
 // declare 告诉 TypeScript：jQuery 已经存在
 // 但不会生成任何 JavaScript 代码
 declare var jQuery: (selector: string) => any
@@ -64,7 +64,7 @@ jQuery('#app').hide()
 
 declare 声明也称为环境声明（Ambient Declarations），表示声明的内容来自外部环境。
 
-```typescript
+```ts
 // 声明全局变量（来自浏览器环境）
 declare var window: Window
 declare var document: Document
@@ -84,7 +84,7 @@ declare 主要用于为 JavaScript 代码提供类型信息。
 
 ### 4.1. 为全局变量提供类型
 
-```typescript
+```ts
 // 假设页面通过 script 标签引入了 jQuery
 // <script src="jquery.js"></script>
 
@@ -98,7 +98,7 @@ jQuery('#app') // 正确
 
 ### 4.2. 为第三方库提供类型
 
-```typescript
+```ts
 // 假设使用了没有类型声明的 npm 包
 // npm install some-js-library
 
@@ -119,7 +119,7 @@ const instance = new MyClass('test')
 
 ### 4.3. 为已有的 JavaScript 文件提供类型
 
-```typescript
+```ts
 // utils.js（已存在的 JavaScript 文件）
 function formatDate(date) {
   return date.toISOString()
@@ -135,7 +135,7 @@ formatDate('2024-01-01') // 错误：类型不匹配
 
 ### 4.4. 扩展全局作用域
 
-```typescript
+```ts
 // 扩展 Window 接口
 declare global {
   interface Window {
@@ -158,7 +158,7 @@ declare 声明与普通声明在编译行为上完全不同。
 
 ::: code-group
 
-```typescript [普通声明]
+```ts [普通声明]
 // 普通声明会生成 JavaScript 代码
 const API_URL = 'https://api.example.com'
 function greet(name: string): string {
@@ -180,7 +180,7 @@ class User {
 // }
 ```
 
-```typescript [declare 声明]
+```ts [declare 声明]
 // declare 声明不会生成 JavaScript 代码
 declare const API_URL: string
 declare function greet(name: string): string
@@ -198,7 +198,7 @@ declare class User {
 
 ### 5.1. 实现 vs 声明
 
-```typescript
+```ts
 // 实现：包含实际代码
 function add(a: number, b: number): number {
   return a + b // 有函数体
@@ -210,7 +210,7 @@ declare function add(a: number, b: number): number // 没有函数体
 
 ### 5.2. 使用场景对比
 
-```typescript
+```ts
 // 场景1：编写新代码（使用普通声明）
 // math.ts
 export function multiply(a: number, b: number): number {
@@ -231,7 +231,7 @@ declare function multiply(a: number, b: number): number
 
 ### 6.1. 使用全局库
 
-```typescript
+```ts
 // 通过 CDN 引入的库
 // <script src="https://cdn.example.com/library.js"></script>
 
@@ -246,7 +246,7 @@ const data = MyLibrary.getData()
 
 ### 6.2. 使用 UMD 模块
 
-```typescript
+```ts
 // UMD 模块既可以作为模块使用，也可以作为全局变量使用
 declare module 'jquery' {
   export = jQuery
@@ -273,7 +273,7 @@ jQuery('#app').show()
 
 ### 6.3. 为 JavaScript 项目提供类型
 
-```typescript
+```ts
 // 逐步迁移 JavaScript 项目到 TypeScript
 // legacy.js（保持为 JavaScript）
 function processData(data) {
@@ -297,7 +297,7 @@ const result = processData([
 
 ### 6.4. 声明模块路径
 
-```typescript
+```ts
 // 为非 TypeScript 模块提供类型
 declare module '*.css' {
   const content: { [className: string]: string }
@@ -322,7 +322,7 @@ import config from './config.json'
 
 ### 6.5. 扩展现有类型
 
-```typescript
+```ts
 // 为第三方库添加自定义方法
 import 'express'
 
@@ -347,7 +347,7 @@ app.use((req, res, next) => {
 
 ### 6.6. 声明命名空间
 
-```typescript
+```ts
 // 为全局对象添加类型
 declare namespace NodeJS {
   interface ProcessEnv {

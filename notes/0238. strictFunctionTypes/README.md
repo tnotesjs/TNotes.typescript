@@ -63,7 +63,7 @@
 
 ### 3.2. 关闭时的行为
 
-```typescript
+```ts
 // strictFunctionTypes: false（双向协变）
 type EventCallback = (e: Event) => void
 
@@ -75,7 +75,7 @@ const handler: EventCallback = (e: MouseEvent) => {
 
 ### 3.3. 开启后的行为
 
-```typescript
+```ts
 // strictFunctionTypes: true（逆变检查）
 type EventCallback = (e: Event) => void
 
@@ -96,7 +96,7 @@ const handler: EventCallback = (e: Event) => {
 
 ### 4.1. 不安全的函数赋值
 
-```typescript
+```ts
 class Animal {
   name: string = ''
 }
@@ -143,7 +143,7 @@ const handle: Handler = (animal: Dog | Cat) => {
 
 函数参数类型必须是逆变的（contravariant）：
 
-```typescript
+```ts
 // 类型层级：Animal > Dog
 // 函数参数逆变：(animal: Animal) => void 可以赋值给 (dog: Dog) => void
 
@@ -169,7 +169,7 @@ const generalHandler: AnimalHandler = specificHandler // ❌ 不安全
 
 ### 5.1. 回调函数
 
-```typescript
+```ts
 // strictFunctionTypes: true
 interface EventEmitter {
   on(event: string, callback: (e: Event) => void): void
@@ -192,7 +192,7 @@ emitter.on('click', (e: Event) => {
 
 ### 5.2. 数组方法
 
-```typescript
+```ts
 class Shape {
   area(): number {
     return 0
@@ -231,7 +231,7 @@ shapes.forEach((shape: Shape) => {
 
 ### 5.3. 方法不受影响
 
-```typescript
+```ts
 // 方法声明不受 strictFunctionTypes 影响
 interface Animal {
   move(distance: number): void
@@ -251,7 +251,7 @@ class MyDog implements Dog {
 
 ### 5.4. 泛型函数
 
-```typescript
+```ts
 // strictFunctionTypes: true
 function process<T>(arr: T[], callback: (item: T) => void) {
   arr.forEach(callback)
@@ -287,7 +287,7 @@ process<Animal>(dogs, (animal: Animal) => {
 
 ### 6.1. 方法 vs. 函数属性
 
-```typescript
+```ts
 interface Handler {
   // 方法声明（不受 strictFunctionTypes 影响）
   handle(value: string): void
@@ -314,7 +314,7 @@ const handler: Handler = {
 
 ### 6.2. 事件处理
 
-```typescript
+```ts
 // ✅ 推荐：使用具体的事件类型
 button.addEventListener('click', (e: MouseEvent) => {
   console.log(e.clientX)
@@ -330,7 +330,7 @@ button.addEventListener('click', (e: Event) => {
 
 ### 6.3. 高阶函数
 
-```typescript
+```ts
 // strictFunctionTypes: true
 function map<T, U>(arr: T[], fn: (item: T) => U): U[] {
   return arr.map(fn)
@@ -347,7 +347,7 @@ const result = map(numbers, (n: number | string) => n.toString())
 
 ### 6.4. 类型断言
 
-```typescript
+```ts
 // ⚠️ 可以使用类型断言绕过检查（不推荐）
 type Callback = (value: string | number) => void
 
@@ -358,7 +358,7 @@ const handler: Callback = ((value: string) => {
 
 ### 6.5. 联合类型处理
 
-```typescript
+```ts
 type Handler = (value: string | number) => void
 
 // ❌ 错误
@@ -378,7 +378,7 @@ const handle: Handler = (value: string | number) => {
 
 ### 6.6. React 组件
 
-```typescript
+```ts
 // strictFunctionTypes 对 React 组件的影响
 interface Props {
   onClick: (e: React.MouseEvent) => void

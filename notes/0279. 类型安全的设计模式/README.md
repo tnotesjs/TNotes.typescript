@@ -47,7 +47,7 @@ TypeScript 的类型系统可以让经典设计模式更加类型安全。
 
 ### 3.1. 基本实现
 
-```typescript
+```ts
 // ✅ 类型安全的单例
 class Singleton {
   private static instance: Singleton | null = null
@@ -79,7 +79,7 @@ console.log(instance1 === instance2) // true
 
 ### 3.2. 泛型单例
 
-```typescript
+```ts
 // ✅ 泛型单例基类
 abstract class GenericSingleton<T> {
   private static instances: Map<any, any> = new Map()
@@ -128,7 +128,7 @@ console.log(logger1 === logger2) // true
 
 ### 4.1. 简单工厂
 
-```typescript
+```ts
 // ✅ 类型安全的工厂
 interface Product {
   getName(): string
@@ -183,7 +183,7 @@ const phone = ProductFactory.createProduct('electronics', 'Phone', 999)
 
 ### 4.2. 抽象工厂
 
-```typescript
+```ts
 // ✅ 抽象工厂模式
 interface Button {
   render(): string
@@ -263,7 +263,7 @@ renderUI(new MacFactory())
 
 ### 5.1. 类型安全的观察者
 
-```typescript
+```ts
 // ✅ 泛型观察者模式
 type Observer<T> = (data: T) => void
 
@@ -309,7 +309,7 @@ userObservable.notify({ id: 2, name: 'Jerry' }) // 只有 Observer 2 收到
 
 ### 5.2. 事件发射器
 
-```typescript
+```ts
 // ✅ 类型安全的事件发射器
 type EventMap = Record<string, any>
 
@@ -368,7 +368,7 @@ emitter.emit('userLogout', { userId: 1 })
 
 ### 6.1. 函数装饰器
 
-```typescript
+```ts
 // ✅ 日志装饰器
 function logged<T extends (...args: any[]) => any>(target: T): T {
   return ((...args: Parameters<T>): ReturnType<T> => {
@@ -399,7 +399,7 @@ function timed<T extends (...args: any[]) => any>(target: T): T {
 
 ### 6.2. 类装饰器
 
-```typescript
+```ts
 // ✅ 类装饰器
 function Serializable<T extends { new (...args: any[]): {} }>(constructor: T) {
   return class extends constructor {
@@ -429,7 +429,7 @@ console.log(json) // {"name":"Tom","age":25}
 
 ### 7.1. 类型安全的策略
 
-```typescript
+```ts
 // ✅ 策略接口
 interface PaymentStrategy {
   pay(amount: number): void
@@ -487,7 +487,7 @@ context.executePayment(300)
 
 ### 7.2. 函数式策略
 
-```typescript
+```ts
 // ✅ 使用函数的策略模式
 type SortStrategy<T> = (a: T, b: T) => number
 

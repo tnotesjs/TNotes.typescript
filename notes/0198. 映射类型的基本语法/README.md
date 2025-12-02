@@ -62,7 +62,7 @@
 
 映射类型（Mapped Types）是一种通过遍历键来创建新类型的方式。它类似于 JavaScript 中的 `Array.map()` 方法，但作用于类型层面。
 
-```typescript
+```ts
 // JavaScript 中的 map
 const numbers = [1, 2, 3]
 const doubled = numbers.map((n) => n * 2) // [2, 4, 6]
@@ -88,7 +88,7 @@ type PartialUser = {
 - **转换**：对每个键的值类型进行转换
 - **生成**：生成一个全新的类型
 
-```typescript
+```ts
 // 遍历并转换
 type Original = {
   x: number
@@ -106,7 +106,7 @@ type Transformed = {
 
 映射类型的基本语法结构如下：
 
-```typescript
+```ts
 type MappedType = {
   [K in Keys]: Type
 }
@@ -121,7 +121,7 @@ type MappedType = {
 
 ### 4.1. 基本示例
 
-```typescript
+```ts
 // 1. 最简单的映射
 type SimpleMap = {
   [K in 'a' | 'b' | 'c']: string
@@ -151,7 +151,7 @@ type ClonedPerson = Clone<Person>
 
 ### 4.2. 语法变体
 
-```typescript
+```ts
 // 添加可选修饰符
 type Optional<T> = {
   [K in keyof T]?: T[K]
@@ -174,7 +174,7 @@ type PartialReadonly<T> = {
 
 ### 5.1. 遍历字面量联合
 
-```typescript
+```ts
 // 直接遍历字符串字面量联合
 type Status = {
   [K in 'pending' | 'success' | 'error']: boolean
@@ -200,7 +200,7 @@ type NumberMap = {
 
 ### 5.2. 遍历对象键
 
-```typescript
+```ts
 type Product = {
   id: number
   name: string
@@ -223,7 +223,7 @@ type Validators = {
 
 ### 5.3. 遍历时使用键
 
-```typescript
+```ts
 // 在映射中使用键本身
 type KeyValuePairs<T> = {
   [K in keyof T]: {
@@ -245,7 +245,7 @@ type UserPairs = KeyValuePairs<{
 
 ### 5.4. 条件遍历
 
-```typescript
+```ts
 // 只遍历特定类型的键
 type StringKeys<T> = {
   [K in keyof T as T[K] extends string ? K : never]: T[K]
@@ -268,7 +268,7 @@ type UserStrings = StringKeys<User>
 
 ### 6.1. 使用 keyof 获取对象键
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -284,7 +284,7 @@ type UserLabels = {
 
 ### 6.2. 使用联合类型作为键源
 
-```typescript
+```ts
 // 从联合类型创建对象类型
 type Actions = 'create' | 'read' | 'update' | 'delete'
 
@@ -302,7 +302,7 @@ type Permissions = {
 
 ### 6.3. 使用泛型参数作为键源
 
-```typescript
+```ts
 // 泛型键源
 type RecordType<K extends string | number | symbol, T> = {
   [P in K]: T
@@ -319,7 +319,7 @@ type MyRecord<K extends keyof any, T> = {
 
 ### 6.4. 使用枚举作为键源
 
-```typescript
+```ts
 enum Color {
   Red = 'RED',
   Green = 'GREEN',
@@ -340,7 +340,7 @@ type ColorValues = {
 
 ### 6.5. 组合多个键源
 
-```typescript
+```ts
 type BaseKeys = 'id' | 'createdAt'
 type CustomKeys = 'name' | 'email'
 
@@ -361,7 +361,7 @@ type CombinedType = {
 
 ### 7.1. 场景 1：创建配置对象类型
 
-```typescript
+```ts
 // API 端点配置
 type Endpoints = 'users' | 'posts' | 'comments'
 
@@ -381,7 +381,7 @@ const config: ApiConfig = {
 
 ### 7.2. 场景 2：表单状态管理
 
-```typescript
+```ts
 // 表单字段定义
 type FormFields = {
   username: string
@@ -415,7 +415,7 @@ const fieldStates: FieldStates = {
 
 ### 7.3. 场景 3：事件处理器映射
 
-```typescript
+```ts
 type Events = {
   click: MouseEvent
   keypress: KeyboardEvent
@@ -436,7 +436,7 @@ const handlers: EventHandlers = {
 
 ### 7.4. 场景 4：数据库模型转换
 
-```typescript
+```ts
 // 数据库模型
 type DbUser = {
   id: number
@@ -461,7 +461,7 @@ type UserForm = {
 
 ### 7.5. 场景 5：API 响应类型生成
 
-```typescript
+```ts
 type Resource = {
   id: string
   name: string
@@ -485,7 +485,7 @@ type UserOperations = ResourceOperations<Resource>
 
 ### 7.6. 场景 6：响应式数据代理
 
-```typescript
+```ts
 type User = {
   name: string
   age: number
@@ -515,7 +515,7 @@ type ReactiveUser = Reactive<User>
 
 映射类型的键必须是 `string | number | symbol` 类型。
 
-```typescript
+```ts
 // ✅ 正确：有效的键类型
 type Valid1 = {
   [K in string]: any
@@ -539,7 +539,7 @@ type Invalid = {
 
 映射类型定义中不能添加固定的属性。
 
-```typescript
+```ts
 // ❌ 错误：不能混合映射和固定属性
 type Invalid<T> = {
   id: string; // 错误
@@ -564,7 +564,7 @@ type Extended<T> = Base & {
 
 映射类型默认会保留原类型的 `readonly` 和可选（`?`）修饰符。
 
-```typescript
+```ts
 type Original = {
   readonly name: string
   age?: number
@@ -587,7 +587,7 @@ type WithoutModifiers = {
 
 映射类型可能导致循环引用，需要小心处理。
 
-```typescript
+```ts
 // ⚠️ 可能导致无限递归
 type DeepPartial<T> = {
   [K in keyof T]: T[K] extends object ? DeepPartial<T[K]> : T[K]
@@ -605,7 +605,7 @@ type PartialNode = DeepPartial<Node> // TypeScript 可以处理，但要注意�
 
 映射类型不会自动分发联合类型。
 
-```typescript
+```ts
 type A = { a: string }
 type B = { b: number }
 
@@ -629,7 +629,7 @@ type MappedIntersection = Mapped<Intersection>
 
 复杂的映射类型可能影响编译性能。
 
-```typescript
+```ts
 // ✅ 简单高效
 type Simple<T> = {
   [K in keyof T]: T[K] | null
@@ -653,7 +653,7 @@ type Step2<T> = { [K in keyof T]: T[K] extends object ? Step1<T[K]> : T[K] }
 
 `keyof any` 等价于 `string | number | symbol`。
 
-```typescript
+```ts
 // 这两个定义等价
 type Dict1<T> = {
   [K in string | number | symbol]: T

@@ -67,7 +67,7 @@
 
 在 TypeScript 4.1 之前，映射类型只能保持键名不变：
 
-```typescript
+```ts
 type Person = {
   name: string
   age: number
@@ -95,7 +95,7 @@ type Getters = {
 2. **过滤键**：使用 `as never` 排除某些键
 3. **条件映射**：根据条件决定键的最终名称
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -120,7 +120,7 @@ type Getters = {
 
 ### 4.1. 语法结构
 
-```typescript
+```ts
 type MappedType = {
   [K in Keys as NewKey]: ValueType
 }
@@ -135,7 +135,7 @@ type MappedType = {
 
 ### 4.2. 基本示例
 
-```typescript
+```ts
 type Original = {
   firstName: string
   lastName: string
@@ -167,7 +167,7 @@ type PrefixedKeys = {
 
 ### 4.3. 使用字符串操作
 
-```typescript
+```ts
 type Person = {
   name: string
   age: number
@@ -205,7 +205,7 @@ type LowerKeys = {
 
 ### 5.1. 添加前缀和后缀
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -255,7 +255,7 @@ type UserAccessors = Accessors<User>
 
 ### 5.2. 替换和转换
 
-```typescript
+```ts
 type ApiResponse = {
   user_id: number
   user_name: string
@@ -291,7 +291,7 @@ type CamelCase = CamelCaseKeys<SnakeCase>
 
 ### 5.3. 条件键名转换
 
-```typescript
+```ts
 type Data = {
   id: number
   name: string
@@ -320,7 +320,7 @@ type DataValidators = Validators<Data>
 
 ### 5.4. 动态生成键名
 
-```typescript
+```ts
 // 为每个属性生成多个相关键
 type EventHandlers<T> = {
   [K in keyof T as `on${Capitalize<K & string>}Change`]: (value: T[K]) => void
@@ -349,7 +349,7 @@ type FormHandlers = EventHandlers<FormFields>
 
 ### 6.1. 基本过滤
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -368,7 +368,7 @@ type PublicUser = {
 
 ### 6.2. 按类型过滤
 
-```typescript
+```ts
 type Data = {
   id: number
   name: string
@@ -401,7 +401,7 @@ type NonFunctionProps<T> = {
 
 ### 6.3. 按命名模式过滤
 
-```typescript
+```ts
 type ApiData = {
   id: number
   _internal: string
@@ -430,7 +430,7 @@ type PrivateData = PrivateProps<ApiData>
 
 ### 6.4. 组合过滤条件
 
-```typescript
+```ts
 type Model = {
   id: number
   _version: number
@@ -469,7 +469,7 @@ type ComplexFilter<T> = {
 
 ### 7.1. 场景 1：API 数据适配
 
-```typescript
+```ts
 // 后端 API 返回的数据格式（snake_case）
 type ApiUser = {
   user_id: number
@@ -512,7 +512,7 @@ function adaptApiUser(apiUser: ApiUser): User {
 
 ### 7.2. 场景 2：生成事件处理器类型
 
-```typescript
+```ts
 // 表单字段
 type FormFields = {
   username: string
@@ -546,7 +546,7 @@ const handlers: FormHandlers = {
 
 ### 7.3. 场景 3：创建响应式对象
 
-```typescript
+```ts
 // 原始数据类型
 type State = {
   count: number
@@ -580,7 +580,7 @@ type ReactiveState = Reactive<State>
 
 ### 7.4. 场景 4：数据库模型生成
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -621,7 +621,7 @@ type UserQueries = QueryMethods<User>
 
 ### 7.5. 场景 5：权限控制
 
-```typescript
+```ts
 type Resources = {
   users: unknown
   posts: unknown
@@ -674,7 +674,7 @@ const permissions: UserPermissions = {
 
 ### 7.6. 场景 6：类型安全的配置
 
-```typescript
+```ts
 type Env = {
   database_url: string
   api_key: string
@@ -707,7 +707,7 @@ type EnvAccessors = EnvGetters<Env>
 
 重映射后的键名必须是有效的 TypeScript 标识符。
 
-```typescript
+```ts
 type Invalid = {
   name: string
 }
@@ -727,7 +727,7 @@ type GoodKeys = {
 
 使用 `as never` 后，该键会从结果类型中完全消失。
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -750,7 +750,7 @@ const user: Filtered = {
 
 重映射可能导致多个原始键映射到同一个新键名，造成冲突。
 
-```typescript
+```ts
 type Data = {
   firstName: string
   first_name: string
@@ -767,7 +767,7 @@ type Unified = {
 
 在复杂的重映射中，TypeScript 的类型推断可能无法完美工作。
 
-```typescript
+```ts
 type Original = {
   aaa: string
   bbb: number
@@ -786,7 +786,7 @@ type Result = Complex<Original>
 
 复杂的键名重映射可能影响编译性能，特别是在大型类型上。
 
-```typescript
+```ts
 // ⚠️ 性能影响较大
 type LargeType = {
   // ... 数百个属性
@@ -805,7 +805,7 @@ type ComplexTransform<T> = {
 
 键名重映射需要正确地与其他类型操作（如修饰符）组合使用。
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -829,7 +829,7 @@ type Setters = {
 
 键名重映射依赖于字符串字面量类型，有一定的限制。
 
-```typescript
+```ts
 // ❌ 不支持运行时字符串操作
 type Invalid<T, Prefix extends string> = {
   [K in keyof T as `${Prefix}${K}`]: T[K]

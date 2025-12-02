@@ -49,7 +49,7 @@
 
 分布式条件类型是指当条件类型作用于联合类型时，会自动将联合类型的每个成员分别应用条件类型。
 
-```typescript
+```ts
 // 基本示例
 type ToArray<T> = T extends any ? T[] : never
 
@@ -64,7 +64,7 @@ type T2 = ToArray<string | number>
 
 **对比非分布式：**
 
-```typescript
+```ts
 // 非分布式（使用元组包裹）
 type ToArrayNonDist<T> = [T] extends [any] ? T[] : never
 
@@ -82,7 +82,7 @@ type T4 = ToArray<string | number>
 
 **发生分发的过程：**
 
-```typescript
+```ts
 type Boxed<T> = T extends any ? { value: T } : never
 
 // 对联合类型应用
@@ -100,7 +100,7 @@ type Result = Boxed<string | number | boolean>
 
 **实际结果：**
 
-```typescript
+```ts
 type Result = Boxed<string | number | boolean>
 // type Result = { value: string } | { value: number } | { value: boolean }
 
@@ -116,7 +116,7 @@ const box3: Result = { value: true } // ✅
 
 只有当条件类型中的类型参数是裸类型（naked type parameter）时才会分发。
 
-```typescript
+```ts
 // ✅ 裸类型参数 - 会分发
 type Dist1<T> = T extends string ? T : never
 type R1 = Dist1<'a' | 'b' | 1>
@@ -133,7 +133,7 @@ type R2 = Dist2<'a' | 'b' | 1>
 
 **裸类型 vs 包裹类型：**
 
-```typescript
+```ts
 // 裸类型：直接使用 T
 type Naked<T> = T extends number ? 'yes' : 'no'
 type R1 = Naked<1 | 2 | 'a'>
@@ -156,7 +156,7 @@ type R2 = Wrapped<1 | 2 | 'a'>
 2. 在条件类型的 `extends` 左侧
 3. 作用于联合类型
 
-```typescript
+```ts
 // 条件 1：裸类型参数
 type Check1<T> = T extends string ? true : false // ✅ 会分发
 
@@ -170,7 +170,7 @@ type R2 = Check1<string> // ✅ 不分发（不是联合类型，但结果相同
 
 **更多示例：**
 
-```typescript
+```ts
 // ✅ 会分发
 type Test1<T> = T extends any ? T[] : never
 type R1 = Test1<string | number> // string[] | number[]
@@ -190,7 +190,7 @@ type R3 = Test3<string | number> // string | number（没有过滤效果）
 
 **方法 1：使用元组包裹**
 
-```typescript
+```ts
 type NoDistribute<T> = [T] extends [any] ? T : never
 
 type T1 = NoDistribute<string | number>
@@ -205,7 +205,7 @@ type Arr = UnionToArray<string | number>
 
 **方法 2：使用对象包裹**
 
-```typescript
+```ts
 type NoDistribute<T> = { value: T } extends { value: any } ? T : never
 
 type T2 = NoDistribute<string | number>
@@ -214,7 +214,7 @@ type T2 = NoDistribute<string | number>
 
 **实际对比：**
 
-```typescript
+```ts
 // 分布式
 type Distribute<T> = T extends any ? T[] : never
 type D1 = Distribute<'a' | 'b'> // 'a'[] | 'b'[]
@@ -235,7 +235,7 @@ const d3: D1 = ['a', 'b'] // ❌ 错误：类型不匹配
 
 **Exclude 的实现：**
 
-```typescript
+```ts
 type MyExclude<T, U> = T extends U ? never : T
 
 // 使用
@@ -251,7 +251,7 @@ type T2 = MyExclude<string | number, string> // number
 
 **Extract 的实现：**
 
-```typescript
+```ts
 type MyExtract<T, U> = T extends U ? T : never
 
 // 使用
@@ -267,7 +267,7 @@ type T4 = MyExtract<string | number, string> // string
 
 ### 5.2. NonNullable
 
-```typescript
+```ts
 type MyNonNullable<T> = T extends null | undefined ? never : T
 
 // 使用
@@ -286,7 +286,7 @@ type T3 = MyNonNullable<boolean | undefined> // boolean
 
 **提取函数类型：**
 
-```typescript
+```ts
 type ExtractFunction<T> = T extends (...args: any[]) => any ? T : never
 
 type Mixed = string | number | (() => void) | ((x: number) => string)
@@ -296,7 +296,7 @@ type Funcs = ExtractFunction<Mixed>
 
 **提取对象类型：**
 
-```typescript
+```ts
 type ExtractObject<T> = T extends object ? T : never
 
 type Mixed = string | number | { id: number } | { name: string }
@@ -306,7 +306,7 @@ type Objects = ExtractObject<Mixed>
 
 **按属性过滤：**
 
-```typescript
+```ts
 type ExtractWithId<T> = T extends { id: any } ? T : never
 
 type Items =
@@ -323,7 +323,7 @@ type WithId = ExtractWithId<Items>
 
 ### 6.1. 条件分发与映射类型
 
-```typescript
+```ts
 type FunctionPropertyNames<T> = {
   [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never
 }[keyof T]
@@ -341,7 +341,7 @@ type FuncKeys = FunctionPropertyNames<Example>
 
 ### 6.2. 保留联合类型结构
 
-```typescript
+```ts
 // 为联合类型的每个成员添加属性
 type AddTimestamp<T> = T extends any ? T & { timestamp: number } : never
 
@@ -356,7 +356,7 @@ type WithTimestamp = AddTimestamp<Data>
 
 **深度可选：**
 
-```typescript
+```ts
 type DeepPartial<T> = T extends object
   ? T extends (infer U)[]
     ? DeepPartial<U>[]
@@ -387,7 +387,7 @@ type PartialNested = DeepPartial<Nested>
 
 **提取所有 Promise 值类型：**
 
-```typescript
+```ts
 type AwaitedUnion<T> = T extends Promise<infer U> ? U : T
 
 type Promises = Promise<string> | Promise<number> | boolean
@@ -399,7 +399,7 @@ type Values = AwaitedUnion<Promises>
 
 **1. never 的特殊行为**
 
-```typescript
+```ts
 type Test<T> = T extends string ? true : false
 
 // never 是空联合类型，分发后仍然是 never
@@ -412,7 +412,7 @@ type R2 = TestFixed<never> // false
 
 **2. 分发与 infer 的交互**
 
-```typescript
+```ts
 // 分发会影响 infer 的推断
 type UnboxArray<T> = T extends (infer U)[] ? U : T
 
@@ -428,7 +428,7 @@ type T2 = UnboxArrayNonDist<string[] | number[]>
 
 **3. 联合类型的扁平化**
 
-```typescript
+```ts
 // 分发会自动扁平化联合类型
 type Flatten<T> = T extends any ? T : never
 
@@ -438,7 +438,7 @@ type T1 = Flatten<(string | number) | boolean>
 
 **4. 与对象类型的交互**
 
-```typescript
+```ts
 // 对象类型不会自动分发
 type Test<T> = T extends { value: infer V } ? V : never
 
@@ -453,7 +453,7 @@ type R = Test<T2> // string | number (value 的联合类型)
 
 **5. 性能考虑**
 
-```typescript
+```ts
 // ❌ 不好：复杂的分发可能影响性能
 type Complex<T> = T extends A
   ? T extends B
@@ -475,7 +475,7 @@ type Simplified<T> = T extends A & B & C
 
 **6. 避免意外分发**
 
-```typescript
+```ts
 // 如果不想要分发，记得包裹
 type UnionToTuple<T> = [T] extends [never] ? [] : [T] // ⚠️ 这里仍然会分发
 

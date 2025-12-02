@@ -55,7 +55,7 @@ declare 声明函数的基本语法非常简单。
 
 ### 3.1. 基本语法
 
-```typescript
+```ts
 // 声明全局函数
 declare function greet(name: string): string
 
@@ -70,7 +70,7 @@ console.log(message)
 
 ### 3.2. 声明不同返回类型
 
-```typescript
+```ts
 // 返回字符串
 declare function getName(): string
 
@@ -95,7 +95,7 @@ declare function fetchData(): Promise<any>
 
 ### 3.3. 声明带参数的函数
 
-```typescript
+```ts
 // 单个参数
 declare function double(num: number): number
 
@@ -121,7 +121,7 @@ createUser({ name: 'Alice', age: 25 })
 
 ### 3.4. 剩余参数
 
-```typescript
+```ts
 // 声明剩余参数
 declare function sum(...numbers: number[]): number
 declare function combine(...items: (string | number)[]): string
@@ -137,7 +137,7 @@ combine('a', 1, 'b', 2)
 
 ### 4.1. 基本重载
 
-```typescript
+```ts
 // 声明函数重载
 declare function parse(value: string): object
 declare function parse(value: string, reviver: Function): object
@@ -149,7 +149,7 @@ const obj2 = parse('{"name":"Bob"}', (key, value) => value)
 
 ### 4.2. 不同参数类型的重载
 
-```typescript
+```ts
 // 根据参数类型返回不同类型
 declare function getValue(key: string): string
 declare function getValue(key: number): number
@@ -163,7 +163,7 @@ const bool = getValue(true) // boolean
 
 ### 4.3. 不同参数数量的重载
 
-```typescript
+```ts
 // 无参数
 declare function random(): number
 // 一个参数
@@ -179,7 +179,7 @@ random(5, 10) // 5-10 之间的随机数
 
 ### 4.4. 复杂重载
 
-```typescript
+```ts
 // jQuery 风格的重载
 declare function $(selector: string): JQuery
 declare function $(element: HTMLElement): JQuery
@@ -204,7 +204,7 @@ $('<div>', { class: 'container' }) // 创建元素
 
 ### 5.1. 可选参数
 
-```typescript
+```ts
 // 使用 ? 标记可选参数
 declare function buildName(firstName: string, lastName?: string): string
 
@@ -215,7 +215,7 @@ buildName('John', 'Doe')
 
 ### 5.2. 多个可选参数
 
-```typescript
+```ts
 declare function createUser(
   name: string,
   age?: number,
@@ -231,7 +231,7 @@ createUser('Charlie', 30, 'charlie@example.com')
 
 ### 5.3. 默认参数
 
-```typescript
+```ts
 // declare 声明中不能直接指定默认值
 // 但可以通过重载模拟
 declare function greet(name: string, greeting?: string): string
@@ -248,7 +248,7 @@ setVolume(undefined) // 使用默认值
 
 ### 5.4. 可选参数与联合类型
 
-```typescript
+```ts
 // 可选参数
 declare function process(value?: string): void
 
@@ -267,7 +267,7 @@ process(undefined)
 
 ### 6.1. 基本泛型
 
-```typescript
+```ts
 // 声明泛型函数
 declare function identity<T>(value: T): T
 
@@ -279,7 +279,7 @@ const arr = identity([1, 2, 3]) // number[]
 
 ### 6.2. 多个类型参数
 
-```typescript
+```ts
 // 多个泛型参数
 declare function pair<T, U>(first: T, second: U): [T, U]
 
@@ -290,7 +290,7 @@ const p2 = pair(true, 'active') // [boolean, string]
 
 ### 6.3. 泛型约束
 
-```typescript
+```ts
 // 约束泛型类型
 declare function getLength<T extends { length: number }>(value: T): number
 
@@ -302,7 +302,7 @@ getLength({ length: 5 }) // 正确：对象有 length
 
 ### 6.4. 泛型数组
 
-```typescript
+```ts
 // 操作泛型数组
 declare function first<T>(arr: T[]): T | undefined
 declare function last<T>(arr: T[]): T | undefined
@@ -317,7 +317,7 @@ map(['a', 'b'], (s) => s.length) // number[]
 
 ### 6.5. 泛型 Promise
 
-```typescript
+```ts
 // 异步泛型函数
 declare function fetchJSON<T>(url: string): Promise<T>
 declare function delay<T>(ms: number, value: T): Promise<T>
@@ -339,7 +339,7 @@ delay(1000, 'done').then((value) => {
 
 ### 6.6. 函数式编程
 
-```typescript
+```ts
 // 声明高阶函数
 declare function compose<T, U, V>(f: (x: U) => V, g: (x: T) => U): (x: T) => V
 
@@ -357,7 +357,7 @@ pipe(5, addOne) // 6
 
 ### 6.7. 实际应用示例
 
-```typescript
+```ts
 // 声明常用工具函数
 declare function pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>
 

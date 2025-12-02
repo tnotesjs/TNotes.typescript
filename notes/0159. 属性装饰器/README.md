@@ -50,7 +50,7 @@
 
 属性装饰器是应用在类属性声明上的函数，用于观察属性定义。
 
-```typescript
+```ts
 // 属性装饰器的本质
 function logProperty(target: any, propertyKey: string) {
   console.log('装饰的类：', target.constructor.name)
@@ -78,7 +78,7 @@ class User {
 
 ### 4.1. 参数说明
 
-```typescript
+```ts
 // 属性装饰器的完整参数
 function propertyDecorator(
   target: any, // 静态属性是类的构造函数，实例属性是类的原型对象
@@ -101,7 +101,7 @@ class Example {
 
 ### 4.2. target 参数说明
 
-```typescript
+```ts
 // target 参数的不同情况
 function logTarget(target: any, propertyKey: string) {
   if (typeof target === 'function') {
@@ -134,7 +134,7 @@ class User {
 
 ### 5.1. 存储元数据
 
-```typescript
+```ts
 // 使用 WeakMap 存储元数据
 const metadataStorage = new WeakMap<any, Map<string, any>>()
 
@@ -181,7 +181,7 @@ console.log(getMetadata(user, 'age')) // { type: 'number', min: 0, max: 120 }
 
 ### 5.2. 标记属性
 
-```typescript
+```ts
 // 标记需要序列化的属性
 const serializableProps = new WeakMap<any, Set<string>>()
 
@@ -226,7 +226,7 @@ console.log(serialize(user)) // {"name":"Alice","email":"alice@example.com"}
 
 ### 5.3. 修改属性描述符
 
-```typescript
+```ts
 // 通过 Object.defineProperty 修改属性
 function readonly(target: any, propertyKey: string) {
   // 保存初始值
@@ -266,7 +266,7 @@ console.log(config.apiUrl)
 
 ### 6.1. 属性验证
 
-```typescript
+```ts
 // 验证规则装饰器
 const validationRules = new WeakMap<any, Map<string, any[]>>()
 
@@ -348,7 +348,7 @@ console.log(validate(form))
 
 ### 6.2. ORM 列定义
 
-```typescript
+```ts
 // 模拟 ORM 框架的列定义
 interface ColumnMetadata {
   type: string
@@ -418,7 +418,7 @@ console.log(generateSchema(User))
 
 ### 6.3. 依赖注入
 
-```typescript
+```ts
 // 简单的依赖注入实现
 const dependencies = new WeakMap<any, Map<string, any>>()
 
@@ -484,7 +484,7 @@ userService.getUser(1) // [LOG] 获取用户 1
 
 ### 6.4. 属性转换
 
-```typescript
+```ts
 // 类型转换装饰器
 const transformers = new WeakMap<any, Map<string, (value: any) => any>>()
 
@@ -549,7 +549,7 @@ console.log(event.startTime) // Date 对象
 
 ::: code-group
 
-```typescript [❌ 错误示例]
+```ts [❌ 错误示例]
 // 属性装饰器不能修改属性的初始值
 function setDefault(value: any) {
   return function (target: any, propertyKey: string) {
@@ -567,7 +567,7 @@ const user = new User()
 console.log(user.name) // ''（不是 'Unknown'）
 ```
 
-```typescript [✅ 正确示例]
+```ts [✅ 正确示例]
 // 通过重新定义属性来设置默认值
 function setDefault(value: any) {
   return function (target: any, propertyKey: string) {
@@ -597,7 +597,7 @@ console.log(user.name) // 'Unknown'
 
 ### 7.2. 不能返回值
 
-```typescript
+```ts
 // 属性装饰器的返回值会被忽略
 function decorator(target: any, propertyKey: string) {
   // 返回值无效
@@ -616,7 +616,7 @@ class Example {
 
 ### 7.3. 执行时机
 
-```typescript
+```ts
 // 属性装饰器在类定义时执行，不是在实例化时
 let counter = 0
 
@@ -641,7 +641,7 @@ console.log('创建实例 2 后：', counter) // 1
 
 ::: code-group
 
-```typescript [属性装饰器]
+```ts [属性装饰器]
 // 只能存储元数据或标记
 class Example {
   @metadata('type', 'string')
@@ -649,7 +649,7 @@ class Example {
 }
 ```
 
-```typescript [访问器装饰器]
+```ts [访问器装饰器]
 // 可以修改属性的读写行为
 class Example {
   private _prop: string = ''
@@ -669,7 +669,7 @@ class Example {
 
 ### 7.5. 静态属性装饰器
 
-```typescript
+```ts
 // 静态属性装饰器的 target 是构造函数
 function logStatic(target: any, propertyKey: string) {
   console.log('target 是构造函数：', typeof target === 'function')

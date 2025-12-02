@@ -73,7 +73,7 @@ TypeScript 编译器可以自动从 TS 代码生成声明文件。
 
 ### 3.2. 项目示例
 
-```typescript
+```ts
 // src/math.ts - 源文件
 /**
  * 加法函数
@@ -117,7 +117,7 @@ export class Calculator {
 
 编译后自动生成：
 
-```typescript
+```ts
 // dist/math.d.ts - 自动生成的声明文件
 /**
  * 加法函数
@@ -196,7 +196,7 @@ tsc --declaration --declarationMap
 }
 ```
 
-```typescript
+```ts
 // 示例
 // src/index.ts
 export const version = '1.0.0'
@@ -219,7 +219,7 @@ export declare function init(): void
 }
 ```
 
-```typescript
+```ts
 // 目录结构
 // src/
 //   index.ts
@@ -243,7 +243,7 @@ export declare function init(): void
 }
 ```
 
-```typescript
+```ts
 // 生成的文件
 // dist/
 //   index.js
@@ -293,7 +293,7 @@ babel src --out-dir dist
 }
 ```
 
-```typescript
+```ts
 // src/api.ts
 /**
  * 公开 API
@@ -359,7 +359,7 @@ export declare function publicApi(): void
 
 ### 5.1. 导出规范
 
-```typescript
+```ts
 // ✅ 推荐：明确的命名导出
 // src/index.ts
 export { add, subtract } from './math'
@@ -377,7 +377,7 @@ export * from './math' // 不推荐
 
 ### 5.2. 类型导出
 
-```typescript
+```ts
 // ✅ 推荐：使用 export type 导出纯类型
 // src/types.ts
 export type Status = 'pending' | 'success' | 'error'
@@ -397,7 +397,7 @@ export { Status } // 如果 Status 是纯类型，应该用 export type
 
 ### 5.3. 泛型保留
 
-```typescript
+```ts
 // src/container.ts
 export class Container<T> {
   private items: T[] = []
@@ -423,7 +423,7 @@ export declare class Container<T> {
 
 ### 5.4. 保留 JSDoc 注释
 
-````typescript
+````ts
 // src/logger.ts
 /**
  * 日志级别
@@ -442,7 +442,7 @@ export enum LogLevel {
 /**
  * 日志记录器
  * @example
- * ```typescript
+ * ```ts
  * const logger = new Logger(LogLevel.Info);
  * logger.log('Hello');
  * ```
@@ -480,7 +480,7 @@ export declare enum LogLevel {
 /**
  * 日志记录器
  * @example
- * ```typescript
+ * ```ts
  * const logger = new Logger(LogLevel.Info);
  * logger.log('Hello');
  * ```
@@ -503,7 +503,7 @@ export declare class Logger {
 
 ### 5.5. 私有成员处理
 
-```typescript
+```ts
 // src/service.ts
 export class UserService {
   // public 成员会出现在声明文件中
@@ -551,7 +551,7 @@ export declare class UserService {
 
 ### 6.1. 问题 1：私有字段报错
 
-```typescript
+```ts
 // ❌ 使用 # 私有字段会导致声明文件生成失败
 export class User {
   #password: string // ❌ 错误
@@ -573,7 +573,7 @@ export class User {
 
 ### 6.2. 问题 2：类型引用丢失
 
-```typescript
+```ts
 // ❌ 问题：内部类型不会被导出
 // src/api.ts
 interface ApiOptions {
@@ -606,7 +606,7 @@ export function request(options: { timeout: number }): Promise<any> {
 
 ### 6.3. 问题 3：循环引用
 
-```typescript
+```ts
 // ❌ 问题：循环引用
 // src/user.ts
 import { Post } from './post'
@@ -644,7 +644,7 @@ export interface Post {
 
 ### 6.4. 问题 4：路径别名
 
-```typescript
+```ts
 // tsconfig.json
 {
   "compilerOptions": {
@@ -695,7 +695,7 @@ import { User } from './models/user';
 
 ### 6.6. 问题 6：重复声明
 
-```typescript
+```ts
 // ❌ 问题：同时存在手动编写和自动生成的声明文件
 // src/
 //   index.ts

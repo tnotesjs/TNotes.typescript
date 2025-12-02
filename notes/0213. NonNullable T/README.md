@@ -4,23 +4,23 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 NonNullable\<T\> 是什么？](#3--nonnullablet-是什么)
+- [3. 🤔 `NonNullable<T>` 是什么？](#3--nonnullablet-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. 工作原理](#32-工作原理)
   - [3.3. 基本示例](#33-基本示例)
   - [3.4. 与 strictNullChecks 的关系](#34-与-strictnullchecks-的关系)
-- [4. 🤔 如何使用 NonNullable\<T\>？](#4--如何使用-nonnullablet)
+- [4. 🤔 如何使用 `NonNullable<T>`？](#4--如何使用-nonnullablet)
   - [4.1. 场景 1：函数参数类型收窄](#41-场景-1函数参数类型收窄)
   - [4.2. 场景 2：数组过滤空值](#42-场景-2数组过滤空值)
   - [4.3. 场景 3：可选链结果处理](#43-场景-3可选链结果处理)
   - [4.4. 场景 4：Promise 结果处理](#44-场景-4promise-结果处理)
-- [5. 🤔 NonNullable\<T\> 的实际应用场景有哪些？](#5--nonnullablet-的实际应用场景有哪些)
+- [5. 🤔 `NonNullable<T>` 的实际应用场景有哪些？](#5--nonnullablet-的实际应用场景有哪些)
   - [5.1. 应用 1：表单验证](#51-应用-1表单验证)
   - [5.2. 应用 2：数据库查询结果](#52-应用-2数据库查询结果)
   - [5.3. 应用 3：配置对象合并](#53-应用-3配置对象合并)
   - [5.4. 应用 4：React 组件 Props](#54-应用-4react-组件-props)
   - [5.5. 应用 5：API 响应处理](#55-应用-5api-响应处理)
-- [6. 🤔 使用 NonNullable\<T\> 需要注意什么？](#6--使用-nonnullablet-需要注意什么)
+- [6. 🤔 使用 `NonNullable<T>` 需要注意什么？](#6--使用-nonnullablet-需要注意什么)
   - [6.1. 注意事项 1：仅编译时检查](#61-注意事项-1仅编译时检查)
   - [6.2. 注意事项 2：不移除 void 类型](#62-注意事项-2不移除-void-类型)
   - [6.3. 注意事项 3：对象属性的处理](#63-注意事项-3对象属性的处理)
@@ -44,20 +44,19 @@
 
 `NonNullable<T>` 从类型 `T` 中排除 `null` 和 `undefined`。
 
+## 3. 🤔 `NonNullable<T>` 是什么？
+
+`NonNullable<T>` 从类型 `T` 中移除 `null` 和 `undefined`，构造一个新类型。
+
 - 实现基于 `Exclude<T, null | undefined>`
 - 与 `strictNullChecks` 配合使用
 - 常用于类型收窄和空值处理
 - 不影响运行时行为
 - 是类型守卫的补充工具
 
-## 3. 🤔 NonNullable\<T\> 是什么？
-
-`NonNullable<T>` 从类型 `T` 中移除 `null` 和 `undefined`，构造一个新类型。
-
 ### 3.1. 源码定义
 
-```typescript
-// TypeScript lib.es5.d.ts 中的定义
+```ts
 type NonNullable<T> = T extends null | undefined ? never : T
 
 // 等价于使用 Exclude
@@ -66,7 +65,7 @@ type NonNullable<T> = Exclude<T, null | undefined>
 
 ### 3.2. 工作原理
 
-```typescript
+```ts
 // 展开过程
 type Example = NonNullable<string | number | null | undefined>
 
@@ -84,7 +83,7 @@ type Example = NonNullable<string | number | null | undefined>
 
 ### 3.3. 基本示例
 
-```typescript
+```ts
 // 移除 null 和 undefined
 type MaybeString = string | null | undefined
 type DefiniteString = NonNullable<MaybeString> // string
@@ -100,7 +99,7 @@ type NonNullWithVoid = NonNullable<WithVoid> // string | void (void 保留)
 
 ### 3.4. 与 strictNullChecks 的关系
 
-```typescript
+```ts
 // 开启 strictNullChecks
 // tsconfig.json: { "strictNullChecks": true }
 
@@ -120,11 +119,11 @@ if (value !== null) {
 }
 ```
 
-## 4. 🤔 如何使用 NonNullable\<T\>？
+## 4. 🤔 如何使用 `NonNullable<T>`？
 
 ### 4.1. 场景 1：函数参数类型收窄
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -156,7 +155,7 @@ sendEmail(userWithoutEmail) // 错误
 
 ### 4.2. 场景 2：数组过滤空值
 
-```typescript
+```ts
 type Item = {
   id: number
   value: string | null
@@ -183,7 +182,7 @@ nonNullItems.forEach((item) => {
 
 ### 4.3. 场景 3：可选链结果处理
 
-```typescript
+```ts
 type Config = {
   api?: {
     url?: string
@@ -217,7 +216,7 @@ useUrl(url!) // 非空断言
 
 ### 4.4. 场景 4：Promise 结果处理
 
-```typescript
+```ts
 async function fetchUser(id: number): Promise<User | null> {
   // 可能返回 null
   return null
@@ -239,11 +238,11 @@ function handleValidUser(user: NonNullable<User | null>): void {
 }
 ```
 
-## 5. 🤔 NonNullable\<T\> 的实际应用场景有哪些？
+## 5. 🤔 `NonNullable<T>` 的实际应用场景有哪些？
 
 ### 5.1. 应用 1：表单验证
 
-```typescript
+```ts
 type FormData = {
   username: string | null
   email: string | null
@@ -304,7 +303,7 @@ if (validated !== null) {
 
 ### 5.2. 应用 2：数据库查询结果
 
-```typescript
+```ts
 type QueryResult<T> = T | null | undefined
 
 type User = {
@@ -356,7 +355,7 @@ console.log(user.name) // ✅ 保证不为 null
 
 ### 5.3. 应用 3：配置对象合并
 
-```typescript
+```ts
 type PartialConfig = {
   host: string | null
   port: number | null
@@ -400,7 +399,7 @@ console.log(config.port) // 8080
 
 ### 5.4. 应用 4：React 组件 Props
 
-```typescript
+```ts
 type ComponentProps = {
   title: string | null
   description?: string | null
@@ -457,7 +456,7 @@ function withNonNullProps<P extends Record<string, any>>(
 
 ### 5.5. 应用 5：API 响应处理
 
-```typescript
+```ts
 type ApiResponse<T> = {
   data: T | null
   error: string | null
@@ -522,11 +521,11 @@ if (api.isError(response)) {
 }
 ```
 
-## 6. 🤔 使用 NonNullable\<T\> 需要注意什么？
+## 6. 🤔 使用 `NonNullable<T>` 需要注意什么？
 
 ### 6.1. 注意事项 1：仅编译时检查
 
-```typescript
+```ts
 type MaybeString = string | null
 
 function process(value: NonNullable<MaybeString>): void {
@@ -545,7 +544,7 @@ if (value !== null) {
 
 ### 6.2. 注意事项 2：不移除 void 类型
 
-```typescript
+```ts
 type WithVoid = string | null | void
 
 type NonNull = NonNullable<WithVoid>
@@ -557,7 +556,7 @@ type NonNull = NonNullable<WithVoid>
 
 ### 6.3. 注意事项 3：对象属性的处理
 
-```typescript
+```ts
 type User = {
   name: string | null
   email: string | null
@@ -575,7 +574,7 @@ type NonNullUserProps = {
 
 ### 6.4. 注意事项 4：undefined vs. 可选属性
 
-```typescript
+```ts
 type WithOptional = {
   required: string | null
   optional?: string | null
@@ -603,7 +602,7 @@ type MappedNonNull = {
 
 ### 6.5. 注意事项 5：泛型约束
 
-```typescript
+```ts
 // ⚠️ 泛型可能已经排除了 null
 function process<T extends string>(value: NonNullable<T>): void {
   console.log(value.toUpperCase())
@@ -622,7 +621,7 @@ processNullable<string | null>('hello') // ✅
 
 ### 6.6. 注意事项 6：与其他工具类型结合
 
-```typescript
+```ts
 type User = {
   name: string | null
   age: number | null
@@ -649,7 +648,7 @@ type NonNullPartial = Partial<{
 
 ### 6.7. 注意事项 7：类型守卫的必要性
 
-```typescript
+```ts
 type Result = string | null | undefined
 
 function processResult(result: Result): void {

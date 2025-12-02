@@ -70,7 +70,7 @@
 
 ### 3.2. 关闭时的行为
 
-```typescript
+```ts
 // noImplicitThis: false
 function getName() {
   return this.name // ✅ 允许（this: any）
@@ -83,7 +83,7 @@ getName.call({ name: 'Alice' }) // "Alice"
 
 ### 3.3. 开启后的行为
 
-```typescript
+```ts
 // noImplicitThis: true
 function getName() {
   return this.name // ❌ 错误：'this' 隐式具有类型 'any'
@@ -102,7 +102,7 @@ getName() // ❌ 错误：缺少 this 上下文
 
 ### 4.1. this 上下文丢失
 
-```typescript
+```ts
 // noImplicitThis: false
 const obj = {
   name: 'Alice',
@@ -141,7 +141,7 @@ const obj = {
 
 ### 4.2. 回调函数
 
-```typescript
+```ts
 // noImplicitThis: false
 class Counter {
   count = 0
@@ -179,7 +179,7 @@ class Counter {
 
 ### 4.3. 事件处理
 
-```typescript
+```ts
 // noImplicitThis: false
 class Button {
   label = 'Click me'
@@ -226,7 +226,7 @@ class Button {
 
 ### 5.1. 独立函数
 
-```typescript
+```ts
 // ❌ 错误
 function getCount() {
   return this.count // 'this' 隐式具有类型 'any'
@@ -240,7 +240,7 @@ function getCount(this: { count: number }) {
 
 ### 5.2. 对象方法的回调
 
-```typescript
+```ts
 // ❌ 错误
 const obj = {
   value: 42,
@@ -271,7 +271,7 @@ const obj = {
 
 ### 5.3. 高阶函数
 
-```typescript
+```ts
 // ❌ 错误
 function map(this: any[], fn: Function) {
   return this.map(fn)
@@ -289,7 +289,7 @@ function map<T, U>(this: ArrayLike<T>, fn: (item: T) => U): U[] {
 
 ### 5.4. 工具方法
 
-```typescript
+```ts
 // ❌ 错误
 const utils = {
   log() {
@@ -317,7 +317,7 @@ const utils = {
 
 ### 6.1. this 参数
 
-```typescript
+```ts
 // this 参数是伪参数，不计入实际参数列表
 function getFullName(this: { firstName: string; lastName: string }) {
   return `${this.firstName} ${this.lastName}`
@@ -329,7 +329,7 @@ getFullName.call({ firstName: 'Alice', lastName: 'Wang' })
 
 ### 6.2. 接口中的 this
 
-```typescript
+```ts
 interface Person {
   name: string
   greet(this: Person): string
@@ -348,7 +348,7 @@ greet() // ❌ 错误：缺少 this 上下文
 
 ### 6.3. 类方法
 
-```typescript
+```ts
 class Calculator {
   value = 0
 
@@ -368,7 +368,7 @@ class Calculator {
 
 ### 6.4. ThisType 工具类型
 
-```typescript
+```ts
 // 使用 ThisType 指定对象方法的 this 类型
 interface Person {
   name: string
@@ -390,7 +390,7 @@ person.getName() // "Alice"
 
 ### 6.5. void this
 
-```typescript
+```ts
 // 函数不应依赖 this
 function standalone(this: void, value: number) {
   console.log(value)
@@ -408,7 +408,7 @@ standalone.call({ value: 1 }, 42)
 
 ### 7.1. 箭头函数 vs. 普通函数
 
-```typescript
+```ts
 class Component {
   value = 10
 
@@ -436,7 +436,7 @@ fn2() // ✅ 10
 
 ### 7.2. React 组件
 
-```typescript
+```ts
 class MyComponent extends React.Component {
   state = { count: 0 }
 
@@ -463,7 +463,7 @@ class MyComponent extends React.Component {
 
 ### 7.3. 工具函数库
 
-```typescript
+```ts
 // 不依赖 this 的工具函数
 const utils = {
   // ✅ 明确 this: void
@@ -484,7 +484,7 @@ sum(1, 2, 3) // 6
 
 ### 7.4. bind/call/apply
 
-```typescript
+```ts
 interface Context {
   name: string
 }
@@ -506,7 +506,7 @@ greet.call({ age: 25 }, 'Hello')
 
 ### 7.5. 类型守卫中的 this
 
-```typescript
+```ts
 interface Animal {
   name: string
 }
@@ -528,7 +528,7 @@ if (isDog.call(animal)) {
 
 ### 7.6. 装饰器中的 this
 
-```typescript
+```ts
 function log(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const originalMethod = descriptor.value
 

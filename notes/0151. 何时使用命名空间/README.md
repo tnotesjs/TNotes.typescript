@@ -49,7 +49,7 @@
 
 ::: code-group
 
-```typescript [场景1:全局库的类型声明]
+```ts [场景1:全局库的类型声明]
 // ✅ 为 jQuery 编写类型声明
 declare namespace jQuery {
   function ajax(settings: AjaxSettings): Promise<any>
@@ -69,7 +69,7 @@ declare namespace jQuery {
 // $.ajax({ url: '/api', method: 'GET' });
 ```
 
-```typescript [场景2:扩展全局对象]
+```ts [场景2:扩展全局对象]
 // ✅ 扩展 Window 对象
 declare global {
   namespace NodeJS {
@@ -87,7 +87,7 @@ export {}
 console.log(process.env.API_KEY)
 ```
 
-```typescript [场景3:浏览器全局脚本(无构建工具)]
+```ts [场景3:浏览器全局脚本(无构建工具)]
 // ✅ 传统 Web 页面的脚本组织
 namespace MyApp {
   export namespace Utils {
@@ -117,7 +117,7 @@ namespace MyApp {
 // </script>
 ```
 
-```typescript [场景4:类型定义文件中的逻辑分组]
+```ts [场景4:类型定义文件中的逻辑分组]
 // ✅ 在模块的类型声明中使用命名空间分组
 export namespace Models {
   export interface User {
@@ -168,7 +168,7 @@ const service = new Services.UserService()
 
 ::: code-group
 
-```typescript [❌ 避免场景1:现代应用开发]
+```ts [❌ 避免场景1:现代应用开发]
 // ❌ 不要在现代应用中使用命名空间
 namespace App {
   export class UserService {
@@ -196,7 +196,7 @@ import { UserService } from './user.service'
 import { ProductService } from './product.service'
 ```
 
-```typescript [❌ 避免场景2:Node.js 项目]
+```ts [❌ 避免场景2:Node.js 项目]
 // ❌ Node.js 不需要命名空间
 namespace Database {
   export function connect() {
@@ -215,7 +215,7 @@ import { connect } from './database'
 connect()
 ```
 
-```typescript [❌ 避免场景3:React/Vue 项目]
+```ts [❌ 避免场景3:React/Vue 项目]
 // ❌ 前端框架项目不使用命名空间
 namespace Components {
   export class Button {
@@ -233,7 +233,7 @@ export function Button() {
 import { Button } from './components/Button'
 ```
 
-```typescript [❌ 避免场景4:npm 包开发]
+```ts [❌ 避免场景4:npm 包开发]
 // ❌ 不要在发布的包中使用命名空间
 namespace MyLibrary {
   export function doSomething() {}
@@ -269,7 +269,7 @@ export type { MyType } from './types'
 
 ::: code-group
 
-```typescript [判断标准1:项目类型]
+```ts [判断标准1:项目类型]
 // ✅ 类型声明文件可以使用命名空间
 // types/jquery.d.ts
 declare namespace $ {
@@ -281,7 +281,7 @@ declare namespace $ {
 import { ajax } from './http'
 ```
 
-```typescript [判断标准2:运行环境]
+```ts [判断标准2:运行环境]
 // ✅ 浏览器全局脚本(无模块加载器)
 namespace Legacy {
   export function init() {
@@ -299,7 +299,7 @@ export function init() {
 // <script type="module" src="app.js"></script>
 ```
 
-```typescript [判断标准3:构建工具]
+```ts [判断标准3:构建工具]
 // ❌ 有 Webpack/Vite 等构建工具时不使用命名空间
 namespace Utils {
   export function helper() {}
@@ -313,7 +313,7 @@ export function helper() {}
 import { helper } from './utils'
 ```
 
-```typescript [判断标准4:代码组织需求]
+```ts [判断标准4:代码组织需求]
 // ❌ 不要用命名空间替代目录结构
 namespace App.Services.User {
   export class UserService {}
@@ -367,7 +367,7 @@ graph TD
 
 ::: code-group
 
-```typescript [应用1:描述全局库]
+```ts [应用1:描述全局库]
 // ✅ lodash.d.ts - 描述全局 lodash
 declare namespace _ {
   interface LoDashStatic {
@@ -382,7 +382,7 @@ declare const _: _.LoDashStatic
 // _.chunk([1, 2, 3, 4], 2); // [[1, 2], [3, 4]]
 ```
 
-```typescript [应用2:扩展现有类型]
+```ts [应用2:扩展现有类型]
 // ✅ 扩展 Express 类型
 import 'express'
 
@@ -403,7 +403,7 @@ declare global {
 // });
 ```
 
-```typescript [应用3:模块的命名空间导出]
+```ts [应用3:模块的命名空间导出]
 // ✅ 在模块中使用命名空间分组
 // api.d.ts
 export namespace API {
@@ -439,7 +439,7 @@ const newUser: API.V2.User = {
 }
 ```
 
-```typescript [应用4:复杂库的类型组织]
+```ts [应用4:复杂库的类型组织]
 // ✅ D3.js 类型声明示例
 declare namespace d3 {
   export namespace selection {
@@ -488,7 +488,7 @@ declare namespace d3 {
 
 ::: code-group
 
-```typescript [浏览器场景1:传统 script 标签]
+```ts [浏览器场景1:传统 script 标签]
 // ✅ app.ts - 编译为传统脚本
 namespace MyApp {
   export const VERSION = '1.0.0'
@@ -512,7 +512,7 @@ namespace MyApp {
 // </script>
 ```
 
-```typescript [浏览器场景2:多文件组织]
+```ts [浏览器场景2:多文件组织]
 // ✅ utils.ts
 namespace MyApp {
   export namespace Utils {
@@ -538,7 +538,7 @@ namespace MyApp {
 // </script>
 ```
 
-```typescript [浏览器场景3:避免全局污染]
+```ts [浏览器场景3:避免全局污染]
 // ✅ 使用 IIFE 模式的命名空间
 namespace MyLibrary {
   // 私有变量
@@ -564,7 +564,7 @@ namespace MyLibrary {
 // })(MyLibrary || (MyLibrary = {}));
 ```
 
-```typescript [浏览器场景4:渐进式增强]
+```ts [浏览器场景4:渐进式增强]
 // ✅ 检测并使用现代模块
 // app.ts
 namespace LegacyApp {
@@ -604,7 +604,7 @@ if (typeof exports === 'object') {
 
 ::: warning ⚠️ 错误 1:混用命名空间和模块
 
-```typescript
+```ts
 // ❌ 在模块文件中使用命名空间作为主要组织方式
 import { something } from './other'
 
@@ -626,7 +626,7 @@ export function run() {
 
 ::: warning ⚠️ 错误 2:在现代项目中使用命名空间
 
-```typescript
+```ts
 // ❌ React 项目中使用命名空间
 namespace Components {
   export const Button = () => <button>Click</button>

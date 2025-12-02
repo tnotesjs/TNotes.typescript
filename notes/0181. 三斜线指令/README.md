@@ -63,7 +63,7 @@
 
 ### 3.1. 基本语法
 
-```typescript
+```ts
 /// <reference path="..." />
 /// <reference types="..." />
 /// <reference lib="..." />
@@ -72,7 +72,7 @@
 
 ### 3.2. 使用规则
 
-```typescript
+```ts
 // ✅ 正确：三斜线指令必须在文件顶部
 /// <reference types="node" />
 
@@ -102,7 +102,7 @@ import { readFile } from 'fs'
 
 ### 3.3. 作用域
 
-```typescript
+```ts
 // 三斜线指令只影响当前文件
 // file1.d.ts
 /// <reference types="node" />
@@ -121,7 +121,7 @@ reference path 用于引用其他声明文件。
 
 ### 4.1. 基本用法
 
-```typescript
+```ts
 // types/models.d.ts
 export interface User {
   id: string
@@ -143,7 +143,7 @@ export function getPost(id: string): Promise<Post>
 
 ### 4.2. 引用多个文件
 
-```typescript
+```ts
 // types/index.d.ts
 /// <reference path="./models.d.ts" />
 /// <reference path="./api.d.ts" />
@@ -154,7 +154,7 @@ export function getPost(id: string): Promise<Post>
 
 ### 4.3. 相对路径
 
-```typescript
+```ts
 // 项目结构
 /**
  * types/
@@ -179,7 +179,7 @@ export interface UserAPI extends BaseAPI {
 
 ### 4.4. 使用场景
 
-```typescript
+```ts
 // 场景 1：全局声明文件
 // types/global.d.ts
 /// <reference path="./jquery.d.ts" />
@@ -206,7 +206,7 @@ export * from './types/api'
 
 ::: code-group
 
-```typescript [使用 reference path]
+```ts [使用 reference path]
 // types/api.d.ts
 /// <reference path="./models.d.ts" />
 
@@ -214,7 +214,7 @@ export * from './types/api'
 export function getUser(id: string): Promise<User>
 ```
 
-```typescript [使用 import]
+```ts [使用 import]
 // types/api.d.ts
 import { User } from './models'
 
@@ -230,7 +230,7 @@ reference types 用于引用 @types 包。
 
 ### 5.1. 基本用法
 
-```typescript
+```ts
 // 引用 @types/node 包
 /// <reference types="node" />
 
@@ -245,7 +245,7 @@ export function createServer(): Server {
 
 ### 5.2. 引用多个类型包
 
-```typescript
+```ts
 // types/test.d.ts
 /// <reference types="node" />
 /// <reference types="jest" />
@@ -261,7 +261,7 @@ import { Request, Response } from 'express'
 
 ::: code-group
 
-```typescript [使用三斜线指令]
+```ts [使用三斜线指令]
 // types/global.d.ts
 /// <reference types="node" />
 /// <reference types="jest" />
@@ -283,7 +283,7 @@ import { Request, Response } from 'express'
 
 ### 5.4. 实际应用场景
 
-```typescript
+```ts
 // 场景 1：测试文件
 // test/user.test.ts
 /// <reference types="jest" />
@@ -329,7 +329,7 @@ declare module 'my-library' {
 }
 ```
 
-```typescript
+```ts
 // 需要显式引用
 /// <reference types="node" />
 /// <reference types="jest" />
@@ -341,7 +341,7 @@ reference lib 用于引用内置库类型定义。
 
 ### 6.1. 基本用法
 
-```typescript
+```ts
 // 引用 ES2015 库
 /// <reference lib="es2015" />
 
@@ -355,7 +355,7 @@ const map = new Map<string, number>()
 
 ### 6.2. 引用特定功能库
 
-```typescript
+```ts
 // 引用 DOM 类型
 /// <reference lib="dom" />
 
@@ -376,7 +376,7 @@ self.addEventListener('message', (event) => {
 
 ### 6.3. 常用库类型
 
-```typescript
+```ts
 // ES 标准库
 /// <reference lib="es5" />
 /// <reference lib="es2015" />
@@ -405,7 +405,7 @@ self.addEventListener('message', (event) => {
 
 ### 6.4. 实际应用
 
-```typescript
+```ts
 // 场景 1：Node.js 环境（不需要 DOM）
 /// <reference lib="es2020" />
 
@@ -452,7 +452,7 @@ function processData(data: any): any {
 }
 ```
 
-```typescript
+```ts
 // 文件级别可以覆盖全局配置
 /// <reference lib="es2015" />
 
@@ -465,7 +465,7 @@ function processData(data: any): any {
 
 ### 7.1. reference no-default-lib
 
-```typescript
+```ts
 // 禁用默认库
 /// <reference no-default-lib="true"/>
 
@@ -480,7 +480,7 @@ function processData(data: any): any {
 
 ### 7.2. amd-module
 
-```typescript
+```ts
 // 为 AMD 模块指定模块名
 /// <amd-module name="my-module" />
 
@@ -494,7 +494,7 @@ export function hello() {
 
 ### 7.3. amd-dependency
 
-```typescript
+```ts
 // 声明 AMD 依赖
 /// <amd-dependency path="legacy-lib" />
 
@@ -505,7 +505,7 @@ export function useLib() {
 
 ### 7.4. 实际应用示例
 
-```typescript
+```ts
 // 场景 1：创建轻量级声明文件
 /// <reference no-default-lib="true"/>
 /// <reference lib="es2015.core" />
@@ -533,7 +533,7 @@ export function initUI() {
 
 ### 7.5. 使用建议
 
-```typescript
+```ts
 // ✅ 现代项目推荐：使用 ES6 模块
 import { User } from './models'
 import type { ApiResponse } from './types'
@@ -551,7 +551,7 @@ export function getUser(): Promise<ApiResponse<User>> {
 
 ### 7.6. 最佳实践
 
-```typescript
+```ts
 // ❌ 避免：过度使用三斜线指令
 /// <reference path="./a.d.ts" />
 /// <reference path="./b.d.ts" />
@@ -575,7 +575,7 @@ import { something } from './a';
 
 ### 7.7. 调试技巧
 
-```typescript
+```ts
 // 查看编译器加载的文件
 // tsc --listFiles
 

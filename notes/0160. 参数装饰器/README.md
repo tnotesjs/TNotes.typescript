@@ -48,7 +48,7 @@
 
 参数装饰器是应用在方法参数上的函数，用于标记参数并收集元数据。
 
-```typescript
+```ts
 // 参数装饰器的本质
 function logParameter(
   target: any,
@@ -78,7 +78,7 @@ class UserService {
 
 ### 4.1. 参数说明
 
-```typescript
+```ts
 // 参数装饰器的完整签名
 function parameterDecorator(
   target: any, // 静态方法是类的构造函数，实例方法是类的原型对象
@@ -102,7 +102,7 @@ class Example {
 
 ### 4.2. 类型定义
 
-```typescript
+```ts
 // TypeScript 中的参数装饰器类型
 type ParameterDecorator = (
   target: Object,
@@ -128,7 +128,7 @@ class Demo {
 
 ### 5.1. 基本元数据收集
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 存储参数元数据
@@ -185,7 +185,7 @@ console.log(service.createUser('Alice', 30)) // 正常执行
 
 ### 5.2. 收集参数类型信息
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 存储参数类型
@@ -246,7 +246,7 @@ service.saveData('user', { name: 'Alice' }) // 正常执行
 
 ### 6.1. 依赖注入
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 存储依赖注入标记
@@ -327,7 +327,7 @@ controller.getUser(undefined as any, 123) // Logger 会被自动注入
 
 ### 6.2. 参数验证
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 验证装饰器
@@ -406,7 +406,7 @@ service.setPrice(100) // 正常执行
 
 ### 6.3. 路由参数绑定
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 参数来源装饰器
@@ -517,7 +517,7 @@ controller.createUser({
 
 ### 6.4. 日志记录
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 标记敏感参数
@@ -579,7 +579,7 @@ auth.login('alice', 'secret123')
 
 ::: code-group
 
-```typescript [❌ 错误示例]
+```ts [❌ 错误示例]
 // 返回值不会被使用
 function WrongDecorator(
   target: any,
@@ -597,7 +597,7 @@ class Example {
 }
 ```
 
-```typescript [✅ 正确示例]
+```ts [✅ 正确示例]
 // 使用元数据存储信息
 function CorrectDecorator(
   target: any,
@@ -620,7 +620,7 @@ class Example {
 
 ### 7.2. 必须配合方法装饰器使用
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // ⚠️ 单独使用参数装饰器没有实际效果
@@ -643,7 +643,7 @@ const example = new Example()
 example.method('test') // 正常执行，装饰器没有任何作用
 ```
 
-```typescript
+```ts
 // 正确用法：配合方法装饰器
 function ValidateParam(
   target: any,
@@ -687,7 +687,7 @@ class Example {
 
 ### 7.3. 装饰器执行顺序
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 参数装饰器从右到左执行
@@ -721,7 +721,7 @@ class Example {
 
 ### 7.4. 类型信息获取
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // ⚠️ 参数装饰器本身无法直接获取参数类型

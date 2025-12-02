@@ -52,7 +52,7 @@ TypeScript 有两个独立的命名空间用于存储不同类型的声明。
 
 ### 3.1. 类型声明空间
 
-```typescript
+```ts
 // ✅ 类型声明空间：存储类型信息
 interface User {
   name: string
@@ -74,7 +74,7 @@ const point: Point = { x: 1, y: 2 } // ✅
 
 ### 3.2. 变量声明空间
 
-```typescript
+```ts
 // ✅ 变量声明空间：存储运行时值
 const count = 42
 
@@ -98,7 +98,7 @@ const person = new Person('Tom') // ✅
 
 ### 3.3. 两个空间相互独立
 
-```typescript
+```ts
 // ✅ 类型和值可以同名（不同空间）
 type Data = {
   value: number
@@ -123,7 +123,7 @@ console.log(Data.value) // 42
 
 ### 4.1. 只存在于类型空间
 
-```typescript
+```ts
 // ✅ interface：仅类型空间
 interface User {
   name: string
@@ -152,7 +152,7 @@ function identity<T>(value: T): T {
 
 ### 4.2. 只存在于变量空间
 
-```typescript
+```ts
 // ✅ let/const/var：仅变量空间
 const count = 42
 let name = 'Tom'
@@ -177,7 +177,7 @@ greet('World') // ✅ 值位置
 
 ### 4.3. 同时存在于两个空间
 
-```typescript
+```ts
 // ✅ class：同时存在于两个空间
 class Person {
   constructor(public name: string) {}
@@ -227,7 +227,7 @@ Utils.log('Hello')
 
 ### 5.1. 同一空间的冲突
 
-```typescript
+```ts
 // ❌ 类型空间内冲突
 interface User {
   name: string
@@ -255,7 +255,7 @@ type Point = { x: number }
 
 ### 5.2. 不同空间可以同名
 
-```typescript
+```ts
 // ✅ 类型空间和变量空间可以同名
 type User = {
   name: string
@@ -302,7 +302,7 @@ const valid = Product.isValid(newProduct)
 
 ### 5.3. 声明合并
 
-```typescript
+```ts
 // ✅ interface 支持声明合并
 interface User {
   name: string
@@ -342,7 +342,7 @@ typeof 在不同位置有不同含义。
 
 ### 6.1. 值空间的 typeof
 
-```typescript
+```ts
 // ✅ JavaScript 的 typeof 运算符
 const count = 42
 const type = typeof count // "number"
@@ -357,7 +357,7 @@ console.log(typeof user) // "object"
 
 ### 6.2. 类型空间的 typeof
 
-```typescript
+```ts
 // ✅ TypeScript 的 typeof 类型运算符
 const config = {
   host: 'localhost',
@@ -393,7 +393,7 @@ type PersonConstructor = typeof Person
 
 ### 6.3. typeof 的双重用法
 
-```typescript
+```ts
 // ✅ 同时使用两种 typeof
 const value = 42
 
@@ -431,7 +431,7 @@ function validateConfig(obj: unknown): obj is Config {
 
 ### 7.1. 类型和命名空间组合
 
-```typescript
+```ts
 // ✅ 类型 + 命名空间模式
 type Result<T> = { success: true; data: T } | { success: false; error: string }
 
@@ -467,7 +467,7 @@ if (Result.isOk(result)) {
 
 ### 7.2. 接口和对象组合
 
-```typescript
+```ts
 // ✅ 接口 + 对象字面量
 interface Logger {
   log(message: string): void
@@ -496,7 +496,7 @@ logger.log('Hello')
 
 ### 7.3. React 组件模式
 
-```typescript
+```ts
 // ✅ React 中的常见模式
 import React from 'react'
 

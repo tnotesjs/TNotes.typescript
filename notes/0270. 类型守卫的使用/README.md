@@ -54,7 +54,7 @@
 
 ### 3.1. 内置类型守卫
 
-```typescript
+```ts
 // typeof 类型守卫
 function isString(value: unknown): boolean {
   return typeof value === 'string'
@@ -73,7 +73,7 @@ function hasName(obj: unknown): boolean {
 
 ### 3.2. 问题：无法收窄类型
 
-```typescript
+```ts
 function isString(value: unknown): boolean {
   return typeof value === 'string'
 }
@@ -93,7 +93,7 @@ function process(value: unknown) {
 
 ### 4.1. 基本语法
 
-```typescript
+```ts
 function isString(value: unknown): value is string {
   return typeof value === 'string'
 }
@@ -108,7 +108,7 @@ function process(value: unknown) {
 
 ### 4.2. 原始类型守卫
 
-```typescript
+```ts
 function isNumber(value: unknown): value is number {
   return typeof value === 'number' && !isNaN(value)
 }
@@ -128,7 +128,7 @@ function isSymbol(value: unknown): value is symbol {
 
 ### 4.3. 数组类型守卫
 
-```typescript
+```ts
 function isStringArray(value: unknown): value is string[] {
   return Array.isArray(value) && value.every((item) => typeof item === 'string')
 }
@@ -159,7 +159,7 @@ if (isArrayOf(data, isNumber)) {
 
 ### 5.1. 接口类型守卫
 
-```typescript
+```ts
 interface User {
   name: string
   age: number
@@ -190,7 +190,7 @@ function processUser(data: unknown) {
 
 ### 5.2. 可选属性处理
 
-```typescript
+```ts
 interface Config {
   host: string
   port?: number
@@ -224,7 +224,7 @@ function isConfig(value: unknown): value is Config {
 
 ### 5.3. 联合类型守卫
 
-```typescript
+```ts
 interface Circle {
   kind: 'circle'
   radius: number
@@ -261,7 +261,7 @@ function getArea(shape: Shape): number {
 
 ### 5.4. 嵌套对象守卫
 
-```typescript
+```ts
 interface Address {
   street: string
   city: string
@@ -304,7 +304,7 @@ function isPerson(value: unknown): value is Person {
 
 ### 6.1. 基本断言函数
 
-```typescript
+```ts
 function assert(condition: unknown, message?: string): asserts condition {
   if (!condition) {
     throw new Error(message || '断言失败')
@@ -321,7 +321,7 @@ function process(value: unknown) {
 
 ### 6.2. 类型断言函数
 
-```typescript
+```ts
 function assertIsString(value: unknown): asserts value is string {
   if (typeof value !== 'string') {
     throw new TypeError('值必须是字符串')
@@ -343,7 +343,7 @@ function process(value: unknown) {
 
 ### 6.3. 自定义类型断言
 
-```typescript
+```ts
 interface User {
   name: string
   age: number
@@ -372,7 +372,7 @@ function processUser(data: unknown) {
 
 ### 6.4. 非空断言函数
 
-```typescript
+```ts
 function assertIsDefined<T>(value: T): asserts value is NonNullable<T> {
   if (value === null || value === undefined) {
     throw new Error('值不能为 null 或 undefined')
@@ -391,7 +391,7 @@ function process(value: string | null | undefined) {
 
 ### 7.1. 单一职责
 
-```typescript
+```ts
 // ✅ 好：每个守卫只检查一种类型
 function isString(value: unknown): value is string {
   return typeof value === 'string'
@@ -414,7 +414,7 @@ function isValidInput(value: unknown): value is string {
 
 ### 7.2. 可组合性
 
-```typescript
+```ts
 // ✅ 组合简单的守卫
 function isObject(value: unknown): value is object {
   return typeof value === 'object' && value !== null
@@ -440,7 +440,7 @@ function isUser(value: unknown): value is User {
 
 ### 7.3. 性能考虑
 
-```typescript
+```ts
 // ✅ 好：先检查最快的条件
 function isValidUser(value: unknown): value is User {
   // 快速检查
@@ -464,7 +464,7 @@ function isEmail(value: unknown): value is string {
 
 ### 7.4. 错误处理
 
-```typescript
+```ts
 // ✅ 类型守卫：返回 boolean
 function isUser(value: unknown): value is User {
   return (

@@ -49,7 +49,7 @@ declare 枚举声明用于描述已存在的枚举值。
 
 ### 3.1. 基本语法
 
-```typescript
+```ts
 // 声明数字枚举
 declare enum Direction {
   Up,
@@ -69,7 +69,7 @@ console.log(Direction.Down)
 
 ### 3.2. 数字枚举
 
-```typescript
+```ts
 // 默认从 0 开始
 declare enum Status {
   Pending, // 0
@@ -104,7 +104,7 @@ const httpStatus: HttpStatus = HttpStatus.OK
 
 ### 3.3. 字符串枚举
 
-```typescript
+```ts
 // 字符串枚举
 declare enum Color {
   Red = 'RED',
@@ -126,7 +126,7 @@ const level = LogLevel.Error // 'ERROR'
 
 ### 3.4. 混合枚举
 
-```typescript
+```ts
 // 数字和字符串混合（不推荐）
 declare enum Mixed {
   No = 0,
@@ -142,7 +142,7 @@ const value3 = Mixed.Unknown // 1
 
 ### 3.5. 实际应用场景
 
-```typescript
+```ts
 // 场景1：为外部 JavaScript 常量提供枚举类型
 // constants.js
 // const UserRole = {
@@ -186,7 +186,7 @@ interface ApiResponse<T> {
 
 ### 4.1. 基本常量枚举
 
-```typescript
+```ts
 // 声明常量枚举
 declare const enum Direction {
   Up,
@@ -204,7 +204,7 @@ const dir = Direction.Up
 
 ### 4.2. 字符串常量枚举
 
-```typescript
+```ts
 // 字符串常量枚举
 declare const enum Color {
   Red = 'RED',
@@ -221,7 +221,7 @@ const color = Color.Red
 
 ### 4.3. 常量枚举的优势
 
-```typescript
+```ts
 // 运行时不需要枚举对象
 declare const enum FileType {
   Image = 'image',
@@ -249,7 +249,7 @@ function processFile(type: FileType) {
 
 ### 4.4. 常量枚举的限制
 
-```typescript
+```ts
 // 常量枚举不能作为对象使用
 declare const enum Size {
   Small,
@@ -273,7 +273,7 @@ declare enum 与普通 enum 在编译行为上有重要区别。
 
 ::: code-group
 
-```typescript [普通枚举]
+```ts [普通枚举]
 // 普通枚举会生成运行时对象
 enum Status {
   Pending,
@@ -290,7 +290,7 @@ enum Status {
 // })(Status || (Status = {}));
 ```
 
-```typescript [declare 枚举]
+```ts [declare 枚举]
 // declare 枚举不生成运行时代码
 declare enum Status {
   Pending,
@@ -306,7 +306,7 @@ declare enum Status {
 
 ### 5.2. 需要运行时支持
 
-```typescript
+```ts
 // declare enum 要求运行时已经存在对应的对象
 declare enum ApiEndpoint {
   Users = '/api/users',
@@ -327,7 +327,7 @@ const endpoint = ApiEndpoint.Users
 
 ### 5.3. 与类型断言配合
 
-```typescript
+```ts
 // 在运行时对象不存在时，可以使用类型断言
 declare enum Theme {
   Light = 'light',
@@ -348,7 +348,7 @@ const theme: Theme = ThemeValues.Light as Theme
 
 ### 5.4. 最佳实践
 
-```typescript
+```ts
 // 推荐：使用 declare const enum
 // 编译时内联，无需运行时对象
 declare const enum Environment {
@@ -372,7 +372,7 @@ type Environment = (typeof Environment)[keyof typeof Environment]
 
 ### 5.5. 使用建议
 
-```typescript
+```ts
 // 场景1：外部库已经定义了枚举对象
 // 使用 declare enum
 declare enum ExternalEnum {

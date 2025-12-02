@@ -127,7 +127,7 @@ my-project/
 
 ### 4.2. 实际场景
 
-```typescript
+```ts
 // 项目有 500 个文件
 
 // 修改 src/utils/helper.ts

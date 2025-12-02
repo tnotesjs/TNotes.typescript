@@ -58,7 +58,7 @@
 
 ::: code-group
 
-```typescript [基本语法]
+```ts [基本语法]
 namespace Shapes {
   export namespace Circle {
     export interface Options {
@@ -84,7 +84,7 @@ const options: CircleNS.Options = {
 const circle = CircleNS.create(options)
 ```
 
-```typescript [为类创建别名]
+```ts [为类创建别名]
 namespace Models {
   export namespace User {
     export class Entity {
@@ -115,7 +115,7 @@ const dto: UserDTO = {
 }
 ```
 
-```typescript [为函数创建别名]
+```ts [为函数创建别名]
 namespace Validators {
   export namespace Email {
     export function validate(email: string): boolean {
@@ -135,7 +135,7 @@ console.log(validateEmail('test@example.com')) // true
 console.log(validateEmail('invalid')) // false
 ```
 
-```typescript [为常量创建别名]
+```ts [为常量创建别名]
 namespace Config {
   export namespace API {
     export const BASE_URL = 'https://api.example.com'
@@ -170,7 +170,7 @@ console.log(API_BASE) // https://api.example.com
 
 命名空间别名主要用于简化深层嵌套访问和提高代码可读性。
 
-```typescript [场景2:避免命名冲突]
+```ts [场景2:避免命名冲突]
 namespace External {
   export namespace Utils {
     export function log(msg: string) {
@@ -199,7 +199,7 @@ InternalUtils.log('Internal message')
 
 虽然都使用 `import` 关键字但命名空间别名和 ES6 模块导入是完全不同的概念。
 
-```typescript [命名空间别名]
+```ts [命名空间别名]
 // ✅ 命名空间别名(TypeScript 特有)
 namespace MyLib {
   export namespace Utils {
@@ -219,7 +219,7 @@ import Utils = MyLib.Utils
 // 4. 仅在类型层面和运行时都有效
 ```
 
-```typescript [编译结果对比]
+```ts [编译结果对比]
 // 命名空间别名编译后
 var Data
 ;(function (Data) {
@@ -248,7 +248,7 @@ const user = new models_1.User()
 
 ::: code-group
 
-```typescript [命名空间别名]
+```ts [命名空间别名]
 // ✅ 命名空间别名(TypeScript 特有)
 namespace MyLib {
   export namespace Utils {
@@ -268,7 +268,7 @@ import Utils = MyLib.Utils
 // 4. 仅在类型层面和运行时都有效
 ```
 
-```typescript [ES6 模块导入]
+```ts [ES6 模块导入]
 // ✅ ES6 模块导入(JavaScript 标准)
 // utils.ts
 export function helper() {
@@ -285,7 +285,7 @@ import { helper } from './utils'
 // 4. 是 JavaScript 标准的一部分
 ```
 
-```typescript [语法对比]
+```ts [语法对比]
 namespace Data {
   export namespace Models {
     export class User {}
@@ -302,7 +302,7 @@ import Models = Data.Models
 // import { User } from './models';
 ```
 
-```typescript [编译结果对比]
+```ts [编译结果对比]
 // 命名空间别名编译后
 var Data
 ;(function (Data) {
@@ -346,7 +346,7 @@ const user = new models_1.User()
 
 ::: code-group
 
-```typescript [应用1:简化类型声明文件]
+```ts [应用1:简化类型声明文件]
 // ✅ 第三方库的类型声明
 declare namespace jQuery {
   export namespace fn {
@@ -378,7 +378,7 @@ function request(settings: AjaxSettings) {
 }
 ```
 
-```typescript [应用2:组织大型类型定义]
+```ts [应用2:组织大型类型定义]
 // ✅ 在模块中使用命名空间分组类型
 export namespace API {
   export namespace V1 {
@@ -415,7 +415,7 @@ function migrateUser(v1: V1User): V2User {
 }
 ```
 
-```typescript [应用3:条件类型别名]
+```ts [应用3:条件类型别名]
 namespace Types {
   export namespace Strict {
     export type ID = string & { readonly __brand: 'ID' }
@@ -440,7 +440,7 @@ if (USE_STRICT_TYPES) {
 }
 ```
 
-```typescript [应用4:遗留代码维护]
+```ts [应用4:遗留代码维护]
 // ✅ 维护使用命名空间的遗留项目
 namespace LegacyApp {
   export namespace Data {
@@ -474,7 +474,7 @@ const service = new UserService(new UserRepo())
 
 ::: warning ⚠️ 错误 1:混淆命名空间别名和模块导入
 
-```typescript
+```ts
 // ❌ 错误:尝试从命名空间别名导出
 namespace Utils {
   export function helper() {}
@@ -495,7 +495,7 @@ export namespace Utils {
 
 ::: warning ⚠️ 错误 2:在模块文件中过度使用命名空间
 
-```typescript
+```ts
 // ❌ 不推荐:在 ES6 模块中使用命名空间别名
 export namespace MyLib {
   export namespace Utils {

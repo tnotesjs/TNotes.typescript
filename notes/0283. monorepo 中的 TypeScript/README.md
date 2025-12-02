@@ -62,7 +62,7 @@ monorepo 是大型项目的有效组织方式。
 
 ### 3.2. 常见工具
 
-```typescript
+```ts
 // ✅ 主流 monorepo 工具
 interface MonorepoTool {
   name: string
@@ -275,7 +275,7 @@ tsc --build --verbose
 
 ### 6.1. 共享包导出
 
-```typescript
+```ts
 // packages/shared/src/types.ts
 export interface User {
   id: string
@@ -301,7 +301,7 @@ export { default as utils } from './utils'
 
 ### 6.2. 使用共享类型
 
-```typescript
+```ts
 // packages/web/src/index.ts
 import type { User, ApiResponse } from '@monorepo/shared'
 
@@ -337,7 +337,7 @@ function createUser(data: Omit<User, 'id'>): User {
 }
 ```
 
-```typescript
+```ts
 // ✅ 开发时使用源码（无需构建 shared）
 import { User } from '@monorepo/shared'
 
@@ -449,7 +449,7 @@ jobs:
 
 ### 7.4. 选择性发布
 
-```typescript
+```ts
 // scripts/publish.ts
 import { exec } from 'child_process'
 import { promisify } from 'util'

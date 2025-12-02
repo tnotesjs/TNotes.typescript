@@ -46,7 +46,7 @@
 
 ::: code-group
 
-```typescript [基本导出语法]
+```ts [基本导出语法]
 // ✅ 命名空间内部使用 export 导出成员
 namespace Utils {
   // ❌ 未导出的成员外部无法访问
@@ -95,7 +95,7 @@ const logger = new Utils.Logger()
 // Utils.internalHelper(); // 错误
 ```
 
-```typescript [嵌套命名空间的导出]
+```ts [嵌套命名空间的导出]
 // ✅ 嵌套命名空间需要逐层导出
 namespace App {
   // ✅ 导出子命名空间
@@ -146,7 +146,7 @@ const service = new App.Services.UserService()
 // App.Private.helper(); // 错误
 ```
 
-```typescript [选择性导出]
+```ts [选择性导出]
 // ✅ 只导出部分成员实现封装
 namespace Database {
   // 私有配置
@@ -196,7 +196,7 @@ Database.disconnect(connId)
 // Database.connectionPool; // 错误
 ```
 
-```typescript [导出类型和值]
+```ts [导出类型和值]
 // ✅ 可以同时导出类型和值
 namespace API {
   // ✅ 导出类型
@@ -248,7 +248,7 @@ const response: UserResponse = API.createResponse(
 
 ::: code-group
 
-```typescript [导出顶层命名空间]
+```ts [导出顶层命名空间]
 // ✅ utils.ts - 导出整个命名空间
 export namespace StringUtils {
   export function capitalize(str: string): string {
@@ -277,7 +277,7 @@ console.log(StringUtils.capitalize('hello')) // Hello
 console.log(NumberUtils.isEven(4)) // true
 ```
 
-```typescript [重新导出命名空间]
+```ts [重新导出命名空间]
 // ✅ core/math.ts
 export namespace Math {
   export function add(a: number, b: number): number {
@@ -298,7 +298,7 @@ console.log(Math.add(1, 2)) // 3
 console.log(MathUtils.add(1, 2)) // 3
 ```
 
-```typescript [导出嵌套命名空间]
+```ts [导出嵌套命名空间]
 // ✅ api.ts
 export namespace API {
   export namespace V1 {
@@ -336,7 +336,7 @@ const v1User = API.V1.getUser('1')
 const v2User = API.V2.getUser('1')
 ```
 
-```typescript [混合导出]
+```ts [混合导出]
 // ✅ lib.ts - 混合导出命名空间和其他内容
 // 导出普通函数
 export function globalHelper() {
@@ -385,7 +385,7 @@ logger.log('message')
 
 ::: code-group
 
-```typescript [命名空间导出]
+```ts [命名空间导出]
 // ✅ 命名空间的 export - 控制内部可见性
 namespace MyLib {
   // export 决定成员是否可以通过命名空间访问
@@ -409,7 +409,7 @@ MyLib.publicFunc() // ✅ 可以访问
 // 3. 编译后成为对象属性
 ```
 
-```typescript [模块导出]
+```ts [模块导出]
 // ✅ 模块的 export - 跨文件共享
 // utils.ts
 export function publicFunc() {
@@ -434,7 +434,7 @@ publicFunc() // ✅ 可以访问
 // 4. 支持 tree-shaking
 ```
 
-```typescript [作用域对比]
+```ts [作用域对比]
 // ✅ 命名空间 - 全局或文件作用域
 namespace GlobalNS {
   export const value = 'global'
@@ -458,7 +458,7 @@ import { value } from './module1'
 console.log(value)
 ```
 
-```typescript [编译结果对比]
+```ts [编译结果对比]
 // 命名空间编译后
 var MyNS
 ;(function (MyNS) {
@@ -508,7 +508,7 @@ module_1.func()
 
 ::: code-group
 
-```typescript [模块中导出命名空间]
+```ts [模块中导出命名空间]
 // ✅ config.ts - 在模块中导出命名空间
 export namespace Database {
   export interface Config {
@@ -541,7 +541,7 @@ const dbConfig: Database.Config = Database.defaultConfig
 const apiConfig: API.Config = API.defaultConfig
 ```
 
-```typescript [混合导出模式]
+```ts [混合导出模式]
 // ✅ services.ts
 // 普通导出
 export class BaseService {
@@ -586,7 +586,7 @@ const config: ServiceTypes.RequestConfig = {
 }
 ```
 
-```typescript [重新导出和组合]
+```ts [重新导出和组合]
 // ✅ core/types.ts
 export namespace CoreTypes {
   export interface User {
@@ -618,7 +618,7 @@ import { CoreTypes, CoreUtils } from './index'
 import { Core } from './index'
 ```
 
-```typescript [条件导出]
+```ts [条件导出]
 // ✅ features.ts
 const FEATURE_FLAGS = {
   newAPI: true,
@@ -664,7 +664,7 @@ export namespace API {
 
 ::: code-group
 
-```typescript [应用1：类型声明文件]
+```ts [应用1：类型声明文件]
 // ✅ types/express.d.ts - 扩展第三方库类型
 import 'express'
 
@@ -699,7 +699,7 @@ export function authMiddleware(req: Request, res: Response, next: Function) {
 }
 ```
 
-```typescript [应用2：API 版本管理]
+```ts [应用2：API 版本管理]
 // ✅ api.ts
 export namespace API {
   // V1 版本
@@ -763,7 +763,7 @@ const v2User = API.V2.getUser('1')
 const migrated = API.Migration.v1ToV2(v1User)
 ```
 
-```typescript [应用3：配置管理]
+```ts [应用3：配置管理]
 // ✅ config.ts
 export namespace AppConfig {
   export namespace Development {
@@ -807,7 +807,7 @@ console.log(`API URL: ${config.API_URL}`)
 console.log(`Debug: ${config.DEBUG}`)
 ```
 
-```typescript [应用4：工具函数分组]
+```ts [应用4：工具函数分组]
 // ✅ utils.ts
 export namespace StringUtils {
   export function capitalize(str: string): string {
@@ -860,7 +860,7 @@ const today = DateUtils.formatDate(new Date())
 
 ::: code-group
 
-```typescript [1]
+```ts [1]
 // ❌ 不推荐：用命名空间组织所有代码
 export namespace App {
   export namespace Components {
@@ -878,7 +878,7 @@ export class PrimaryButton {}
 import { PrimaryButton } from './components/buttons/PrimaryButton'
 ```
 
-```typescript [2]
+```ts [2]
 // ❌ 错误：命名空间内外混用导出
 namespace Utils {
   export function func1() {}

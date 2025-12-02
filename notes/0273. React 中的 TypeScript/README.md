@@ -55,7 +55,7 @@ TypeScript 与 React 的结合能够显著提升开发体验和代码质量。
 
 ### 3.1. 函数组件基本 Props
 
-```typescript
+```ts
 // ✅ 基本类型定义
 interface ButtonProps {
   label: string
@@ -77,7 +77,7 @@ function Button({ label, onClick, disabled = false }: ButtonProps) {
 
 ### 3.2. children 属性
 
-```typescript
+```ts
 // ✅ 使用 React.ReactNode
 interface CardProps {
   title: string
@@ -101,7 +101,7 @@ function Card({ title, children }: CardProps) {
 
 ### 3.3. 可选 Props 和默认值
 
-```typescript
+```ts
 interface ButtonProps {
   label: string
   variant?: 'primary' | 'secondary'
@@ -116,7 +116,7 @@ function Button({ label, variant = 'primary', size = 'medium' }: ButtonProps) {
 
 ### 3.4. 扩展 HTML 属性
 
-```typescript
+```ts
 // ✅ 扩展原生元素属性
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string
@@ -137,7 +137,7 @@ function Button({ label, variant = 'primary', ...rest }: ButtonProps) {
 
 ### 3.5. 泛型组件
 
-```typescript
+```ts
 // ✅ 泛型 Props
 interface ListProps<T> {
   items: T[]
@@ -167,7 +167,7 @@ interface User {
 
 ### 4.1. useState
 
-```typescript
+```ts
 // ✅ 类型推断
 const [count, setCount] = useState(0) // number
 const [name, setName] = useState('') // string
@@ -181,7 +181,7 @@ const [data, setData] = useState<string>() // string | undefined
 
 ### 4.2. useEffect
 
-```typescript
+```ts
 // ✅ 基本使用
 useEffect(() => {
   console.log('组件挂载')
@@ -201,7 +201,7 @@ useEffect(() => {
 
 ### 4.3. useRef
 
-```typescript
+```ts
 // ✅ DOM 引用
 const inputRef = useRef<HTMLInputElement>(null)
 
@@ -221,7 +221,7 @@ useEffect(() => {
 
 ### 4.4. useCallback
 
-```typescript
+```ts
 // ✅ 类型推断
 const handleClick = useCallback(() => {
   console.log('clicked')
@@ -239,7 +239,7 @@ const handleSubmit = useCallback<React.FormEventHandler<HTMLFormElement>>(
 
 ### 4.5. useMemo
 
-```typescript
+```ts
 // ✅ 类型推断
 const expensiveValue = useMemo(() => {
   return computeExpensiveValue(a, b)
@@ -253,7 +253,7 @@ const filteredList = useMemo<User[]>(() => {
 
 ### 4.6. 自定义 Hook
 
-```typescript
+```ts
 // ✅ 自定义 Hook 类型
 interface UseCounterReturn {
   count: number
@@ -283,7 +283,7 @@ const { count, increment, decrement } = useCounter(10)
 
 ### 5.1. 常见事件类型
 
-```typescript
+```ts
 // ✅ 点击事件
 function Button() {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -315,7 +315,7 @@ function Form() {
 
 ### 5.2. 事件处理器类型
 
-```typescript
+```ts
 // ✅ 使用 React 事件处理器类型
 interface InputProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>
@@ -330,7 +330,7 @@ function Input({ onChange, onFocus, onBlur }: InputProps) {
 
 ### 5.3. 自定义事件处理
 
-```typescript
+```ts
 // ✅ 自定义事件类型
 interface SelectOption {
   label: string
@@ -363,7 +363,7 @@ function Select({ options, onChange }: SelectProps) {
 
 ### 6.1. 基本 ref 使用
 
-```typescript
+```ts
 // ✅ DOM 元素 ref
 function TextInput() {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -383,7 +383,7 @@ function TextInput() {
 
 ### 6.2. forwardRef
 
-```typescript
+```ts
 // ✅ 转发 ref
 interface InputProps {
   placeholder?: string
@@ -405,7 +405,7 @@ function Parent() {
 
 ### 6.3. useImperativeHandle
 
-```typescript
+```ts
 // ✅ 自定义 ref 方法
 interface InputHandle {
   focus: () => void
@@ -454,7 +454,7 @@ function Parent() {
 
 ### 7.1. 高阶组件（HOC）
 
-```typescript
+```ts
 // ✅ 泛型 HOC
 function withLoading<P extends object>(Component: React.ComponentType<P>) {
   return function WithLoadingComponent(props: P & { loading: boolean }) {
@@ -490,7 +490,7 @@ const UserWithLoading = withLoading(User)
 
 ### 7.2. Render Props
 
-```typescript
+```ts
 // ✅ Render Props 类型
 interface MousePosition {
   x: number
@@ -528,7 +528,7 @@ function MouseTracker({ render }: MouseTrackerProps) {
 
 ### 7.3. Context
 
-```typescript
+```ts
 // ✅ 类型安全的 Context
 interface ThemeContextValue {
   theme: 'light' | 'dark'

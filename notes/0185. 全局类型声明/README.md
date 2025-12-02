@@ -56,7 +56,7 @@
 
 **全局声明的基本形式：**
 
-```typescript
+```ts
 // types/global.d.ts
 
 // ⚠️ 注意：此文件不能有 import/export 语句，否则会变成模块
@@ -81,7 +81,7 @@ declare interface User {
 
 **使用全局声明：**
 
-```typescript
+```ts
 // ✅ 无需导入，直接使用
 console.log(API_URL)
 
@@ -111,7 +111,7 @@ const user: User = {
 
 **示例对比：**
 
-```typescript
+```ts
 // ===== 全局声明 =====
 // types/global.d.ts
 declare function greet(name: string): string
@@ -136,7 +136,7 @@ const message = greet('Alice') // ✅ 需要先导入
 
 **场景：声明构建时注入的全局常量**
 
-```typescript
+```ts
 // types/env.d.ts
 
 // 声明单个变量
@@ -155,7 +155,7 @@ declare const process: {
 
 **使用：**
 
-```typescript
+```ts
 // ✅ 可以直接使用，有类型提示
 if (__DEV__) {
   console.log('开发模式')
@@ -172,7 +172,7 @@ console.log(process.env.NODE_ENV) // 'development' | 'production' | 'test'
 
 **场景：声明第三方库注入的全局对象**
 
-```typescript
+```ts
 // types/jquery.d.ts
 
 // 声明 jQuery 的 $ 对象
@@ -205,7 +205,7 @@ declare namespace $ {
 
 **使用：**
 
-```typescript
+```ts
 // ✅ 使用全局 $ 对象
 $('#app').addClass('active')
 
@@ -224,7 +224,7 @@ $.ajax({
 
 **场景：声明全局工具函数**
 
-```typescript
+```ts
 // types/utils.d.ts
 
 // 简单函数
@@ -242,7 +242,7 @@ declare function fetchData(url: string): Promise<any>
 
 **使用：**
 
-```typescript
+```ts
 // ✅ 直接调用全局函数
 const formatted = formatDate(new Date()) // string
 
@@ -261,7 +261,7 @@ fetchData('/api/users').then((data) => {
 
 **场景：声明具有多个签名的全局函数**
 
-```typescript
+```ts
 // types/overload.d.ts
 
 // 函数重载
@@ -289,7 +289,7 @@ interface FullRequestConfig extends RequestOptions {
 
 **使用：**
 
-```typescript
+```ts
 // ✅ 根据参数类型匹配不同的重载
 const div = createElement('div') // HTMLDivElement
 const span = createElement('span') // HTMLSpanElement
@@ -316,7 +316,7 @@ request({
 
 **场景：声明全局可用的类**
 
-```typescript
+```ts
 // types/classes.d.ts
 
 // 简单类
@@ -352,7 +352,7 @@ declare class Point {
 
 **使用：**
 
-```typescript
+```ts
 // ✅ 实例化全局类
 const emitter = new EventEmitter()
 emitter.on('change', (data) => {
@@ -375,7 +375,7 @@ const p2 = new Point({ x: 10, y: 20 })
 
 **场景：声明全局接口**
 
-```typescript
+```ts
 // types/interfaces.d.ts
 
 // 简单接口
@@ -412,7 +412,7 @@ declare interface Logger {
 
 **使用：**
 
-```typescript
+```ts
 // ✅ 使用全局接口作为类型
 const user: User = {
   id: 1,
@@ -444,7 +444,7 @@ logger.level = 'info'
 
 **场景：为浏览器 window 对象添加自定义属性**
 
-```typescript
+```ts
 // types/window.d.ts
 
 // 扩展 Window 接口
@@ -474,7 +474,7 @@ export {}
 
 **使用：**
 
-```typescript
+```ts
 // ✅ window 对象现在有类型提示
 console.log(window.APP_CONFIG.apiUrl)
 
@@ -487,7 +487,7 @@ window.showNotification('操作成功', 'success')
 
 **场景：为 Node.js global 对象添加属性**
 
-```typescript
+```ts
 // types/global.d.ts
 
 declare global {
@@ -526,7 +526,7 @@ export {}
 
 **使用：**
 
-```typescript
+```ts
 // ✅ 使用扩展的 global 对象
 global.cache = new Map()
 global.cache.set('key', 'value')
@@ -542,7 +542,7 @@ console.log(process.env.DATABASE_URL) // string
 
 **场景：扩展 Array、String 等内置对象**
 
-```typescript
+```ts
 // types/extensions.d.ts
 
 declare global {
@@ -571,7 +571,7 @@ export {}
 
 **使用：**
 
-```typescript
+```ts
 // ✅ 使用扩展的原型方法
 const arr = [1, 2, 3, 4, 5]
 console.log(arr.first()) // 1 | undefined
@@ -617,7 +617,7 @@ Number.prototype.toPercent = function () {
 
 **场景：在模块文件中声明全局类型**
 
-```typescript
+```ts
 // types/augmentations.d.ts
 
 // ✅ 有 import 语句，是模块文件
@@ -654,7 +654,7 @@ export interface LocalType {
 
 **使用：**
 
-```typescript
+```ts
 // ✅ 可以使用全局声明
 console.log(BUILD_TIME)
 
@@ -676,7 +676,7 @@ const local: LocalType = { id: 1 }
 
 **场景：同时提供模块导出和全局声明**
 
-```typescript
+```ts
 // lib/utils.d.ts
 
 // 模块导出
@@ -700,7 +700,7 @@ declare global {
 
 **使用：**
 
-```typescript
+```ts
 // 使用模块导出
 import { moduleHelper, ModuleOptions } from './lib/utils'
 
@@ -716,7 +716,7 @@ const globalOpts: Utils.GlobalOptions = { timeout: 5000 }
 
 **1. 尽量避免全局声明**
 
-```typescript
+```ts
 // ❌ 不推荐：过度使用全局声明
 declare function utility1(): void
 declare function utility2(): void
@@ -731,7 +731,7 @@ export function utility3(): void
 
 **2. 使用命名空间组织全局声明**
 
-```typescript
+```ts
 // ✅ 好：使用命名空间避免命名冲突
 declare namespace MyApp {
   function init(): void
@@ -754,7 +754,7 @@ declare function format(value: any): string
 
 **3. 将全局声明集中管理**
 
-```typescript
+```ts
 // types/global.d.ts - 统一管理全局声明
 
 // 环境变量
@@ -779,7 +779,7 @@ export interface AppConfig {
 
 **4. 为全局声明添加文档**
 
-````typescript
+````ts
 /**
  * 全局应用配置
  * 在构建时注入
@@ -809,7 +809,7 @@ declare function track(event: string, data?: Record<string, any>): void
 
 **5. 区分不同环境的全局声明**
 
-```typescript
+```ts
 // types/browser.d.ts - 浏览器环境
 declare global {
   interface Window {
@@ -833,7 +833,7 @@ export {}
 
 **6. 使用条件类型处理平台差异**
 
-```typescript
+```ts
 // types/platform.d.ts
 
 type Platform = 'browser' | 'node'
@@ -855,7 +855,7 @@ export {}
 
 **7. 避免覆盖内置类型**
 
-```typescript
+```ts
 // ❌ 不好：完全覆盖内置类型
 declare interface Array<T> {
   customMethod(): T[]
@@ -873,7 +873,7 @@ export {}
 
 **8. 全局声明的版本管理**
 
-```typescript
+```ts
 // types/legacy.d.ts - 旧版本兼容
 declare global {
   /** @deprecated 使用 newAPI 替代 */

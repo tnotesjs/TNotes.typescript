@@ -48,7 +48,7 @@
 
 装饰器在类定义时立即执行，执行时机早于实例化。
 
-```typescript
+```ts
 console.log('1. 脚本开始')
 
 function ClassDecorator(constructor: Function) {
@@ -101,7 +101,7 @@ console.log('6. 脚本结束')
 
 ### 4.1. 方法装饰器
 
-```typescript
+```ts
 function First(
   target: any,
   propertyKey: string,
@@ -141,7 +141,7 @@ class Example {
 
 ### 4.2. 类装饰器
 
-```typescript
+```ts
 function First<T extends { new (...args: any[]): {} }>(constructor: T) {
   console.log('First 类装饰器执行')
   return constructor
@@ -170,7 +170,7 @@ class Example {}
 
 ### 4.3. 参数装饰器
 
-```typescript
+```ts
 function First(
   target: any,
   propertyKey: string | symbol,
@@ -200,7 +200,7 @@ class Example {
 
 类中不同成员的装饰器执行顺序固定：参数装饰器 → 成员装饰器 → 类装饰器。
 
-```typescript
+```ts
 function ClassDecorator(constructor: Function) {
   console.log('6. 类装饰器')
 }
@@ -262,7 +262,7 @@ class Example {
 
 ### 5.1. 详细执行顺序规则
 
-```typescript
+```ts
 function logDecorator(type: string) {
   return function (...args: any[]) {
     console.log(`${type} 装饰器执行`)
@@ -304,7 +304,7 @@ class CompleteExample {
 
 ### 5.2. 执行顺序记忆口诀
 
-```typescript
+```ts
 // 执行顺序：
 // 1. 实例成员：参数 → 方法/访问器/属性（声明顺序）
 // 2. 静态成员：参数 → 方法/访问器/属性（声明顺序）
@@ -347,7 +347,7 @@ class Order {
 
 装饰器工厂先执行（从外到内），然后装饰器本身执行（从内到外）。
 
-```typescript
+```ts
 function decoratorFactory(name: string) {
   console.log(`${name} 工厂执行`)
 
@@ -378,7 +378,7 @@ class Example {
 
 ### 6.1. 工厂参数的传递
 
-```typescript
+```ts
 function log(message: string) {
   console.log(`1. 工厂被调用，消息：${message}`)
 
@@ -426,7 +426,7 @@ example.method()
 
 继承类的装饰器按照父类到子类的顺序执行。
 
-```typescript
+```ts
 function ClassDecorator(name: string) {
   return function (constructor: Function) {
     console.log(`${name} 类装饰器`)
@@ -472,7 +472,7 @@ class Child extends Parent {
 
 ### 7.1. 继承链中的完整顺序
 
-```typescript
+```ts
 function log(target: string) {
   return function (...args: any[]) {
     console.log(target)
@@ -510,7 +510,7 @@ class Child extends Parent {
 
 ### 8.1. 依赖关系处理
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // ❌ 错误：方法装饰器依赖参数装饰器的元数据
@@ -545,7 +545,7 @@ class Example {
 }
 ```
 
-```typescript
+```ts
 // 正确理解：参数装饰器先执行，方法装饰器后执行
 function CorrectOrder() {
   function param(
@@ -582,7 +582,7 @@ class Example {
 
 ### 8.2. 装饰器链的正确组合
 
-```typescript
+```ts
 // 装饰器按特定顺序组合才能正常工作
 function Validate(
   target: any,
@@ -652,7 +652,7 @@ service.process('test')
 
 ### 8.3. 避免循环依赖
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // ⚠️ 错误：装饰器相互依赖可能导致问题
@@ -681,7 +681,7 @@ class Example {
 
 ### 8.4. 性能优化考虑
 
-```typescript
+```ts
 // 装饰器在类定义时执行，避免耗时操作
 function ExpensiveDecorator(
   target: any,
@@ -704,7 +704,7 @@ class SlowClass {
 }
 ```
 
-```typescript
+```ts
 // 正确：将耗时操作延迟到运行时
 function OptimizedDecorator(
   target: any,

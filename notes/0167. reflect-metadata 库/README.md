@@ -50,7 +50,7 @@ reflect-metadata 是一个提供元数据反射 API 的 JavaScript 库。
 
 ### 3.1. 核心功能
 
-```typescript
+```ts
 // reflect-metadata 扩展了 Reflect 对象
 // 提供了以下能力：
 
@@ -72,7 +72,7 @@ const keys = Reflect.getMetadataKeys(target)
 
 ### 3.2. 应用场景
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 1. 类型信息保存
@@ -104,7 +104,7 @@ npm install reflect-metadata
 
 ### 4.2. TypeScript 配置
 
-```typescript
+```ts
 // tsconfig.json
 {
   "compilerOptions": {
@@ -116,7 +116,7 @@ npm install reflect-metadata
 
 ### 4.3. 导入方式
 
-```typescript
+```ts
 // 方式一：在入口文件顶部导入一次
 import 'reflect-metadata';
 
@@ -133,7 +133,7 @@ import 'reflect-metadata';
 
 ### 4.4. 基本使用
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 在类上定义元数据
@@ -162,7 +162,7 @@ reflect-metadata 提供了丰富的 API 来操作元数据。
 
 ### 5.1. defineMetadata 和 getMetadata
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 class Example {
@@ -189,7 +189,7 @@ console.log(Reflect.getMetadata('method-meta', Example.prototype, 'method')) // 
 
 ### 5.2. hasMetadata 和 hasOwnMetadata
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 class Parent {
@@ -214,7 +214,7 @@ console.log(Reflect.hasOwnMetadata('own', Child.prototype, 'childMethod')) // tr
 
 ### 5.3. getMetadataKeys 和 getOwnMetadataKeys
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 Reflect.defineMetadata('key1', 'value1', Example)
@@ -234,7 +234,7 @@ console.log(ownKeys) // ['key1', 'key2', 'key3']
 
 ### 5.4. deleteMetadata
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 class Example {}
@@ -250,7 +250,7 @@ console.log(Reflect.hasMetadata('temp', Example)) // false
 
 ### 5.5. metadata 装饰器
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // Reflect.metadata 是一个装饰器工厂
@@ -283,7 +283,7 @@ console.log(Reflect.getMetadata('async', Service.prototype, 'fetchData')) // tru
 
 ### 6.1. 使用 Symbol 键
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 定义 Symbol 键
@@ -333,7 +333,7 @@ console.log('验证器数量：', validators.length) // 2
 
 ### 6.2. 元数据继承
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 const MetaKey = Symbol('meta')
@@ -361,7 +361,7 @@ console.log(childOwnMeta) // undefined
 
 ### 6.3. 复杂元数据管理
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 定义元数据管理器

@@ -48,7 +48,7 @@
 
 ### 3.1. 基本实现
 
-```typescript
+```ts
 // ✅ 品牌类型模式
 type Brand<K, T> = K & { __brand: T }
 
@@ -100,7 +100,7 @@ getUserById(userId) // ✅
 
 ### 3.2. 实际应用
 
-```typescript
+```ts
 // ✅ 货币类型
 type USD = Brand<number, 'USD'>
 type EUR = Brand<number, 'EUR'>
@@ -146,7 +146,7 @@ fetchFromURL(url) // ✅
 
 ### 4.1. 基本实现
 
-```typescript
+```ts
 // ✅ 幻影类型：类型参数不出现在值中
 type Validated<T, V> = T & { __validation: V }
 
@@ -190,7 +190,7 @@ saveUser(validated) // ✅
 
 ### 4.2. 已解析 vs. 未解析
 
-```typescript
+```ts
 // ✅ 追踪数据解析状态
 type Parsed = 'Parsed'
 type Unparsed = 'Unparsed'
@@ -219,7 +219,7 @@ Builder 模式可以确保必需属性被设置。
 
 ### 5.1. 类型安全 Builder
 
-```typescript
+```ts
 // ✅ 使用幻影类型跟踪已设置的属性
 type Builder<T, K extends keyof T = never> = {
   [P in Exclude<keyof T, K>]: (value: T[P]) => Builder<T, K | P>
@@ -275,7 +275,7 @@ const user = createUserBuilder()
 
 ### 5.2. 可选和必需属性
 
-```typescript
+```ts
 // ✅ 区分可选和必需属性
 type RequiredKeys<T> = {
   [K in keyof T]-?: {} extends Pick<T, K> ? never : K
@@ -316,7 +316,7 @@ const fullConfig = createConfigBuilder()
 
 ### 6.1. 基本状态机
 
-```typescript
+```ts
 // ✅ 状态机类型
 type State = 'idle' | 'loading' | 'success' | 'error'
 
@@ -364,7 +364,7 @@ const success = loading.send({ type: 'RESOLVE', data: 'result' }) // ✅
 
 ### 6.2. 带上下文的状态机
 
-```typescript
+```ts
 // ✅ 状态机带上下文
 type Context<S extends State> = S extends 'success'
   ? { data: string }
@@ -402,7 +402,7 @@ const successMachine = machine2.send({ type: 'FETCH' }).send({
 
 ### 7.1. 递归类型
 
-```typescript
+```ts
 // ✅ 深度只读
 type DeepReadonly<T> = T extends (infer R)[]
   ? DeepReadonlyArray<R>
@@ -441,7 +441,7 @@ type ReadonlyNested = DeepReadonly<Nested>
 
 ### 7.2. 类型级函数
 
-```typescript
+```ts
 // ✅ Curry 类型
 type Curry<P extends any[], R> = P extends [infer First, ...infer Rest]
   ? (arg: First) => Rest extends [] ? R : Curry<Rest, R>
@@ -475,7 +475,7 @@ type Composed = Pipe<[Fn1, Fn2, Fn3]>
 
 ### 7.3. 类型级计算
 
-```typescript
+```ts
 // ✅ 类型级加法
 type Length<T extends any[]> = T['length']
 

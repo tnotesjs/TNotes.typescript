@@ -53,7 +53,7 @@
 
 装饰器工厂是一个返回装饰器的函数，用于创建可配置的装饰器。
 
-```typescript
+```ts
 // 普通装饰器
 function simpleDecorator(target: any) {
   console.log('简单装饰器')
@@ -83,7 +83,7 @@ class Example2 {}
 
 ### 3.1. 装饰器工厂的本质
 
-```typescript
+```ts
 // 装饰器工厂的本质是高阶函数
 function createLogger(prefix: string) {
   // 这是工厂函数
@@ -125,7 +125,7 @@ service.method2() // [INFO] 调用方法 method2
 
 ### 4.1. 类装饰器工厂
 
-```typescript
+```ts
 // 类装饰器工厂
 function Entity(tableName: string) {
   return function <T extends { new (...args: any[]): {} }>(constructor: T) {
@@ -150,7 +150,7 @@ user.save() // 保存到表 users
 
 ### 4.2. 方法装饰器工厂
 
-```typescript
+```ts
 // 方法装饰器工厂
 function timeout(ms: number) {
   return function (
@@ -182,7 +182,7 @@ class ApiService {
 
 ### 4.3. 属性装饰器工厂
 
-```typescript
+```ts
 // 属性装饰器工厂
 function defaultValue(value: any) {
   return function (target: any, propertyKey: string) {
@@ -216,7 +216,7 @@ console.log(config.port) // 3000
 
 ### 4.4. 参数装饰器工厂
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 参数装饰器工厂
@@ -276,7 +276,7 @@ console.log(service.createUser('Alice', 25))
 
 ### 5.1. 单个参数
 
-```typescript
+```ts
 // 接收单个参数
 function log(enabled: boolean) {
   return function (
@@ -316,7 +316,7 @@ calc.subtract(5, 2) // 无输出
 
 ### 5.2. 多个参数
 
-```typescript
+```ts
 // 接收多个参数
 function retry(times: number, delay: number) {
   return function (
@@ -362,7 +362,7 @@ class NetworkService {
 
 ### 5.3. 对象参数
 
-```typescript
+```ts
 // 接收配置对象
 interface CacheOptions {
   ttl: number
@@ -415,7 +415,7 @@ service.getUser(1) // 返回缓存数据
 
 ### 5.4. 可选参数
 
-```typescript
+```ts
 // 带默认值的可选参数
 function measure(unit: string = 'ms') {
   return function (
@@ -455,7 +455,7 @@ class Service {
 
 ### 6.1. 条件装饰
 
-```typescript
+```ts
 // 根据环境条件应用装饰器
 function debugOnly(enabled: boolean = process.env.NODE_ENV === 'development') {
   return function (
@@ -490,7 +490,7 @@ class UserService {
 
 ### 6.2. 权限控制
 
-```typescript
+```ts
 // 基于角色的访问控制
 function requireRole(...roles: string[]) {
   return function (
@@ -538,7 +538,7 @@ try {
 
 ### 6.3. 参数转换
 
-```typescript
+```ts
 // 自动转换参数类型
 function transform(transformer: (value: any) => any, ...indices: number[]) {
   return function (
@@ -578,7 +578,7 @@ service.calculate('10', '20') // 计算：30 类型：number
 
 ### 6.4. 元数据配置
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 存储路由元数据
@@ -650,7 +650,7 @@ console.log(getRoutes(UserController))
 
 ::: code-group
 
-```typescript [❌ 错误示例]
+```ts [❌ 错误示例]
 // 忘记调用装饰器工厂
 function log(message: string) {
   return function (
@@ -669,7 +669,7 @@ class Example {
 }
 ```
 
-```typescript [✅ 正确示例]
+```ts [✅ 正确示例]
 // 调用装饰器工厂
 function log(message: string) {
   return function (
@@ -691,7 +691,7 @@ class Example {
 
 ### 7.2. 返回正确的装饰器类型
 
-```typescript
+```ts
 // 确保返回正确签名的装饰器
 function classDecoratorFactory(config: any) {
   // 返回类装饰器
@@ -720,7 +720,7 @@ class MyClass {
 
 ### 7.3. 闭包变量的生命周期
 
-```typescript
+```ts
 // 注意闭包变量在多个实例间的共享
 function counter() {
   let count = 0 // 所有实例共享这个变量
@@ -755,7 +755,7 @@ s2.method() // 调用次数：2（共享计数器）
 s1.method() // 调用次数：3
 ```
 
-```typescript
+```ts
 // 如果需要实例独立的计数，使用 WeakMap
 function instanceCounter() {
   const counts = new WeakMap<any, number>()
@@ -794,7 +794,7 @@ s2.method() // 实例调用次数：2
 
 ### 7.4. 参数验证
 
-```typescript
+```ts
 // 在装饰器工厂中验证参数
 function timeout(ms: number) {
   if (typeof ms !== 'number' || ms <= 0) {

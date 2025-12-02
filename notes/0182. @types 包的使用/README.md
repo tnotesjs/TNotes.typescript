@@ -72,7 +72,7 @@
 
 ### 3.2. DefinitelyTyped 项目
 
-```typescript
+```ts
 /**
  * DefinitelyTyped 是什么？
  *
@@ -103,7 +103,7 @@
 
 ### 3.3. 包的组成
 
-```typescript
+```ts
 // node_modules/@types/react/index.d.ts
 
 /**
@@ -130,7 +130,7 @@ export as namespace React
 
 ### 3.4. 自动发现机制
 
-```typescript
+```ts
 // TypeScript 会自动在以下位置查找类型定义：
 /**
  * 1. 库自带的类型定义
@@ -191,7 +191,7 @@ npm install -D @types/node @types/react @types/react-dom @types/jest
 
 ### 4.3. 自动使用
 
-```typescript
+```ts
 // 安装后无需额外配置，直接使用
 // app.ts
 import React from 'react'
@@ -308,7 +308,7 @@ npm view @types/react dependencies
 
 ### 5.3. 评估包质量
 
-```typescript
+```ts
 /**
  * 评估 @types 包质量的因素：
  *
@@ -410,7 +410,7 @@ npm view @types/react dependencies
 
 ### 6.1. 问题 1：找不到类型定义
 
-```typescript
+```ts
 // ❌ 错误：Cannot find module 'some-library' or its corresponding type declarations
 
 // 原因：库没有类型定义，也没有 @types 包
@@ -431,7 +431,7 @@ declare module 'some-library';  // 整个模块类型为 any
 
 ### 6.2. 问题 2：类型定义过时
 
-```typescript
+```ts
 // ❌ 库更新了，但 @types 包还是旧版本
 
 // 解决方案 1：更新 @types 包
@@ -452,7 +452,7 @@ declare module 'some-library' {
 
 ### 6.3. 问题 3：类型冲突
 
-```typescript
+```ts
 // ❌ 多个 @types 包之间的类型冲突
 
 // 场景：@types/node 和 @types/dom 的 setTimeout 冲突
@@ -480,7 +480,7 @@ const timeoutId = setTimeout(() => {}, 1000) as NodeJS.Timeout;
 
 ### 6.4. 问题 4：缺少某些类型
 
-```typescript
+```ts
 // ❌ @types 包不完整，缺少某些 API 的类型
 
 // 解决方案：扩展类型定义
@@ -500,7 +500,7 @@ declare module 'some-library' {
 
 ### 6.5. 问题 5：版本不匹配
 
-```typescript
+```ts
 // ❌ @types 包版本与库版本不匹配
 
 // 检查版本兼容性
@@ -513,7 +513,7 @@ npm install -D @types/react@^18.0.0  # 匹配 react@^18.0.0
 
 ### 6.6. 问题 6：重复的类型定义
 
-```typescript
+```ts
 // ❌ 库自带类型，又安装了 @types 包
 
 // 示例：axios 自带类型定义

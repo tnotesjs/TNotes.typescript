@@ -67,7 +67,7 @@
 
 过滤通过 `as never` 实现。当键被映射为 `never` 类型时，该键会从结果类型中完全消失。
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -94,7 +94,7 @@ const user: PublicUser = {
 
 过滤和可选是不同的概念：
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -131,7 +131,7 @@ const optional: Optional = {
 
 ### 4.1. 基本过滤模式
 
-```typescript
+```ts
 type FilterKeys<T, Condition> = {
   [K in keyof T as K extends Condition ? never : K]: T[K]
 }
@@ -154,7 +154,7 @@ type WithoutSensitive = FilterKeys<User, 'password' | 'email'>
 
 ### 4.2. 保留指定键
 
-```typescript
+```ts
 // 只保留指定的键
 type PickKeys<T, Keys extends keyof T> = {
   [K in keyof T as K extends Keys ? K : never]: T[K]
@@ -178,7 +178,7 @@ type MyPick<T, K extends keyof T> = {
 
 ### 4.3. 排除指定键
 
-```typescript
+```ts
 // 排除指定的键
 type OmitKeys<T, Keys extends keyof T> = {
   [K in keyof T as K extends Keys ? never : K]: T[K]
@@ -206,7 +206,7 @@ type MyOmit<T, K extends keyof T> = {
 
 ### 5.1. 保留特定类型的属性
 
-```typescript
+```ts
 // 只保留 string 类型的属性
 type PickByType<T, ValueType> = {
   [K in keyof T as T[K] extends ValueType ? K : never]: T[K]
@@ -232,7 +232,7 @@ type BooleanProps = PickByType<User, boolean>
 
 ### 5.2. 排除特定类型的属性
 
-```typescript
+```ts
 // 排除特定类型的属性
 type OmitByType<T, ValueType> = {
   [K in keyof T as T[K] extends ValueType ? never : K]: T[K]
@@ -257,7 +257,7 @@ type NonNumbers = OmitByType<Data, number>
 
 ### 5.3. 过滤可选属性
 
-```typescript
+```ts
 // 只保留必需属性
 type RequiredKeys<T> = {
   [K in keyof T as T[K] extends Required<T>[K] ? K : never]: T[K]
@@ -284,7 +284,7 @@ type OnlyOptional = OptionalKeys<User>
 
 ### 5.4. 过滤 null/undefined
 
-```typescript
+```ts
 // 排除可能为 null 或 undefined 的属性
 type NonNullableProps<T> = {
   [K in keyof T as null extends T[K]
@@ -312,7 +312,7 @@ type NonNullable = NonNullableProps<Data>
 
 ### 6.1. 过滤前缀
 
-```typescript
+```ts
 // 排除以特定前缀开头的键
 type OmitByPrefix<T, Prefix extends string> = {
   [K in keyof T as K extends `${Prefix}${string}` ? never : K]: T[K]
@@ -341,7 +341,7 @@ type PrivateProps = PickByPrefix<Model, '_'>
 
 ### 6.2. 过滤后缀
 
-```typescript
+```ts
 // 排除以特定后缀结尾的键
 type OmitBySuffix<T, Suffix extends string> = {
   [K in keyof T as K extends `${string}${Suffix}` ? never : K]: T[K]
@@ -361,7 +361,7 @@ type NonHandlers = OmitBySuffix<Handlers, 'Handler' | 'Click' | 'Hover'>
 
 ### 6.3. 匹配特定模式
 
-```typescript
+```ts
 // 过滤包含特定字符串的键
 type OmitMatching<T, Pattern extends string> = {
   [K in keyof T as K extends `${string}${Pattern}${string}` ? never : K]: T[K]
@@ -389,7 +389,7 @@ type UserFields = PickMatching<Data, 'user' | 'User'>
 
 ### 6.4. 组合多个过滤条件
 
-```typescript
+```ts
 // 组合前缀和类型过滤
 type ComplexFilter<T> = {
   [K in keyof T as K extends `_${string}`
@@ -418,7 +418,7 @@ type Filtered = ComplexFilter<Mixed>
 
 ### 7.1. 场景 1：API 响应清理
 
-```typescript
+```ts
 // API 返回的完整用户数据
 type ApiUser = {
   id: number
@@ -450,7 +450,7 @@ function toPublicUser(apiUser: ApiUser): PublicUser {
 
 ### 7.2. 场景 2：表单字段筛选
 
-```typescript
+```ts
 // 完整的模型定义
 type UserModel = {
   id: number
@@ -486,7 +486,7 @@ type EditUserForm = {
 
 ### 7.3. 场景 3：事件处理器提取
 
-```typescript
+```ts
 type Component = {
   id: string
   name: string
@@ -519,7 +519,7 @@ type Props = {
 
 ### 7.4. 场景 4：数据库查询字段
 
-```typescript
+```ts
 type User = {
   id: number
   username: string
@@ -557,7 +557,7 @@ const query = buildQuery('username', 'john')
 
 ### 7.5. 场景 5：配置验证
 
-```typescript
+```ts
 type Config = {
   host: string
   port: number
@@ -588,7 +588,7 @@ function validateConfig(config: unknown): config is PublicConfig {
 
 ### 7.6. 场景 6：权限过滤
 
-```typescript
+```ts
 type User = {
   id: number
   username: string
@@ -625,7 +625,7 @@ function getUserData<T extends 'admin' | 'user'>(
 
 一旦键被过滤掉，就无法从类型中恢复。
 
-```typescript
+```ts
 type Original = {
   a: string
   b: number
@@ -645,7 +645,7 @@ type Recovered = Filtered & { b: number } // 可以添加，但不等于 Origina
 
 过滤条件必须准确，否则可能过滤掉错误的键。
 
-```typescript
+```ts
 type User = {
   name: string
   email: string
@@ -669,7 +669,7 @@ type NoNameExact = {
 
 过滤后的类型与原类型不兼容。
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -697,7 +697,7 @@ useUser({ ...publicUser, password: '' })
 
 如果过滤条件过于严格，可能得到空对象类型。
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -717,7 +717,7 @@ const notEmpty: Empty = { x: 1 } // ❌ 错误
 
 过滤不会改变属性的可选性。
 
-```typescript
+```ts
 type User = {
   id: number
   name?: string
@@ -738,7 +738,7 @@ const user: Filtered = { id: 1 } // ✅ 合法
 
 复杂的过滤逻辑可能影响编译性能。
 
-```typescript
+```ts
 // ⚠️ 性能影响较大
 type ComplexFilter<T> = {
   [K in keyof T as K extends `${infer Prefix}_${infer Suffix}`
@@ -766,7 +766,7 @@ type SimplerFilter<T> = Step2<Step1<T>>
 
 在继承关系中使用过滤需要小心。
 
-```typescript
+```ts
 interface Base {
   id: number
   createdAt: Date

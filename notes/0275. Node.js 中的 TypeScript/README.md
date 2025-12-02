@@ -124,7 +124,7 @@ npm install --save-dev @types/node
 
 ### 4.1. CommonJS 模块
 
-```typescript
+```ts
 // ✅ 导出
 export function greet(name: string): string {
   return `Hello, ${name}`
@@ -146,7 +146,7 @@ import main from './main'
 
 ### 4.2. ES 模块
 
-```typescript
+```ts
 // ✅ 命名导出
 export const API_URL = 'https://api.example.com'
 
@@ -168,7 +168,7 @@ import { API_URL, fetchData } from './utils.js'
 
 ### 4.3. require 类型
 
-```typescript
+```ts
 // ✅ CommonJS require
 const fs = require('fs') // ❌ 类型为 any
 
@@ -181,7 +181,7 @@ import * as fs from 'fs'
 
 ### 4.4. 动态导入
 
-```typescript
+```ts
 // ✅ 动态导入类型
 async function loadModule() {
   const { greet } = await import('./utils.js')
@@ -200,7 +200,7 @@ const utils = (await import('./utils.js')) as Utils
 
 ### 5.1. Promise 类型
 
-```typescript
+```ts
 // ✅ Promise 返回类型
 function fetchUser(id: number): Promise<User> {
   return fetch(`/api/users/${id}`)
@@ -218,7 +218,7 @@ async function getUser(id: number): Promise<User> {
 
 ### 5.2. 回调函数类型
 
-```typescript
+```ts
 import { readFile } from 'fs'
 
 // ✅ Node.js 风格回调
@@ -235,7 +235,7 @@ readFile('file.txt', 'utf-8', (err, data) => {
 
 ### 5.3. Promise 化
 
-```typescript
+```ts
 import { promisify } from 'util'
 import { readFile } from 'fs'
 
@@ -250,7 +250,7 @@ async function readContent() {
 
 ### 5.4. EventEmitter 类型
 
-```typescript
+```ts
 import { EventEmitter } from 'events'
 
 // ✅ 类型安全的事件
@@ -287,7 +287,7 @@ emitter.emit('data', 42)
 
 ### 6.1. fs 模块
 
-```typescript
+```ts
 import * as fs from 'fs'
 import { promises as fsPromises } from 'fs'
 
@@ -312,7 +312,7 @@ async function readContent() {
 
 ### 6.2. 文件操作类型
 
-```typescript
+```ts
 import { readFile, writeFile, stat } from 'fs/promises'
 import { Stats } from 'fs'
 
@@ -344,7 +344,7 @@ const config = await readJSON<Config>('config.json')
 
 ### 6.3. Stream 类型
 
-```typescript
+```ts
 import { createReadStream, createWriteStream } from 'fs'
 import { Transform } from 'stream'
 
@@ -377,7 +377,7 @@ createReadStream('input.txt')
 
 ### 7.1. 原生 http 模块
 
-```typescript
+```ts
 import * as http from 'http'
 
 // ✅ 创建服务器
@@ -395,7 +395,7 @@ server.listen(3000, () => {
 
 ### 7.2. Express 类型
 
-```typescript
+```ts
 import express, { Request, Response, NextFunction } from 'express'
 
 const app = express()
@@ -448,7 +448,7 @@ app.use(authMiddleware)
 
 ### 7.3. 自定义类型扩展
 
-```typescript
+```ts
 // ✅ 扩展 Request 类型
 declare global {
   namespace Express {
@@ -476,7 +476,7 @@ app.get('/profile', (req: Request, res: Response) => {
 
 ### 7.4. 错误处理
 
-```typescript
+```ts
 // ✅ 错误处理中间件
 interface ApiError extends Error {
   statusCode?: number

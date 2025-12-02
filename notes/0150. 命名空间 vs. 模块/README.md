@@ -47,7 +47,7 @@
 
 ::: code-group
 
-```typescript [命名空间示例]
+```ts [命名空间示例]
 // ✅ 命名空间:内部组织,全局命名
 namespace Utils {
   export function add(a: number, b: number) {
@@ -64,7 +64,7 @@ console.log(Utils.add(2, 3)) // 5
 console.log(Utils.multiply(2, 3)) // 6
 ```
 
-```typescript [模块示例]
+```ts [模块示例]
 // ✅ 模块:外部导入导出,文件作用域
 // utils.ts
 export function add(a: number, b: number) {
@@ -82,7 +82,7 @@ console.log(add(2, 3)) // 5
 console.log(multiply(2, 3)) // 6
 ```
 
-```typescript [编译结果对比]
+```ts [编译结果对比]
 // 命名空间编译为 IIFE(立即执行函数)
 var Utils
 ;(function (Utils) {
@@ -123,7 +123,7 @@ function add(a, b) {
 
 ::: code-group
 
-```typescript [命名空间使用场景1:类型声明文件]
+```ts [命名空间使用场景1:类型声明文件]
 // ✅ 为全局库编写类型定义
 declare namespace jQuery {
   interface AjaxSettings {
@@ -142,7 +142,7 @@ declare namespace jQuery {
 // $.ajax({ url: '/api', method: 'GET' });
 ```
 
-```typescript [命名空间使用场景2:浏览器全局变量]
+```ts [命名空间使用场景2:浏览器全局变量]
 // ✅ 在传统浏览器脚本中组织代码
 namespace MyApp {
   export namespace Config {
@@ -164,7 +164,7 @@ namespace MyApp {
 // </script>
 ```
 
-```typescript [模块使用场景1:现代项目开发]
+```ts [模块使用场景1:现代项目开发]
 // ✅ 模块化的应用开发
 // config.ts
 export const API_URL = 'https://api.example.com'
@@ -185,7 +185,7 @@ const app = new Application()
 app.start()
 ```
 
-```typescript [模块使用场景2:npm 包开发]
+```ts [模块使用场景2:npm 包开发]
 // ✅ 开发可发布的 npm 包
 // package/index.ts
 export { Logger } from './logger'
@@ -217,7 +217,7 @@ export type { LogLevel, LogConfig } from './types'
 
 ::: code-group
 
-```typescript [在模块中导出命名空间]
+```ts [在模块中导出命名空间]
 // ✅ utils.ts - 模块文件
 export namespace StringUtils {
   export function capitalize(str: string): string {
@@ -246,7 +246,7 @@ console.log(StringUtils.capitalize('hello')) // Hello
 console.log(NumberUtils.isEven(4)) // true
 ```
 
-```typescript [模块与命名空间混合]
+```ts [模块与命名空间混合]
 // ✅ api.ts - 实际应用示例
 // 普通导出
 export interface ApiConfig {
@@ -281,7 +281,7 @@ fetch(`${config.baseURL}${Endpoints.USERS}`, {
 })
 ```
 
-```typescript [不推荐的混用方式]
+```ts [不推荐的混用方式]
 // ❌ 不推荐:过度使用命名空间
 export namespace App {
   export namespace Components {
@@ -321,7 +321,7 @@ const btn = new PrimaryButton()
 
 ::: code-group
 
-```typescript [场景1:现代 Web 应用]
+```ts [场景1:现代 Web 应用]
 // ✅ 推荐:使用模块
 // user.service.ts
 export class UserService {
@@ -343,7 +343,7 @@ import type { User } from './user.types'
 const service = new UserService()
 ```
 
-```typescript [场景2:类型声明文件]
+```ts [场景2:类型声明文件]
 // ✅ 推荐:使用命名空间描述全局 API
 // global.d.ts
 declare namespace GlobalAPI {
@@ -368,7 +368,7 @@ declare global {
 }
 ```
 
-```typescript [场景3:浏览器脚本(无构建工具)]
+```ts [场景3:浏览器脚本(无构建工具)]
 // ✅ 使用命名空间
 namespace SimpleApp {
   export class Calculator {
@@ -388,7 +388,7 @@ namespace SimpleApp {
 // ❌ 模块在浏览器中需要构建工具或 type="module"
 ```
 
-```typescript [场景4:Node.js 应用]
+```ts [场景4:Node.js 应用]
 // ✅ 推荐:使用模块
 // database.ts
 export class Database {
@@ -452,7 +452,7 @@ graph TD
 
 ::: code-group
 
-```typescript [步骤1:分析命名空间结构]
+```ts [步骤1:分析命名空间结构]
 // ❌ 原始命名空间代码
 namespace App {
   export namespace Utils {
@@ -480,7 +480,7 @@ namespace App {
 // 3. 可以拆分为独立模块
 ```
 
-```typescript [步骤2:拆分为独立模块文件]
+```ts [步骤2:拆分为独立模块文件]
 // ✅ utils/format.ts
 export function format(str: string): string {
   return str.toUpperCase()
@@ -502,7 +502,7 @@ export * from './utils/format'
 export * from './services/user.service'
 ```
 
-```typescript [步骤3:更新导入语句]
+```ts [步骤3:更新导入语句]
 // ❌ 原始使用方式
 const formatted = App.Utils.format('hello')
 const service = new App.Services.UserService()
@@ -518,7 +518,7 @@ const service = new UserService()
 import { format, UserService } from './index'
 ```
 
-```typescript [步骤4:处理内部依赖]
+```ts [步骤4:处理内部依赖]
 // ❌ 命名空间内部依赖
 namespace App {
   export namespace Logger {
@@ -552,7 +552,7 @@ export class ApiService {
 }
 ```
 
-```typescript [步骤5:处理循环依赖]
+```ts [步骤5:处理循环依赖]
 // ❌ 命名空间中的循环引用
 namespace App {
   export class A {
@@ -611,7 +611,7 @@ export function createAB() {
 
 ::: warning ⚠️ 错误 1:直接删除 namespace 关键字
 
-```typescript
+```ts
 // ❌ 错误:简单删除 namespace
 // 原代码
 namespace Utils {
@@ -634,7 +634,7 @@ MathUtils.add()
 
 ::: warning ⚠️ 错误 2:忽略全局声明
 
-```typescript
+```ts
 // ❌ 命名空间可能用于扩展全局对象
 declare global {
   namespace NodeJS {

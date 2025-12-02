@@ -92,7 +92,7 @@ dist/
 tsc --outFile bundle.js --module amd
 ```
 
-```typescript
+```ts
 // file1.ts
 export const a = 1
 
@@ -118,7 +118,7 @@ define('file2', ['require', 'exports'], function (require, exports) {
 tsc --removeComments
 ```
 
-```typescript
+```ts
 // input.ts
 /**
  * 用户接口
@@ -148,14 +148,14 @@ tsc --declaration
 tsc --declaration --declarationMap
 ```
 
-```typescript
+```ts
 // input.ts
 export function greet(name: string): string {
   return `Hello, ${name}!`
 }
 ```
 
-```typescript
+```ts
 // output.d.ts
 export declare function greet(name: string): string
 ```
@@ -188,7 +188,7 @@ tsc --strict
 tsc --noImplicitAny
 ```
 
-```typescript
+```ts
 // ❌ 会报错
 function greet(name) {
   // Error: Parameter 'name' implicitly has an 'any' type
@@ -209,7 +209,7 @@ function greet(name: string) {
 tsc --strictNullChecks
 ```
 
-```typescript
+```ts
 let name: string = 'Tom'
 name = null // ❌ Error: Type 'null' is not assignable to type 'string'
 
@@ -225,7 +225,7 @@ age = null // ✅ 正确
 tsc --noUnusedLocals
 ```
 
-```typescript
+```ts
 function calculate() {
   const unused = 10 // ❌ Error: 'unused' is declared but never used
   return 5
@@ -240,7 +240,7 @@ function calculate() {
 tsc --noUnusedParameters
 ```
 
-```typescript
+```ts
 // ❌ 会报错
 function greet(name: string, age: number) {
   // Error: 'age' is declared but never used
@@ -273,7 +273,7 @@ tsc --module amd
 tsc --module umd
 ```
 
-```typescript
+```ts
 // input.ts
 export const value = 42
 ```
@@ -311,7 +311,7 @@ tsc --moduleResolution classic
 tsc --esModuleInterop
 ```
 
-```typescript
+```ts
 // ✅ 可以使用默认导入
 import express from 'express' // 而不是 import * as express
 

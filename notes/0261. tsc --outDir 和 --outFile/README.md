@@ -126,7 +126,7 @@ src/
 
 ### 3.5. 实际示例
 
-```typescript
+```ts
 // src/index.ts
 import { greet } from './utils/helper'
 
@@ -200,7 +200,7 @@ tsc --outFile dist/bundle.js
 tsc --outFile bundle.js --module amd
 ```
 
-```typescript
+```ts
 // file1.ts
 export const message = 'Hello'
 

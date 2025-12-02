@@ -52,7 +52,7 @@
 
 方法装饰器是应用在类方法声明上的函数，用于观察、修改或替换方法定义。
 
-```typescript
+```ts
 // 方法装饰器的本质
 function log(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   console.log('装饰的类：', target.constructor.name)
@@ -79,7 +79,7 @@ class Calculator {
 
 ### 4.1. 参数说明
 
-```typescript
+```ts
 // 方法装饰器的完整参数
 function methodDecorator(
   target: any, // 静态方法是类的构造函数，实例方法是类的原型对象
@@ -102,7 +102,7 @@ class Example {
 
 ### 4.2. 属性描述符详解
 
-```typescript
+```ts
 // 属性描述符的结构
 interface PropertyDescriptor {
   configurable?: boolean // 是否可以修改描述符或删除属性
@@ -140,7 +140,7 @@ class User {
 
 ### 5.1. 添加日志记录
 
-```typescript
+```ts
 // 记录方法调用
 function log(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const originalMethod = descriptor.value
@@ -175,7 +175,7 @@ calc.add(2, 3)
 
 ### 5.2. 性能监控
 
-```typescript
+```ts
 // 测量方法执行时间
 function measureTime(
   target: any,
@@ -211,7 +211,7 @@ processor.processLargeArray(1000000)
 
 ### 5.3. 参数验证
 
-```typescript
+```ts
 // 验证方法参数
 function validate(
   target: any,
@@ -252,7 +252,7 @@ console.log(math.divide(10, 2)) // 5
 
 ### 5.4. 方法缓存
 
-```typescript
+```ts
 // 缓存方法结果
 function memoize(
   target: any,
@@ -295,7 +295,7 @@ console.log(fib.calculate(10)) // 直接返回缓存结果
 
 ### 5.5. 异常处理
 
-```typescript
+```ts
 // 统一异常处理
 function catchError(errorHandler?: (error: Error) => void) {
   return function (
@@ -342,7 +342,7 @@ class ApiService {
 
 ### 6.1. 权限控制
 
-```typescript
+```ts
 // 检查用户权限
 interface User {
   role: string
@@ -395,7 +395,7 @@ try {
 
 ### 6.2. 重试机制
 
-```typescript
+```ts
 // 失败自动重试
 function retry(times: number = 3, delay: number = 1000) {
   return function (
@@ -442,7 +442,7 @@ class NetworkService {
 
 ### 6.3. 防抖和节流
 
-```typescript
+```ts
 // 防抖装饰器
 function debounce(delay: number) {
   return function (
@@ -503,7 +503,7 @@ class SearchBox {
 
 ### 6.4. 废弃警告
 
-```typescript
+```ts
 // 标记废弃方法
 function deprecated(message?: string) {
   return function (
@@ -547,7 +547,7 @@ api.getUserList() // 警告：[DEPRECATED] OldApi.getUserList 已废弃。请使
 
 ::: code-group
 
-```typescript [❌ 错误示例]
+```ts [❌ 错误示例]
 // 丢失 this 上下文
 function badDecorator(
   target: any,
@@ -564,7 +564,7 @@ function badDecorator(
 }
 ```
 
-```typescript [✅ 正确示例]
+```ts [✅ 正确示例]
 // 保持 this 上下文
 function goodDecorator(
   target: any,
@@ -585,7 +585,7 @@ function goodDecorator(
 
 ### 7.2. 处理异步方法
 
-```typescript
+```ts
 // 正确处理异步方法
 function asyncLog(
   target: any,
@@ -621,7 +621,7 @@ class AsyncService {
 
 ### 7.3. 类型安全
 
-```typescript
+```ts
 // 使用泛型保持类型安全
 function typedDecorator<T extends (...args: any[]) => any>() {
   return function (
@@ -650,7 +650,7 @@ class TypedClass {
 
 ### 7.4. 装饰器执行顺序
 
-```typescript
+```ts
 // 多个装饰器的执行顺序
 function first() {
   console.log('first 装饰器工厂调用')
@@ -691,7 +691,7 @@ class Example {
 
 ::: code-group
 
-```typescript [❌ 错误示例]
+```ts [❌ 错误示例]
 // 直接修改原型可能影响其他实例
 function badModify(
   target: any,
@@ -704,7 +704,7 @@ function badModify(
 }
 ```
 
-```typescript [✅ 正确示例]
+```ts [✅ 正确示例]
 // 通过描述符修改
 function goodModify(
   target: any,

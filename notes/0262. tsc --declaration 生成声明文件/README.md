@@ -68,7 +68,7 @@
 
 ### 3.2. 示例
 
-```typescript
+```ts
 // greet.ts（源代码）
 export function greet(name: string): string {
   return `Hello, ${name}!`
@@ -82,7 +82,7 @@ export interface User {
 
 生成的声明文件：
 
-```typescript
+```ts
 // greet.d.ts（声明文件）
 export declare function greet(name: string): string
 
@@ -148,7 +148,7 @@ dist/
 
 ### 4.4. 完整示例
 
-```typescript
+```ts
 // src/calculator.ts
 export function add(a: number, b: number): number {
   return a + b
@@ -167,7 +167,7 @@ export interface CalculatorOptions {
 
 生成的声明文件：
 
-```typescript
+```ts
 // dist/calculator.d.ts
 export declare function add(a: number, b: number): number
 export declare function subtract(a: number, b: number): number
@@ -260,7 +260,7 @@ tsc --emitDeclarationOnly
 
 从声明文件中移除 `@internal` 注释的内容：
 
-```typescript
+```ts
 // src/api.ts
 export function publicAPI(): void {
   // 公开 API
@@ -283,7 +283,7 @@ export function internalAPI(): void {
 }
 ```
 
-```typescript
+```ts
 // dist/api.d.ts（stripInternal: true）
 export declare function publicAPI(): void
 // ✅ internalAPI 被移除
@@ -350,7 +350,7 @@ my-library/
 
 ### 6.4. 使用库
 
-```typescript
+```ts
 // 用户项目中
 import { greet } from 'my-awesome-library'
 

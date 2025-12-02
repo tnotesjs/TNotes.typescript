@@ -57,7 +57,7 @@
 
 ### 3.1. 变量初始化
 
-```typescript
+```ts
 // ✅ 推断：类型明显
 const name = 'Tom' // string
 const age = 25 // number
@@ -71,7 +71,7 @@ const isActive: boolean = true
 
 ### 3.2. 函数参数默认值
 
-```typescript
+```ts
 // ✅ 推断：从默认值推断类型
 function greet(name = 'Guest') {
   // name 的类型：string
@@ -86,7 +86,7 @@ function greet(name: string = 'Guest') {
 
 ### 3.3. 简单的函数返回值
 
-```typescript
+```ts
 // ✅ 推断：返回类型明显
 function add(a: number, b: number) {
   return a + b // 推断为 number
@@ -104,7 +104,7 @@ function add(a: number, b: number): number {
 
 ### 3.4. 对象字面量
 
-```typescript
+```ts
 // ✅ 推断：结构清晰
 const user = {
   name: 'Tom',
@@ -125,7 +125,7 @@ const user: { name: string; age: number; email: string } = {
 
 ### 4.1. 函数参数
 
-```typescript
+```ts
 // ✅ 必须：函数参数需要类型标注
 function greet(name: string) {
   return `Hello, ${name}`
@@ -140,7 +140,7 @@ function greet(name) {
 
 ### 4.2. 复杂的返回类型
 
-```typescript
+```ts
 // ✅ 显式：返回类型复杂或有多个分支
 function processData(input: string): { value: string; timestamp: number } {
   if (input.length === 0) {
@@ -160,7 +160,7 @@ function processData(input: string) {
 
 ### 4.3. 公共 API
 
-```typescript
+```ts
 // ✅ 显式：导出的函数应该有明确的类型签名
 export function calculate(a: number, b: number): number {
   return a + b
@@ -174,7 +174,7 @@ export function calculate(a: number, b: number) {
 
 ### 4.4. 类型约束
 
-```typescript
+```ts
 // ✅ 显式：需要特定的类型约束
 const config: { readonly apiUrl: string; timeout?: number } = {
   apiUrl: 'https://api.example.com',
@@ -189,7 +189,7 @@ const config = {
 
 ### 4.5. 空值初始化
 
-```typescript
+```ts
 // ✅ 显式：初始值为 undefined 或 null
 let user: User | null = null
 let data: string | undefined = undefined
@@ -203,7 +203,7 @@ let data = undefined // 类型：undefined
 
 ### 5.1. 简单函数
 
-```typescript
+```ts
 // ✅ 推断：单一返回语句
 function double(n: number) {
   return n * 2 // 推断为 number
@@ -216,7 +216,7 @@ function getName() {
 
 ### 5.2. 多分支函数
 
-```typescript
+```ts
 // ⚠️ 小心：可能推断为联合类型
 function getValue(flag: boolean) {
   if (flag) {
@@ -237,7 +237,7 @@ function getValue(flag: boolean): number {
 
 ### 5.3. 递归函数
 
-```typescript
+```ts
 // ✅ 显式：递归函数需要明确返回类型
 function factorial(n: number): number {
   if (n <= 1) return 1
@@ -253,7 +253,7 @@ function factorial(n: number) {
 
 ### 5.4. Promise 返回
 
-```typescript
+```ts
 // ✅ 显式：异步函数的返回类型
 async function fetchUser(id: number): Promise<User> {
   const response = await fetch(`/api/users/${id}`)
@@ -271,7 +271,7 @@ async function fetchUser(id: number) {
 
 ### 6.1. const 字面量推断
 
-```typescript
+```ts
 // const 推断为字面量类型
 const name = 'Tom' // 类型："Tom"
 const age = 25 // 类型：25
@@ -285,7 +285,7 @@ let flag = true // 类型：boolean
 
 ### 6.2. const 断言
 
-```typescript
+```ts
 // ✅ as const：推断为字面量
 const config = {
   apiUrl: 'https://api.example.com',
@@ -303,7 +303,7 @@ const config = {
 
 ### 6.3. 数组推断
 
-```typescript
+```ts
 // const 推断为可变数组
 const numbers = [1, 2, 3] // 类型：number[]
 
@@ -317,7 +317,7 @@ type Status = (typeof STATUS)[number] // "pending" | "success" | "error"
 
 ### 6.4. 对象推断差异
 
-```typescript
+```ts
 // let：属性可变
 let user = { name: 'Tom', age: 25 }
 user.name = 'Jerry' // ✅ 可以修改
@@ -335,7 +335,7 @@ user.name = 'Jerry' // ❌ Error: Cannot assign to 'name' because it is a read-o
 
 ### 7.1. 函数泛型推断
 
-```typescript
+```ts
 // ✅ 推断：从参数推断泛型类型
 function identity<T>(value: T): T {
   return value
@@ -350,7 +350,7 @@ const result = identity<number>(42)
 
 ### 7.2. 约束泛型推断
 
-```typescript
+```ts
 // ✅ 约束：帮助推断更精确的类型
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
   return obj[key]
@@ -363,7 +363,7 @@ const age = getProperty(user, 'age') // 推断为 number
 
 ### 7.3. 多个类型参数
 
-```typescript
+```ts
 // ✅ 部分推断：可以指定部分泛型类型
 function pair<A, B>(a: A, b: B): [A, B] {
   return [a, b]
@@ -376,7 +376,7 @@ const result3 = pair<number>(1, 'hello') // 只指定第一个（通常不需要
 
 ### 7.4. 泛型工厂函数
 
-```typescript
+```ts
 // ✅ 推断：从工厂函数推断类型
 function createArray<T>(...items: T[]): T[] {
   return items
@@ -394,7 +394,7 @@ const numbers = createArray<number>(1, 2, 3)
 
 ### 7.5. 条件类型推断
 
-```typescript
+```ts
 // ✅ 利用条件类型推断
 type Unpromise<T> = T extends Promise<infer U> ? U : T
 

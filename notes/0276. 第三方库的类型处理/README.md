@@ -108,7 +108,7 @@ npm info @types/express versions
 
 ### 4.1. 快速解决方案
 
-```typescript
+```ts
 // ✅ 声明为 any 类型模块
 declare module 'some-untyped-library'
 
@@ -119,7 +119,7 @@ import something from 'some-untyped-library'
 
 ### 4.2. 基本类型声明
 
-```typescript
+```ts
 // types/some-library.d.ts
 
 // ✅ 声明模块的基本结构
@@ -137,7 +137,7 @@ declare module 'some-library' {
 
 ### 4.3. 默认导出声明
 
-```typescript
+```ts
 // ✅ 默认导出
 declare module 'some-library' {
   interface Config {
@@ -160,7 +160,7 @@ const lib = new Library({ apiKey: 'xxx' })
 
 ### 4.4. 命名空间声明
 
-```typescript
+```ts
 // ✅ 全局库声明
 declare namespace MyLibrary {
   interface Options {
@@ -182,7 +182,7 @@ console.log(MyLibrary.version)
 
 ### 5.1. 创建 .d.ts 文件
 
-```typescript
+```ts
 // types/custom.d.ts
 
 // ✅ 环境声明
@@ -204,7 +204,7 @@ interface Window {
 
 ### 5.2. 模块声明文件
 
-```typescript
+```ts
 // types/my-module.d.ts
 
 // ✅ 完整的模块类型
@@ -226,7 +226,7 @@ declare module 'my-module' {
 
 ### 5.3. 资源文件声明
 
-```typescript
+```ts
 // types/assets.d.ts
 
 // ✅ 图片文件
@@ -266,7 +266,7 @@ declare module '*.json' {
 
 ### 6.1. 扩展第三方模块
 
-```typescript
+```ts
 // types/express.d.ts
 
 // ✅ 扩展 Express Request
@@ -291,7 +291,7 @@ app.get('/profile', (req: Request, res: Response) => {
 
 ### 6.2. 扩展全局对象
 
-```typescript
+```ts
 // types/global.d.ts
 
 // ✅ 扩展 Window 对象
@@ -310,7 +310,7 @@ window.gtag('event', 'click')
 
 ### 6.3. 扩展库的类型
 
-```typescript
+```ts
 // types/lodash.d.ts
 
 // ✅ 添加自定义方法到 lodash
@@ -329,7 +329,7 @@ _.customMethod('test') // ✅ 有类型
 
 ### 6.4. 合并声明
 
-```typescript
+```ts
 // ✅ 接口合并
 interface User {
   id: number
@@ -376,7 +376,7 @@ const user: User = {
 
 ### 7.2. 发布到 DefinitelyTyped
 
-```typescript
+```ts
 // types/my-library/index.d.ts
 
 // ✅ 类型定义
@@ -412,7 +412,7 @@ declare module 'my-library' {
 
 ### 7.3. 版本管理
 
-```typescript
+```ts
 // types/my-library/index.d.ts
 
 // Type definitions for my-library 2.3
@@ -436,7 +436,7 @@ declare namespace MyLibrary {
 
 ### 7.4. 测试类型定义
 
-```typescript
+```ts
 // types/my-library/my-library-tests.ts
 
 import MyLibrary from 'my-library'
@@ -451,13 +451,13 @@ lib.doSomething()
 
 ### 7.5. 文档和示例
 
-````typescript
+````ts
 // types/my-library/index.d.ts
 
 /**
  * My Library - 一个示例库
  * @example
- * ```typescript
+ * ```ts
  * import MyLibrary from "my-library";
  *
  * const lib = new MyLibrary({

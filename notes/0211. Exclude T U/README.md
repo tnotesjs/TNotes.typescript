@@ -4,23 +4,23 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 Exclude\<T, U\> 是什么？](#3--excludet-u-是什么)
+- [3. 🤔 `Exclude<T, U>` 是什么？](#3--excludet-u-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. 工作原理](#32-工作原理)
   - [3.3. 分布式条件类型](#33-分布式条件类型)
   - [3.4. 基本示例](#34-基本示例)
-- [4. 🤔 如何使用 Exclude\<T, U\>？](#4--如何使用-excludet-u)
+- [4. 🤔 如何使用 `Exclude<T, U>`？](#4--如何使用-excludet-u)
   - [4.1. 场景 1：事件类型过滤](#41-场景-1事件类型过滤)
   - [4.2. 场景 2：API 响应状态过滤](#42-场景-2api-响应状态过滤)
   - [4.3. 场景 3：联合类型精确控制](#43-场景-3联合类型精确控制)
   - [4.4. 场景 4：泛型约束](#44-场景-4泛型约束)
-- [5. 🤔 Exclude\<T, U\> 的实际应用场景有哪些？](#5--excludet-u-的实际应用场景有哪些)
+- [5. 🤔 `Exclude<T, U>` 的实际应用场景有哪些？](#5--excludet-u-的实际应用场景有哪些)
   - [5.1. 应用 1：Redux Action 类型安全](#51-应用-1redux-action-类型安全)
   - [5.2. 应用 2：React Props 类型优化](#52-应用-2react-props-类型优化)
   - [5.3. 应用 3：数据库查询构建器](#53-应用-3数据库查询构建器)
   - [5.4. 应用 4：路由守卫类型](#54-应用-4路由守卫类型)
   - [5.5. 应用 5：表单验证规则](#55-应用-5表单验证规则)
-- [6. 🤔 使用 Exclude\<T, U\> 需要注意什么？](#6--使用-excludet-u-需要注意什么)
+- [6. 🤔 使用 `Exclude<T, U>` 需要注意什么？](#6--使用-excludet-u-需要注意什么)
   - [6.1. 注意事项 1：只对联合类型有效](#61-注意事项-1只对联合类型有效)
   - [6.2. 注意事项 2：类型兼容性判断](#62-注意事项-2类型兼容性判断)
   - [6.3. 注意事项 3：never 的处理](#63-注意事项-3never-的处理)
@@ -44,26 +44,25 @@
 
 `Exclude<T, U>` 从联合类型 `T` 中排除可以赋值给 `U` 的类型。
 
+## 3. 🤔 `Exclude<T, U>` 是什么？
+
+`Exclude<T, U>` 从联合类型 `T` 中移除可以赋值给类型 `U` 的成员。
+
 - 基于条件类型实现
 - 利用分布式条件类型特性
 - 与 `Extract<T, U>` 互为补充操作
 - 常用于类型过滤和精确控制
 - 是 `Omit<T, K>` 的底层实现之一
 
-## 3. 🤔 Exclude\<T, U\> 是什么？
-
-`Exclude<T, U>` 从联合类型 `T` 中移除可以赋值给类型 `U` 的成员。
-
 ### 3.1. 源码定义
 
-```typescript
-// TypeScript lib.es5.d.ts 中的定义
+```ts
 type Exclude<T, U> = T extends U ? never : T
 ```
 
 ### 3.2. 工作原理
 
-```typescript
+```ts
 // 分布式条件类型的展开过程
 type Example = Exclude<'a' | 'b' | 'c', 'a' | 'c'>
 
@@ -81,7 +80,7 @@ type Example = Exclude<'a' | 'b' | 'c', 'a' | 'c'>
 
 ### 3.3. 分布式条件类型
 
-```typescript
+```ts
 // Exclude 利用了条件类型的分布式特性
 type T = 'a' | 'b' | 'c'
 type U = 'a'
@@ -96,7 +95,7 @@ type Result = Exclude<T, U>
 
 ### 3.4. 基本示例
 
-```typescript
+```ts
 // 字符串字面量类型
 type Colors = 'red' | 'green' | 'blue' | 'yellow'
 type PrimaryColors = 'red' | 'green' | 'blue'
@@ -117,11 +116,11 @@ type OnlyString = Exclude<Mixed, number | boolean>
 // string
 ```
 
-## 4. 🤔 如何使用 Exclude\<T, U\>？
+## 4. 🤔 如何使用 `Exclude<T, U>`？
 
 ### 4.1. 场景 1：事件类型过滤
 
-```typescript
+```ts
 type MouseEvent = 'click' | 'dblclick' | 'mousedown' | 'mouseup' | 'mousemove'
 type KeyboardEvent = 'keydown' | 'keyup' | 'keypress'
 type AllEvents = MouseEvent | KeyboardEvent
@@ -150,7 +149,7 @@ addEventListener('mousemove', (e) => {}) // 错误
 
 ### 4.2. 场景 2：API 响应状态过滤
 
-```typescript
+```ts
 type HttpMethod =
   | 'GET'
   | 'POST'
@@ -183,7 +182,7 @@ requireAuth('GET') // 错误
 
 ### 4.3. 场景 3：联合类型精确控制
 
-```typescript
+```ts
 type Primitive = string | number | boolean | null | undefined | symbol | bigint
 
 // 排除 null 和 undefined
@@ -209,7 +208,7 @@ processNumeric('text') // ❌ 错误
 
 ### 4.4. 场景 4：泛型约束
 
-```typescript
+```ts
 type AllowedTypes = string | number | boolean | object
 type ForbiddenTypes = object
 
@@ -226,11 +225,11 @@ logPrimitive(true) // ✅
 logPrimitive({}) // ❌ 错误：object 被排除
 ```
 
-## 5. 🤔 Exclude\<T, U\> 的实际应用场景有哪些？
+## 5. 🤔 `Exclude<T, U>` 的实际应用场景有哪些？
 
 ### 5.1. 应用 1：Redux Action 类型安全
 
-```typescript
+```ts
 type BaseAction = {
   type: string
   payload?: any
@@ -270,7 +269,7 @@ function handleUserAction(action: UserActionsWithoutLogout): void {
 
 ### 5.2. 应用 2：React Props 类型优化
 
-```typescript
+```ts
 type ButtonType = 'button' | 'submit' | 'reset'
 type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost' | 'link'
 
@@ -307,7 +306,7 @@ function Button(props: ButtonProps): JSX.Element {
 
 ### 5.3. 应用 3：数据库查询构建器
 
-```typescript
+```ts
 type Operator =
   | '='
   | '!='
@@ -365,7 +364,7 @@ const query = new QueryBuilder()
 
 ### 5.4. 应用 4：路由守卫类型
 
-```typescript
+```ts
 type RouteType = 'public' | 'protected' | 'admin' | 'guest'
 
 // 不需要认证的路由
@@ -405,7 +404,7 @@ router.canActivate({ path: '/home', component: null, type: 'public' }, false) //
 
 ### 5.5. 应用 5：表单验证规则
 
-```typescript
+```ts
 type InputType =
   | 'text'
   | 'email'
@@ -472,11 +471,11 @@ function validateInput<T extends InputType>(
 }
 ```
 
-## 6. 🤔 使用 Exclude\<T, U\> 需要注意什么？
+## 6. 🤔 使用 `Exclude<T, U>` 需要注意什么？
 
 ### 6.1. 注意事项 1：只对联合类型有效
 
-```typescript
+```ts
 // ✅ 联合类型正常工作
 type Union = 'a' | 'b' | 'c'
 type Excluded = Exclude<Union, 'a'> // 'b' | 'c'
@@ -491,7 +490,7 @@ type ExcludedObject = Exclude<Object, { a: number }> // { a: number; } (没有�
 
 ### 6.2. 注意事项 2：类型兼容性判断
 
-```typescript
+```ts
 type Numbers = 1 | 2 | 3
 
 // ❌ 不会排除兼容的类型
@@ -511,7 +510,7 @@ type ExcludeB = Exclude<A, B> // A (A 不 extends B，因为 B 少了 b 属性)
 
 ### 6.3. 注意事项 3：never 的处理
 
-```typescript
+```ts
 type WithNever = 'a' | 'b' | never
 
 // never 在联合类型中自动消失
@@ -528,7 +527,7 @@ function process(value: never): void {
 
 ### 6.4. 注意事项 4：分布式条件类型的边界
 
-```typescript
+```ts
 // ✅ 正常分布
 type Normal = Exclude<'a' | 'b', 'a'> // 'b'
 
@@ -542,7 +541,7 @@ type Distributed = [Exclude<'a' | 'b', 'a'>] // ['b']
 
 ### 6.5. 注意事项 5：与泛型的结合
 
-```typescript
+```ts
 // ⚠️ 泛型可能导致意外结果
 function exclude<T, U>(value: T, excluded: U): Exclude<T, U> {
   // 运行时无法实现类型过滤
@@ -558,7 +557,7 @@ type SafeResult = Exclude<'a' | 'b', 'a'> // 正确用法
 
 ### 6.6. 注意事项 6：函数类型的排除
 
-```typescript
+```ts
 type Functions = (() => void) | ((x: number) => void) | ((x: string) => void)
 
 // ⚠️ 函数类型的 extends 检查基于参数和返回值的兼容性
@@ -575,7 +574,7 @@ type OnlyWithParam = Exclude<Functions, NoParamFunction>
 
 ### 6.7. 注意事项 7：性能考虑
 
-```typescript
+```ts
 // ⚠️ 复杂的联合类型可能影响类型检查性能
 type LargeUnion = 'a' | 'b' | 'c' /* ... 100个成员 */
 

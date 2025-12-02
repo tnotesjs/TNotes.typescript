@@ -34,7 +34,7 @@
 
 `ThisParameterType<T>` 的源码定义如下：
 
-```typescript
+```ts
 type ThisParameterType<T> = T extends (this: infer U, ...args: never) => any
   ? U
   : unknown
@@ -49,7 +49,7 @@ type ThisParameterType<T> = T extends (this: infer U, ...args: never) => any
 
 基本使用：
 
-```typescript
+```ts
 interface User {
   name: string
   greet(this: User): void
@@ -77,7 +77,7 @@ type ArrowThis = ThisParameterType<typeof arrowFunc>
 
 与其他类型工具的配合：
 
-```typescript
+```ts
 class Calculator {
   value: number = 0
 
@@ -123,7 +123,7 @@ type AddSignature = MethodSignature<Calculator['add']>
 
 在需要操作或验证函数的 `this` 上下文时，`ThisParameterType<T>` 非常有用：
 
-```typescript
+```ts
 // 场景 1：类型安全的事件处理器
 interface EventHandler {
   handleClick(this: EventHandler, event: MouseEvent): void
@@ -250,7 +250,7 @@ function applyMixins<T extends Combined>(target: T) {
 
 在处理方法绑定、装饰器和上下文管理时，`ThisParameterType<T>` 提供类型安全保障：
 
-```typescript
+```ts
 // 应用 1：装饰器中的 this 类型验证
 function LogMethod<T extends (this: any, ...args: any) => any>(
   target: ThisParameterType<T>,
@@ -415,7 +415,7 @@ type HandleClickAutoThis = ThisParameterType<ReactComponent['handleClickAuto']>
 
 在使用 `ThisParameterType<T>` 时，有以下几点需要注意：
 
-```typescript
+```ts
 // 注意 1：箭头函数没有 this 参数
 const arrowFunc = (x: number) => x * 2
 type ArrowThis = ThisParameterType<typeof arrowFunc>
@@ -527,7 +527,7 @@ normalFunc(5) // count 变为 5
 
 常见陷阱和解决方案：
 
-```typescript
+```ts
 // 陷阱 1：接口方法的 this 类型
 interface Service {
   name: string

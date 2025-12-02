@@ -49,7 +49,7 @@
 
 装饰器本质上是一个函数，它接收被装饰的目标作为参数，并可以返回一个新的值来替换原有目标。
 
-```typescript
+```ts
 // ✅ 装饰器就是一个函数
 function myDecorator(target: any) {
   console.log('装饰器被调用了')
@@ -69,7 +69,7 @@ class MyClass {
 
 ### 3.2. 装饰器的特点
 
-```typescript
+```ts
 // ✅ 装饰器在类定义时执行（而不是实例化时）
 @logger
 class User {
@@ -94,7 +94,7 @@ const user2 = new User('Bob') // 不会再次触发装饰器
 
 ::: code-group
 
-```typescript [❌ 不使用装饰器]
+```ts [❌ 不使用装饰器]
 class UserService {
   getUser(id: number) {
     // 记录日志
@@ -123,7 +123,7 @@ class UserService {
 }
 ```
 
-```typescript [✅ 使用装饰器]
+```ts [✅ 使用装饰器]
 class UserService {
   @log
   @measureTime
@@ -170,7 +170,7 @@ function measureTime(
 
 装饰器将横切关注点（如日志、权限、缓存）与业务逻辑分离：
 
-```typescript
+```ts
 // ✅ 业务逻辑清晰，关注点分离
 class ProductService {
   @requireAuth // 权限检查
@@ -188,7 +188,7 @@ class ProductService {
 
 ### 5.1. 基本语法
 
-```typescript
+```ts
 // 装饰器使用 @ 符号
 @decoratorName
 class MyClass {}
@@ -216,7 +216,7 @@ graph LR
 
 ::: code-group
 
-```typescript [简单装饰器]
+```ts [简单装饰器]
 // ✅ 简单装饰器：直接是一个函数
 function sealed(target: Function) {
   Object.seal(target)
@@ -229,7 +229,7 @@ class MyClass {
 }
 ```
 
-```typescript [装饰器工厂]
+```ts [装饰器工厂]
 // ✅ 装饰器工厂：返回装饰器函数的函数
 function log(prefix: string) {
   // 这是装饰器工厂
@@ -271,7 +271,7 @@ TypeScript 支持五种类型的装饰器：
 
 ### 6.1. 示例代码
 
-```typescript
+```ts
 // ✅ 五种装饰器的完整示例
 function classDecorator(target: Function) {
   console.log('5. 类装饰器')
@@ -334,7 +334,7 @@ class Example {
 
 装饰器在类定义时执行，而不是在实例化时：
 
-```typescript
+```ts
 // ✅ 装饰器在类定义时执行
 console.log('=== 开始定义类 ===')
 
@@ -362,7 +362,7 @@ const user = new User('Alice')
 
 ### 7.2. 执行顺序规则
 
-```typescript
+```ts
 // ✅ 多个装饰器的执行顺序
 @decorator1
 @decorator2
@@ -425,7 +425,7 @@ graph TD
 
 ### 8.4. 实际应用场景
 
-```typescript
+```ts
 // ✅ NestJS 中的装饰器使用（旧版装饰器）
 import { Controller, Get, Post } from '@nestjs/common'
 
@@ -443,7 +443,7 @@ export class UserController {
 }
 ```
 
-```typescript
+```ts
 // ✅ TypeORM 中的装饰器使用（旧版装饰器）
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 

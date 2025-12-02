@@ -70,7 +70,7 @@
 
 ### 3.2. 关闭时的行为
 
-```typescript
+```ts
 // strictNullChecks: false（默认）
 let name: string = null // ✅ 允许
 let age: number = undefined // ✅ 允许
@@ -84,7 +84,7 @@ greet(null) // ✅ 编译通过，但运行时错误
 
 ### 3.3. 开启后的行为
 
-```typescript
+```ts
 // strictNullChecks: true
 let name: string = null // ❌ 错误：不能将 null 赋值给 string
 let age: number = undefined // ❌ 错误：不能将 undefined 赋值给 number
@@ -104,7 +104,7 @@ greet(null) // ❌ 错误：类型 null 的参数不能赋给类型 string 的�
 
 ### 4.1. 变量声明
 
-```typescript
+```ts
 // ❌ 不能将 null/undefined 赋值给非空类型
 let str: string = null
 let num: number = undefined
@@ -120,7 +120,7 @@ let num: number = 0
 
 ### 4.2. 函数参数
 
-```typescript
+```ts
 // ❌ 不能传递 null
 function process(data: string) {
   return data.length
@@ -139,7 +139,7 @@ process(null) // 正确
 
 ### 4.3. 对象属性
 
-```typescript
+```ts
 interface User {
   name: string
   email: string | null // 可以为 null
@@ -166,7 +166,7 @@ if (user.phone !== undefined) {
 
 ### 4.4. 数组和索引访问
 
-```typescript
+```ts
 const arr: string[] = ['a', 'b', 'c']
 
 // ❌ 索引访问可能返回 undefined
@@ -181,7 +181,7 @@ const item = arr[10] ?? 'default'
 
 ### 4.5. 函数返回值
 
-```typescript
+```ts
 // ❌ 可能返回 undefined
 function find(arr: string[], target: string): string {
   return arr.find((item) => item === target) // 错误：可能返回 undefined
@@ -202,7 +202,7 @@ function find(arr: string[], target: string): string {
 
 ### 5.1. 类型守卫
 
-```typescript
+```ts
 function process(value: string | null) {
   // ❌ 直接使用
   console.log(value.length) // 错误
@@ -222,7 +222,7 @@ function process(value: string | null) {
 
 ### 5.2. 可选链
 
-```typescript
+```ts
 interface Config {
   server?: {
     port?: number
@@ -245,7 +245,7 @@ const port = config.server?.port ?? 3000
 
 ### 5.3. 空值合并运算符
 
-```typescript
+```ts
 const name: string | null = null
 
 // ❌ 使用 || 可能有问题
@@ -261,7 +261,7 @@ const value2 = count ?? 10 // 0（正确）
 
 ### 5.4. 非空断言
 
-```typescript
+```ts
 // ⚠️ 确定不为 null 时使用
 function getElementById(id: string): HTMLElement | null {
   return document.getElementById(id)
@@ -273,7 +273,7 @@ element.innerHTML = 'Hello' // 不需要检查
 
 ### 5.5. 类型保护函数
 
-```typescript
+```ts
 function isNotNull<T>(value: T | null): value is T {
   return value !== null
 }
@@ -284,7 +284,7 @@ const strings: string[] = values.filter(isNotNull) // 类型为 string[]
 
 ### 5.6. 可选参数和属性
 
-```typescript
+```ts
 // 可选参数
 function greet(name?: string) {
   // name 类型为 string | undefined
@@ -303,7 +303,7 @@ console.log(user.age ?? 0)
 
 ### 5.7. 默认参数
 
-```typescript
+```ts
 // 默认参数会移除 undefined
 function greet(name: string = 'Guest') {
   // name 类型为 string
@@ -319,7 +319,7 @@ greet('Alice') // "ALICE"
 
 ### 6.1. null vs. undefined 的选择
 
-```typescript
+```ts
 // ✅ 推荐：使用 undefined 表示缺失值
 interface User {
   name: string
@@ -337,7 +337,7 @@ interface User {
 
 ### 6.2. DOM 操作
 
-```typescript
+```ts
 // ❌ 直接使用可能为 null 的元素
 const element = document.getElementById('app')
 element.innerHTML = 'Hello' // 错误
@@ -358,7 +358,7 @@ element.innerHTML = 'Hello'
 
 ### 6.3. 数组方法
 
-```typescript
+```ts
 const arr = [1, 2, 3]
 
 // ❌ find/findIndex 可能返回 undefined/-1
@@ -376,7 +376,7 @@ const item = arr.find((x) => x > 5) ?? 0
 
 ### 6.4. JSON 解析
 
-```typescript
+```ts
 // ❌ JSON.parse 返回 any
 const data = JSON.parse(jsonString)
 
@@ -396,7 +396,7 @@ if (isUserData(parsed)) {
 
 ### 6.5. Map 和 Set
 
-```typescript
+```ts
 const map = new Map<string, number>()
 
 // ❌ get 返回 T | undefined
@@ -414,7 +414,7 @@ const value = map.get('key') ?? 0
 
 ### 6.6. 第三方库
 
-```typescript
+```ts
 // 某些库的类型定义可能不准确
 import axios from 'axios'
 
@@ -441,7 +441,7 @@ if (user !== null) {
 }
 ```
 
-```typescript
+```ts
 class User {
   // strictPropertyInitialization 要求初始化
   name: string // ❌ 错误

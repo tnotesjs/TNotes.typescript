@@ -81,7 +81,7 @@ src/
 
 ### 3.2. 类型文件示例
 
-```typescript
+```ts
 // types/common/http.ts
 export interface ApiResponse<T> {
   data: T
@@ -173,7 +173,7 @@ export * from './product'
 }
 ```
 
-```typescript
+```ts
 // ✅ 清晰的导入路径
 import type { User, CreateUserRequest } from '@/types/user'
 import type { ApiResponse } from '@/types/common'
@@ -188,7 +188,7 @@ import type { User } from '../../../types/user/models'
 
 ### 4.1. 定义公共接口
 
-```typescript
+```ts
 // modules/user/public.ts
 export interface IUserService {
   createUser(data: CreateUserRequest): Promise<User>
@@ -214,7 +214,7 @@ import type { IUserService } from '@/modules/user/public'
 
 ### 4.2. 避免循环依赖
 
-```typescript
+```ts
 // ❌ 循环依赖
 // user/types.ts
 import { Product } from '../product/types'
@@ -256,7 +256,7 @@ export interface Product {
 
 ### 4.3. 使用依赖注入
 
-```typescript
+```ts
 // ✅ 接口定义
 export interface ILogger {
   log(message: string): void
@@ -346,7 +346,7 @@ function createContainer(): Container {
 
 ### 5.2. 版本化发布
 
-```typescript
+```ts
 // src/user.ts
 /**
  * User model
@@ -381,7 +381,7 @@ export interface User {
 }
 ```
 
-```typescript
+```ts
 // 项目中使用
 import type { User, Product } from '@company/types'
 
@@ -400,7 +400,7 @@ function getUser(): User {
 
 ### 6.1. 向后兼容的更改
 
-```typescript
+```ts
 // ✅ 添加可选属性
 export interface User {
   id: string
@@ -422,7 +422,7 @@ export interface ApiResponse<T = unknown> {
 
 ### 6.2. 破坏性更改
 
-```typescript
+```ts
 // ❌ 删除属性（破坏性）
 export interface User {
   id: string
@@ -444,7 +444,7 @@ export interface User {
 
 ### 6.3. 使用版本命名空间
 
-```typescript
+```ts
 // types/v1/user.ts
 export namespace V1 {
   export interface User {
@@ -480,12 +480,12 @@ function migrateUser(oldUser: V1.User): V2.User {
 
 ### 7.1. 文档化类型
 
-````typescript
+````ts
 /**
  * 用户模型
  *
  * @example
- * ```typescript
+ * ```ts
  * const user: User = {
  *   id: "123",
  *   email: "user@example.com",
@@ -511,7 +511,7 @@ export interface User {
 
 ### 7.2. 使用工具类型
 
-```typescript
+```ts
 // ✅ 提取公共模式
 type WithTimestamps = {
   createdAt: Date
@@ -536,7 +536,7 @@ export type UserResponse = Pick<User, 'id' | 'email' | 'name'>
 
 ### 7.3. 类型测试
 
-```typescript
+```ts
 // types/__tests__/user.test.ts
 import type { User, CreateUserDTO } from '../user'
 

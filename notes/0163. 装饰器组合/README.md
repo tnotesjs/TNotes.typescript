@@ -51,7 +51,7 @@
 
 装饰器组合是将多个装饰器叠加应用到同一个目标上，实现功能的复合。
 
-```typescript
+```ts
 // 多个装饰器组合
 function log(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const originalMethod = descriptor.value
@@ -114,7 +114,7 @@ service.processData('hello')
 
 ### 4.1. 求值顺序（工厂函数）
 
-```typescript
+```ts
 function first() {
   console.log('1. first 工厂被调用')
   return function (
@@ -152,7 +152,7 @@ class Example {
 
 ### 4.2. 执行顺序（装饰器函数）
 
-```typescript
+```ts
 function outer(
   target: any,
   propertyKey: string,
@@ -209,7 +209,7 @@ example.method()
 
 ### 4.3. 顺序的重要性
 
-```typescript
+```ts
 // 装饰器顺序会影响最终行为
 function cache(
   target: any,
@@ -274,7 +274,7 @@ service.method2(5) // 调用 method2，参数：[5]  返回缓存
 
 ### 5.1. 单一职责
 
-```typescript
+```ts
 // 每个装饰器只做一件事
 function readonly(
   target: any,
@@ -319,7 +319,7 @@ class Example {
 
 ### 5.2. 保持原方法签名
 
-```typescript
+```ts
 // 装饰器应该保持原方法的类型签名
 function decorator(
   target: any,
@@ -340,7 +340,7 @@ function decorator(
 
 ### 5.3. 避免副作用
 
-```typescript
+```ts
 // 避免修改全局状态或影响其他方法
 const globalState = { count: 0 }
 
@@ -373,7 +373,7 @@ function goodDecorator(
 
 ### 6.1. 洋葱模型
 
-```typescript
+```ts
 // 装饰器像洋葱层一样包裹方法
 function middleware1(
   target: any,
@@ -440,7 +440,7 @@ service.process()
 
 ### 6.2. 管道模式
 
-```typescript
+```ts
 // 装饰器形成数据处理管道
 function trim(
   target: any,
@@ -502,7 +502,7 @@ processor.process('  HELLO WORLD  ')
 
 ### 6.3. 条件链模式
 
-```typescript
+```ts
 // 装饰器形成条件判断链
 function requireAuth(
   target: any,
@@ -572,7 +572,7 @@ class AdminController {
 
 ### 6.4. 增强模式
 
-```typescript
+```ts
 // 装饰器逐步增强方法功能
 function retry(times: number) {
   return function (
@@ -654,7 +654,7 @@ class ApiService {
 
 ::: code-group
 
-```typescript [❌ 错误顺序]
+```ts [❌ 错误顺序]
 // 缓存应该在最外层，否则会缓存日志输出
 function log(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const originalMethod = descriptor.value
@@ -693,7 +693,7 @@ class Service {
 }
 ```
 
-```typescript [✅ 正确顺序]
+```ts [✅ 正确顺序]
 // 缓存在最外层
 class Service {
   @cache
@@ -712,7 +712,7 @@ service.method(5) // 无输出（直接返回缓存）
 
 ### 7.2. 返回值处理
 
-```typescript
+```ts
 // 确保所有装饰器正确传递返回值
 function decorator1(
   target: any,
@@ -743,7 +743,7 @@ function decorator2(
 
 ### 7.3. 异步方法处理
 
-```typescript
+```ts
 // 异步装饰器需要正确处理 Promise
 function asyncDecorator(
   target: any,
@@ -772,7 +772,7 @@ class Service {
 
 ### 7.4. 装饰器数量
 
-```typescript
+```ts
 // 避免过度使用装饰器
 class Service {
   // ⚠️ 太多装饰器可能降低可读性和性能
@@ -803,7 +803,7 @@ class Service {
 
 ### 7.5. 装饰器冲突
 
-```typescript
+```ts
 // 避免装饰器之间的冲突
 function makeReadonly(
   target: any,

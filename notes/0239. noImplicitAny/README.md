@@ -72,7 +72,7 @@
 
 ### 3.2. 关闭时的行为
 
-```typescript
+```ts
 // noImplicitAny: false
 // ✅ 允许（参数被推断为 any）
 function add(a, b) {
@@ -88,7 +88,7 @@ add(1, 2) // 3
 
 ### 3.3. 开启后的行为
 
-```typescript
+```ts
 // noImplicitAny: true
 // ❌ 错误：参数 'a' 隐式具有 'any' 类型
 function add(a, b) {
@@ -108,7 +108,7 @@ add('1', '2') // ❌ 错误
 
 ### 4.1. 类型安全
 
-```typescript
+```ts
 // noImplicitAny: false
 function processUser(user) {
   // user: any
@@ -130,7 +130,7 @@ processUser({ age: 25 }) // ❌ 编译时错误
 
 ### 4.2. 代码可读性
 
-```typescript
+```ts
 // noImplicitAny: false
 function calculate(data, config) {
   // 不清楚参数类型
@@ -149,7 +149,7 @@ function calculate(data: number[], config: Config): number[] {
 
 ### 4.3. 重构安全性
 
-```typescript
+```ts
 // noImplicitAny: true
 interface User {
   id: number
@@ -177,7 +177,7 @@ function getUser(id: number): User {
 
 ### 5.1. 函数参数
 
-```typescript
+```ts
 // ❌ 错误：参数隐式 any
 function greet(name) {
   return `Hello, ${name}`
@@ -191,7 +191,7 @@ function greet(name: string): string {
 
 ### 5.2. 解构参数
 
-```typescript
+```ts
 // ❌ 错误：参数隐式 any
 function displayUser({ name, age }) {
   console.log(name, age)
@@ -215,7 +215,7 @@ function displayUser({ name, age }: User) {
 
 ### 5.3. 回调函数
 
-```typescript
+```ts
 // ❌ 错误：参数隐式 any
 ;[1, 2, 3].forEach((item) => {
   console.log(item)
@@ -235,7 +235,7 @@ function displayUser({ name, age }: User) {
 
 ### 5.4. catch 子句
 
-```typescript
+```ts
 // ❌ 错误（在某些配置下）
 try {
   // ...
@@ -256,7 +256,7 @@ try {
 
 ### 5.5. 索引签名访问
 
-```typescript
+```ts
 // ❌ 错误：result 隐式 any
 const obj: { [key: string]: any } = {}
 const result = obj['key']
@@ -272,7 +272,7 @@ const result = obj['key'] // string
 
 ### 5.6. 对象字面量
 
-```typescript
+```ts
 // ❌ 错误：属性隐式 any
 const config = {
   get(key) {
@@ -293,7 +293,7 @@ const config = {
 
 ### 6.1. 添加类型注解
 
-```typescript
+```ts
 // ❌ 错误
 function process(data) {
   return data.map((item) => item * 2)
@@ -307,7 +307,7 @@ function process(data: number[]): number[] {
 
 ### 6.2. 使用类型推断
 
-```typescript
+```ts
 // ✅ 利用上下文推断
 const numbers = [1, 2, 3]
 numbers.forEach((num) => {
@@ -325,7 +325,7 @@ const user = getUser() // user 类型被推断
 
 ### 6.3. any vs. unknown
 
-```typescript
+```ts
 // ⚠️ 不推荐：使用 any（失去类型检查）
 function parseJSON(json: string): any {
   return JSON.parse(json)
@@ -350,7 +350,7 @@ if (typeof data === 'object' && data !== null && 'name' in data) {
 
 ### 6.4. 泛型
 
-```typescript
+```ts
 // ❌ 错误
 function identity(value) {
   return value
@@ -367,7 +367,7 @@ const str = identity('hello') // str: string
 
 ### 6.5. 类型别名
 
-```typescript
+```ts
 // 定义常用类型
 type Handler = (data: string) => void
 type Config = {
@@ -385,7 +385,7 @@ function setup(config: Config, handler: Handler) {
 
 ### 7.1. 渐进式迁移
 
-```typescript
+```ts
 // 旧代码可以先使用显式 any
 function legacyFunction(data: any) {
   // ✅ 明确使用 any
@@ -401,7 +401,7 @@ function newFunction(data: { id: number; name: string }) {
 
 ### 7.2. 第三方库
 
-```typescript
+```ts
 // 如果库没有类型定义
 import someLib from 'some-lib' // ❌ any
 
@@ -416,7 +416,7 @@ declare module 'some-lib' {
 
 ### 7.3. 复杂推断场景
 
-```typescript
+```ts
 // TS 可以推断复杂类型
 const users = [
   { id: 1, name: 'Alice', active: true },
@@ -446,7 +446,7 @@ users.forEach((user) => {
 
 ### 7.5. 工具函数
 
-```typescript
+```ts
 // ✅ 为常用工具添加类型
 function isString(value: unknown): value is string {
   return typeof value === 'string'
@@ -466,7 +466,7 @@ if (isString(value)) {
 
 ### 7.6. 类型守卫
 
-```typescript
+```ts
 // ✅ 使用类型守卫处理 unknown
 function processData(data: unknown) {
   if (Array.isArray(data)) {

@@ -65,7 +65,7 @@
 
 ### 3.1. 基本创建模式
 
-```typescript
+```ts
 // 模式 1：属性值类型转换
 type Stringify<T> = {
   [K in keyof T]: string
@@ -99,7 +99,7 @@ type AsyncUser = Promisify<User>
 
 ### 3.2. 创建新类型的常见模式
 
-```typescript
+```ts
 type原始类型 = {
   name: string;
   age: number;
@@ -132,7 +132,7 @@ type ToEventHandler<T> = {
 
 ### 4.1. 深度只读
 
-```typescript
+```ts
 type DeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends object
     ? T[K] extends Function
@@ -180,7 +180,7 @@ config.server.ssl.enabled = false // 错误
 
 ### 4.2. 深度可选
 
-```typescript
+```ts
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object
     ? T[K] extends Function
@@ -218,7 +218,7 @@ const user4: PartialUser = {
 
 ### 4.3. 深度必需
 
-```typescript
+```ts
 type DeepRequired<T> = {
   [K in keyof T]-?: T[K] extends object
     ? T[K] extends Function
@@ -253,7 +253,7 @@ const config: RequiredConfig = {
 
 ### 4.4. 深度可空
 
-```typescript
+```ts
 type DeepNullable<T> = {
   [K in keyof T]: T[K] extends object
     ? T[K] extends Function
@@ -292,7 +292,7 @@ const data2: NullableData = {
 
 ### 5.1. 使用交叉类型组合
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -313,7 +313,7 @@ type FlexibleUser = ReadonlyPartial<User>
 
 ### 5.2. 分步应用映射类型
 
-```typescript
+```ts
 type User = {
   readonly id: number
   name?: string
@@ -339,7 +339,7 @@ type CleanUser = MutableRequired<User>
 
 ### 5.3. 条件组合
 
-```typescript
+```ts
 type Data = {
   id: number
   name: string
@@ -370,7 +370,7 @@ type DataWithValidators = WithValidators<Data>
 
 ### 5.4. 创建辅助工具类型
 
-```typescript
+```ts
 // 合并类型并解决冲突
 type Merge<T, U> = {
   [K in keyof T | keyof U]: K extends keyof U
@@ -401,7 +401,7 @@ type OnlyInA = Diff<A, B>
 
 ### 6.1. 基于类型的条件转换
 
-```typescript
+```ts
 // 将对象类型转换为 Promise，基本类型保持不变
 type Asyncify<T> = {
   [K in keyof T]: T[K] extends object
@@ -430,7 +430,7 @@ type AsyncService = Asyncify<Service>
 
 ### 6.2. 基于键名的条件转换
 
-```typescript
+```ts
 // 为私有属性（以 _ 开头）添加特殊处理
 type TransformPrivate<T> = {
   [K in keyof T as K extends `_${string}` ? never : K]: T[K]
@@ -455,7 +455,7 @@ type Transformed = TransformPrivate<Class>
 
 ### 6.3. 多条件组合转换
 
-```typescript
+```ts
 // 根据多个条件决定属性处理方式
 type SmartTransform<T> = {
   [K in keyof T]: K extends `_${string}`
@@ -487,7 +487,7 @@ type SmartMixed = SmartTransform<Mixed>
 
 ### 6.4. 分支类型转换
 
-```typescript
+```ts
 // 根据属性类型应用不同的转换
 type ConditionalTransform<T> = {
   [K in keyof T]: T[K] extends string
@@ -506,7 +506,7 @@ type ConditionalTransform<T> = {
 
 ### 7.1. 场景 1：API 客户端生成
 
-```typescript
+```ts
 // API 端点定义
 type ApiEndpoints = {
   getUser: { id: number }
@@ -538,7 +538,7 @@ client.createUser({ name: 'Alice', email: 'alice@example.com' })
 
 ### 7.2. 场景 2：状态管理
 
-```typescript
+```ts
 // 状态定义
 type State = {
   count: number
@@ -567,7 +567,7 @@ type StateActions = Actions<State>
 
 ### 7.3. 场景 3：表单构建器
 
-```typescript
+```ts
 type FormField = {
   username: string
   email: string
@@ -624,7 +624,7 @@ const formConfig: Config = {
 
 ### 7.4. 场景 4：ORM 模型生成
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -648,7 +648,7 @@ type UserModel = QueryMethods<User>
 
 ### 7.5. 场景 5：响应式数据
 
-```typescript
+```ts
 type Data = {
   count: number
   name: string
@@ -680,7 +680,7 @@ reactiveData.count.subscribe((value) => console.log('Count changed:', value))
 
 TypeScript 有递归深度限制（通常是 50 层）。
 
-```typescript
+```ts
 // ⚠️ 可能超过递归深度限制
 type DeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends object ? DeepReadonly<T[K]> : T[K]
@@ -710,7 +710,7 @@ type Decrement<N extends number> = N extends 5
 
 函数类型是对象，需要特殊处理避免错误转换。
 
-```typescript
+```ts
 // ❌ 错误：会错误地转换函数
 type BadDeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends object ? BadDeepReadonly<T[K]> : T[K]
@@ -730,7 +730,7 @@ type GoodDeepReadonly<T> = {
 
 某些转换可能丢失类型信息。
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -751,7 +751,7 @@ type Good<T> = {
 
 处理自引用类型需要特别小心。
 
-```typescript
+```ts
 type Node = {
   value: number
   next?: Node
@@ -765,7 +765,7 @@ type DeepReadonlyNode = DeepReadonly<Node>
 
 复杂的映射类型会影响编译性能。
 
-```typescript
+```ts
 // ⚠️ 性能影响较大
 type ComplexTransform<T> = {
   [K in keyof T]: T[K] extends infer U
@@ -784,7 +784,7 @@ type ComplexTransform<T> = {
 
 某些复杂转换可能导致类型推断失败。
 
-```typescript
+```ts
 // 可能需要显式类型注解
 type Complex<T> = {
   [K in keyof T as K extends `${infer Prefix}_${infer Suffix}`
@@ -800,7 +800,7 @@ const result = complexFunction() as Complex<SomeType>
 
 确保自定义类型与内置工具类型兼容。
 
-```typescript
+```ts
 // 确保与 Partial、Readonly 等兼容
 type MyTransform<T> = {
   [K in keyof T]: T[K]

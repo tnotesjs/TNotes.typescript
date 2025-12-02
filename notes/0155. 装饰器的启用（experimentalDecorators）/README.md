@@ -75,7 +75,7 @@ graph LR
 
 ::: code-group
 
-```typescript [Stage 2 装饰器（旧版）]
+```ts [Stage 2 装饰器（旧版）]
 // ✅ TypeScript 独有的实验性实现
 // 需要配置：experimentalDecorators: true
 
@@ -100,7 +100,7 @@ class Calculator {
 }
 ```
 
-```typescript [Stage 3 装饰器（新版）]
+```ts [Stage 3 装饰器（新版）]
 // ✅ TC39 标准装饰器
 // TypeScript 5.0+ 默认支持
 
@@ -152,7 +152,7 @@ TypeScript 5.0+ 默认支持 Stage 3 标准装饰器，无需额外配置。
 
 ### 4.3. 新版装饰器示例
 
-```typescript
+```ts
 // ✅ 使用新版装饰器 API
 function withLogging<T extends { new (...args: any[]): {} }>(
   target: T,
@@ -209,7 +209,7 @@ TypeScript 5.0 之前需要显式启用 `experimentalDecorators` 配置。
 
 ### 5.3. 旧版装饰器示例
 
-```typescript
+```ts
 // ✅ 使用旧版装饰器 API
 function Component(options: { selector: string }) {
   return function (target: Function) {
@@ -244,7 +244,7 @@ console.log(AppComponent.prototype.__component__)
 
 ### 6.2. experimentalDecorators 示例
 
-```typescript
+```ts
 // ✅ 只启用 experimentalDecorators
 // tsconfig.json: { "experimentalDecorators": true }
 
@@ -264,7 +264,7 @@ class User {
 
 ::: code-group
 
-```typescript [TypeScript 代码]
+```ts [TypeScript 代码]
 // ✅ 启用元数据支持
 // tsconfig.json: {
 //   "experimentalDecorators": true,
@@ -320,7 +320,7 @@ UserService = __decorate(
 
 ### 6.4. 元数据的实际应用
 
-```typescript
+```ts
 // ✅ 依赖注入框架如何使用元数据
 import 'reflect-metadata'
 
@@ -398,7 +398,7 @@ class UserService {
 
 ::: code-group
 
-```typescript [NestJS 项目（旧版）]
+```ts [NestJS 项目（旧版）]
 // ✅ 必须使用旧版装饰器
 // tsconfig.json: { "experimentalDecorators": true, "emitDecoratorMetadata": true }
 
@@ -423,7 +423,7 @@ export class AppController {
 }
 ```
 
-```typescript [纯 TypeScript 项目（新版）]
+```ts [纯 TypeScript 项目（新版）]
 // ✅ 使用新版装饰器
 // tsconfig.json: { "experimentalDecorators": false }
 
@@ -456,7 +456,7 @@ class UserController {
 
 ::: code-group
 
-```typescript [❌ 错误示例]
+```ts [❌ 错误示例]
 // 错误：Experimental support for decorators is a feature
 // that is subject to change in a future release.
 
@@ -481,7 +481,7 @@ class User {
 
 ::: code-group
 
-```typescript [❌ 问题代码]
+```ts [❌ 问题代码]
 // 依赖注入无法工作，参数类型为 undefined
 @Injectable()
 class UserService {
@@ -504,7 +504,7 @@ class UserService {
 
 ### 8.3. 问题 3：reflect-metadata 未安装
 
-```typescript
+```ts
 // ❌ 错误：Cannot find name 'Reflect'
 const types = Reflect.getMetadata('design:paramtypes', target)
 ```
@@ -517,7 +517,7 @@ npm install reflect-metadata
 yarn add reflect-metadata
 ```
 
-```typescript
+```ts
 // ✅ 在入口文件导入
 import 'reflect-metadata'
 ```
@@ -594,7 +594,7 @@ import 'reflect-metadata'
 
 ### 8.7. 配置检查清单
 
-```typescript
+```ts
 // ✅ 验证装饰器配置是否正确
 function checkDecoratorConfig() {
   // 1. 检查装饰器是否可用

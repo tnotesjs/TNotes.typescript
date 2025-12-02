@@ -45,7 +45,7 @@
 
 ### 3.1. 配置元数据
 
-```typescript
+```ts
 // tsconfig.json
 {
   "compilerOptions": {
@@ -55,7 +55,7 @@
 }
 ```
 
-```typescript
+```ts
 // 安装 reflect-metadata
 // npm install reflect-metadata
 import 'reflect-metadata'
@@ -85,7 +85,7 @@ TypeScript 会自动生成三种设计时类型元数据。
 
 ### 4.1. design:type（属性类型）
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 function ShowType(target: any, propertyKey: string) {
@@ -112,7 +112,7 @@ class User {
 
 ### 4.2. design:paramtypes（参数类型）
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 function ShowParams(target: any) {
@@ -140,7 +140,7 @@ class UserService {
 
 ### 4.3. design:returntype（返回类型）
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 function ShowReturn(target: any, propertyKey: string) {
@@ -175,7 +175,7 @@ class Calculator {
 
 ### 5.1. 基本使用
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 定义元数据
@@ -221,7 +221,7 @@ console.log(routes)
 
 ### 5.2. 多个元数据
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 function Method(method: string) {
@@ -264,7 +264,7 @@ console.log(`${method} ${path}`) // GET /api/data
 
 ### 6.1. 依赖注入
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 简化的依赖注入容器
@@ -330,7 +330,7 @@ userService.getUser(1)
 
 ### 6.2. ORM 字段映射
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 function Column(options?: { name?: string; type?: string }) {
@@ -387,7 +387,7 @@ console.log(generateCreateTable(User))
 
 ### 6.3. 验证器
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 function MinLength(length: number) {

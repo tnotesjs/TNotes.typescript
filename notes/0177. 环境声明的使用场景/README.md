@@ -56,7 +56,7 @@
 
 ### 3.1. 常见场景
 
-```typescript
+```ts
 // 场景 1：第三方库没有类型定义
 // ❌ 找不到模块"some-library"的声明文件
 import someLib from 'some-library'
@@ -103,7 +103,7 @@ declare global {
 
 ### 3.2. 判断流程
 
-```typescript
+```ts
 // 决策树
 /**
  * 是否需要环境声明？
@@ -129,7 +129,7 @@ declare global {
 
 ### 3.3. 不需要环境声明的情况
 
-```typescript
+```ts
 // ❌ 不要对自己的代码使用 declare
 // 错误示例
 declare function myFunction(): void // ❌ 应该直接实现
@@ -180,7 +180,7 @@ npm install -D @types/lodash
 
 ### 4.2. 创建类型声明文件
 
-```typescript
+```ts
 // types/library-name.d.ts
 
 // 方案 1：简单声明（快速原型）
@@ -250,7 +250,7 @@ declare module 'library-name' {
 
 ### 4.3. 实际案例：jQuery
 
-```typescript
+```ts
 // types/jquery.d.ts
 declare const jQuery: JQueryStatic
 declare const $: JQueryStatic
@@ -292,7 +292,7 @@ interface JQueryXHR {
 
 ### 4.4. 实际案例：Web Component
 
-```typescript
+```ts
 // types/my-component.d.ts
 declare namespace JSX {
   interface IntrinsicElements {
@@ -325,7 +325,7 @@ interface MyModalAttributes {
 
 ### 5.1. 内联脚本变量
 
-```typescript
+```ts
 // public/index.html
 /**
  * <script>
@@ -358,7 +358,7 @@ const apiUrl = window.APP_CONFIG.apiUrl
 
 ### 5.2. CDN 脚本
 
-```typescript
+```ts
 // index.html 引入了 CDN 脚本
 /**
  * <script src="https://cdn.example.com/analytics.js"></script>
@@ -384,7 +384,7 @@ window.analytics.track('Page Viewed', {
 
 ### 5.3. 环境变量注入
 
-```typescript
+```ts
 // Webpack DefinePlugin 或 Vite define 注入的变量
 // types/env.d.ts
 
@@ -403,7 +403,7 @@ if (__DEV__) {
 
 ### 5.4. Vite 环境变量
 
-```typescript
+```ts
 // types/vite-env.d.ts
 /// <reference types="vite/client" />
 
@@ -446,7 +446,7 @@ const title = import.meta.env.VITE_APP_TITLE
 
 ### 6.2. 阶段 2：添加基础类型
 
-```typescript
+```ts
 // 1. 为全局变量添加类型
 // types/global.d.ts
 declare const API_URL: string
@@ -487,7 +487,7 @@ export function parseJSON(str: string): any
 }
 ```
 
-```typescript
+```ts
 // 改进类型声明
 // types/global.d.ts
 declare const API_URL: string
@@ -533,7 +533,7 @@ declare module 'legacy-lib' {
 }
 ```
 
-```typescript
+```ts
 // 完整类型定义
 // types/legacy-lib.d.ts
 declare module 'legacy-lib' {
@@ -589,7 +589,7 @@ project/
 
 ### 7.2. 类型声明文件组织
 
-```typescript
+```ts
 // types/global.d.ts - 全局类型
 export {}
 
@@ -672,7 +672,7 @@ declare const $: JQueryStatic
 
 ### 7.3. 类型声明最佳实践
 
-````typescript
+````ts
 // ✅ 推荐：组织清晰
 // types/api.d.ts
 export {}
@@ -722,7 +722,7 @@ declare global {
   /**
    * 全局应用配置
    * @example
-   * ```typescript
+   * ```ts
    * const apiUrl = window.APP_CONFIG.apiUrl;
    * ```
    */
@@ -755,7 +755,7 @@ declare const VERSION: string // ❌ 重复声明会报错
 
 ### 7.4. 维护和更新策略
 
-```typescript
+```ts
 // 1. 版本管理
 /**
  * 在类型声明文件中记录版本信息

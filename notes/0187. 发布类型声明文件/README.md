@@ -210,7 +210,7 @@ my-lib/
 
 **源码示例：**
 
-```typescript
+```ts
 // src/index.ts
 
 export interface Config {
@@ -238,7 +238,7 @@ export default MyLib
 
 **构建后的声明文件：**
 
-```typescript
+```ts
 // dist/index.d.ts
 
 export interface Config {
@@ -355,7 +355,7 @@ types/
 
 **index.d.ts 示例：**
 
-```typescript
+```ts
 // Type definitions for my-package 1.0
 // Project: https://github.com/author/my-package
 // Definitions by: Your Name <https://github.com/yourname>
@@ -377,7 +377,7 @@ export as namespace MyPackage
 
 **my-package-tests.ts 示例：**
 
-```typescript
+```ts
 import { method1, MyClass, Config } from 'my-package'
 
 // 测试函数
@@ -502,7 +502,7 @@ npm install --save-dev @types/my-package
 
 ## 7. 使用
 
-```typescript
+```ts
 import { method } from 'my-package'
 
 method('test') // 有类型提示
@@ -540,7 +540,7 @@ MIT
 
 **2. 完整的类型导出**
 
-```typescript
+```ts
 // ✅ 好：导出所有公开类型
 export interface Config {
   timeout: number
@@ -569,7 +569,7 @@ interface Config {
 
 **3. 提供完整的文档注释**
 
-````typescript
+````ts
 /**
  * 应用配置接口
  */
@@ -716,7 +716,7 @@ jobs:
 
 **7. 处理 breaking changes**
 
-```typescript
+```ts
 // 旧版本（v1.x）
 export function method(arg: string): number
 

@@ -55,7 +55,7 @@
 
 ### 3.1. 源码定义
 
-```typescript
+```ts
 // TypeScript lib.es5.d.ts 中的定义
 type Parameters<T extends (...args: any) => any> = T extends (
   ...args: infer P
@@ -66,7 +66,7 @@ type Parameters<T extends (...args: any) => any> = T extends (
 
 ### 3.2. 工作原理
 
-```typescript
+```ts
 function greet(name: string, age: number): string {
   return `Hello, ${name}! You are ${age} years old.`
 }
@@ -84,7 +84,7 @@ type GreetParams = Parameters<typeof greet>
 
 ### 3.3. 基本示例
 
-```typescript
+```ts
 // 基本函数
 function add(a: number, b: number): number {
   return a + b
@@ -114,7 +114,7 @@ type TimeParams = Parameters<typeof getCurrentTime> // []
 
 ### 4.1. 场景 1：函数包装器
 
-```typescript
+```ts
 function log(message: string, level: 'info' | 'warn' | 'error'): void {
   console.log(`[${level}] ${message}`)
 }
@@ -133,7 +133,7 @@ appLogger('Server started', 'info') // [APP]: Server started
 
 ### 4.2. 场景 2：函数参数类型复用
 
-```typescript
+```ts
 function fetchUser(
   id: number,
   options?: { cache?: boolean; retry?: number }
@@ -158,7 +158,7 @@ type User = { id: number; name: string }
 
 ### 4.3. 场景 3：高阶函数类型
 
-```typescript
+```ts
 function createMemoized<T extends (...args: any[]) => any>(fn: T) {
   const cache = new Map<string, ReturnType<T>>()
 
@@ -185,7 +185,7 @@ memoized(1, 2, 'hello') // 从缓存返回
 
 ### 4.4. 场景 4：类型安全的事件处理
 
-```typescript
+```ts
 type EventMap = {
   click: (x: number, y: number) => void
   keypress: (key: string, ctrl: boolean) => void
@@ -225,7 +225,7 @@ emitter.emit('click', 'invalid', true) // 错误
 
 ### 5.1. 应用 1：Redux 中间件
 
-```typescript
+```ts
 type Dispatch = (action: any) => any
 type Middleware = (dispatch: Dispatch) => (action: any) => any
 
@@ -248,7 +248,7 @@ type MiddlewareReturnParams = Parameters<ReturnType<Middleware>>
 
 ### 5.2. 应用 2：API 客户端方法重载
 
-```typescript
+```ts
 class ApiClient {
   request(method: 'GET', url: string): Promise<any>
   request(method: 'POST', url: string, body: any): Promise<any>
@@ -272,7 +272,7 @@ type PostParams = Parameters<
 
 ### 5.3. 应用 3：函数组合
 
-```typescript
+```ts
 function compose<T extends any[], U, V>(
   f: (x: U) => V,
   g: (...args: T) => U
@@ -292,7 +292,7 @@ type DoublePlusOneParams = Parameters<typeof doublePlusOne> // [number]
 
 ### 5.4. 应用 4：测试辅助函数
 
-```typescript
+```ts
 function createMockFunction<T extends (...args: any[]) => any>() {
   const calls: Array<Parameters<T>> = []
 
@@ -325,7 +325,7 @@ console.log(mockAdd.calls) // [[1, 2], [3, 4]]
 
 ### 5.5. 应用 5：柯里化函数
 
-```typescript
+```ts
 function curry<T extends any[], R>(fn: (...args: T) => R) {
   return function curried(...args: Partial<T>): any {
     if (args.length >= fn.length) {
@@ -352,7 +352,7 @@ type Add3Params = Parameters<typeof add3> // [number, number, number]
 
 ### 6.1. 注意事项 1：元组类型的结构
 
-```typescript
+```ts
 function example(a: string, b: number, c?: boolean): void {}
 
 type Params = Parameters<typeof example>
@@ -366,7 +366,7 @@ type ThirdParam = Params[2] // boolean | undefined
 
 ### 6.2. 注意事项 2：剩余参数
 
-```typescript
+```ts
 function spread(...args: number[]): void {}
 
 type SpreadParams = Parameters<typeof spread>
@@ -378,7 +378,7 @@ const params: SpreadParams = [1, 2, 3, 4, 5] // ✅
 
 ### 6.3. 注意事项 3：泛型函数
 
-```typescript
+```ts
 function identity<T>(value: T): T {
   return value
 }
@@ -390,7 +390,7 @@ type IdentityParams = Parameters<typeof identity>
 
 ### 6.4. 注意事项 4：重载函数
 
-```typescript
+```ts
 function process(value: string): string
 function process(value: number): number
 function process(value: string | number): string | number {
@@ -404,7 +404,7 @@ type ProcessParams = Parameters<typeof process>
 
 ### 6.5. 注意事项 5：this 参数
 
-```typescript
+```ts
 function method(this: { count: number }, value: string): void {
   console.log(this.count, value)
 }
@@ -416,7 +416,7 @@ type MethodParams = Parameters<typeof method>
 
 ### 6.6. 注意事项 6：解构赋值
 
-```typescript
+```ts
 type Params = Parameters<typeof greet>
 // [string, number?]
 
@@ -433,7 +433,7 @@ function greet(name: string, age?: number): void {
 
 ### 6.7. 注意事项 7：与展开运算符配合
 
-```typescript
+```ts
 function example(a: number, b: string, c: boolean): void {}
 
 type ExampleParams = Parameters<typeof example>

@@ -60,7 +60,7 @@
 
 ### 3.1. 场景 1：第三方库没有类型定义
 
-```typescript
+```ts
 // node_modules/awesome-lib/index.js
 module.exports = {
   version: '1.0.0',
@@ -101,7 +101,7 @@ exports.formatDate = formatDate
 exports.parseJSON = parseJSON
 ```
 
-```typescript
+```ts
 // legacy/utils.d.ts
 export function formatDate(date: Date, format?: string): string
 export function parseJSON<T = any>(str: string): T | null
@@ -109,7 +109,7 @@ export function parseJSON<T = any>(str: string): T | null
 
 ### 3.3. 场景 3：扩展现有类型定义
 
-```typescript
+```ts
 // types/express-extend.d.ts
 import 'express'
 
@@ -125,7 +125,7 @@ declare module 'express' {
 
 ### 3.4. 场景 4：为全局脚本添加类型
 
-```typescript
+```ts
 // types/globals.d.ts
 declare const APP_VERSION: string
 declare const API_URL: string
@@ -135,7 +135,7 @@ declare function initApp(config: { debug?: boolean; locale?: string }): void
 
 ### 3.5. 场景 5：自定义类型定义
 
-```typescript
+```ts
 // types/custom.d.ts
 // 为项目特定的模块添加类型
 declare module '*.css' {
@@ -176,7 +176,7 @@ module.exports = {
 }
 ```
 
-```typescript
+```ts
 // lodash-lite.d.ts
 declare module 'lodash-lite' {
   /**
@@ -226,7 +226,7 @@ const MathUtils = {
 module.exports = MathUtils
 ```
 
-```typescript
+```ts
 // math-utils.d.ts
 declare module 'math-utils' {
   namespace MathUtils {
@@ -262,7 +262,7 @@ function format(value) {
 module.exports = { format }
 ```
 
-```typescript
+```ts
 // formatter.d.ts
 declare module 'formatter' {
   // 函数重载
@@ -289,7 +289,7 @@ function requestAsync(url) {
 module.exports = { request, requestAsync }
 ```
 
-```typescript
+```ts
 // http-client.d.ts
 declare module 'http-client' {
   export interface Response {
@@ -334,7 +334,7 @@ class Logger {
 module.exports = Logger
 ```
 
-```typescript
+```ts
 // logger.d.ts
 declare module 'logger' {
   export default class Logger {
@@ -372,7 +372,7 @@ class Validator {
 module.exports = Validator
 ```
 
-```typescript
+```ts
 // validator.d.ts
 declare module 'validator' {
   export interface ValidationRules {
@@ -419,7 +419,7 @@ class TypedEmitter extends EventEmitter {
 module.exports = { EventEmitter, TypedEmitter }
 ```
 
-```typescript
+```ts
 // event-emitter.d.ts
 declare module 'event-emitter' {
   export class EventEmitter {
@@ -476,7 +476,7 @@ Database.create = function (config) {
 module.exports = Database
 ```
 
-```typescript
+```ts
 // database.d.ts
 declare module 'database' {
   export interface DatabaseConfig {
@@ -505,7 +505,7 @@ declare module 'database' {
 
 ### 6.1. 分模块组织
 
-```typescript
+```ts
 // types/my-library/index.d.ts
 declare module 'my-library' {
   // 导出所有子模块
@@ -545,7 +545,7 @@ declare module 'my-library/types' {
 
 ### 6.2. 使用命名空间组织
 
-```typescript
+```ts
 // types/big-library.d.ts
 declare module 'big-library' {
   // 核心 API
@@ -600,7 +600,7 @@ declare module 'big-library' {
 
 ### 6.3. 使用类型引用
 
-```typescript
+```ts
 // types/api/base.d.ts
 declare module 'my-api/base' {
   export interface BaseResponse {
@@ -637,7 +637,7 @@ declare module 'my-api/user' {
 
 ### 6.4. 实际案例：Express 风格
 
-```typescript
+```ts
 // types/web-framework.d.ts
 declare module 'web-framework' {
   import { IncomingMessage, ServerResponse } from 'http'
@@ -696,7 +696,7 @@ declare module 'web-framework' {
 
 ### 7.1. 从简单开始
 
-```typescript
+```ts
 // ❌ 避免：一开始就追求完美
 declare module 'complex-lib' {
   // 过于复杂的类型定义
@@ -722,7 +722,7 @@ declare module 'complex-lib' {
 
 ### 7.2. 使用 JSDoc 注释
 
-````typescript
+````ts
 // ✅ 推荐：详细的 JSDoc 注释
 declare module 'my-library' {
   /**
@@ -751,7 +751,7 @@ declare module 'my-library' {
    * @returns 用户对象
    * @throws 当用户不存在时抛出错误
    * @example
-   * ```typescript
+   * ```ts
    * const user = await getUser('123');
    * console.log(user.name);
    * ```
@@ -762,7 +762,7 @@ declare module 'my-library' {
 
 ### 7.3. 保持类型精确
 
-```typescript
+```ts
 // ❌ 避免：过于宽泛的类型
 declare module 'api-client' {
   export function request(options: any): Promise<any>
@@ -793,7 +793,7 @@ declare module 'api-client' {
 
 ### 7.4. 合理使用泛型
 
-```typescript
+```ts
 // ✅ 推荐：恰当的泛型使用
 declare module 'storage' {
   /**
@@ -832,7 +832,7 @@ declare module 'storage' {
 
 ### 7.5. 版本和兼容性说明
 
-```typescript
+```ts
 /**
  * Type definitions for my-library v2.0.0
  * Project: https://github.com/org/my-library
@@ -856,7 +856,7 @@ declare module 'my-library' {
 
 ### 7.6. 测试声明文件
 
-```typescript
+```ts
 // test/types.test.ts
 import { getUser, User } from 'my-library'
 

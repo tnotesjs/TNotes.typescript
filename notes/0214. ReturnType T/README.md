@@ -4,23 +4,23 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 ReturnType\<T\> 是什么？](#3--returntypet-是什么)
+- [3. 🤔 `ReturnType<T>` 是什么？](#3--returntypet-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. infer 关键字](#32-infer-关键字)
   - [3.3. 工作原理](#33-工作原理)
   - [3.4. 基本示例](#34-基本示例)
-- [4. 🤔 如何使用 ReturnType\<T\>？](#4--如何使用-returntypet)
+- [4. 🤔 如何使用 `ReturnType<T>`？](#4--如何使用-returntypet)
   - [4.1. 场景 1：从函数推导类型](#41-场景-1从函数推导类型)
   - [4.2. 场景 2：高阶函数类型推导](#42-场景-2高阶函数类型推导)
   - [4.3. 场景 3：工厂函数类型](#43-场景-3工厂函数类型)
   - [4.4. 场景 4：异步函数返回值](#44-场景-4异步函数返回值)
-- [5. 🤔 ReturnType\<T\> 的实际应用场景有哪些？](#5--returntypet-的实际应用场景有哪些)
+- [5. 🤔 `ReturnType<T>` 的实际应用场景有哪些？](#5--returntypet-的实际应用场景有哪些)
   - [5.1. 应用 1：Redux Action Creator](#51-应用-1redux-action-creator)
   - [5.2. 应用 2：API 客户端类型推导](#52-应用-2api-客户端类型推导)
   - [5.3. 应用 3：数据处理管道](#53-应用-3数据处理管道)
   - [5.4. 应用 4：React Hooks 返回类型](#54-应用-4react-hooks-返回类型)
   - [5.5. 应用 5：数据库查询构建器](#55-应用-5数据库查询构建器)
-- [6. 🤔 使用 ReturnType\<T\> 需要注意什么？](#6--使用-returntypet-需要注意什么)
+- [6. 🤔 使用 `ReturnType<T>` 需要注意什么？](#6--使用-returntypet-需要注意什么)
   - [6.1. 注意事项 1：泛型函数的返回类型](#61-注意事项-1泛型函数的返回类型)
   - [6.2. 注意事项 2：重载函数](#62-注意事项-2重载函数)
   - [6.3. 注意事项 3：void 返回类型](#63-注意事项-3void-返回类型)
@@ -50,14 +50,13 @@
 - 与泛型配合使用非常灵活
 - 是函数类型元编程的基础工具
 
-## 3. 🤔 ReturnType\<T\> 是什么？
+## 3. 🤔 `ReturnType<T>` 是什么？
 
 `ReturnType<T>` 从函数类型 `T` 中提取返回值的类型。
 
 ### 3.1. 源码定义
 
-```typescript
-// TypeScript lib.es5.d.ts 中的定义
+```ts
 type ReturnType<T extends (...args: any) => any> = T extends (
   ...args: any
 ) => infer R
@@ -67,7 +66,7 @@ type ReturnType<T extends (...args: any) => any> = T extends (
 
 ### 3.2. infer 关键字
 
-```typescript
+```ts
 // infer 用于在条件类型中声明类型变量
 // R 是推断出的返回类型
 
@@ -80,7 +79,7 @@ type Return = GetReturn<Func> // string
 
 ### 3.3. 工作原理
 
-```typescript
+```ts
 function getUser(): { id: number; name: string } {
   return { id: 1, name: 'Alice' }
 }
@@ -98,7 +97,7 @@ type UserReturn = ReturnType<typeof getUser>
 
 ### 3.4. 基本示例
 
-```typescript
+```ts
 // 普通函数
 function add(a: number, b: number): number {
   return a + b
@@ -127,11 +126,11 @@ async function fetchData(): Promise<string> {
 type FetchReturn = ReturnType<typeof fetchData> // Promise<string>
 ```
 
-## 4. 🤔 如何使用 ReturnType\<T\>？
+## 4. 🤔 如何使用 `ReturnType<T>`？
 
 ### 4.1. 场景 1：从函数推导类型
 
-```typescript
+```ts
 // API 响应函数
 function getUsers() {
   return [
@@ -155,7 +154,7 @@ function displayUser(user: User): void {
 
 ### 4.2. 场景 2：高阶函数类型推导
 
-```typescript
+```ts
 function createLogger(prefix: string) {
   return {
     log: (message: string) => console.log(`[${prefix}] ${message}`),
@@ -183,7 +182,7 @@ useLogger(logger)
 
 ### 4.3. 场景 3：工厂函数类型
 
-```typescript
+```ts
 class UserService {
   getUser(id: number) {
     return {
@@ -215,7 +214,7 @@ function processUser(user: User): void {
 
 ### 4.4. 场景 4：异步函数返回值
 
-```typescript
+```ts
 async function fetchUser(id: number) {
   const response = await fetch(`/api/users/${id}`)
   return response.json() as {
@@ -239,11 +238,11 @@ async function processUser(): Promise<void> {
 }
 ```
 
-## 5. 🤔 ReturnType\<T\> 的实际应用场景有哪些？
+## 5. 🤔 `ReturnType<T>` 的实际应用场景有哪些？
 
 ### 5.1. 应用 1：Redux Action Creator
 
-```typescript
+```ts
 // Action creators
 const userActions = {
   login: (username: string, password: string) => ({
@@ -288,7 +287,7 @@ function userReducer(state: any, action: UserAction): any {
 
 ### 5.2. 应用 2：API 客户端类型推导
 
-```typescript
+```ts
 class ApiClient {
   async get<T>(url: string): Promise<{ data: T; status: number }> {
     const response = await fetch(url)
@@ -330,7 +329,7 @@ async function fetchUser(id: number): Promise<void> {
 
 ### 5.3. 应用 3：数据处理管道
 
-```typescript
+```ts
 // 处理函数
 const pipeline = {
   parse: (raw: string) => JSON.parse(raw),
@@ -366,7 +365,7 @@ function processPipeline(raw: string): TransformResult {
 
 ### 5.4. 应用 4：React Hooks 返回类型
 
-```typescript
+```ts
 function useUser(id: number) {
   const [user, setUser] = React.useState<{ id: number; name: string } | null>(
     null
@@ -419,7 +418,7 @@ declare const React: any
 
 ### 5.5. 应用 5：数据库查询构建器
 
-```typescript
+```ts
 class QueryBuilder<T> {
   where(condition: string) {
     return {
@@ -462,11 +461,11 @@ async function findUsers(): Promise<void> {
 }
 ```
 
-## 6. 🤔 使用 ReturnType\<T\> 需要注意什么？
+## 6. 🤔 使用 `ReturnType<T>` 需要注意什么？
 
 ### 6.1. 注意事项 1：泛型函数的返回类型
 
-```typescript
+```ts
 function identity<T>(value: T): T {
   return value
 }
@@ -486,7 +485,7 @@ type IdentityReturn2 = ReturnType<Identity> // unknown
 
 ### 6.2. 注意事项 2：重载函数
 
-```typescript
+```ts
 function process(value: string): string
 function process(value: number): number
 function process(value: string | number): string | number {
@@ -503,7 +502,7 @@ type ProcessStringReturn = ReturnType<(value: string) => string> // string
 
 ### 6.3. 注意事项 3：void 返回类型
 
-```typescript
+```ts
 function log(message: string): void {
   console.log(message)
 }
@@ -518,7 +517,7 @@ const result2: LogReturn = log('test') // ✅ 可以
 
 ### 6.4. 注意事项 4：never 返回类型
 
-```typescript
+```ts
 function throwError(): never {
   throw new Error('Error')
 }
@@ -532,7 +531,7 @@ const result: ThrowReturn = throwError() // 永不执行到这里
 
 ### 6.5. 注意事项 5：异步函数
 
-```typescript
+```ts
 async function fetchData(): Promise<string> {
   return 'data'
 }
@@ -552,7 +551,7 @@ async function useData(): Promise<void> {
 
 ### 6.6. 注意事项 6：条件类型中的使用
 
-```typescript
+```ts
 // ✅ ReturnType 可以在条件类型中使用
 type IsVoidFunction<T> = T extends (...args: any) => any
   ? ReturnType<T> extends void
@@ -566,7 +565,7 @@ type Check2 = IsVoidFunction<() => string> // false
 
 ### 6.7. 注意事项 7：构造函数
 
-```typescript
+```ts
 class User {
   constructor(public name: string) {}
 }

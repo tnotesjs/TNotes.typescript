@@ -131,7 +131,7 @@ my-workspace/
 
 ### 4.2. 代码组织
 
-```typescript
+```ts
 // ❌ 没有项目引用（混乱）
 import { User } from '../../core/src/models/user'
 import { helper } from '../../utils/src/helper'
@@ -475,7 +475,7 @@ packages/core/
 
 ### 7.7. 导入路径
 
-```typescript
+```ts
 // ❌ 不要直接导入源文件
 import { User } from "../shared/src/user";
 

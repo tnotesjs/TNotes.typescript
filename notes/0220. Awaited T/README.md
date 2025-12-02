@@ -35,7 +35,7 @@
 
 `Awaited<T>` 的源码定义如下：
 
-```typescript
+```ts
 type Awaited<T> = T extends null | undefined
   ? T
   : T extends object & { then(onfulfilled: infer F, ...args: infer _): any }
@@ -54,7 +54,7 @@ type Awaited<T> = T extends null | undefined
 5. 递归解包：递归调用 `Awaited<V>` 处理嵌套的 `Promise`
 6. 兜底返回：如果不匹配上述情况，返回 `T` 本身
 
-```typescript
+```ts
 // 基本使用
 type PromiseString = Promise<string>
 type UnwrappedString = Awaited<PromiseString>
@@ -80,7 +80,7 @@ type UndefinedType = Awaited<undefined>
 
 **工作流程示例：**
 
-```typescript
+```ts
 // 示例 1：单层 Promise
 type Step1 = Promise<string>
 type Result1 = Awaited<Step1>
@@ -117,7 +117,7 @@ type ThenableResult = Awaited<CustomThenable>
 
 **与 ReturnType 配合使用：**
 
-```typescript
+```ts
 // 异步函数
 async function fetchUser(): Promise<{ id: number; name: string }> {
   return { id: 1, name: 'Alice' }
@@ -148,7 +148,7 @@ type NestedData = Awaited<ReturnType<typeof getNestedData>>
 
 在处理异步操作和 `Promise` 类型时，`Awaited<T>` 提供了类型安全的解包：
 
-```typescript
+```ts
 // 场景 1：API 响应类型
 interface ApiResponse<T> {
   data: T
@@ -218,7 +218,7 @@ type UnwrappedTuple = UnwrapArray<PromiseTuple>
 
 在实际异步编程场景中，`Awaited<T>` 确保类型安全：
 
-```typescript
+```ts
 // 应用 1：Promise.all 类型推断
 async function fetchUserAndPosts() {
   const [user, posts] = await Promise.all([
@@ -382,7 +382,7 @@ const squared = await mapAsync(numbers, async (n) => n * n)
 
 `Awaited<T>` 的递归特性使其能够处理任意深度的 `Promise` 嵌套：
 
-```typescript
+```ts
 // 基本嵌套
 type Level1 = Promise<number>
 type Unwrap1 = Awaited<Level1>
@@ -521,7 +521,7 @@ const fullyAwaited = await awaitDeep(complexData)
 
 在使用 `Awaited<T>` 时，有以下几点需要注意：
 
-```typescript
+```ts
 // 注意 1：只在 TypeScript 4.5+ 可用
 // 低版本需要自己实现或使用 polyfill
 type CustomAwaited<T> = T extends Promise<infer U> ? CustomAwaited<U> : T;
@@ -595,7 +595,7 @@ type VeryDeep = Promise<Promise<Promise<Promise<Promise<
 
 **常见陷阱和解决方案：**
 
-```typescript
+```ts
 // 陷阱 1：泛型约束丢失
 function processAsync<T extends string>(
   value: Promise<T>

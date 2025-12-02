@@ -99,7 +99,7 @@ tsc hello.ts
 # 生成 hello.js
 ```
 
-```typescript
+```ts
 // hello.ts
 function greet(name: string): string {
   return `Hello, ${name}!`
@@ -138,7 +138,7 @@ tsc hello.ts --target ES5
 tsc hello.ts --target ES2020
 ```
 
-```typescript
+```ts
 // hello.ts
 const greet = (name: string) => `Hello, ${name}!`
 ```
@@ -163,7 +163,7 @@ tsc hello.ts --module commonjs
 tsc hello.ts --module esnext
 ```
 
-```typescript
+```ts
 // hello.ts
 export function greet(name: string): string {
   return `Hello, ${name}!`
@@ -319,7 +319,7 @@ tsc --extendedDiagnostics
 
 ### 7.2. 常见错误示例
 
-```typescript
+```ts
 // error.ts
 function greet(name: string): number {
   // ❌ 返回类型错误

@@ -49,7 +49,7 @@
 
 映射类型允许基于旧类型创建新类型，通过遍历键来转换属性。
 
-```typescript
+```ts
 // 基本语法：{ [K in Keys]: Type }
 
 type Keys = 'a' | 'b' | 'c'
@@ -66,7 +66,7 @@ type Mapped = {
 
 **使用 keyof 遍历对象键：**
 
-```typescript
+```ts
 interface Person {
   name: string
   age: number
@@ -85,7 +85,7 @@ type StringPerson = {
 
 映射类型的执行过程：
 
-```typescript
+```ts
 // 1. 获取键的联合类型
 type Keys = keyof Person // 'name' | 'age'
 
@@ -102,7 +102,7 @@ type Result = {
 
 **保留原类型：**
 
-```typescript
+```ts
 type Clone<T> = {
   [K in keyof T]: T[K]
 }
@@ -127,7 +127,7 @@ type ClonedUser = Clone<User>
 
 **添加 readonly：**
 
-```typescript
+```ts
 type Readonly<T> = {
   readonly [K in keyof T]: T[K]
 }
@@ -149,7 +149,7 @@ point.x = 30 // ❌ 错误：无法分配到 "x" ，因为它是只读属性
 
 **移除 readonly：**
 
-```typescript
+```ts
 type Mutable<T> = {
   -readonly [K in keyof T]: T[K]
 }
@@ -173,7 +173,7 @@ point.x = 30 // ✅ 可以修改
 
 **添加可选：**
 
-```typescript
+```ts
 type Partial<T> = {
   [K in keyof T]?: T[K]
 }
@@ -196,7 +196,7 @@ const todo: PartialTodo = { title: 'Learn TypeScript' } // ✅
 
 **移除可选：**
 
-```typescript
+```ts
 type Required<T> = {
   [K in keyof T]-?: T[K]
 }
@@ -219,7 +219,7 @@ const config: RequiredConfig = { host: 'localhost' } // ❌ 缺少 port
 
 **同时使用多个修饰符：**
 
-```typescript
+```ts
 // 移除 readonly 和可选
 type Concrete<T> = {
   -readonly [K in keyof T]-?: T[K]
@@ -241,7 +241,7 @@ type ConcreteProps = Concrete<MixedProps>
 
 **修饰符的符号：**
 
-```typescript
+```ts
 // + 表示添加修饰符（默认行为）
 type AddReadonly<T> = {
   +readonly [K in keyof T]: T[K]
@@ -268,7 +268,7 @@ type RemoveOptional<T> = {
 
 TypeScript 4.1+ 支持使用 `as` 子句重新映射键名。
 
-```typescript
+```ts
 // 语法：[K in Keys as NewK]: Type
 
 type Getters<T> = {
@@ -291,7 +291,7 @@ type PersonGetters = Getters<Person>
 
 使用 `as` 子句结合条件类型过滤属性：
 
-```typescript
+```ts
 // 过滤掉值为 never 的键
 type OmitByType<T, ValueType> = {
   [K in keyof T as T[K] extends ValueType ? never : K]: T[K]
@@ -313,7 +313,7 @@ type NonNumber = OmitByType<Mixed, number>
 
 **移除特定属性：**
 
-```typescript
+```ts
 type OmitKeys<T, K extends keyof T> = {
   [P in keyof T as P extends K ? never : P]: T[P]
 }
@@ -337,7 +337,7 @@ type PublicUser = OmitKeys<User, 'password'>
 
 **添加前缀：**
 
-```typescript
+```ts
 type AddPrefix<T, Prefix extends string> = {
   [K in keyof T as `${Prefix}${string & K}`]: T[K]
 }
@@ -356,7 +356,7 @@ type OnActions = AddPrefix<Actions, 'on'>
 
 **转换命名风格：**
 
-```typescript
+```ts
 type CamelToSnake<S extends string> = S extends `${infer T}${infer U}`
   ? `${T extends Capitalize<T> ? '_' : ''}${Lowercase<T>}${CamelToSnake<U>}`
   : S
@@ -385,7 +385,7 @@ type SnakeCaseObj = SnakeCase<CamelCase>
 
 **Pick 的实现：**
 
-```typescript
+```ts
 type MyPick<T, K extends keyof T> = {
   [P in K]: T[P]
 }
@@ -405,7 +405,7 @@ type TodoPreview = MyPick<Todo, 'title' | 'completed'>
 
 **Record 的实现：**
 
-```typescript
+```ts
 type MyRecord<K extends keyof any, T> = {
   [P in K]: T
 }
@@ -425,7 +425,7 @@ type PageInfo = MyRecord<
 
 **深度只读：**
 
-```typescript
+```ts
 type DeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends object
     ? T[K] extends (...args: any[]) => any
@@ -456,7 +456,7 @@ type ReadonlyNested = DeepReadonly<Nested>
 
 **类型值包装：**
 
-```typescript
+```ts
 type Boxed<T> = {
   [K in keyof T]: { value: T[K] }
 }
@@ -477,7 +477,7 @@ type BoxedData = Boxed<Data>
 
 **根据类型条件转换：**
 
-```typescript
+```ts
 type Nullish<T> = {
   [K in keyof T]: T[K] extends object ? T[K] | null : T[K]
 }
@@ -498,7 +498,7 @@ type NullableUser = Nullish<User>
 
 **提取特定类型的属性：**
 
-```typescript
+```ts
 type FunctionPropertyNames<T> = {
   [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never
 }[keyof T]
@@ -525,7 +525,7 @@ type ExampleFunctions = FunctionProperties<Example>
 
 同态映射会保留原类型的修饰符：
 
-```typescript
+```ts
 interface Optional {
   a?: number
   b: string
@@ -554,7 +554,7 @@ type R2 = Mapped2<Optional>
 
 **2. 键名重映射的限制**
 
-```typescript
+```ts
 // ❌ 错误：as 子句必须产生字符串、数字或 symbol 类型
 type Wrong<T> = {
   [K in keyof T as T[K]]: string // 错误
@@ -568,7 +568,7 @@ type Correct<T> = {
 
 **3. never 键会被过滤**
 
-```typescript
+```ts
 type FilterByValue<T, ValueType> = {
   [K in keyof T as T[K] extends ValueType ? K : never]: T[K]
 }
@@ -588,7 +588,7 @@ type StringOnly = FilterByValue<Data, string>
 
 **4. 循环引用问题**
 
-```typescript
+```ts
 // ❌ 可能导致类型实例化过深
 type DeepReadonly<T> = {
   readonly [K in keyof T]: DeepReadonly<T[K]>
@@ -604,7 +604,7 @@ type SafeDeepReadonly<T> = T extends object
 
 **5. 联合类型的处理**
 
-```typescript
+```ts
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   k: infer I
 ) => void
@@ -623,7 +623,7 @@ type MappedUnion = {
 
 **6. 性能考虑**
 
-```typescript
+```ts
 // ❌ 不好：复杂的嵌套映射
 type Complex<T> = {
   [K in keyof T]: {

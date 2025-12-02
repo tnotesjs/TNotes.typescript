@@ -74,7 +74,7 @@ graph TD
 
 ### 3.2. 五个阶段
 
-```typescript
+```ts
 // 源代码
 const message: string = 'Hello'
 
@@ -97,7 +97,7 @@ const message: string = 'Hello'
 
 ### 3.3. 编译器 API 示例
 
-```typescript
+```ts
 import * as ts from 'typescript'
 
 function compile(sourceCode: string) {
@@ -127,7 +127,7 @@ Scanner 负责词法分析，将源代码转换为 Token 流。
 
 ### 4.1. Token 类型
 
-```typescript
+```ts
 // TypeScript 中的 Token 类型
 enum SyntaxKind {
   // 关键字
@@ -163,7 +163,7 @@ enum SyntaxKind {
 
 ### 4.2. 扫描过程示例
 
-```typescript
+```ts
 // 源代码
 const age: number = 25
 
@@ -222,7 +222,7 @@ Token 7: {
 
 ### 4.3. 使用 Scanner API
 
-```typescript
+```ts
 import * as ts from 'typescript'
 
 function scanTokens(sourceCode: string) {
@@ -253,7 +253,7 @@ Parser 将 Token 流转换为抽象语法树（AST）。
 
 ### 5.1. AST 节点结构
 
-```typescript
+```ts
 // 源代码
 const add = (a: number, b: number) => a + b
 
@@ -280,7 +280,7 @@ SourceFile
 
 ### 5.2. 遍历 AST
 
-```typescript
+```ts
 import * as ts from 'typescript'
 
 function traverseAST(sourceCode: string) {
@@ -316,7 +316,7 @@ SourceFile
 
 ### 5.3. 提取类型信息
 
-```typescript
+```ts
 import * as ts from 'typescript'
 
 function extractTypes(sourceCode: string) {
@@ -355,7 +355,7 @@ Binder 创建符号表，建立标识符与声明的关联。
 
 ### 6.1. 符号和符号表
 
-```typescript
+```ts
 // 源代码
 function greet(name: string) {
   const message = `Hello, ${name}`
@@ -388,7 +388,7 @@ greet 函数作用域:
 
 ### 6.2. 作用域链
 
-```typescript
+```ts
 // 源代码
 const global = 'global'
 
@@ -415,7 +415,7 @@ outer 函数作用域
 
 ### 6.3. 符号标志
 
-```typescript
+```ts
 // TypeScript 中的符号标志
 enum SymbolFlags {
   None = 0,
@@ -436,7 +436,7 @@ Checker 执行类型检查，验证代码的类型正确性。
 
 ### 7.1. 类型检查过程
 
-```typescript
+```ts
 // 源代码
 function add(a: number, b: number): number {
   return a + b
@@ -462,7 +462,7 @@ add(1, '2') // ❌ 错误
 
 ### 7.2. 类型兼容性检查
 
-```typescript
+```ts
 // 源代码
 interface User {
   name: string
@@ -487,7 +487,7 @@ const person: Person = user // ✅ 正确（结构类型）
 
 ### 7.3. 使用 Checker API
 
-```typescript
+```ts
 import * as ts from 'typescript'
 
 function checkTypes(sourceCode: string) {
@@ -547,7 +547,7 @@ Emitter 将 AST 转换为目标 JavaScript 代码。
 
 ### 8.1. 代码生成过程
 
-```typescript
+```ts
 // TypeScript 源代码
 interface User {
   name: string
@@ -592,7 +592,7 @@ class Person {
 
 ### 8.2. 类型擦除
 
-```typescript
+```ts
 // TypeScript
 function add(a: number, b: number): number {
   return a + b
@@ -610,7 +610,7 @@ const result = add(1, 2)
 
 ### 8.3. Source Map 生成
 
-```typescript
+```ts
 // Emitter 同时生成 Source Map
 // 将生成的 JavaScript 映射回原始 TypeScript
 
@@ -632,7 +632,7 @@ function add(a, b) {
 
 ### 8.4. 声明文件生成
 
-```typescript
+```ts
 // TypeScript 源码
 export function add(a: number, b: number): number {
   return a + b

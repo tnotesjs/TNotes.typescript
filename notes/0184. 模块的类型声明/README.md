@@ -55,7 +55,7 @@
 
 **模块声明的基本语法：**
 
-```typescript
+```ts
 // types/my-module.d.ts
 
 // 方式1：使用 declare module 包裹
@@ -72,7 +72,7 @@ export const version: string
 
 **使用模块：**
 
-```typescript
+```ts
 // 使用者可以获得类型提示
 import { greet, version } from 'my-module'
 
@@ -93,7 +93,7 @@ console.log(version) // version: string
 
 **模块声明的位置：**
 
-```typescript
+```ts
 // 方式1：项目根目录的 types 目录
 // types/my-module/index.d.ts
 export function method(): void;
@@ -135,7 +135,7 @@ export const PI = 3.14159
 
 **类型声明：**
 
-```typescript
+```ts
 // math.d.ts
 export function add(a: number, b: number): number
 export function subtract(a: number, b: number): number
@@ -144,7 +144,7 @@ export const PI: number
 
 **使用：**
 
-```typescript
+```ts
 // 使用者获得完整类型支持
 import { add, subtract, PI } from './math'
 
@@ -173,7 +173,7 @@ export default class User {
 
 **类型声明：**
 
-```typescript
+```ts
 // user.d.ts
 export default class User {
   constructor(name: string, age: number)
@@ -185,7 +185,7 @@ export default class User {
 
 **使用：**
 
-```typescript
+```ts
 import User from './user'
 
 const user = new User('Alice', 25)
@@ -219,7 +219,7 @@ export const levels = {
 
 **类型声明：**
 
-```typescript
+```ts
 // logger.d.ts
 export default function log(message: string): void
 
@@ -235,7 +235,7 @@ export const levels: {
 
 **使用：**
 
-```typescript
+```ts
 import log, { warn, error, levels } from './logger'
 
 log('Info message')
@@ -270,7 +270,7 @@ module.exports = Calculator
 
 **类型声明（使用 export =）：**
 
-```typescript
+```ts
 // calculator.d.ts
 declare class Calculator {
   constructor()
@@ -285,7 +285,7 @@ export = Calculator
 
 **使用（需要特殊导入）：**
 
-```typescript
+```ts
 // ❌ 错误：不能使用 ES6 导入（除非开启 esModuleInterop）
 // import Calculator from './calculator';
 
@@ -332,7 +332,7 @@ module.exports = {
 
 **类型声明：**
 
-```typescript
+```ts
 // utils.d.ts
 declare namespace Utils {
   function trim(str: string): string
@@ -345,7 +345,7 @@ export = Utils
 
 **使用：**
 
-```typescript
+```ts
 import utils = require('./utils')
 
 const trimmed = utils.trim('  hello  ') // string
@@ -357,7 +357,7 @@ console.log(utils.version) // string
 
 **同时支持两种导入方式：**
 
-```typescript
+```ts
 // types/my-lib.d.ts
 
 // 命名空间包含所有导出
@@ -382,7 +382,7 @@ export as namespace MyLib
 
 **两种使用方式：**
 
-```typescript
+```ts
 // 方式1：CommonJS 导入
 import MyLib = require('my-lib')
 MyLib.init({ timeout: 5000, retries: 3 })
@@ -398,7 +398,7 @@ MyLib.init({ timeout: 5000, retries: 3 })
 
 **场景：为 express 添加自定义属性**
 
-```typescript
+```ts
 // types/express.d.ts
 
 // 导入原始模块的类型
@@ -419,7 +419,7 @@ declare module 'express' {
 
 **使用扩展后的类型：**
 
-```typescript
+```ts
 import express from 'express'
 
 const app = express()
@@ -444,7 +444,7 @@ app.get('/', (req, res) => {
 
 **场景：为 Vue 3 添加全局属性**
 
-```typescript
+```ts
 // types/vue.d.ts
 
 import 'vue'
@@ -476,7 +476,7 @@ instance?.proxy?.$api.get('/users')
 
 **扩展 global 对象：**
 
-```typescript
+```ts
 // types/global.d.ts
 
 declare global {
@@ -499,7 +499,7 @@ export {}
 
 **使用：**
 
-```typescript
+```ts
 // ✅ process.env 现在有类型提示
 console.log(process.env.NODE_ENV) // 'development' | 'production' | 'test'
 console.log(process.env.DATABASE_URL) // string
@@ -512,7 +512,7 @@ global.myCustomCache = new Map()
 
 **场景：为 window 对象添加属性**
 
-```typescript
+```ts
 // types/window.d.ts
 
 declare global {
@@ -532,7 +532,7 @@ export {}
 
 **使用：**
 
-```typescript
+```ts
 // ✅ window 对象有类型提示
 window.gtag('config', 'GA_MEASUREMENT_ID')
 window.dataLayer.push({ event: 'page_view' })
@@ -558,7 +558,7 @@ window.dataLayer.push({ event: 'page_view' })
 
 **JSON 文件：**
 
-```typescript
+```ts
 // types/json.d.ts
 
 declare module '*.json' {
@@ -575,7 +575,7 @@ declare module '*.json' {
 
 **使用：**
 
-```typescript
+```ts
 // ✅ 可以导入 JSON 文件
 import config from './config.json'
 
@@ -584,7 +584,7 @@ console.log(config.version)
 
 **CSS Modules：**
 
-```typescript
+```ts
 // types/css-modules.d.ts
 
 declare module '*.module.css' {
@@ -600,7 +600,7 @@ declare module '*.module.scss' {
 
 **使用：**
 
-```typescript
+```ts
 import styles from './App.module.css'
 
 // ✅ styles 有类型提示
@@ -611,7 +611,7 @@ import styles from './App.module.css'
 
 **图片资源：**
 
-```typescript
+```ts
 // types/images.d.ts
 
 declare module '*.png' {
@@ -639,7 +639,7 @@ declare module '*.svg' {
 
 **使用：**
 
-```typescript
+```ts
 import logo from './logo.png';
 import icon from './icon.svg';
 
@@ -650,7 +650,7 @@ import icon from './icon.svg';
 
 **文本文件：**
 
-```typescript
+```ts
 // types/text.d.ts
 
 declare module '*.txt' {
@@ -666,7 +666,7 @@ declare module '*.md' {
 
 **完整的资源声明文件示例：**
 
-```typescript
+```ts
 // types/resources.d.ts
 
 // JSON
@@ -713,7 +713,7 @@ declare module '*.txt' {
 
 **1. 优先使用 ES 模块语法**
 
-```typescript
+```ts
 // ✅ 推荐：使用 ES 模块
 export function greet(name: string): string
 export default class User {}
@@ -724,7 +724,7 @@ export = MyModule
 
 **2. 模块声明的组织**
 
-```typescript
+```ts
 // ✅ 好的组织：按功能分组
 // types/my-lib/index.d.ts
 export interface Config {}
@@ -745,7 +745,7 @@ export namespace Utils {
 
 **3. 模块扩展的位置**
 
-```typescript
+```ts
 // ✅ 推荐：单独的扩展文件
 // types/express-extensions.d.ts
 import 'express'
@@ -760,7 +760,7 @@ declare module 'express' {
 
 **4. 使用命名空间组织类型**
 
-```typescript
+```ts
 // ✅ 好的实践：使用命名空间
 declare module 'my-lib' {
   export namespace HTTP {
@@ -782,7 +782,7 @@ const msg: WebSocket.Message = {}
 
 **5. 为通配符模块提供准确类型**
 
-```typescript
+```ts
 // ❌ 不好：过于宽泛
 declare module '*.svg' {
   const content: any
@@ -805,7 +805,7 @@ declare module '*.svg' {
 
 **6. 模块声明的版本管理**
 
-```typescript
+```ts
 // types/my-lib-v1.d.ts
 declare module 'my-lib' {
   export function oldMethod(): void
@@ -821,7 +821,7 @@ declare module 'my-lib' {
 
 **7. 文档注释**
 
-```typescript
+```ts
 /**
  * 用户认证模块
  * @module auth

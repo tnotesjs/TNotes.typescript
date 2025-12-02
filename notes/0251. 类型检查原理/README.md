@@ -55,7 +55,7 @@ TypeScript 使用结构类型系统和渐进式类型检查。
 
 ### 3.1. 结构类型系统
 
-```typescript
+```ts
 // ✅ 结构类型：只看结构，不看名称
 interface Point {
   x: number
@@ -78,7 +78,7 @@ const coord: Coordinate = point // ✅ 可以赋值，因为结构相同
 
 ### 3.2. 类型的内部表示
 
-```typescript
+```ts
 // TypeScript 编译器内部的类型表示（简化）
 
 // 源代码
@@ -122,7 +122,7 @@ Type {
 
 ### 3.3. 类型检查步骤
 
-```typescript
+```ts
 // 源代码
 function add(a: number, b: number): number {
   return a + b
@@ -157,7 +157,7 @@ TypeScript 使用多种推断算法来确定类型。
 
 ### 4.1. 基本类型推断
 
-```typescript
+```ts
 // ✅ 从初始值推断
 const x = 42 // 推断为：42（字面量类型）
 let y = 42 // 推断为：number
@@ -171,7 +171,7 @@ let str2 = 'hello' // 推断为：string
 
 ### 4.2. 最佳公共类型
 
-```typescript
+```ts
 // ✅ 联合类型推断
 const arr = [1, 'hello', true]
 // 推断为：(number | string | boolean)[]
@@ -184,7 +184,7 @@ const arr = [1, 'hello', true]
 
 ### 4.3. 上下文类型推断
 
-```typescript
+```ts
 // ✅ 从上下文推断参数类型
 const numbers = [1, 2, 3]
 
@@ -201,7 +201,7 @@ numbers.forEach((n) => {
 
 ### 4.4. 返回类型推断
 
-```typescript
+```ts
 // ✅ 从返回语句推断返回类型
 function greet(name: string) {
   return `Hello, ${name}`
@@ -224,7 +224,7 @@ function process(flag: boolean) {
 
 ### 4.5. 泛型类型推断
 
-```typescript
+```ts
 // ✅ 泛型参数推断
 function identity<T>(value: T): T {
   return value
@@ -255,7 +255,7 @@ TypeScript 使用结构类型系统检查类型兼容性。
 
 ### 5.1. 对象类型兼容性
 
-```typescript
+```ts
 // ✅ 结构兼容性
 interface Named {
   name: string
@@ -289,7 +289,7 @@ const point2: Point = obj // ✅ 非字面量允许额外属性
 
 ### 5.2. 函数类型兼容性
 
-```typescript
+```ts
 // ✅ 函数参数逆变
 type Handler1 = (a: string | number) => void
 type Handler2 = (a: string) => void
@@ -318,7 +318,7 @@ const g2: Getter2 = g1 // ✅ 返回值可以更具体
 
 ### 5.3. 可选属性兼容性
 
-```typescript
+```ts
 // ✅ 可选属性
 interface Config {
   host: string
@@ -339,7 +339,7 @@ TypeScript 通过控制流分析自动收窄类型。
 
 ### 6.1. 类型守卫收窄
 
-```typescript
+```ts
 // ✅ typeof 类型守卫
 function process(value: string | number) {
   if (typeof value === 'string') {
@@ -360,7 +360,7 @@ function process(value: string | number) {
 
 ### 6.2. 赋值收窄
 
-```typescript
+```ts
 // ✅ 赋值后类型收窄
 let value: string | number | boolean
 
@@ -382,7 +382,7 @@ console.log(value.toFixed())
 
 ### 6.3. 可辨识联合
 
-```typescript
+```ts
 // ✅ 可辨识联合的控制流分析
 type Shape =
   | { kind: 'circle'; radius: number }
@@ -409,7 +409,7 @@ function getArea(shape: Shape): number {
 
 ### 6.4. 非空断言影响
 
-```typescript
+```ts
 // ✅ 非空断言收窄
 function process(value: string | null | undefined) {
   if (value) {
@@ -434,7 +434,7 @@ TypeScript 使用缓存来优化类型检查性能。
 
 ### 7.1. 类型缓存
 
-```typescript
+```ts
 // TypeScript 内部的类型缓存机制
 
 // ✅ 相同结构的类型只创建一次
@@ -461,7 +461,7 @@ const box2: Box<number> = { value: 2 }
 
 ### 7.2. 增量编译
 
-```typescript
+```ts
 // TypeScript 的增量编译优化
 
 // ✅ 文件依赖图
@@ -482,7 +482,7 @@ const box2: Box<number> = { value: 2 }
 
 ### 7.3. 性能优化建议
 
-```typescript
+```ts
 // ✅ 避免复杂的类型计算
 // ❌ 慢：每次都重新计算
 type DeepReadonly<T> = {

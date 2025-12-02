@@ -68,7 +68,7 @@
 
 ### 3.2. 关闭时的行为
 
-```typescript
+```ts
 // alwaysStrict: false
 // 源文件：example.ts
 function test() {
@@ -85,7 +85,7 @@ function test() {
 
 ### 3.3. 开启后的行为
 
-```typescript
+```ts
 // alwaysStrict: true
 // 源文件：example.ts
 function test() {
@@ -105,7 +105,7 @@ function test() {
 
 ### 4.1. 避免隐式全局变量
 
-```typescript
+```ts
 // alwaysStrict: false
 function calculate() {
   result = 100 // ⚠️ 创建全局变量
@@ -130,7 +130,7 @@ function calculate() {
 
 ### 4.2. 禁止八进制字面量
 
-```typescript
+```ts
 // alwaysStrict: false
 const num = 0123 // ⚠️ 八进制：83
 console.log(num) // 83
@@ -146,7 +146,7 @@ const num2 = 83 // 十进制
 
 ### 4.3. 禁止删除变量
 
-```typescript
+```ts
 // alwaysStrict: false
 let x = 10
 delete x // ⚠️ 非严格模式下静默失败
@@ -162,7 +162,7 @@ delete obj.x // ✅ 正确
 
 ### 4.4. 禁止重复参数
 
-```typescript
+```ts
 // alwaysStrict: false
 function sum(a, a, c) {
   // ⚠️ 允许重复参数名
@@ -185,7 +185,7 @@ function sum(a, b, c) {
 
 ### 5.1. 编译输出
 
-```typescript
+```ts
 // 源文件：math.ts
 export function add(a: number, b: number) {
   return a + b
@@ -213,7 +213,7 @@ exports.add = add
 
 ### 5.2. 模块文件自动严格
 
-```typescript
+```ts
 // ES 模块自动是严格模式
 export function hello() {
   x = 10 // ❌ 错误（即使 alwaysStrict: false）
@@ -227,7 +227,7 @@ function hello() {
 
 ### 5.3. this 绑定
 
-```typescript
+```ts
 // alwaysStrict: true
 function showThis() {
   console.log(this) // 严格模式下 this 为 undefined
@@ -245,7 +245,7 @@ showThis() // window/global（非严格模式）
 
 ### 5.4. 只读属性
 
-```typescript
+```ts
 // alwaysStrict: true
 const obj = {}
 Object.defineProperty(obj, 'x', {
@@ -260,7 +260,7 @@ obj.x = 20 // ❌ 严格模式下抛出错误
 
 ### 5.5. arguments 对象
 
-```typescript
+```ts
 // alwaysStrict: true
 function test(a) {
   arguments[0] = 100
@@ -299,7 +299,7 @@ test(10)
 
 ### 6.2. 模块 vs. 脚本
 
-```typescript
+```ts
 // math.ts（模块文件，有 import/export）
 export function add(a: number, b: number) {
   return a + b
@@ -325,7 +325,7 @@ function add(a: number, b: number) {
 }
 ```
 
-```typescript
+```ts
 // 源码
 function test() {
   return 42
@@ -348,7 +348,7 @@ function test() {
 
 ### 6.4. 第三方库
 
-```typescript
+```ts
 // ✅ 使用严格模式兼容的库
 import _ from 'lodash' // lodash 支持严格模式
 
@@ -358,7 +358,7 @@ import oldLib from 'old-library' // 可能依赖非严格模式行为
 
 ### 6.5. 浏览器兼容性
 
-```typescript
+```ts
 // alwaysStrict: true 输出
 'use strict'
 // 所有现代浏览器都支持严格模式
@@ -392,7 +392,7 @@ import oldLib from 'old-library' // 可能依赖非严格模式行为
 
 ### 6.7. 全局代码
 
-```typescript
+```ts
 // 脚本文件（不是模块）
 // alwaysStrict: true
 
@@ -425,7 +425,7 @@ console.log(Math.sqrt(16))
 
 ### 6.9. 性能影响
 
-```typescript
+```ts
 // alwaysStrict 对性能影响微乎其微
 // 主要影响编译时检查和运行时行为
 

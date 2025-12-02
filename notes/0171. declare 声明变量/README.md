@@ -56,7 +56,7 @@ declare 声明变量的基本语法与普通变量声明类似，但不能赋初
 
 ### 3.1. 基本语法
 
-```typescript
+```ts
 // 声明全局变量
 declare var version: string
 declare let currentUser: string
@@ -75,7 +75,7 @@ console.log(API_URL)
 
 ### 3.2. 声明不同类型的变量
 
-```typescript
+```ts
 // 基本类型
 declare var count: number
 declare var isActive: boolean
@@ -100,7 +100,7 @@ declare var data: any
 
 ### 3.3. 实际使用场景
 
-```typescript
+```ts
 // 场景1：CDN 引入的库定义了全局变量
 // <script src="config.js"></script>
 // config.js 定义了：window.APP_CONFIG = { ... }
@@ -136,7 +136,7 @@ INITIAL_DATA.users.forEach((user) => {
 
 ### 4.1. var 声明
 
-```typescript
+```ts
 // var 声明的变量可以被重新赋值
 declare var mutableValue: number
 
@@ -147,7 +147,7 @@ mutableValue = 20 // 正确
 
 ### 4.2. let 声明
 
-```typescript
+```ts
 // let 声明的变量可以被重新赋值（语义上与 var 相同）
 declare let currentPage: number
 
@@ -158,7 +158,7 @@ currentPage = 2 // 正确
 
 ### 4.3. const 声明
 
-```typescript
+```ts
 // const 声明的变量不能被重新赋值
 declare const VERSION: string
 declare const MAX_SIZE: number
@@ -181,7 +181,7 @@ CONFIG.timeout = 5000 // 正确：可以修改属性
 
 ::: code-group
 
-```typescript [var 声明]
+```ts [var 声明]
 // 全局可变状态
 declare var userToken: string | null
 
@@ -190,7 +190,7 @@ userToken = 'abc123'
 userToken = null
 ```
 
-```typescript [let 声明]
+```ts [let 声明]
 // 块级作用域变量（虽然 declare 中作用域相同）
 declare let selectedId: number
 
@@ -199,7 +199,7 @@ selectedId = 1
 selectedId = 2
 ```
 
-```typescript [const 声明]
+```ts [const 声明]
 // 常量配置
 declare const ENV: {
   readonly NODE_ENV: string
@@ -215,7 +215,7 @@ console.log(ENV.NODE_ENV)
 
 ### 4.5. 选择建议
 
-```typescript
+```ts
 // 使用 const：已知是常量
 declare const API_BASE_URL: string
 declare const MAX_RETRIES: number
@@ -234,7 +234,7 @@ declare const window: Window & typeof globalThis
 
 ### 5.1. 对象类型
 
-```typescript
+```ts
 // 内联对象类型
 declare var user: {
   id: number
@@ -263,7 +263,7 @@ declare var appConfig: Config
 
 ### 5.2. 数组和元组
 
-```typescript
+```ts
 // 数组
 declare var items: string[]
 declare var users: Array<{ id: number; name: string }>
@@ -279,7 +279,7 @@ rgb = [255, 0, 128]
 
 ### 5.3. 函数类型
 
-```typescript
+```ts
 // 函数类型变量
 declare var callback: (value: string) => void
 declare var validator: (input: any) => boolean
@@ -293,7 +293,7 @@ const result = transformer(123)
 
 ### 5.4. 联合和交叉类型
 
-```typescript
+```ts
 // 联合类型
 declare var status: 'idle' | 'loading' | 'success' | 'error'
 declare var result: string | number | boolean
@@ -313,7 +313,7 @@ user.updatedAt
 
 ### 5.5. 泛型类型
 
-```typescript
+```ts
 // 泛型变量
 declare var cache: Map<string, any>
 declare var queue: Set<number>
@@ -327,7 +327,7 @@ promise.then((value) => console.log(value))
 
 ### 5.6. 复杂嵌套类型
 
-```typescript
+```ts
 // API 响应类型
 declare var apiResponse: {
   data: {
@@ -362,7 +362,7 @@ apiResponse.data.users.forEach((user) => {
 
 ### 6.1. 浏览器环境
 
-```typescript
+```ts
 // 扩展 Window 接口
 declare global {
   interface Window {
@@ -383,7 +383,7 @@ gtag('config', 'GA_MEASUREMENT_ID')
 
 ### 6.2. Node.js 环境
 
-```typescript
+```ts
 // 扩展 NodeJS 命名空间
 declare global {
   namespace NodeJS {
@@ -409,7 +409,7 @@ global.customCache = new Map()
 
 ### 6.3. 通用全局变量
 
-```typescript
+```ts
 // 直接声明全局变量
 declare var DEBUG: boolean
 declare var VERSION: string
@@ -425,7 +425,7 @@ console.log(`版本：${VERSION}`)
 
 ### 6.4. 第三方库的全局变量
 
-```typescript
+```ts
 // jQuery
 declare var $: JQueryStatic
 declare var jQuery: JQueryStatic
@@ -458,7 +458,7 @@ _.debounce(() => console.log('search'), 300)
 
 ### 6.5. 模块环境中的全局声明
 
-```typescript
+```ts
 // 在模块文件中声明全局变量
 export {} // 标记为模块
 
@@ -477,7 +477,7 @@ customGlobal.utils.formatDate(new Date())
 
 ### 6.6. 环境变量示例
 
-```typescript
+```ts
 // .env 文件的类型声明
 declare global {
   namespace NodeJS {

@@ -98,7 +98,7 @@ UMD（Universal Module Definition）是一种模块模式，目标是让模块�
 
 **UMD 适用的场景：**
 
-```typescript
+```ts
 // ✅ 适合 UMD 的场景
 // 1. 需要同时支持浏览器和 Node.js
 // 2. 需要支持 AMD、CommonJS、全局变量
@@ -125,7 +125,7 @@ UMD（Universal Module Definition）是一种模块模式，目标是让模块�
 
 **方式 1：使用 declare namespace + export as namespace**
 
-```typescript
+```ts
 // types/my-lib.d.ts
 
 // 1. 声明命名空间（包含所有 API）
@@ -150,7 +150,7 @@ export as namespace MyLib
 
 **三种使用方式：**
 
-```typescript
+```ts
 // ✅ 方式1：ES6 模块导入（需要 esModuleInterop）
 import MyLib from 'my-lib'
 MyLib.greet('Alice')
@@ -168,7 +168,7 @@ MyLib.greet('Alice')
 
 **`export as namespace` 的作用：**
 
-```typescript
+```ts
 // types/calculator.d.ts
 
 // 声明模块内容
@@ -185,7 +185,7 @@ export as namespace Calculator
 
 **对比没有 `export as namespace`：**
 
-```typescript
+```ts
 // ❌ 没有 export as namespace
 export function add(a: number, b: number): number
 // 只能作为模块导入：import { add } from 'calculator';
@@ -204,7 +204,7 @@ export as namespace Calculator
 
 **ES6 模块导入：**
 
-```typescript
+```ts
 // types/my-lib.d.ts
 export function method1(): void
 export function method2(): string
@@ -215,7 +215,7 @@ export as namespace MyLib
 
 **使用：**
 
-```typescript
+```ts
 // ✅ 命名导入
 import { method1, method2, version } from 'my-lib'
 method1()
@@ -250,7 +250,7 @@ console.log(MyLib.version)
 
 **TypeScript 中的类型支持：**
 
-```typescript
+```ts
 // app.ts
 
 // ✅ 无需导入，直接使用全局变量
@@ -263,7 +263,7 @@ console.log(MyLib.version) // 有类型提示
 
 **CommonJS 导入：**
 
-```typescript
+```ts
 // types/my-lib.d.ts
 declare namespace MyLib {
   function method(): void
@@ -275,7 +275,7 @@ export as namespace MyLib
 
 **Node.js 使用：**
 
-```typescript
+```ts
 // ✅ CommonJS 导入
 const MyLib = require('my-lib')
 MyLib.method()
@@ -295,7 +295,7 @@ MyLib.method()
 
 **简化的 jQuery 类型声明：**
 
-```typescript
+```ts
 // types/jquery.d.ts
 
 // jQuery 对象接口
@@ -349,7 +349,7 @@ export as namespace $
 
 **使用 jQuery：**
 
-```typescript
+```ts
 // ✅ 全局使用（<script> 标签）
 $('#app').addClass('active')
 
@@ -370,7 +370,7 @@ $('#app').addClass('active')
 
 **简化的 Lodash 类型声明：**
 
-```typescript
+```ts
 // types/lodash.d.ts
 
 // Lodash 命名空间
@@ -406,7 +406,7 @@ export as namespace _
 
 **使用 Lodash：**
 
-```typescript
+```ts
 // ✅ 全局使用
 const chunks = _.chunk([1, 2, 3, 4], 2) // [[1, 2], [3, 4]]
 const unique = _.uniq([1, 2, 2, 3]) // [1, 2, 3]
@@ -424,7 +424,7 @@ const chunks = chunk([1, 2, 3, 4], 2)
 
 **简化的 Moment.js 类型声明：**
 
-```typescript
+```ts
 // types/moment.d.ts
 
 // Moment 对象
@@ -458,7 +458,7 @@ export as namespace moment
 
 **使用 Moment.js：**
 
-```typescript
+```ts
 // ✅ 全局使用
 const now = moment()
 const formatted = now.format('YYYY-MM-DD')
@@ -472,7 +472,7 @@ const now = moment()
 
 **1. 完整的 UMD 声明模板**
 
-```typescript
+```ts
 // types/my-umd-lib.d.ts
 
 // 1. 声明命名空间
@@ -506,7 +506,7 @@ export as namespace MyUMDLib
 
 **2. 处理重载**
 
-```typescript
+```ts
 declare namespace MyLib {
   // 函数重载
   function parse(value: string): any
@@ -520,7 +520,7 @@ export as namespace MyLib
 
 **3. 支持链式调用**
 
-```typescript
+```ts
 declare namespace ChainLib {
   interface Chain {
     method1(): Chain
@@ -537,13 +537,13 @@ export as namespace ChainLib
 
 **使用链式调用：**
 
-```typescript
+```ts
 ChainLib.create().method1().method2('test').execute()
 ```
 
 **4. 插件系统**
 
-```typescript
+```ts
 declare namespace PluginLib {
   interface Plugin {
     name: string
@@ -588,7 +588,7 @@ export as namespace PluginLib
 
 **7. 测试 UMD 声明**
 
-```typescript
+```ts
 // test/umd-test.ts
 
 // 测试模块导入
@@ -610,7 +610,7 @@ MyLib.init({ timeout: 5000 })
 
 **8. 迁移建议**
 
-```typescript
+```ts
 // ❌ 老项目：UMD 模式
 export = MyLib
 export as namespace MyLib

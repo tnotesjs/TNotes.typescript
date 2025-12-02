@@ -67,7 +67,7 @@ typeRoots 指定类型声明文件的根目录。
 }
 ```
 
-```typescript
+```ts
 // 默认情况下，所有 @types 包都会被自动包含
 // node_modules/@types/node/index.d.ts      ✅ 自动包含
 // node_modules/@types/react/index.d.ts     ✅ 自动包含
@@ -93,7 +93,7 @@ import _ from 'lodash' // 使用 @types/lodash
 }
 ```
 
-```typescript
+```ts
 // 项目结构
 /**
  * project/
@@ -225,7 +225,7 @@ types 指定要包含的具体类型包。
 }
 ```
 
-```typescript
+```ts
 // 默认情况下，typeRoots 下的所有包都会被包含
 // node_modules/@types/node     ✅ 包含
 // node_modules/@types/react    ✅ 包含
@@ -249,7 +249,7 @@ types 指定要包含的具体类型包。
 }
 ```
 
-```typescript
+```ts
 // ✅ 可以使用 @types/node
 import { readFile } from 'fs'
 
@@ -275,7 +275,7 @@ import React from 'react' // ❌ 错误：找不到模块
 }
 ```
 
-```typescript
+```ts
 // ❌ 所有 @types 包都不会自动包含
 import { readFile } from 'fs' // ❌ 找不到类型
 import React from 'react' // ❌ 找不到类型
@@ -390,7 +390,7 @@ import { readFile } from 'fs' // ✅ 现在可以用了
 
 ### 5.4. 使用决策
 
-```typescript
+```ts
 /**
  * 何时使用 typeRoots？
  *
@@ -513,7 +513,7 @@ import { readFile } from 'fs' // ✅ 现在可以用了
 }
 ```
 
-```typescript
+```ts
 // 目录结构
 /**
  * types/
@@ -604,7 +604,7 @@ declare module '*.png' {
 }
 ```
 
-```typescript
+```ts
 // 文件级别动态引入
 /// <reference types="node" />
 /// <reference path="./types/custom.d.ts" />

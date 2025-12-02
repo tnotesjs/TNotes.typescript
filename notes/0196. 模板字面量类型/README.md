@@ -50,7 +50,7 @@
 
 模板字面量类型使用反引号（```）语法，类似于 JavaScript 的模板字符串。
 
-```typescript
+```ts
 // 基本语法：`string ${Type} string`
 
 type World = 'world'
@@ -64,7 +64,7 @@ type G2 = MakeGreeting<'TypeScript'> // 'hello TypeScript'
 
 **插入类型：**
 
-```typescript
+```ts
 type EmailAddress<User extends string> = `${User}@example.com`
 
 type JohnEmail = EmailAddress<'john'> // 'john@example.com'
@@ -73,7 +73,7 @@ type JaneEmail = EmailAddress<'jane'> // 'jane@example.com'
 
 **多个插值：**
 
-```typescript
+```ts
 type Path<Root extends string, Sub extends string> = `${Root}/${Sub}`
 
 type ApiPath = Path<'api', 'users'> // 'api/users'
@@ -84,7 +84,7 @@ type DocsPath = Path<'docs', 'guide'> // 'docs/guide'
 
 模板字面量类型是类型级别的，JavaScript 模板字符串是值级别的。
 
-```typescript
+```ts
 // 类型级别：编译时
 type Pattern = `get${string}` // 匹配所有以 'get' 开头的字符串
 
@@ -106,7 +106,7 @@ validateMethod('setName') // ❌ 错误
 
 将字符串转换为大写。
 
-```typescript
+```ts
 type Uppercase<S extends string> = intrinsic
 
 type Loud = Uppercase<'hello'> // 'HELLO'
@@ -121,7 +121,7 @@ type API_KEY = MakeConstant<'api'> // 'API_CONSTANT'
 
 将字符串转换为小写。
 
-```typescript
+```ts
 type Lowercase<S extends string> = intrinsic
 
 type Quiet = Lowercase<'HELLO'> // 'hello'
@@ -136,7 +136,7 @@ type FileName = ToSnakeCase<'MyComponent'> // 'mycomponent'
 
 将首字母大写。
 
-```typescript
+```ts
 type Capitalize<S extends string> = intrinsic
 
 type Title = Capitalize<'hello'> // 'Hello'
@@ -152,7 +152,7 @@ type GetAge = Getter<'age'> // 'getAge'
 
 将首字母小写。
 
-```typescript
+```ts
 type Uncapitalize<S extends string> = intrinsic
 
 type LowerFirst = Uncapitalize<'Hello'> // 'hello'
@@ -169,7 +169,7 @@ type UserVar = InstanceName<'User'> // 'user'
 
 模板字面量类型与联合类型结合会生成所有可能的组合。
 
-```typescript
+```ts
 type Direction = 'top' | 'right' | 'bottom' | 'left'
 type Margin = `margin${Capitalize<Direction>}`
 // type Margin = 'marginTop' | 'marginRight' | 'marginBottom' | 'marginLeft'
@@ -184,7 +184,7 @@ type ClassNames = `${Size}-${Color}`
 
 **生成 CSS 类名：**
 
-```typescript
+```ts
 type Breakpoint = 'sm' | 'md' | 'lg'
 type Property = 'flex' | 'grid'
 type ResponsiveClass = `${Breakpoint}:${Property}`
@@ -195,7 +195,7 @@ type ResponsiveClass = `${Breakpoint}:${Property}`
 
 使用 `infer` 从模板字面量类型中提取部分。
 
-```typescript
+```ts
 // 提取前缀后的内容
 type RemovePrefix<
   S extends string,
@@ -216,7 +216,7 @@ type WithoutHandler = RemoveSuffix<'clickHandler', 'Handler'> // 'click'
 
 **提取路径参数：**
 
-```typescript
+```ts
 type ExtractRouteParams<Route extends string> =
   Route extends `${infer Start}/:${infer Param}/${infer Rest}`
     ? Param | ExtractRouteParams<`/${Rest}`>
@@ -230,7 +230,7 @@ type Params = ExtractRouteParams<'/users/:id/posts/:postId'>
 
 ### 5.3. 递归模板类型
 
-```typescript
+```ts
 // 字符串反转
 type Reverse<S extends string> = S extends `${infer First}${infer Rest}`
   ? `${Reverse<Rest>}${First}`
@@ -253,7 +253,7 @@ type T1 = TrimSpaces<'  hello  '> // 'hello'
 
 ### 6.1. 事件处理器类型
 
-```typescript
+```ts
 type EventName = 'click' | 'focus' | 'blur' | 'change'
 type EventHandler<T extends EventName> = `on${Capitalize<T>}`
 
@@ -278,7 +278,7 @@ const handlers: Handlers = {
 
 ### 6.2. CSS 属性类型
 
-```typescript
+```ts
 type CSSUnit = 'px' | 'em' | 'rem' | '%'
 type Size = `${number}${CSSUnit}`
 
@@ -302,7 +302,7 @@ type CSSProperty = Property | `${Property}${Side}`
 
 ### 6.3. 路由路径类型
 
-```typescript
+```ts
 // 定义路由模式
 type Route = '/users/:id' | '/posts/:postId/comments/:commentId'
 
@@ -323,7 +323,7 @@ type CommentParams = ExtractParams<'/posts/:postId/comments/:commentId'>
 
 **类型安全的路由函数：**
 
-```typescript
+```ts
 declare function navigate<Path extends Route>(
   path: Path,
   params: ExtractParams<Path>
@@ -338,7 +338,7 @@ navigate('/users/:id', { postId: '123' }) // ❌ 错误：类型不匹配
 
 **1. 类型数量爆炸**
 
-```typescript
+```ts
 // ⚠️ 警告：联合类型组合会指数增长
 type A = 'a' | 'b' | 'c' | 'd' | 'e'
 type B = 'x' | 'y' | 'z'
@@ -354,7 +354,7 @@ type TooMany = `${A}-${B}-${C}-${A}-${B}` // 5×3×2×5×3 = 450 种组合
 
 **2. string 类型的特殊性**
 
-```typescript
+```ts
 // string 类型在模板中的行为
 type Test1 = `prefix-${string}` // 匹配所有 'prefix-' 开头的字符串
 type Test2 = `${string}-suffix` // 匹配所有 '-suffix' 结尾的字符串
@@ -366,7 +366,7 @@ const s2: Test1 = 'prefix-xyz' // ✅
 
 **3. 推断的限制**
 
-```typescript
+```ts
 // infer 只能捕获字符串字面量
 type Extract<S> = S extends `${infer A}-${infer B}` ? A : never
 
@@ -376,7 +376,7 @@ type R2 = Extract<string> // string (无法精确推断)
 
 **4. 递归深度限制**
 
-```typescript
+```ts
 // ❌ 递归太深可能导致错误
 type DeepRecursive<S extends string, N extends number = 50> = N extends 0
   ? S
@@ -394,7 +394,7 @@ type SafeRecursive<S extends string> = S extends `${infer First}${infer Rest}`
 
 **5. 类型检查性能**
 
-```typescript
+```ts
 // ❌ 不好：复杂的嵌套模板类型
 type Complex<T> = T extends `${infer A}_${infer B}_${infer C}_${infer D}`
   ? /* 复杂处理 */
@@ -408,7 +408,7 @@ type Simplified<T> = T extends `${infer First}_${infer Rest}`
 
 **6. 与其他类型特性的结合**
 
-```typescript
+```ts
 // 结合映射类型
 type PropGetters<T> = {
   [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K]

@@ -45,7 +45,7 @@
 
 ::: code-group
 
-```typescript [基本合并示例]
+```ts [基本合并示例]
 // ✅ 第一个命名空间声明
 namespace Animals {
   export class Dog {
@@ -71,7 +71,7 @@ console.log(dog.bark()) // Woof!
 console.log(cat.meow()) // Meow!
 ```
 
-```typescript [非导出成员不合并]
+```ts [非导出成员不合并]
 namespace Utilities {
   export function publicMethod() {
     return 'Public'
@@ -92,7 +92,7 @@ namespace Utilities {
 }
 ```
 
-```typescript [合并顺序影响]
+```ts [合并顺序影响]
 namespace Config {
   export let value = 10
 
@@ -126,7 +126,7 @@ console.log(Config.getValue()) // 20(使用最后声明的值)
 
 ::: code-group
 
-```typescript [接口合并]
+```ts [接口合并]
 namespace Shapes {
   // ✅ 第一个接口声明
   export interface Circle {
@@ -148,7 +148,7 @@ const circle: Shapes.Circle = {
 }
 ```
 
-```typescript [类型别名不合并]
+```ts [类型别名不合并]
 namespace Types {
   export type ID = string
 }
@@ -159,7 +159,7 @@ namespace Types {
 // }
 ```
 
-```typescript [值的合并]
+```ts [值的合并]
 namespace Logger {
   export const version = '1.0.0'
 
@@ -185,7 +185,7 @@ console.log(Logger.version) // 1.0.0
 console.log(Logger.maxLevel) // 5
 ```
 
-```typescript [嵌套命名空间合并]
+```ts [嵌套命名空间合并]
 namespace Company {
   export namespace HR {
     export class Employee {
@@ -229,7 +229,7 @@ const mgr = new Company.HR.Manager('李四', 'IT')
 
 ::: code-group
 
-```typescript [为类添加静态成员]
+```ts [为类添加静态成员]
 // ✅ 先声明类
 class Album {
   constructor(public title: string) {}
@@ -252,7 +252,7 @@ const label = new Album.AlbumLabel('Sony Music')
 const newAlbum = Album.create('New Album')
 ```
 
-```typescript [错误的声明顺序]
+```ts [错误的声明顺序]
 // ❌ 命名空间必须在类之后声明
 namespace Product {
   export const version = '1.0'
@@ -264,7 +264,7 @@ namespace Product {
 // }
 ```
 
-```typescript [实际应用:工厂模式]
+```ts [实际应用:工厂模式]
 class User {
   constructor(public name: string, public role: string) {}
 }
@@ -316,7 +316,7 @@ const config: User.Config = {
 
 ::: code-group
 
-```typescript [为函数添加属性]
+```ts [为函数添加属性]
 // ✅ 先声明函数
 function buildLabel(name: string): string {
   return buildLabel.prefix + name + buildLabel.suffix
@@ -337,7 +337,7 @@ buildLabel.suffix = '》'
 console.log(buildLabel('TypeScript')) // 《TypeScript》
 ```
 
-```typescript [计数器函数示例]
+```ts [计数器函数示例]
 function counter() {
   return counter.count++
 }
@@ -357,7 +357,7 @@ counter.reset()
 console.log(counter()) // 0
 ```
 
-```typescript [配置函数示例]
+```ts [配置函数示例]
 function request(url: string) {
   return fetch(url, request.config)
 }
@@ -401,7 +401,7 @@ request('/api/data')
 
 ::: code-group
 
-```typescript [为枚举添加方法]
+```ts [为枚举添加方法]
 // ✅ 先声明枚举
 enum Color {
   Red = 'RED',
@@ -443,7 +443,7 @@ if (color) {
 }
 ```
 
-```typescript [为枚举添加验证]
+```ts [为枚举添加验证]
 enum Status {
   Pending = 0,
   Active = 1,
@@ -473,7 +473,7 @@ console.log(Status.isValid(99)) // false
 console.log(Status.getLabel(Status.Active)) // 进行中
 ```
 
-```typescript [为枚举添加常量]
+```ts [为枚举添加常量]
 enum LogLevel {
   Debug = 0,
   Info = 1,
@@ -514,7 +514,7 @@ console.log(LogLevel.shouldLog(LogLevel.Error, currentLevel)) // true
 
 ::: code-group
 
-```typescript [场景1:扩展第三方库类型]
+```ts [场景1:扩展第三方库类型]
 // ✅ 扩展第三方库的类型定义
 declare namespace jQuery {
   interface AjaxSettings {
@@ -532,7 +532,7 @@ declare namespace jQuery {
 // $.customPlugin('.element');
 ```
 
-```typescript [场景2:组织相关功能]
+```ts [场景2:组织相关功能]
 namespace MathUtils {
   export function add(a: number, b: number) {
     return a + b
@@ -559,7 +559,7 @@ console.log(MathUtils.add(10, 5))
 console.log(MathUtils.multiply(10, 5))
 ```
 
-```typescript [场景3:渐进式扩展API]
+```ts [场景3:渐进式扩展API]
 class API {
   constructor(public baseURL: string) {}
 
@@ -605,7 +605,7 @@ const config: API.RequestConfig = API.DEFAULT_CONFIG
 
 ::: warning ⚠️ 错误 1:在不同作用域声明
 
-```typescript
+```ts
 // ❌ 在不同作用域中的同名命名空间不会合并
 function scope1() {
   namespace Utils {
@@ -634,7 +634,7 @@ namespace Utils {
 
 ::: warning ⚠️ 错误 2:期望非导出成员合并
 
-```typescript
+```ts
 namespace Config {
   let privateValue = 10 // ❌ 未导出
 

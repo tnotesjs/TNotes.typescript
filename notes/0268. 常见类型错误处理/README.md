@@ -52,7 +52,7 @@ TypeScript 开发中会遇到各种类型错误，掌握常见错误的处理方
 
 ### 3.1. 基本类型不匹配
 
-```typescript
+```ts
 // ❌ 错误
 let age: number = '25'
 // Error: Type 'string' is not assignable to type 'number'
@@ -66,7 +66,7 @@ let age: number = parseInt('25', 10)
 
 ### 3.2. 函数参数类型
 
-```typescript
+```ts
 function greet(name: string): string {
   return `Hello, ${name}`
 }
@@ -82,7 +82,7 @@ greet(String(123))
 
 ### 3.3. 返回类型不匹配
 
-```typescript
+```ts
 // ❌ 错误
 function getAge(): number {
   return '25' // Error: Type 'string' is not assignable to type 'number'
@@ -101,7 +101,7 @@ function getAge(): string | number {
 
 ### 3.4. 对象属性类型
 
-```typescript
+```ts
 interface User {
   name: string
   age: number
@@ -124,7 +124,7 @@ const user: User = {
 
 ### 4.1. 可能为 undefined
 
-```typescript
+```ts
 function getUserName(user?: { name: string }): string {
   // ❌ 错误
   return user.name
@@ -146,7 +146,7 @@ function getUserName(user?: { name: string }): string {
 
 ### 4.2. 数组方法返回 undefined
 
-```typescript
+```ts
 const numbers = [1, 2, 3]
 
 // ❌ 错误
@@ -168,7 +168,7 @@ if (found !== undefined) {
 
 ### 4.3. 对象属性可能不存在
 
-```typescript
+```ts
 interface Config {
   port?: number
 }
@@ -195,7 +195,7 @@ function startServer(config: Config) {
 
 ### 5.1. any 的问题
 
-```typescript
+```ts
 // ❌ 使用 any 失去类型检查
 function process(data: any) {
   return data.value.toString() // 运行时可能出错，但编译不报错
@@ -218,7 +218,7 @@ function process<T extends { value: unknown }>(data: T) {
 
 ### 5.2. unknown 替代 any
 
-```typescript
+```ts
 // ❌ any 不安全
 function parse(json: string): any {
   return JSON.parse(json)
@@ -243,7 +243,7 @@ if (typeof result === 'object' && result !== null && 'name' in result) {
 
 ### 5.3. 渐进式类型化
 
-```typescript
+```ts
 // 阶段1：使用 any（临时）
 function legacy(): any {
   return { value: 42 }
@@ -263,7 +263,7 @@ function legacy(): LegacyResult {
 
 ### 6.1. typeof 类型守卫
 
-```typescript
+```ts
 function process(value: string | number) {
   // ❌ 错误
   return value.toUpperCase()
@@ -279,7 +279,7 @@ function process(value: string | number) {
 
 ### 6.2. instanceof 类型守卫
 
-```typescript
+```ts
 class Dog {
   bark() {
     console.log('Woof!')
@@ -307,7 +307,7 @@ function makeSound(animal: Dog | Cat) {
 
 ### 6.3. in 操作符类型守卫
 
-```typescript
+```ts
 interface Bird {
   fly(): void
 }
@@ -331,7 +331,7 @@ function move(animal: Bird | Fish) {
 
 ### 6.4. 自定义类型守卫
 
-```typescript
+```ts
 interface User {
   name: string
   age: number
@@ -365,7 +365,7 @@ function process(value: unknown) {
 
 ### 7.1. 泛型约束
 
-```typescript
+```ts
 // ❌ 错误：没有约束
 function getProperty<T>(obj: T, key: string) {
   return obj[key] // Error: Type 'string' cannot be used to index type 'T'
@@ -382,7 +382,7 @@ const name = getProperty(user, 'name') // ✅ 类型安全
 
 ### 7.2. 泛型默认值
 
-```typescript
+```ts
 // ❌ 可能的问题
 function createArray<T>(length: number, value: T): T[] {
   return Array(length).fill(value)
@@ -402,7 +402,7 @@ createArray(3, 0) // ✅ 类型推断为 number[]
 
 ### 7.3. 泛型类型推断
 
-```typescript
+```ts
 // ❌ 推断失败
 function identity<T>(value: T): T {
   return value

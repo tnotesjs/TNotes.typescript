@@ -50,7 +50,7 @@
 
 ### 3.1. 适合迁移的场景
 
-```typescript
+```ts
 // 1. 新项目
 // 不依赖旧装饰器的框架
 
@@ -66,7 +66,7 @@
 
 ### 3.2. 不适合迁移的场景
 
-```typescript
+```ts
 // 1. 使用 Angular、NestJS 等框架
 // 这些框架依赖旧装饰器和元数据
 
@@ -82,7 +82,7 @@
 
 ### 3.3. 迁移策略
 
-```typescript
+```ts
 // 策略一：保持现状
 // tsconfig.json
 {
@@ -105,7 +105,7 @@
 
 ::: code-group
 
-```typescript [旧装饰器]
+```ts [旧装饰器]
 // 旧装饰器签名
 function OldSealed(constructor: Function) {
   Object.seal(constructor)
@@ -118,7 +118,7 @@ class OldService {
 }
 ```
 
-```typescript [新装饰器]
+```ts [新装饰器]
 // 新装饰器签名
 function NewSealed(target: Function, context: ClassDecoratorContext) {
   // context 提供额外信息
@@ -143,7 +143,7 @@ class NewService {
 
 ::: code-group
 
-```typescript [旧装饰器]
+```ts [旧装饰器]
 function OldLogger(constructor: Function) {
   return class extends (constructor as any) {
     constructor(...args: any[]) {
@@ -162,7 +162,7 @@ class OldUser {
 }
 ```
 
-```typescript [新装饰器]
+```ts [新装饰器]
 function NewLogger<T extends new (...args: any[]) => any>(
   target: T,
   context: ClassDecoratorContext
@@ -192,7 +192,7 @@ class NewUser {
 
 ::: code-group
 
-```typescript [旧装饰器]
+```ts [旧装饰器]
 function OldLog(
   target: Object,
   propertyKey: string,
@@ -216,7 +216,7 @@ class OldService {
 }
 ```
 
-```typescript [新装饰器]
+```ts [新装饰器]
 function NewLog(target: Function, context: ClassMethodDecoratorContext) {
   const methodName = String(context.name)
 
@@ -240,7 +240,7 @@ class NewService {
 
 ::: code-group
 
-```typescript [旧装饰器]
+```ts [旧装饰器]
 function OldAsync(
   target: Object,
   propertyKey: string,
@@ -266,7 +266,7 @@ class OldApi {
 }
 ```
 
-```typescript [新装饰器]
+```ts [新装饰器]
 function NewAsync(target: Function, context: ClassMethodDecoratorContext) {
   return async function (this: any, ...args: any[]) {
     console.log('开始')
@@ -292,7 +292,7 @@ class NewApi {
 
 ::: code-group
 
-```typescript [旧装饰器]
+```ts [旧装饰器]
 function OldDefault(value: any) {
   return function (target: Object, propertyKey: string) {
     let val = value
@@ -316,7 +316,7 @@ class OldConfig {
 }
 ```
 
-```typescript [新装饰器]
+```ts [新装饰器]
 function NewDefault(value: any) {
   return function (target: undefined, context: ClassFieldDecoratorContext) {
     return function (this: any, initialValue: any) {
@@ -338,7 +338,7 @@ class NewConfig {
 
 ::: code-group
 
-```typescript [旧装饰器]
+```ts [旧装饰器]
 function OldReadonly(target: Object, propertyKey: string) {
   let value: any
 
@@ -362,7 +362,7 @@ class OldModel {
 }
 ```
 
-```typescript [新装饰器]
+```ts [新装饰器]
 function NewReadonly(target: undefined, context: ClassFieldDecoratorContext) {
   return function (this: any, initialValue: any) {
     // 使用 Object.defineProperty 设置只读
@@ -398,7 +398,7 @@ class NewModel {
 
 ::: code-group
 
-```typescript [旧装饰器]
+```ts [旧装饰器]
 import 'reflect-metadata'
 
 function OldRoute(path: string) {
@@ -418,7 +418,7 @@ const route = Reflect.getMetadata('route', OldController.prototype, 'getUsers')
 console.log(route) // '/users'
 ```
 
-```typescript [新装饰器]
+```ts [新装饰器]
 const routeMetadata = new WeakMap<any, Map<string | symbol, string>>()
 
 function NewRoute(path: string) {
@@ -456,7 +456,7 @@ console.log(route) // '/users'
 
 ### 7.2. 使用类静态属性
 
-```typescript
+```ts
 // 新装饰器：使用静态属性存储元数据
 function Route(path: string) {
   return function (target: Function, context: ClassMethodDecoratorContext) {
@@ -502,7 +502,7 @@ console.log(routes.get('getPosts')) // '/api/posts'
 
 ### 8.1. 参数装饰器不支持
 
-```typescript
+```ts
 // 旧装饰器：支持参数装饰器
 function OldParam(target: Object, propertyKey: string, parameterIndex: number) {
   console.log(`参数 ${parameterIndex}`)
@@ -520,7 +520,7 @@ class OldController {
 
 ### 8.2. 访问器装饰器变化
 
-```typescript
+```ts
 // 旧装饰器：有独立的访问器装饰器
 function OldAccessor(
   target: Object,
@@ -569,7 +569,7 @@ class NewModel {
 
 ### 8.3. 装饰器返回值处理
 
-```typescript
+```ts
 // 旧装饰器：可以返回 undefined
 function OldDecorator(
   target: any,
@@ -595,7 +595,7 @@ function NewDecorator(target: Function, context: ClassMethodDecoratorContext) {
 
 ### 8.4. 兼容性处理
 
-```typescript
+```ts
 // 同时支持新旧装饰器
 function UniversalLog(...args: any[]): any {
   // 检测是否为新装饰器

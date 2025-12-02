@@ -52,7 +52,7 @@ TypeScript 使用结构类型系统，只关心类型的形状而非名称。
 
 ### 3.1. 基本概念
 
-```typescript
+```ts
 // ✅ 结构类型：只看形状
 interface Point {
   x: number
@@ -75,7 +75,7 @@ const coord: Coordinate = point // ✅ 兼容（结构相同）
 
 ### 3.2. 属性比较
 
-```typescript
+```ts
 // ✅ 多余属性是兼容的
 interface Named {
   name: string
@@ -97,7 +97,7 @@ const named: Named = person // ✅ 兼容
 
 ### 3.3. 嵌套结构比较
 
-```typescript
+```ts
 // ✅ 递归比较嵌套结构
 interface User {
   name: string
@@ -132,7 +132,7 @@ TypeScript 使用递归算法比较类型结构。
 
 ### 4.1. 对象类型比较
 
-```typescript
+```ts
 // TypeScript 内部的比较算法（简化版）
 
 function isAssignableTo(source: Type, target: Type): boolean {
@@ -188,7 +188,7 @@ interface B {
 
 ### 4.2. 函数类型比较
 
-```typescript
+```ts
 // ✅ 函数类型的比较规则
 
 // 参数：逆变
@@ -223,7 +223,7 @@ TypeScript 需要处理循环引用的类型。
 
 ### 5.1. 循环引用示例
 
-```typescript
+```ts
 // ✅ 循环引用的类型
 interface Node {
   value: number
@@ -241,7 +241,7 @@ interface TreeNode {
 
 ### 5.2. 处理策略
 
-```typescript
+```ts
 // TypeScript 使用栈跟踪正在比较的类型对
 
 // 伪代码
@@ -287,7 +287,7 @@ interface B {
 
 ### 5.3. 实际应用
 
-```typescript
+```ts
 // ✅ 链表类型
 interface LinkedList<T> {
   value: T
@@ -320,7 +320,7 @@ TypeScript 使用多种策略优化类型比较性能。
 
 ### 6.1. 类型缓存
 
-```typescript
+```ts
 // TypeScript 内部缓存类型比较结果
 
 // 伪代码
@@ -350,7 +350,7 @@ function isAssignableTo(source: Type, target: Type): boolean {
 
 ### 6.2. 结构共享
 
-```typescript
+```ts
 // ✅ TypeScript 共享相同的类型对象
 
 // 源代码
@@ -374,7 +374,7 @@ interface User2 {
 
 ### 6.3. 增量类型检查
 
-```typescript
+```ts
 // ✅ 增量编译
 
 // tsconfig.json
@@ -395,7 +395,7 @@ interface User2 {
 
 ### 6.4. 延迟计算
 
-```typescript
+```ts
 // TypeScript 延迟计算复杂类型
 
 // ✅ 只在需要时才计算
@@ -431,7 +431,7 @@ interface User {
 
 ### 7.1. 结构类型示例
 
-```typescript
+```ts
 // ✅ TypeScript：结构类型
 interface Printable {
   print(): void
@@ -475,7 +475,7 @@ class Document implements Printable {
 
 ### 7.3. 模拟名义类型
 
-```typescript
+```ts
 // ✅ TypeScript 中模拟名义类型（品牌类型）
 type Brand<K, T> = K & { __brand: T }
 

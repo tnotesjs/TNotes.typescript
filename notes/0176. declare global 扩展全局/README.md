@@ -54,7 +54,7 @@ declare global 用于在模块文件中向全局作用域添加声明。
 
 ### 3.1. 基本语法
 
-```typescript
+```ts
 // 在模块文件中使用 declare global
 export {} // 使文件成为模块
 
@@ -81,7 +81,7 @@ window.myCustomProperty = 'value'
 
 ::: code-group
 
-```typescript [❌ 错误：非模块文件]
+```ts [❌ 错误：非模块文件]
 // 在非模块文件中直接声明全局
 const APP_VERSION: string // ❌ 这会创建模块级别的声明，不是全局的
 
@@ -90,7 +90,7 @@ interface Window {
 }
 ```
 
-```typescript [✅ 正确：使用 declare global]
+```ts [✅ 正确：使用 declare global]
 // global.d.ts
 export {} // 重要：使文件成为模块
 
@@ -111,7 +111,7 @@ window.myProperty = 'test'
 
 ### 3.3. 与普通 declare 的区别
 
-```typescript
+```ts
 // types/global.d.ts
 export {}
 
@@ -143,7 +143,7 @@ console.log(ENV) // 直接访问全局变量
 
 ### 4.1. 扩展 Window 对象
 
-```typescript
+```ts
 // types/window.d.ts
 export {}
 
@@ -183,7 +183,7 @@ if (window.gtag) {
 
 ### 4.2. 扩展 Document 对象
 
-```typescript
+```ts
 export {}
 
 declare global {
@@ -203,7 +203,7 @@ document.setTitle('My App - Home')
 
 ### 4.3. 扩展 globalThis
 
-```typescript
+```ts
 export {}
 
 declare global {
@@ -234,7 +234,7 @@ const formatted = globalThis.utils.formatDate(new Date())
 
 ### 4.4. 扩展 Navigator
 
-```typescript
+```ts
 export {}
 
 declare global {
@@ -260,7 +260,7 @@ if (navigator.getBattery) {
 
 ### 4.5. 添加全局事件类型
 
-```typescript
+```ts
 export {}
 
 declare global {
@@ -298,7 +298,7 @@ Node.js 环境下的全局对象扩展。
 
 ### 5.1. 扩展 global 对象
 
-```typescript
+```ts
 // types/global.d.ts
 export {}
 
@@ -343,7 +343,7 @@ cache.set('user:1', { name: 'John' })
 
 ### 5.2. 扩展 process 对象
 
-```typescript
+```ts
 export {}
 
 declare global {
@@ -379,7 +379,7 @@ process.isDevelopment = process.env.NODE_ENV === 'development'
 
 ### 5.3. 扩展 console
 
-```typescript
+```ts
 export {}
 
 declare global {
@@ -405,7 +405,7 @@ console.success('操作成功', { id: 1 })
 
 ### 5.4. 扩展 Buffer
 
-```typescript
+```ts
 export {}
 
 declare global {
@@ -436,7 +436,7 @@ const base64 = Buffer.toBase64(buffer)
 
 ### 6.1. 基本模式
 
-```typescript
+```ts
 // utils/global-setup.ts
 
 // 导出某些内容，使其成为模块
@@ -455,7 +455,7 @@ declare global {
 
 ### 6.2. 多个声明块
 
-```typescript
+```ts
 // types/global.d.ts
 export {}
 
@@ -493,7 +493,7 @@ declare global {
 
 ### 6.3. 结合类型导出
 
-```typescript
+```ts
 // types/index.ts
 
 // 导出类型供模块使用
@@ -526,7 +526,7 @@ declare global {
 
 ### 6.4. 实际应用示例
 
-```typescript
+```ts
 // src/plugins/analytics.ts
 
 export interface AnalyticsConfig {
@@ -571,7 +571,7 @@ window.analytics.trackEvent('button_click', { buttonId: 'submit' })
 
 ### 6.5. Vue 插件示例
 
-```typescript
+```ts
 // plugins/toast.ts
 import Vue from 'vue'
 
@@ -613,7 +613,7 @@ export default {
 
 ### 6.6. React Context 全局化
 
-```typescript
+```ts
 // context/AppContext.tsx
 import React from 'react'
 

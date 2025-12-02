@@ -45,7 +45,7 @@
 
 ::: code-group
 
-```typescript [基本概念]
+```ts [基本概念]
 // ✅ 嵌套命名空间示例
 namespace Company {
   // 外层命名空间
@@ -69,7 +69,7 @@ const emp = new Company.HR.Employee('张三')
 const dev = new Company.IT.Developer('李四', 'TypeScript')
 ```
 
-```typescript [命名空间层级]
+```ts [命名空间层级]
 // ✅ 三层嵌套结构
 namespace App {
   export namespace UI {
@@ -106,7 +106,7 @@ TypeScript 提供两种声明嵌套命名空间的语法:嵌套声明和点号�
 
 ::: code-group
 
-```typescript [嵌套声明语法]
+```ts [嵌套声明语法]
 // ✅ 传统嵌套声明方式
 namespace Outer {
   export namespace Inner {
@@ -123,7 +123,7 @@ const obj = new Outer.Inner.MyClass()
 console.log(obj.sayHello())
 ```
 
-```typescript [点号分隔语法]
+```ts [点号分隔语法]
 // ✅ 简化的点号语法(推荐)
 namespace Outer.Inner {
   export class MyClass {
@@ -138,7 +138,7 @@ const obj = new Outer.Inner.MyClass()
 console.log(obj.sayHello())
 ```
 
-```typescript [混合使用]
+```ts [混合使用]
 // ✅ 可以混合使用两种语法
 namespace Library {
   export namespace Utils {
@@ -182,7 +182,7 @@ Library.Utils.warn('Warning message')
 
 ::: code-group
 
-```typescript [完整路径访问]
+```ts [完整路径访问]
 namespace Company {
   export namespace Department {
     export namespace Team {
@@ -202,7 +202,7 @@ const member = new Company.Department.Team.Member('王五')
 console.log(member.greet()) // Hello, I'm 王五
 ```
 
-```typescript [使用别名简化]
+```ts [使用别名简化]
 namespace Company {
   export namespace Department {
     export namespace Team {
@@ -220,7 +220,7 @@ import TeamMember = Company.Department.Team.Member
 const member = new TeamMember('赵六')
 ```
 
-```typescript [导入整个命名空间]
+```ts [导入整个命名空间]
 namespace Library {
   export namespace Math {
     export function add(a: number, b: number) {
@@ -240,7 +240,7 @@ console.log(MathUtils.add(10, 5)) // 15
 console.log(MathUtils.subtract(10, 5)) // 5
 ```
 
-```typescript [访问限制示例]
+```ts [访问限制示例]
 namespace Outer {
   export namespace Inner {
     export class PublicClass {}
@@ -271,7 +271,7 @@ const pub = new Outer.Inner.PublicClass()
 
 ::: code-group
 
-```typescript [基本导出]
+```ts [基本导出]
 namespace App {
   // ✅ 导出子命名空间
   export namespace Config {
@@ -301,7 +301,7 @@ const settings = App.Config.defaultSettings
 // App.Internal.helper(); // 编译错误
 ```
 
-```typescript [选择性导出]
+```ts [选择性导出]
 namespace Database {
   export namespace Models {
     // ✅ 导出的类
@@ -331,7 +331,7 @@ const foundUser = Database.Operations.findUser(1)
 // const base = new Database.Models.BaseModel(); // 编译错误
 ```
 
-```typescript [跨命名空间访问]
+```ts [跨命名空间访问]
 namespace Lib {
   export namespace Utils {
     export function format(str: string): string {
@@ -370,7 +370,7 @@ console.log(Lib.Validators.validateAndFormat('hello')) // HELLO
 
 ::: code-group
 
-```typescript [场景1:组织大型类型定义]
+```ts [场景1:组织大型类型定义]
 // ✅ 为第三方库编写类型定义文件
 declare namespace jQuery {
   export namespace fn {
@@ -394,7 +394,7 @@ const settings: jQuery.ajax.Settings = {
 }
 ```
 
-```typescript [场景2:多层级功能模块]
+```ts [场景2:多层级功能模块]
 // ✅ 电商系统的命名空间组织
 namespace ECommerce {
   export namespace Product {
@@ -439,7 +439,7 @@ const orderMgr = new ECommerce.Order.OrderManager()
 const order = orderMgr.createOrder(products)
 ```
 
-```typescript [场景3:全局配置管理]
+```ts [场景3:全局配置管理]
 // ✅ 应用配置的命名空间组织
 namespace AppConfig {
   export namespace Database {
@@ -474,7 +474,7 @@ console.log(`Token: ${AppConfig.API.Auth.tokenKey}`)
 
 ::: warning ⚠️ 错误 1:过度嵌套
 
-```typescript
+```ts
 // ❌ 嵌套层级过深,难以维护
 namespace A {
   export namespace B {
@@ -505,7 +505,7 @@ namespace A {
 
 ::: warning ⚠️ 错误 2:与 ES6 模块混用
 
-```typescript
+```ts
 // ❌ 不推荐在模块文件中使用命名空间
 export namespace Utils {
   export function helper() {}

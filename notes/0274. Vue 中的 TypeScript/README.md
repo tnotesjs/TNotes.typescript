@@ -54,7 +54,7 @@ Vue 3 对 TypeScript 的支持显著改进，组合式 API 提供了更好的类
 
 ### 3.1. 基本组件结构
 
-```typescript
+```ts
 // ✅ 使用 script setup
 <script setup lang="ts">
 import { ref, computed } from "vue";
@@ -78,7 +78,7 @@ function increment() {
 
 ### 3.2. 响应式数据类型
 
-```typescript
+```ts
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 
@@ -117,7 +117,7 @@ const state = reactive<State>({
 
 ### 4.1. 基本使用
 
-```typescript
+```ts
 // ✅ defineComponent 提供类型推断
 import { defineComponent, ref } from 'vue'
 
@@ -140,7 +140,7 @@ export default defineComponent({
 
 ### 4.2. 使用 setup 语法糖
 
-```typescript
+```ts
 // ✅ script setup 更简洁
 <script setup lang="ts">
 import { ref } from "vue";
@@ -156,7 +156,7 @@ function increment() {
 
 ### 4.3. 组件选项类型
 
-```typescript
+```ts
 import { defineComponent, PropType } from 'vue'
 
 interface User {
@@ -196,7 +196,7 @@ export default defineComponent({
 
 ### 5.1. 使用 script setup
 
-```typescript
+```ts
 // ✅ defineProps 类型推断
 <script setup lang="ts">
 interface Props {
@@ -217,7 +217,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 ### 5.2. 运行时 Props 声明
 
-```typescript
+```ts
 <script setup lang="ts">
 import { PropType } from "vue";
 
@@ -241,7 +241,7 @@ const props = defineProps({
 
 ### 5.3. Props 验证
 
-```typescript
+```ts
 <script setup lang="ts">
 interface Props {
   count: number;
@@ -265,7 +265,7 @@ const props = defineProps({
 
 ### 6.1. ref
 
-```typescript
+```ts
 import { ref, Ref } from 'vue'
 
 // ✅ 基本类型
@@ -289,7 +289,7 @@ const user = ref<User | null>(null)
 
 ### 6.2. reactive
 
-```typescript
+```ts
 import { reactive } from 'vue'
 
 // ✅ 对象类型
@@ -309,7 +309,7 @@ const state = reactive<State>({
 
 ### 6.3. computed
 
-```typescript
+```ts
 import { ref, computed, ComputedRef } from 'vue'
 
 const count = ref(0)
@@ -333,7 +333,7 @@ const fullName = computed({
 
 ### 6.4. watch 和 watchEffect
 
-```typescript
+```ts
 import { ref, watch, watchEffect } from 'vue'
 
 const count = ref(0)
@@ -367,7 +367,7 @@ watchEffect(() => {
 
 ### 7.1. DOM 元素引用
 
-```typescript
+```ts
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 
@@ -386,7 +386,7 @@ onMounted(() => {
 
 ### 7.2. 组件引用
 
-```typescript
+```ts
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import ChildComponent from "./ChildComponent.vue";
@@ -407,7 +407,7 @@ onMounted(() => {
 
 ### 7.3. 暴露组件方法
 
-```typescript
+```ts
 // ChildComponent.vue
 <script setup lang="ts">
 import { ref } from "vue";
@@ -441,7 +441,7 @@ function handleClick() {
 
 ### 7.4. 类型安全的引用数组
 
-```typescript
+```ts
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 
@@ -470,7 +470,7 @@ onMounted(() => {
 
 ### 7.5. 组合式函数（Composables）
 
-```typescript
+```ts
 // useCounter.ts
 import { ref, Ref } from 'vue'
 
@@ -508,7 +508,7 @@ export function useCounter(initialValue = 0): UseCounterReturn {
 
 ### 7.6. 事件类型
 
-```typescript
+```ts
 <script setup lang="ts">
 // ✅ 定义 emits
 interface Emits {
@@ -527,7 +527,7 @@ function handleUpdate() {
 
 ### 7.7. Provide/Inject
 
-```typescript
+```ts
 // 父组件
 <script setup lang="ts">
 import { provide, ref } from "vue";

@@ -70,7 +70,7 @@
 - `readonly`：只读修饰符
 - `?`：可选修饰符
 
-```typescript
+```ts
 // 基本语法
 type AddModifier<T> = {
   +readonly [K in keyof T]+?: T[K] // 添加 readonly 和 ?
@@ -85,7 +85,7 @@ type RemoveModifier<T> = {
 
 当不指定 `+` 或 `-` 时，默认是添加修饰符（`+`）。
 
-```typescript
+```ts
 type User = {
   name: string;
   age: number;
@@ -110,7 +110,7 @@ type PartialUser = Optional1<User>;
 
 ### 4.1. 添加可选修饰符（+?）
 
-```typescript
+```ts
 type User = {
   name: string
   age: number
@@ -133,7 +133,7 @@ const user3: PartialUser = { name: 'Bob', age: 30 } // ✅ 合法
 
 ### 4.2. 添加只读修饰符（+readonly）
 
-```typescript
+```ts
 type Product = {
   id: number
   name: string
@@ -160,7 +160,7 @@ product.price = 19.99 // ❌ 错误：无法分配到 "price" ，因为它是只
 
 ### 4.3. 同时添加两个修饰符
 
-```typescript
+```ts
 type Config = {
   apiUrl: string
   timeout: number
@@ -190,7 +190,7 @@ config.timeout = 5000 // ❌ 错误：无法分配到 "timeout"，因为它是�
 
 ### 4.4. 条件添加修饰符
 
-```typescript
+```ts
 // 只为特定类型的属性添加可选修饰符
 type OptionalStrings<T> = {
   [K in keyof T as T[K] extends string ? K : never]+?: T[K]
@@ -214,7 +214,7 @@ type Result = OptionalStrings<Data>
 
 ### 5.1. 移除可选修饰符（-?）
 
-```typescript
+```ts
 type PartialUser = {
   name?: string
   age?: number
@@ -243,7 +243,7 @@ const incompleteUser: RequiredUser = {
 
 ### 5.2. 移除只读修饰符（-readonly）
 
-```typescript
+```ts
 type ReadonlyConfig = {
   readonly host: string
   readonly port: number
@@ -271,7 +271,7 @@ config.ssl = true // ✅ 可以修改
 
 ### 5.3. 同时移除两个修饰符
 
-```typescript
+```ts
 type PartialReadonlyUser = {
   readonly name?: string
   readonly age?: number
@@ -299,7 +299,7 @@ user.age = 26 // ✅ 可以修改
 
 ### 5.4. 选择性移除修饰符
 
-```typescript
+```ts
 type Data = {
   readonly id: number
   readonly name?: string
@@ -330,7 +330,7 @@ type Result2 = RemoveOptional<Data>
 
 ### 6.1. 反转修饰符
 
-```typescript
+```ts
 type User = {
   readonly name: string
   age?: number
@@ -347,7 +347,7 @@ type SwappedUser = Swap<User>
 
 ### 6.2. 条件应用修饰符
 
-```typescript
+```ts
 // 为对象类型添加 readonly，为基本类型保持不变
 type DeepReadonly<T> = {
   +readonly [K in keyof T]: T[K] extends object ? DeepReadonly<T[K]> : T[K]
@@ -378,7 +378,7 @@ type ReadonlyData = DeepReadonly<Data>
 
 ### 6.3. 分组处理修饰符
 
-```typescript
+```ts
 type ApiResponse = {
   readonly id: string
   data?: unknown
@@ -405,7 +405,7 @@ type FullResponse = CompleteResponse<ApiResponse>
 
 ### 6.4. 链式转换
 
-```typescript
+```ts
 type Original = {
   readonly name?: string
   readonly age?: number
@@ -438,7 +438,7 @@ type Result = DirectTransform<Original>
 
 ### 7.1. 场景 1：表单状态管理
 
-```typescript
+```ts
 // 表单字段定义
 type FormFields = {
   username: string
@@ -479,7 +479,7 @@ submitted.username = 'new_name' // ❌ 错误：无法修改已提交的表单
 
 ### 7.2. 场景 2：API 数据转换
 
-```typescript
+```ts
 // API 响应类型（所有字段都是只读的）
 type ApiUser = {
   readonly id: string
@@ -510,7 +510,7 @@ editForm.email = 'newemail@example.com' // ✅ 可以修改
 
 ### 7.3. 场景 3：配置对象的不同阶段
 
-```typescript
+```ts
 // 配置定义（所有字段必需）
 type Config = {
   host: string
@@ -546,7 +546,7 @@ validated.port = 8080 // ❌ 错误：无法修改已验证的配置
 
 ### 7.4. 场景 4：数据库模型转换
 
-```typescript
+```ts
 // 数据库模型（带有自动生成字段）
 type DbModel = {
   readonly id: number
@@ -589,7 +589,7 @@ const updateUser: UpdateUserInput = {
 
 ### 7.5. 场景 5：不可变数据结构
 
-```typescript
+```ts
 type Todo = {
   id: number
   title: string
@@ -633,7 +633,7 @@ mutableTodo.completed = true // ✅ 可以修改
 
 修饰符的应用顺序会影响结果。
 
-```typescript
+```ts
 type Original = {
   readonly name?: string
 }
@@ -655,7 +655,7 @@ type Step2 = {
 
 修饰符只作用于第一层属性，不会自动递归到嵌套对象。
 
-```typescript
+```ts
 type Nested = {
   user: {
     name: string
@@ -684,7 +684,7 @@ type Readonly2 = DeepReadonly<Nested>
 
 移除可选修饰符后，属性必须存在，但可以是 `undefined`。
 
-```typescript
+```ts
 type Optional = {
   name?: string
 }
@@ -702,7 +702,7 @@ const obj3: Required = { name: 'Alice' } // ✅ 合法
 
 修饰符会应用到联合类型的每个成员。
 
-```typescript
+```ts
 type Union = { a: string } | { b: number }
 
 type ReadonlyUnion = {
@@ -715,7 +715,7 @@ type ReadonlyUnion = {
 
 不能对某些属性应用修饰符而其他属性不应用（在同一个映射类型中）。
 
-```typescript
+```ts
 type User = {
   name: string
   age: number
@@ -740,7 +740,7 @@ type Valid = {
 
 理解修饰符有助于理解内置工具类型的实现。
 
-```typescript
+```ts
 // Partial 的实现
 type MyPartial<T> = {
   [K in keyof T]+?: T[K]
@@ -766,7 +766,7 @@ type Mutable<T> = {
 
 复杂的递归修饰符操作可能影响编译性能。
 
-```typescript
+```ts
 // ⚠️ 深度递归可能影响性能
 type DeepPartial<T> = {
   [K in keyof T]+?: T[K] extends object ? DeepPartial<T[K]> : T[K]

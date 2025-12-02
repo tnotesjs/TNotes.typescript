@@ -53,7 +53,7 @@ TypeScript 的类型可以帮助避免性能陷阱。
 
 ### 3.1. 避免类型转换开销
 
-```typescript
+```ts
 // ❌ 频繁的类型检查和转换
 function process(data: unknown) {
   if (typeof data === 'string') {
@@ -81,7 +81,7 @@ function processArray(data: any[]) {
 
 ### 3.2. 优化循环和迭代
 
-```typescript
+```ts
 // ❌ 创建中间数组
 function sumEven(numbers: number[]): number {
   return numbers
@@ -110,7 +110,7 @@ function processReadonly(data: readonly number[]) {
 
 ### 3.3. 对象池模式
 
-```typescript
+```ts
 // ✅ 对象池减少 GC 压力
 class ObjectPool<T> {
   private available: T[] = []
@@ -165,7 +165,7 @@ function calculateDistance(p1: Point, p2: Point): number {
 
 ### 4.1. Tree-shaking
 
-```typescript
+```ts
 // ✅ 使用 ES 模块以启用 tree-shaking
 // utils.ts
 export function usedFunction() {
@@ -192,7 +192,7 @@ import throttle from 'lodash/throttle'
 
 ### 4.2. 代码分割
 
-```typescript
+```ts
 // ✅ 动态导入实现代码分割
 async function loadModule() {
   const module = await import('./heavy-module')
@@ -235,7 +235,7 @@ const routes = [
 
 ### 5.1. 避免深度递归
 
-```typescript
+```ts
 // ❌ 无限递归
 type DeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends object
@@ -257,7 +257,7 @@ type Prev<N extends number> = N extends 0 ? 0 : N extends 1 ? 0 : /* ... */;
 
 ### 5.2. 缓存类型计算
 
-```typescript
+```ts
 // ❌ 重复计算
 function fn1(data: Omit<User, 'password'>) {}
 function fn2(data: Omit<User, 'password'>) {}
@@ -273,7 +273,7 @@ function fn3(data: PublicUser) {}
 
 ### 5.3. 简化联合类型
 
-```typescript
+```ts
 // ❌ 超大联合类型
 type AllColors = "red" | "blue" | /* 100+ 种颜色 */;
 
@@ -369,7 +369,7 @@ module.exports = {
 
 ### 7.3. 运行时性能监控
 
-```typescript
+```ts
 // ✅ 性能标记
 function measurePerformance<T>(name: string, fn: () => T): T {
   const start = performance.now()

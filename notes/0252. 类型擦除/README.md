@@ -52,7 +52,7 @@ TypeScript 的类型擦除意味着类型信息只在编译时存在，运行时
 
 ### 3.1. 基本示例
 
-```typescript
+```ts
 // TypeScript 源代码
 function greet(name: string): string {
   return `Hello, ${name}`
@@ -75,7 +75,7 @@ const result = greet('World')
 
 ### 3.2. 接口擦除
 
-```typescript
+```ts
 // TypeScript
 interface User {
   name: string
@@ -99,7 +99,7 @@ const user = {
 
 ### 3.3. 类型别名擦除
 
-```typescript
+```ts
 // TypeScript
 type Point = {
   x: number
@@ -124,7 +124,7 @@ TypeScript 编译器在 Emitter 阶段执行类型擦除。
 
 ### 4.1. 编译流程中的类型擦除
 
-```typescript
+```ts
 // 源代码
 function add(a: number, b: number): number {
   return a + b
@@ -160,7 +160,7 @@ function add(a, b) {
 
 ### 4.2. 保留的内容 vs. 删除的内容
 
-```typescript
+```ts
 // TypeScript
 enum Color {
   Red,
@@ -210,7 +210,7 @@ class Point {
 
 ### 5.1. 无法在运行时检查类型
 
-```typescript
+```ts
 // ❌ 接口在运行时不存在
 interface User {
   name: string
@@ -245,7 +245,7 @@ function process2(value: unknown) {
 
 ### 5.2. 泛型类型参数擦除
 
-```typescript
+```ts
 // ❌ 泛型参数在运行时不存在
 function createArray<T>(length: number): T[] {
   // ❌ 错误：Cannot create an instance of type parameter 'T'
@@ -269,7 +269,7 @@ const users = createArray2(User, 3) // ✅ 正确
 
 ### 5.3. typeof 的限制
 
-```typescript
+```ts
 // ✅ typeof 只能检查 JavaScript 类型
 function process(value: string | number) {
   if (typeof value === 'string') {
@@ -307,7 +307,7 @@ function isPoint(value: unknown) {
 
 ### 6.1. 使用 class 代替 interface
 
-```typescript
+```ts
 // ❌ interface 会被擦除
 interface User {
   name: string
@@ -329,7 +329,7 @@ function process(value: unknown) {
 
 ### 6.2. 使用判别式联合
 
-```typescript
+```ts
 // ✅ 使用字面量类型作为判别式
 type Shape =
   | { kind: 'circle'; radius: number }
@@ -352,7 +352,7 @@ console.log(circle.kind) // "circle"
 
 ### 6.3. 使用 enum
 
-```typescript
+```ts
 // ✅ enum 在运行时存在
 enum Status {
   Pending,
@@ -374,7 +374,7 @@ console.log(Status[1]) // "Success"
 
 ### 6.4. 使用运行时验证库
 
-```typescript
+```ts
 // ✅ 使用 zod 进行运行时验证
 import { z } from 'zod'
 
@@ -407,7 +407,7 @@ function processUser(data: unknown) {
 
 ### 7.1. 优点
 
-```typescript
+```ts
 // ✅ 1. 零运行时开销
 // TypeScript
 function add(a: number, b: number): number {
@@ -430,7 +430,7 @@ function add(a, b) {
 
 ### 7.2. 缺点
 
-```typescript
+```ts
 // ❌ 1. 无法运行时类型检查
 function process(data: unknown) {
   // 需要手动验证
@@ -460,7 +460,7 @@ const schema = z.object({
 
 ### 7.3. 对比其他语言
 
-```typescript
+```ts
 // TypeScript：类型擦除
 function process<T>(value: T): T {
   // ❌ 无法检查 T 的类型

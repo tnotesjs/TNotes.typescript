@@ -49,7 +49,7 @@
 
 ### 3.1. 模式匹配
 
-```typescript
+```ts
 // ✅ 提取数组第一个元素类型
 type First<T extends any[]> = T extends [infer F, ...any[]] ? F : never
 
@@ -77,7 +77,7 @@ type FnReturn = MyReturnType<typeof fn> // { a: number; b: number }
 
 ### 3.2. 条件类型递归
 
-```typescript
+```ts
 // ✅ 深度展开 Promise
 type Awaited<T> = T extends Promise<infer U>
   ? Awaited<U> // 递归展开嵌套的 Promise
@@ -95,7 +95,7 @@ type Len = LengthOfTuple<Arr> // 3
 
 ### 3.3. 映射类型
 
-```typescript
+```ts
 // ✅ 自定义 Readonly
 type MyReadonly<T> = {
   readonly [K in keyof T]: T[K]
@@ -130,7 +130,7 @@ type ReadonlyNested = DeepReadonly<Nested>
 
 ### 4.1. 字符串拆分和拼接
 
-```typescript
+```ts
 // ✅ 首字母大写
 type Capitalize<S extends string> = S extends `${infer F}${infer R}`
   ? `${Uppercase<F>}${R}`
@@ -157,7 +157,7 @@ type Test8 = CamelCase<'foo-bar-baz'> // "fooBarBaz"
 
 ### 4.2. 字符串模式匹配
 
-```typescript
+```ts
 // ✅ 提取路由参数
 type ExtractRouteParams<T extends string> =
   T extends `${infer _Start}:${infer Param}/${infer Rest}`
@@ -200,7 +200,7 @@ type Test10 = ReplaceAll<'foo bar foo baz foo', 'foo', 'qux'>
 
 ### 5.1. 数组操作
 
-```typescript
+```ts
 // ✅ 移除数组中的某个类型
 type Exclude<T, U> = T extends U ? never : T
 
@@ -236,7 +236,7 @@ type Test13 = Unique<[1, 2, 1, 3, 2, 4]> // [1, 2, 3, 4]
 
 ### 5.2. 元组操作
 
-```typescript
+```ts
 // ✅ 元组转联合
 type TupleToUnion<T extends any[]> = T[number]
 
@@ -261,7 +261,7 @@ type Test16 = Concat<[1, 2], [3, 4]> // [1, 2, 3, 4]
 
 ### 6.1. 键值转换
 
-```typescript
+```ts
 // ✅ 获取所有必需键
 type RequiredKeys<T> = {
   [K in keyof T]-?: {} extends Pick<T, K> ? never : K
@@ -303,7 +303,7 @@ type StatusCode = Flip<Status>
 
 ### 6.2. 深度操作
 
-```typescript
+```ts
 // ✅ 深度获取类型
 type DeepGet<T, Path extends string> = Path extends `${infer K}.${infer R}`
   ? K extends keyof T
@@ -352,7 +352,7 @@ type Updated = DeepSet<Nested2, 'a.b.c', string>
 
 ### 7.1. Easy 难度
 
-```typescript
+```ts
 // ✅ Pick 的实现
 type MyPick<T, K extends keyof T> = {
   [P in K]: T[P]
@@ -380,7 +380,7 @@ type Result = TupleToObject<typeof tuple>
 
 ### 7.2. Medium 难度
 
-```typescript
+```ts
 // ✅ Promise 类型
 type MyAwaited<T> = T extends Promise<infer U>
   ? U extends Promise<any>
@@ -420,7 +420,7 @@ type Test17 = MyLast<[1, 2, 3]> // 3
 
 ### 7.3. Hard 难度
 
-```typescript
+```ts
 // ✅ 联合类型转交叉类型
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   k: infer I

@@ -32,7 +32,7 @@
 
 基本用法：
 
-```typescript
+```ts
 interface User {
   name: string
   age: number

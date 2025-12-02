@@ -49,7 +49,7 @@
 
 `infer` 关键字用于在条件类型中声明一个待推断的类型变量。
 
-```typescript
+```ts
 // 基本语法：T extends Pattern ? infer R : FallbackType
 // infer R 表示：如果 T 匹配 Pattern，则推断出类型 R
 
@@ -64,7 +64,7 @@ type R = ReturnType<typeof getString> // string
 
 **工作原理：**
 
-```typescript
+```ts
 // 1. TypeScript 检查 T 是否 extends Pattern
 // 2. 如果匹配，infer R 会捕获对应位置的类型
 // 3. 返回推断的类型 R
@@ -82,7 +82,7 @@ type T3 = ElementType<string> // never (不匹配数组模式)
 
 **函数返回值位置：**
 
-```typescript
+```ts
 type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never
 
 type T1 = ReturnType<() => string> // string
@@ -91,7 +91,7 @@ type T2 = ReturnType<(x: number) => number> // number
 
 **函数参数位置：**
 
-```typescript
+```ts
 type FirstParameter<T> = T extends (arg: infer P, ...args: any[]) => any
   ? P
   : never
@@ -102,7 +102,7 @@ type T2 = FirstParameter<(x: number, y: string) => void> // number
 
 **数组元素位置：**
 
-```typescript
+```ts
 type ArrayElement<T> = T extends (infer E)[] ? E : never
 
 type T1 = ArrayElement<string[]> // string
@@ -111,7 +111,7 @@ type T2 = ArrayElement<number[]> // number
 
 **对象属性值位置：**
 
-```typescript
+```ts
 type PropertyType<T> = T extends { value: infer V } ? V : never
 
 type T1 = PropertyType<{ value: string }> // string
@@ -125,7 +125,7 @@ type T3 = PropertyType<{ name: string }> // never
 
 **基本返回类型：**
 
-```typescript
+```ts
 type MyReturnType<T> = T extends (...args: any[]) => infer R ? R : never
 
 function add(a: number, b: number): number {
@@ -142,7 +142,7 @@ type T2 = MyReturnType<typeof greet> // string
 
 **异步函数返回类型：**
 
-```typescript
+```ts
 type AsyncReturnType<T> = T extends (...args: any[]) => Promise<infer R>
   ? R
   : never
@@ -163,7 +163,7 @@ type User = AsyncReturnType<typeof fetchUser>
 
 **所有参数：**
 
-```typescript
+```ts
 type MyParameters<T> = T extends (...args: infer P) => any ? P : never
 
 function calculate(a: number, b: number, op: string): number {
@@ -176,7 +176,7 @@ type CalcParams = MyParameters<typeof calculate>
 
 **第一个参数：**
 
-```typescript
+```ts
 type FirstArg<T> = T extends (first: infer F, ...args: any[]) => any ? F : never
 
 function log(message: string, level: number): void {
@@ -188,7 +188,7 @@ type FirstParam = FirstArg<typeof log> // string
 
 **最后一个参数：**
 
-```typescript
+```ts
 type LastArg<T> = T extends (...args: [...any[], infer L]) => any ? L : never
 
 type LastParam = LastArg<typeof log> // number
@@ -198,7 +198,7 @@ type LastParam = LastArg<typeof log> // number
 
 **一维数组：**
 
-```typescript
+```ts
 type ElementOf<T> = T extends (infer E)[] ? E : never
 
 type T1 = ElementOf<string[]> // string
@@ -208,7 +208,7 @@ type T3 = ElementOf<(string | number)[]> // string | number
 
 **二维数组：**
 
-```typescript
+```ts
 type MatrixElement<T> = T extends (infer E)[][] ? E : never
 
 type T1 = MatrixElement<string[][]> // string
@@ -217,7 +217,7 @@ type T2 = MatrixElement<number[][]> // number
 
 **只读数组：**
 
-```typescript
+```ts
 type ReadonlyArrayElement<T> = T extends ReadonlyArray<infer E> ? E : never
 
 type T1 = ReadonlyArrayElement<readonly string[]> // string
@@ -230,7 +230,7 @@ type T2 = ReadonlyArrayElement<readonly number[]> // number
 
 **基本 Promise：**
 
-```typescript
+```ts
 type Awaited<T> = T extends Promise<infer U> ? U : T
 
 type T1 = Awaited<Promise<string>> // string
@@ -240,7 +240,7 @@ type T3 = Awaited<string> // string
 
 **嵌套 Promise：**
 
-```typescript
+```ts
 type DeepAwaited<T> = T extends Promise<infer U> ? DeepAwaited<U> : T
 
 type T1 = DeepAwaited<Promise<Promise<string>>> // string
@@ -249,7 +249,7 @@ type T2 = DeepAwaited<Promise<Promise<Promise<number>>>> // number
 
 **Promise 数组：**
 
-```typescript
+```ts
 type PromiseArrayValue<T> = T extends Promise<infer U>[] ? U : never
 
 type T1 = PromiseArrayValue<Promise<string>[]> // string
@@ -260,7 +260,7 @@ type T2 = PromiseArrayValue<Promise<number>[]> // number
 
 **构造函数参数：**
 
-```typescript
+```ts
 type ConstructorParameters<T> = T extends new (...args: infer P) => any
   ? P
   : never
@@ -275,7 +275,7 @@ type PersonParams = ConstructorParameters<typeof Person>
 
 **构造函数实例类型：**
 
-```typescript
+```ts
 type InstanceType<T> = T extends new (...args: any[]) => infer R ? R : never
 
 type PersonInstance = InstanceType<typeof Person>
@@ -284,7 +284,7 @@ type PersonInstance = InstanceType<typeof Person>
 
 **抽象构造函数：**
 
-```typescript
+```ts
 type AbstractConstructorParameters<T> = T extends abstract new (
   ...args: infer P
 ) => any
@@ -303,7 +303,7 @@ type AnimalParams = AbstractConstructorParameters<typeof Animal>
 
 **元组第一个元素：**
 
-```typescript
+```ts
 type First<T> = T extends [infer F, ...any[]] ? F : never
 
 type T1 = First<[string, number, boolean]> // string
@@ -313,7 +313,7 @@ type T3 = First<[]> // never
 
 **元组最后一个元素：**
 
-```typescript
+```ts
 type Last<T> = T extends [...any[], infer L] ? L : never
 
 type T1 = Last<[string, number, boolean]> // boolean
@@ -323,7 +323,7 @@ type T3 = Last<[]> // never
 
 **元组剩余部分：**
 
-```typescript
+```ts
 type Tail<T> = T extends [any, ...infer Rest] ? Rest : never
 
 type T1 = Tail<[string, number, boolean]> // [number, boolean]
@@ -333,7 +333,7 @@ type T3 = Tail<[]> // never
 
 **元组转联合类型：**
 
-```typescript
+```ts
 type TupleToUnion<T> = T extends (infer E)[] ? E : never
 
 type T1 = TupleToUnion<[string, number, boolean]> // string | number | boolean
@@ -346,7 +346,7 @@ type T2 = TupleToUnion<[1, 2, 3]> // 1 | 2 | 3
 
 **提取对象所有函数的返回类型：**
 
-```typescript
+```ts
 type FunctionReturnTypes<T> = {
   [K in keyof T]: T[K] extends (...args: any[]) => infer R ? R : never
 }
@@ -367,7 +367,7 @@ type APIReturnTypes = FunctionReturnTypes<API>
 
 **提取事件处理器的参数类型：**
 
-```typescript
+```ts
 type EventPayload<T> = T extends (event: infer E) => any ? E : never
 
 interface EventHandlers {
@@ -384,7 +384,7 @@ type KeyDownEvent = EventPayload<EventHandlers['onKeyDown']> // KeyboardEvent
 
 **扁平化嵌套数组类型：**
 
-```typescript
+```ts
 type Flatten<T> = T extends (infer U)[] ? (U extends any[] ? Flatten<U> : U) : T
 
 type T1 = Flatten<number[]> // number
@@ -395,7 +395,7 @@ type T4 = Flatten<string> // string
 
 **提取联合类型中的函数：**
 
-```typescript
+```ts
 type ExtractFunction<T> = T extends (...args: any[]) => infer R ? T : never
 
 type Mixed = string | number | ((x: number) => string) | boolean
@@ -407,7 +407,7 @@ type Funcs = ExtractFunction<Mixed>
 
 **深度获取属性类型：**
 
-```typescript
+```ts
 type DeepPropertyType<
   T,
   Path extends string
@@ -434,7 +434,7 @@ type Zip = DeepPropertyType<User, 'profile.address.zip'> // number
 
 **提取泛型类型的参数：**
 
-```typescript
+```ts
 type UnboxPromise<T> = T extends Promise<infer U> ? U : T
 type UnboxArray<T> = T extends Array<infer U> ? U : T
 type UnboxMap<T> = T extends Map<any, infer V> ? V : T
@@ -448,7 +448,7 @@ type T3 = UnboxMap<Map<string, number>> // number
 
 **1. infer 只能在条件类型中使用**
 
-```typescript
+```ts
 // ❌ 错误：infer 不能单独使用
 type Wrong = infer R
 
@@ -461,7 +461,7 @@ type Correct<T> = T extends (infer R)[] ? R : never
 
 **2. 多个 infer 的协变位置**
 
-```typescript
+```ts
 // 多个 infer 在协变位置（返回值）会推断为联合类型
 type ReturnTypes<T> = T extends {
   foo: (...args: any[]) => infer R
@@ -479,7 +479,7 @@ type T = ReturnTypes<{
 
 **3. 多个 infer 的逆变位置**
 
-```typescript
+```ts
 // 多个 infer 在逆变位置（参数）会推断为交叉类型
 type ParamTypes<T> = T extends {
   foo: (arg: infer P) => void
@@ -497,7 +497,7 @@ type T = ParamTypes<{
 
 **4. infer 的作用域**
 
-```typescript
+```ts
 // infer 声明的类型变量只在条件类型的真值分支中可用
 type Test<T> = T extends (infer R)[]
   ? R // ✅ 可以使用 R
@@ -509,7 +509,7 @@ type Correct<T> = T extends (infer R)[] ? R : never
 
 **5. infer 与分布式条件类型**
 
-```typescript
+```ts
 // 当 T 是联合类型时，infer 会分别应用
 type ExtractReturnType<T> = T extends (...args: any[]) => infer R ? R : never
 
@@ -525,7 +525,7 @@ type Returns2 = NonDistributive<Funcs>
 
 **6. 嵌套 infer 的推断优先级**
 
-```typescript
+```ts
 type NestedArray<T> = T extends (infer U)[]
   ? U extends (infer V)[]
     ? V
@@ -539,7 +539,7 @@ type T3 = NestedArray<string> // string
 
 **7. infer 与泛型约束**
 
-```typescript
+```ts
 // ❌ 错误：不能为 infer 添加约束
 type Wrong<T> = T extends (infer R extends string)[] ? R : never
 

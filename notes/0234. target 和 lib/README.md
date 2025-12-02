@@ -101,7 +101,7 @@
 
 ### 3.3. 编译示例
 
-```typescript
+```ts
 // 源代码
 const greet = (name: string) => {
   console.log(`Hello, ${name}`)
@@ -141,7 +141,7 @@ var Person = /** @class */ (function () {
 
 ### 3.4. 降级转换示例
 
-```typescript
+```ts
 // 可选链（ES2020）
 const value = obj?.property?.nested
 
@@ -157,7 +157,7 @@ const value =
     : _a.nested
 ```
 
-```typescript
+```ts
 // async/await（ES2017）
 async function fetchData() {
   const response = await fetch('/api')
@@ -181,7 +181,7 @@ function fetchData() {
 
 ### 3.5. target 影响的特性
 
-```typescript
+```ts
 // ES2015+ 特性
 const arrow = () => {} // 箭头函数
 class MyClass {} // 类
@@ -257,7 +257,7 @@ class C {
 
 ### 4.3. lib 提供的类型
 
-```typescript
+```ts
 // lib: ["ES2019"]
 const arr = [1, [2, [3, 4]]]
 const flat = arr.flat(2) // ✅ Array.flat 可用
@@ -271,7 +271,7 @@ div.addEventListener('click', () => {}) // ✅ DOM 事件可用
 
 ### 4.4. 不同 lib 的影响
 
-```typescript
+```ts
 // 没有 "DOM" 时
 document.getElementById('app') // ❌ 错误：找不到名称 document
 
@@ -313,7 +313,7 @@ document.getElementById('app') // ✅ 正常
 
 ### 5.1. 关系说明
 
-```typescript
+```ts
 // target: 控制语法如何编译
 // 源码
 const fn = async () => {
@@ -341,7 +341,7 @@ var fn = function () {
 }
 ```
 
-```typescript
+```ts
 // lib: 控制可以使用哪些 API（编译时检查）
 
 // lib: ["ES2019"]
@@ -390,7 +390,7 @@ const flat = [1, [2, 3]].flat() // ❌ 错误：ES2015 没有 flat
 }
 ```
 
-```typescript
+```ts
 // ✅ 可以使用现代特性
 const value = obj?.prop ?? 'default'
 const promise = Promise.allSettled([])
@@ -408,7 +408,7 @@ document.querySelectorAll('div').forEach((el) => {})
 }
 ```
 
-```typescript
+```ts
 // TypeScript 会降级语法
 const fn = () => {} // 编译为 function
 
@@ -429,7 +429,7 @@ import 'regenerator-runtime/runtime'
 }
 ```
 
-```typescript
+```ts
 // ✅ 可以使用 Node.js API（通过 @types/node）
 import * as fs from 'fs'
 import * as path from 'path'
@@ -480,7 +480,7 @@ Webpack/Vite 等打包工具会使用 Babel/SWC 进行最终的降级处理。
 
 ### 7.1. target 不提供 Polyfill
 
-```typescript
+```ts
 // target: "ES5"
 const promise = Promise.resolve(1) // ✅ 编译通过
 
@@ -491,7 +491,7 @@ import 'core-js/es/promise'
 
 ### 7.2. lib 不影响运行时
 
-```typescript
+```ts
 // lib: ["ES2020"]
 const result = [1, [2, 3]].flat() // ✅ 编译通过
 
@@ -513,14 +513,14 @@ const result = [1, [2, 3]].flat() // ✅ 编译通过
 }
 ```
 
-```typescript
+```ts
 // 编译通过，但运行时可能出错
 const result = str.matchAll(/pattern/g) // ES2020 API
 ```
 
 ### 7.4. 使用 Polyfill
 
-```typescript
+```ts
 // 安装 core-js
 // npm install core-js
 
@@ -535,7 +535,7 @@ import 'core-js/es/array/flat'
 
 ### 7.5. target 影响输出体积
 
-```typescript
+```ts
 // 源代码
 const fn = async () => {
   const [a, b] = await getData()
@@ -560,7 +560,7 @@ const fn = async () => {
 }
 ```
 
-```typescript
+```ts
 // ❌ 错误：找不到名称 document
 document.getElementById('app')
 ```
@@ -587,7 +587,7 @@ document.getElementById('app')
 
 ### 7.8. 类型定义的来源
 
-```typescript
+```ts
 // lib 提供标准 API 类型
 const arr: Array<number> = [] // lib: ES2015+
 
@@ -626,7 +626,7 @@ interface User {
 
 ### 7.10. downlevelIteration 选项
 
-```typescript
+```ts
 // 使用迭代器
 for (const char of 'hello') {
   console.log(char)
@@ -659,7 +659,7 @@ const arr = [...new Set([1, 2, 3])]
 npm install tslib
 ```
 
-```typescript
+```ts
 // 多个文件共享辅助函数，减小总体积
 ```
 

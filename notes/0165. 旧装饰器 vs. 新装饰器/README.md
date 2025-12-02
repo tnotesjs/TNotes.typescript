@@ -39,7 +39,7 @@
 
 ::: code-group
 
-```typescript [旧装饰器配置]
+```ts [旧装饰器配置]
 // tsconfig.json
 {
   "compilerOptions": {
@@ -50,7 +50,7 @@
 }
 ```
 
-```typescript [新装饰器配置]
+```ts [新装饰器配置]
 // tsconfig.json
 {
   "compilerOptions": {
@@ -69,7 +69,7 @@
 
 ::: code-group
 
-```typescript [旧装饰器]
+```ts [旧装饰器]
 // 旧装饰器签名
 function OldClassDecorator(target: Function) {
   // target 是类的构造函数
@@ -95,7 +95,7 @@ class OldExample {
 }
 ```
 
-```typescript [新装饰器]
+```ts [新装饰器]
 // 新装饰器签名
 function NewClassDecorator(target: Function, context: ClassDecoratorContext) {
   // context 提供元信息
@@ -130,7 +130,7 @@ class NewExample {
 
 ::: code-group
 
-```typescript [旧装饰器]
+```ts [旧装饰器]
 // 旧装饰器签名
 function OldMethodDecorator(
   target: Object,
@@ -158,7 +158,7 @@ class OldService {
 }
 ```
 
-```typescript [新装饰器]
+```ts [新装饰器]
 // 新装饰器签名
 function NewMethodDecorator(
   target: Function,
@@ -191,7 +191,7 @@ class NewService {
 
 ::: code-group
 
-```typescript [旧装饰器]
+```ts [旧装饰器]
 // 旧装饰器签名
 function OldPropertyDecorator(target: Object, propertyKey: string | symbol) {
   console.log('属性名：', propertyKey)
@@ -217,7 +217,7 @@ class OldModel {
 }
 ```
 
-```typescript [新装饰器]
+```ts [新装饰器]
 // 新装饰器签名
 function NewPropertyDecorator(
   target: undefined,
@@ -247,7 +247,7 @@ class NewModel {
 
 ::: code-group
 
-```typescript [旧装饰器]
+```ts [旧装饰器]
 import 'reflect-metadata'
 
 // 旧装饰器使用 reflect-metadata
@@ -279,7 +279,7 @@ console.log(table) // 'users'
 console.log(columns) // ['name', 'email']
 ```
 
-```typescript [新装饰器]
+```ts [新装饰器]
 // 新装饰器需要使用 Symbol.metadata（提案阶段）
 // 目前需要手动管理元数据
 
@@ -333,7 +333,7 @@ console.log(metadata?.columns) // ['name', 'email']
 
 ### 8.1. 使用建议
 
-```typescript
+```ts
 // 新项目：使用新装饰器
 // 优点：符合标准，性能更好
 

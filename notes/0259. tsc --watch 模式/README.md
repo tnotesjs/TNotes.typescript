@@ -115,7 +115,7 @@ tsc -w
 tsc --watch index.ts
 ```
 
-```typescript
+```ts
 // index.ts
 console.log('Hello, TypeScript!')
 
@@ -189,7 +189,7 @@ tsc -b -w
 
 ### 5.2. 示例演示
 
-```typescript
+```ts
 // utils.ts
 export function add(a: number, b: number): number {
   return a + b

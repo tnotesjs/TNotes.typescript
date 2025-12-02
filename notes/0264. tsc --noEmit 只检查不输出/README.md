@@ -81,7 +81,7 @@ tsc
 
 ### 3.4. 示例
 
-```typescript
+```ts
 // index.ts
 function greet(name: string): string {
   return `Hello, ${name}!`

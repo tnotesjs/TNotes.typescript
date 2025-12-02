@@ -8,5 +8,5 @@
   "description": "@ts-nocheck 是文件级别的类型检查跳过指令，用于完全禁用某个文件的 TypeScript 类型检查，需要位于文件顶部，常用于 JS->TS 项目迁移初期。",
   "id": "e50d3e40-7773-46f5-b570-50dbd91dc56d",
   "created_at": 1760521823000,
-  "updated_at": 1763024838259
+  "updated_at": 1764655398320
 }

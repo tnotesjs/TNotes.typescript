@@ -46,7 +46,7 @@ declare namespace 用于声明全局命名空间的类型。
 
 ### 3.1. 基本语法
 
-```typescript
+```ts
 // 声明命名空间
 declare namespace MyLibrary {
   function init(config: object): void
@@ -68,7 +68,7 @@ MyLibrary.destroy()
 
 ### 3.2. 命名空间中的各种成员
 
-```typescript
+```ts
 // 包含多种成员的命名空间
 declare namespace Utils {
   // 函数
@@ -112,7 +112,7 @@ const locale: Utils.Locale = Utils.Locale.EN
 
 ### 3.3. 命名空间分组
 
-```typescript
+```ts
 // API 相关的命名空间
 declare namespace API {
   interface Response<T> {
@@ -145,7 +145,7 @@ API.request<{ id: number; name: string }>({
 
 ### 4.1. 基本嵌套
 
-```typescript
+```ts
 // 嵌套命名空间
 declare namespace App {
   namespace Models {
@@ -189,7 +189,7 @@ const serialized = App.Utils.serialize({ name: 'Alice' })
 
 ### 4.2. 多层嵌套
 
-```typescript
+```ts
 // 深层嵌套
 declare namespace Company {
   namespace Department {
@@ -224,7 +224,7 @@ const dev: Company.Department.Engineering.Frontend.ReactDeveloper = {
 
 ### 4.3. 命名空间别名
 
-```typescript
+```ts
 // 为长命名空间创建别名
 declare namespace VeryLongNamespace {
   namespace DeepNested {
@@ -251,7 +251,7 @@ Alias.someFunction()
 
 ### 5.1. 命名空间与类合并
 
-```typescript
+```ts
 // 类声明
 declare class Calculator {
   add(a: number, b: number): number
@@ -277,7 +277,7 @@ Calculator.abs(-5) // 静态方法
 
 ### 5.2. 命名空间与函数合并
 
-```typescript
+```ts
 // 函数声明
 declare function jQuery(selector: string): any
 
@@ -305,7 +305,7 @@ jQuery.ajax({ url: '/api/data' }) // 命名空间方法
 
 ### 5.3. 命名空间与枚举合并
 
-```typescript
+```ts
 // 枚举声明
 declare enum Color {
   Red,
@@ -326,7 +326,7 @@ const hex = Color.toHex(red) // 命名空间方法
 
 ### 5.4. 实际应用示例
 
-```typescript
+```ts
 // Express 风格的库声明
 declare function express(): express.Application
 
@@ -374,7 +374,7 @@ const router = express.Router() // 使用命名空间成员
 
 ### 5.5. jQuery 完整示例
 
-```typescript
+```ts
 // jQuery 的类型声明
 declare function $(selector: string): JQuery
 declare function $(element: Element): JQuery

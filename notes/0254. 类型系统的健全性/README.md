@@ -56,7 +56,7 @@ TypeScript 是一个非健全的类型系统，这是设计上的权衡。
 
 ### 3.1. 健全性的定义
 
-```typescript
+```ts
 // 健全类型系统的保证：
 // 如果程序通过类型检查，则运行时不会发生类型错误
 
@@ -75,7 +75,7 @@ add(1, 2) // ✅ 编译通过，运行时正确
 
 ### 3.2. 不健全的表现
 
-```typescript
+```ts
 // ⚠️ TypeScript 允许的不健全行为
 
 // 示例 1：数组协变
@@ -99,7 +99,7 @@ handler(42) // ✅ 编译通过（非 strict 模式）
 
 ### 3.3. 健全 vs. 不健全
 
-```typescript
+```ts
 // 健全类型系统（Haskell、ML 等）
 // 严格保证：编译通过 = 运行时类型安全
 
@@ -116,7 +116,7 @@ TypeScript 有意引入了一些不健全的特性。
 
 ### 4.1. any 类型
 
-```typescript
+```ts
 // ⚠️ any 破坏类型安全
 let value: any = 'hello'
 
@@ -134,7 +134,7 @@ const result = process({ foo: {} })
 
 ### 4.2. 类型断言
 
-```typescript
+```ts
 // ⚠️ 类型断言绕过类型检查
 const value = 'hello' as unknown as number
 
@@ -153,7 +153,7 @@ console.log(obj.name.toUpperCase()) // ✅ 编译通过
 
 ### 4.3. 函数参数双向协变
 
-```typescript
+```ts
 // ⚠️ 函数参数的双向协变（非 strictFunctionTypes）
 interface Animal {
   name: string
@@ -187,7 +187,7 @@ handler(dog) // ✅ 正常工作
 
 ### 4.4. 数组协变
 
-```typescript
+```ts
 // ⚠️ 数组的协变性
 const dogs: Dog[] = [{ name: 'Rex', bark: () => {} }]
 const animals: Animal[] = dogs // ✅ 允许
@@ -200,7 +200,7 @@ dogs[1].bark() // ❌ 运行时错误：bark is not a function
 
 ### 4.5. 空值检查的不完整性
 
-```typescript
+```ts
 // ⚠️ strictNullChecks 的局限
 interface User {
   name: string
@@ -222,7 +222,7 @@ TypeScript 为了实用性有意做出权衡。
 
 ### 5.1. 与 JavaScript 兼容
 
-```typescript
+```ts
 // ✅ TypeScript 需要兼容 JavaScript 的动态特性
 
 // JavaScript 的动态行为
@@ -234,7 +234,7 @@ console.log(obj.name) // 运行时才知道类型
 
 ### 5.2. 表达常见模式
 
-```typescript
+```ts
 // ✅ 数组协变支持常见模式
 class Animal {}
 class Dog extends Animal {}
@@ -251,7 +251,7 @@ printAnimals(dogs) // ✅ 这是安全的读取操作
 
 ### 5.3. 渐进式采用
 
-```typescript
+```ts
 // ✅ any 允许渐进式迁移
 // 从 JavaScript 迁移到 TypeScript
 
@@ -268,7 +268,7 @@ count2 = 'hello'
 
 ### 5.4. 开发者生产力
 
-```typescript
+```ts
 // ✅ 类型断言提供逃生舱口
 const input = document.getElementById('input') as HTMLInputElement
 console.log(input.value) // 开发者知道这是安全的
@@ -286,7 +286,7 @@ if (input2 instanceof HTMLInputElement) {
 
 ### 6.1. 启用严格模式
 
-```typescript
+```ts
 // ✅ tsconfig.json
 {
   "compilerOptions": {
@@ -301,7 +301,7 @@ if (input2 instanceof HTMLInputElement) {
 
 ### 6.2. 避免使用 any
 
-```typescript
+```ts
 // ❌ 使用 any
 function process(data: any) {
   return data.value
@@ -327,7 +327,7 @@ function process3(data: Data) {
 
 ### 6.3. 谨慎使用类型断言
 
-```typescript
+```ts
 // ❌ 不安全的断言
 const value = input as number
 
@@ -349,7 +349,7 @@ const value = schema.parse(input) // 运行时验证
 
 ### 6.4. 使用只读数组
 
-```typescript
+```ts
 // ⚠️ 可变数组的协变问题
 const numbers: number[] = [1, 2, 3]
 const values: any[] = numbers
@@ -373,7 +373,7 @@ TypeScript 在健全性和实用性之间找到平衡。
 
 ### 7.1. 不同语言的权衡
 
-```typescript
+```ts
 // Haskell：完全健全
 // - 优点：类型安全绝对保证
 // - 缺点：学习曲线陡峭，表达某些模式困难
@@ -390,7 +390,7 @@ TypeScript 在健全性和实用性之间找到平衡。
 
 ### 7.2. TypeScript 的设计哲学
 
-```typescript
+```ts
 // TypeScript 设计目标（按优先级）：
 // 1. 与 JavaScript 的兼容性
 // 2. 捕获常见错误
@@ -406,7 +406,7 @@ TypeScript 在健全性和实用性之间找到平衡。
 
 ### 7.3. 实践建议
 
-```typescript
+```ts
 // ✅ 平衡安全性和生产力
 
 // 1. 默认使用严格模式

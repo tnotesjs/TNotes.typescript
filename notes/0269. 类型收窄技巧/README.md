@@ -62,7 +62,7 @@
 
 ### 3.1. 基本概念
 
-```typescript
+```ts
 function process(value: string | number) {
   // 这里 value 的类型是 string | number
 
@@ -78,7 +78,7 @@ function process(value: string | number) {
 
 ### 3.2. 控制流分析
 
-```typescript
+```ts
 function example(x: string | number | null) {
   if (x === null) {
     // x 的类型：null
@@ -101,7 +101,7 @@ function example(x: string | number | null) {
 
 ### 4.1. 基本类型检查
 
-```typescript
+```ts
 function printValue(value: string | number | boolean) {
   if (typeof value === 'string') {
     console.log(value.toUpperCase())
@@ -115,7 +115,7 @@ function printValue(value: string | number | boolean) {
 
 ### 4.2. typeof 的限制
 
-```typescript
+```ts
 // ⚠️ typeof 对于 null 返回 "object"
 function checkNull(value: string | null) {
   if (typeof value === 'object') {
@@ -147,7 +147,7 @@ function checkArray(value: string[] | string) {
 
 ### 4.3. 实际应用
 
-```typescript
+```ts
 function formatValue(value: string | number | bigint): string {
   if (typeof value === 'string') {
     return value
@@ -166,7 +166,7 @@ function formatValue(value: string | number | bigint): string {
 
 ### 5.1. 基本真值检查
 
-```typescript
+```ts
 function printLength(str: string | null | undefined) {
   // ❌ 可能出错
   // console.log(str.length);
@@ -181,7 +181,7 @@ function printLength(str: string | null | undefined) {
 
 ### 5.2. 空字符串问题
 
-```typescript
+```ts
 function process(value: string | null) {
   // ⚠️ 注意：空字符串 "" 也是假值
   if (value) {
@@ -198,7 +198,7 @@ function process(value: string | null) {
 
 ### 5.3. 数字 0 的问题
 
-```typescript
+```ts
 function printNumber(num: number | null) {
   // ⚠️ 数字 0 是假值
   if (num) {
@@ -214,7 +214,7 @@ function printNumber(num: number | null) {
 
 ### 5.4. 布尔值转换
 
-```typescript
+```ts
 function isEmpty(value: string | null | undefined): boolean {
   // ✅ 明确转换为布尔值
   return !value
@@ -232,7 +232,7 @@ function hasValue(value: string | null | undefined): value is string {
 
 ### 6.1. 精确相等检查
 
-```typescript
+```ts
 function process(x: string | number, y: string | boolean) {
   if (x === y) {
     // ✅ TypeScript 推断出 x 和 y 都是 string
@@ -244,7 +244,7 @@ function process(x: string | number, y: string | boolean) {
 
 ### 6.2. null/undefined 检查
 
-```typescript
+```ts
 function printValue(value: string | null | undefined) {
   // ✅ 同时排除 null 和 undefined
   if (value != null) {
@@ -262,7 +262,7 @@ function printValue(value: string | null | undefined) {
 
 ### 6.3. 字面量检查
 
-```typescript
+```ts
 type Status = 'success' | 'error' | 'pending'
 
 function handleStatus(status: Status) {
@@ -285,7 +285,7 @@ function handleStatus(status: Status) {
 
 ### 7.1. 基本用法
 
-```typescript
+```ts
 interface Dog {
   bark(): void
 }
@@ -307,7 +307,7 @@ function makeSound(animal: Dog | Cat) {
 
 ### 7.2. 复杂对象
 
-```typescript
+```ts
 interface Circle {
   kind: 'circle'
   radius: number
@@ -334,7 +334,7 @@ function getArea(shape: Shape): number {
 
 ### 7.3. 可选属性
 
-```typescript
+```ts
 interface User {
   name: string
   email?: string
@@ -354,7 +354,7 @@ function printEmail(user: User) {
 
 ### 8.1. 类实例检查
 
-```typescript
+```ts
 class Dog {
   bark() {
     console.log('Woof!')
@@ -380,7 +380,7 @@ function makeSound(animal: Dog | Cat) {
 
 ### 8.2. 内置类型
 
-```typescript
+```ts
 function process(value: Date | string) {
   if (value instanceof Date) {
     // value 的类型：Date
@@ -394,7 +394,7 @@ function process(value: Date | string) {
 
 ### 8.3. Error 处理
 
-```typescript
+```ts
 function handleError(error: unknown) {
   if (error instanceof Error) {
     // error 的类型：Error
@@ -415,7 +415,7 @@ function handleError(error: unknown) {
 
 ### 9.1. 基本模式
 
-```typescript
+```ts
 interface Circle {
   kind: 'circle'
   radius: number
@@ -451,7 +451,7 @@ function getArea(shape: Shape): number {
 
 ### 9.2. 网络请求示例
 
-```typescript
+```ts
 interface SuccessResponse {
   status: 'success'
   data: unknown
@@ -485,7 +485,7 @@ function handleResponse(response: ApiResponse) {
 
 ### 9.3. 穷尽性检查
 
-```typescript
+```ts
 type Shape = Circle | Square | Rectangle
 
 function getArea(shape: Shape): number {

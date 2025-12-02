@@ -51,7 +51,7 @@
 
 访问器装饰器是应用在类访问器声明上的函数，用于观察、修改或替换访问器定义。
 
-```typescript
+```ts
 // 访问器装饰器的本质
 function enumerable(value: boolean) {
   return function (
@@ -87,7 +87,7 @@ console.log(Object.keys(person)) // ['_name', 'name']
 
 ### 4.1. 参数说明
 
-```typescript
+```ts
 // 访问器装饰器的完整参数
 function accessorDecorator(
   target: any, // 静态访问器是类的构造函数，实例访问器是类的原型对象
@@ -116,7 +116,7 @@ class Example {
 
 ### 4.2. 属性描述符详解
 
-```typescript
+```ts
 // 访问器的属性描述符
 function logAccessor(
   target: any,
@@ -151,7 +151,7 @@ class User {
 
 ### 5.1. 添加日志记录
 
-```typescript
+```ts
 // 记录属性访问
 function logAccess(
   target: any,
@@ -199,7 +199,7 @@ console.log(product.price) // [GET] price = 100
 
 ### 5.2. 数据验证
 
-```typescript
+```ts
 // 验证属性值
 function validate(min: number, max: number) {
   return function (
@@ -248,7 +248,7 @@ score.value = 95 // 正常
 
 ### 5.3. 属性缓存
 
-```typescript
+```ts
 // 缓存计算结果
 function memoize(
   target: any,
@@ -297,7 +297,7 @@ console.log(circle.area) // 直接返回缓存
 
 ### 5.4. 只读属性
 
-```typescript
+```ts
 // 将 setter 设置为不可用
 function readonly(
   target: any,
@@ -337,7 +337,7 @@ console.log(config.apiUrl)
 
 ### 6.1. 自动通知变化
 
-```typescript
+```ts
 // 属性变化时自动通知观察者
 function observable(
   target: any,
@@ -389,7 +389,7 @@ store.count = 2 // count 从 1 变为 2
 
 ### 6.2. 延迟计算
 
-```typescript
+```ts
 // 延迟计算属性值
 function lazy(
   target: any,
@@ -445,7 +445,7 @@ console.log(comp.average) // 使用缓存的 sum
 
 ### 6.3. 访问控制
 
-```typescript
+```ts
 // 检查访问权限
 function requireAuth(
   target: any,
@@ -488,7 +488,7 @@ console.log(data.secret) // 'top-secret'
 
 ### 6.4. 格式化输出
 
-```typescript
+```ts
 // 格式化属性值
 function format(formatter: (value: any) => any) {
   return function (
@@ -530,7 +530,7 @@ console.log(user.fullName) // 'JOHN DOE'
 
 ::: code-group
 
-```typescript [❌ 错误示例]
+```ts [❌ 错误示例]
 // 不能同时为 getter 和 setter 添加装饰器
 class Example {
   private _value: number = 0
@@ -547,7 +547,7 @@ class Example {
 }
 ```
 
-```typescript [✅ 正确示例]
+```ts [✅ 正确示例]
 // 只装饰一个访问器
 class Example {
   private _value: number = 0
@@ -567,7 +567,7 @@ class Example {
 
 ### 7.2. 装饰器应用顺序
 
-```typescript
+```ts
 // 装饰器按照文档顺序应用于第一个访问器
 class Example {
   private _value: number = 0
@@ -587,7 +587,7 @@ class Example {
 
 ### 7.3. 保持 this 上下文
 
-```typescript
+```ts
 // 确保正确处理 this
 function decorator(
   target: any,
@@ -607,7 +607,7 @@ function decorator(
 
 ### 7.4. 处理缺失的访问器
 
-```typescript
+```ts
 // 检查访问器是否存在
 function safeDecorator(
   target: any,
@@ -634,7 +634,7 @@ function safeDecorator(
 
 ::: code-group
 
-```typescript [访问器]
+```ts [访问器]
 // 访问器可以添加逻辑
 class Example {
   private _value: number = 0
@@ -654,7 +654,7 @@ class Example {
 }
 ```
 
-```typescript [普通属性]
+```ts [普通属性]
 // 普通属性不能直接添加装饰器来修改行为
 class Example {
   @decorator // 这是属性装饰器，功能有限

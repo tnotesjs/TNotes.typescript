@@ -55,7 +55,7 @@ declare 声明类的基本语法与普通类声明类似，但不包含实现。
 
 ### 3.1. 基本语法
 
-```typescript
+```ts
 // 声明一个简单的类
 declare class User {
   name: string
@@ -79,7 +79,7 @@ console.log(user.greet())
 
 ### 3.2. 声明构造函数
 
-```typescript
+```ts
 // 基本构造函数
 declare class Point {
   constructor(x: number, y: number)
@@ -106,7 +106,7 @@ new Logger('AppLogger')
 
 ### 3.3. 声明实例属性
 
-```typescript
+```ts
 // 各种类型的属性
 declare class Product {
   // 必需属性
@@ -138,7 +138,7 @@ console.log(product.createdAt)
 
 ### 4.1. 实例方法
 
-```typescript
+```ts
 // 基本方法
 declare class Calculator {
   add(a: number, b: number): number
@@ -162,7 +162,7 @@ calc.reset().clear() // 链式调用
 
 ### 4.2. 静态成员
 
-```typescript
+```ts
 // 静态属性和方法
 declare class MathUtils {
   static PI: number
@@ -181,7 +181,7 @@ MathUtils.max(1, 2, 3, 4, 5)
 
 ### 4.3. 访问修饰符
 
-```typescript
+```ts
 // public、private、protected
 declare class BankAccount {
   // 公共属性（默认）
@@ -212,7 +212,7 @@ account.deposit(100)
 
 ### 4.4. 存取器
 
-```typescript
+```ts
 // getter 和 setter
 declare class Temperature {
   get celsius(): number
@@ -230,7 +230,7 @@ console.log(temp.fahrenheit)
 
 ### 4.5. 方法重载
 
-```typescript
+```ts
 // 方法重载
 declare class DataService {
   fetch(id: number): Promise<any>
@@ -251,7 +251,7 @@ service.fetch({ status: 'active' })
 
 ### 5.1. 类继承
 
-```typescript
+```ts
 // 基类
 declare class Animal {
   name: string
@@ -276,7 +276,7 @@ dog.bark()
 
 ### 5.2. 实现接口
 
-```typescript
+```ts
 // 接口
 interface Serializable {
   serialize(): string
@@ -303,7 +303,7 @@ user.compareTo(new User())
 
 ### 5.3. 抽象类
 
-```typescript
+```ts
 // 抽象基类
 declare abstract class Shape {
   abstract area(): number
@@ -330,7 +330,7 @@ console.log(circle.area())
 
 ### 5.4. 继承链
 
-```typescript
+```ts
 // 多层继承
 declare class Entity {
   id: string
@@ -360,7 +360,7 @@ admin.permissions // 来自 AdminUser
 
 ### 6.1. 泛型类
 
-```typescript
+```ts
 // 基本泛型类
 declare class Box<T> {
   value: T
@@ -381,7 +381,7 @@ stringBox.getValue() // string
 
 ### 6.2. 多个泛型参数
 
-```typescript
+```ts
 // 多个类型参数
 declare class Pair<K, V> {
   key: K
@@ -401,7 +401,7 @@ pair.getValue() // number
 
 ### 6.3. 泛型约束
 
-```typescript
+```ts
 // 约束泛型类型
 declare class Repository<T extends { id: number }> {
   private items: T[]
@@ -424,7 +424,7 @@ userRepo.add({ id: 1, name: 'Alice' })
 
 ### 6.4. 泛型继承
 
-```typescript
+```ts
 // 泛型基类
 declare class Collection<T> {
   protected items: T[]
@@ -448,7 +448,7 @@ numbers.sort((a, b) => a - b)
 
 ### 6.5. 实际应用示例
 
-```typescript
+```ts
 // 数据访问层
 declare class DataStore<T> {
   constructor(tableName: string)
@@ -484,7 +484,7 @@ productStore.update('123', {
 
 ### 6.6. 静态泛型方法
 
-```typescript
+```ts
 // 类带有静态泛型方法
 declare class Utils {
   static clone<T>(obj: T): T
@@ -503,7 +503,7 @@ const numbers = Utils.map(['1', '2', '3'], (x) => parseInt(x))
 
 ### 6.7. 混合使用
 
-```typescript
+```ts
 // 结合抽象类、泛型、接口
 interface Identifiable {
   id: string

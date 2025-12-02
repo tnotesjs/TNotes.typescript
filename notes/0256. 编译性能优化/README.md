@@ -56,7 +56,7 @@
 
 ### 3.1. 全量重编译
 
-```typescript
+```ts
 // ⚠️ 每次修改都重新编译所有文件
 
 // 项目结构
@@ -73,7 +73,7 @@
 
 ### 3.2. 复杂类型计算
 
-```typescript
+```ts
 // ⚠️ 过度复杂的类型导致编译慢
 
 // ❌ 深度递归类型
@@ -101,7 +101,7 @@ type Prev<T extends number> = T extends 1 ? 0 : /* ... */;
 
 ### 3.3. 类型断言滥用
 
-```typescript
+```ts
 // ⚠️ 过多的类型断言降低性能
 
 // ❌ 每次都重新断言
@@ -247,7 +247,7 @@ function process2(data: unknown) {
 
 ### 5.2. 模块化设计
 
-```typescript
+```ts
 // ✅ 避免循环依赖
 
 // ❌ 循环依赖降低性能
@@ -287,7 +287,7 @@ export class B implements IB {
 
 ### 5.3. 按功能分包
 
-```typescript
+```ts
 // ✅ 合理的目录结构
 
 // 项目结构
@@ -309,7 +309,7 @@ export class B implements IB {
 
 ### 6.1. 避免复杂类型计算
 
-```typescript
+```ts
 // ❌ 复杂的条件类型
 type DeepRequired<T> = T extends object
   ? { [K in keyof T]-?: DeepRequired<T[K]> }
@@ -343,7 +343,7 @@ interface RequiredConfig {
 
 ### 6.2. 使用类型别名缓存
 
-```typescript
+```ts
 // ❌ 重复计算
 function process1(data: Omit<User, 'password' | 'token'>) {}
 function process2(data: Omit<User, 'password' | 'token'>) {}
@@ -359,7 +359,7 @@ function process3(data: PublicUser) {}
 
 ### 6.3. 简化泛型
 
-```typescript
+```ts
 // ❌ 过多的泛型参数
 function complex<T1, T2, T3, T4, T5>(a: T1, b: T2, c: T3, d: T4, e: T5) {
   // ...
@@ -381,7 +381,7 @@ function simple<T>(params: Params<T>) {
 
 ### 6.4. 限制联合类型大小
 
-```typescript
+```ts
 // ⚠️ 过大的联合类型
 type AllColors =
   | "red" | "green" | "blue" | "yellow" | "orange"
@@ -469,7 +469,7 @@ tsc --extendedDiagnostics
 
 ### 7.4. 使用 TypeScript Language Server
 
-```typescript
+```ts
 // ✅ VS Code 性能监控
 
 // 1. 命令面板：TypeScript: Restart TS Server

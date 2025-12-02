@@ -49,7 +49,7 @@
 
 索引访问类型允许通过索引获取另一个类型的子类型。
 
-```typescript
+```ts
 // 语法：Type[Key]
 // 获取 Type 类型中 Key 对应的类型
 
@@ -66,7 +66,7 @@ type EmailType = Person['email'] // string
 
 **工作原理：**
 
-```typescript
+```ts
 // TypeScript 在编译时查找类型中的属性
 interface User {
   id: number
@@ -84,7 +84,7 @@ type UserProfile = User['profile'] // { name: string; avatar: string; }
 
 索引访问类型是类型级别的操作，不是运行时的值访问。
 
-```typescript
+```ts
 interface Product {
   id: number
   name: string
@@ -101,7 +101,7 @@ const productName = product['name'] // 'Book'
 
 **对比：**
 
-```typescript
+```ts
 // ❌ 错误：类型和值不能混用
 const obj = { x: 10, y: 20 }
 type Wrong = obj['x'] // 错误：'obj' 仅表示值,但在此处用作类型
@@ -117,7 +117,7 @@ type XType = ObjType['x'] // number
 
 **基本属性访问：**
 
-```typescript
+```ts
 interface User {
   id: number
   name: string
@@ -133,7 +133,7 @@ type IsActive = User['isActive'] // boolean
 
 **访问可选属性：**
 
-```typescript
+```ts
 interface Config {
   host: string
   port: number
@@ -145,7 +145,7 @@ type SSLType = Config['ssl'] // boolean | undefined
 
 **访问只读属性：**
 
-```typescript
+```ts
 interface ReadonlyData {
   readonly id: number
   readonly created: Date
@@ -159,7 +159,7 @@ type CreatedType = ReadonlyData['created'] // Date
 
 **普通数组：**
 
-```typescript
+```ts
 type StringArray = string[]
 type StringArrayElement = StringArray[number] // string
 
@@ -169,14 +169,14 @@ type NumberArrayElement = NumberArray[number] // number
 
 **混合类型数组：**
 
-```typescript
+```ts
 type MixedArray = (string | number)[]
 type MixedElement = MixedArray[number] // string | number
 ```
 
 **对象数组：**
 
-```typescript
+```ts
 type UserArray = Array<{ id: number; name: string }>
 type UserElement = UserArray[number]
 // type UserElement = { id: number; name: string; }
@@ -186,7 +186,7 @@ type UserElement = UserArray[number]
 
 **按索引访问：**
 
-```typescript
+```ts
 type Tuple = [string, number, boolean]
 
 type First = Tuple[0] // string
@@ -196,14 +196,14 @@ type Third = Tuple[2] // boolean
 
 **使用 number 访问所有元素：**
 
-```typescript
+```ts
 type Tuple = [string, number, boolean]
 type TupleElement = Tuple[number] // string | number | boolean
 ```
 
 **具名元组：**
 
-```typescript
+```ts
 type NamedTuple = [name: string, age: number, active: boolean]
 
 type NameType = NamedTuple[0] // string
@@ -217,7 +217,7 @@ type AllTypes = NamedTuple[number] // string | number | boolean
 
 **访问多个属性：**
 
-```typescript
+```ts
 interface User {
   id: number
   name: string
@@ -232,7 +232,7 @@ type AllFields = User['id' | 'name' | 'email' | 'age'] // string | number
 
 **实际应用：**
 
-```typescript
+```ts
 interface ApiResponse {
   data: {
     users: User[]
@@ -252,7 +252,7 @@ type DataOrError = ApiResponse['data' | 'error']
 
 **获取所有属性值类型的联合：**
 
-```typescript
+```ts
 interface Person {
   name: string
   age: number
@@ -264,7 +264,7 @@ type PersonValue = Person[keyof Person] // string | number
 
 **泛型函数中的应用：**
 
-```typescript
+```ts
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
   return obj[key]
 }
@@ -276,7 +276,7 @@ const age = getProperty(person, 'age') // number
 
 **复杂示例：**
 
-```typescript
+```ts
 interface Data {
   id: number
   name: string
@@ -294,7 +294,7 @@ type ValueTypes = Data[keyof Data]
 
 **多层访问：**
 
-```typescript
+```ts
 interface Organization {
   name: string
   address: {
@@ -319,7 +319,7 @@ type CountryNameType = Organization['address']['country']['name']
 
 **数组嵌套访问：**
 
-```typescript
+```ts
 interface Company {
   departments: Array<{
     name: string
@@ -343,7 +343,7 @@ type EmployeeType = Company['departments'][number]['employees'][number]
 
 **提取函数类型属性：**
 
-```typescript
+```ts
 interface EventHandlers {
   onClick: (event: MouseEvent) => void
   onInput: (value: string) => void
@@ -359,7 +359,7 @@ type OnSubmitHandler = EventHandlers['onSubmit']
 
 **提取数据结构：**
 
-```typescript
+```ts
 interface State {
   user: {
     id: number
@@ -386,7 +386,7 @@ type Post = State['posts'][number]
 
 **实现 Pick：**
 
-```typescript
+```ts
 type MyPick<T, K extends keyof T> = {
   [P in K]: T[P]
 }
@@ -404,7 +404,7 @@ type PublicUser = MyPick<User, 'id' | 'name'>
 
 **获取特定类型的属性：**
 
-```typescript
+```ts
 type PickByType<T, ValueType> = {
   [K in keyof T as T[K] extends ValueType ? K : never]: T[K]
 }
@@ -428,7 +428,7 @@ type NumberProps = PickByType<Mixed, number>
 
 **深度路径访问：**
 
-```typescript
+```ts
 type PathValue<T, Path extends string> = Path extends keyof T
   ? T[Path]
   : Path extends `${infer K}.${infer Rest}`
@@ -455,7 +455,7 @@ type SSLEnabled = PathValue<Config, 'server.ssl.enabled'> // boolean
 
 **类型安全的 getter：**
 
-```typescript
+```ts
 function get<T, K extends keyof T>(obj: T, key: K): T[K] {
   return obj[key]
 }
@@ -484,7 +484,7 @@ const name = getDeep(data, 'user', 'name') // string
 
 **1. 索引必须是类型**
 
-```typescript
+```ts
 interface User {
   name: string
   age: number
@@ -504,7 +504,7 @@ type AlsoCorrect = User[typeof key] // string
 
 **2. 索引超出范围**
 
-```typescript
+```ts
 interface User {
   name: string
   age: number
@@ -519,7 +519,7 @@ type Safe = User extends { email: infer E } ? E : never // never
 
 **3. 数组索引的特殊性**
 
-```typescript
+```ts
 // 使用 number 访问数组元素类型
 type Arr = string[]
 type Element = Arr[number] // string
@@ -534,7 +534,7 @@ type First = Tuple[0] // ✅ string
 
 **4. 联合类型的分发**
 
-```typescript
+```ts
 interface A {
   x: string
   y: number
@@ -551,7 +551,7 @@ type XType = Union['x'] // string | number (分发到两个类型)
 
 **5. 可选属性的处理**
 
-```typescript
+```ts
 interface User {
   name: string
   email?: string
@@ -565,7 +565,7 @@ type RequiredEmail = NonNullable<User['email']> // string
 
 **6. 循环引用问题**
 
-```typescript
+```ts
 // ❌ 可能导致类型实例化过深
 interface Tree {
   value: number
@@ -582,7 +582,7 @@ type DeepNested =
 
 **7. 与映射类型结合**
 
-```typescript
+```ts
 type Getters<T> = {
   [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K]
 }

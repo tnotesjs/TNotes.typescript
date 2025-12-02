@@ -46,7 +46,7 @@
 
 ### 3.1. 源码定义
 
-```typescript
+```ts
 // TypeScript lib.es5.d.ts 中的定义
 type ConstructorParameters<T extends abstract new (...args: any) => any> =
   T extends abstract new (...args: infer P) => any ? P : never
@@ -54,7 +54,7 @@ type ConstructorParameters<T extends abstract new (...args: any) => any> =
 
 ### 3.2. 基本示例
 
-```typescript
+```ts
 class User {
   constructor(public name: string, public age: number, public email?: string) {}
 }
@@ -71,7 +71,7 @@ const user = new User(...params)
 
 ### 4.1. 场景 1：工厂函数
 
-```typescript
+```ts
 class Product {
   constructor(public id: number, public name: string, public price: number) {}
 }
@@ -88,7 +88,7 @@ const product = createProduct(1, 'iPhone', 999)
 
 ### 4.2. 场景 2：依赖注入容器
 
-```typescript
+```ts
 class Container {
   private instances = new Map<any, any>()
 
@@ -115,7 +115,7 @@ const db = container.resolve(Database)
 
 ### 4.3. 场景 3：对象池模式
 
-```typescript
+```ts
 class Connection {
   constructor(public host: string, public port: number) {}
 
@@ -152,7 +152,7 @@ const conn = pool.acquire()
 
 ### 5.1. 应用 1：测试工厂
 
-```typescript
+```ts
 class UserService {
   constructor(private apiUrl: string, private timeout: number = 5000) {}
 
@@ -189,7 +189,7 @@ const service = ServiceFactory.createForTest(UserService)
 
 ### 5.2. 应用 2：装饰器工厂
 
-```typescript
+```ts
 function Singleton<T extends new (...args: any[]) => any>(Class: T) {
   let instance: InstanceType<T> | null = null
   let savedArgs: ConstructorParameters<T> | null = null
@@ -225,7 +225,7 @@ console.log(config1 === config2) // true
 
 ### 5.3. 应用 3：ORM 模型工厂
 
-```typescript
+```ts
 abstract class Model {
   constructor(public id: number) {}
 }
@@ -260,7 +260,7 @@ const users = ModelFactory.createMany(User, 3, (i) => [
 
 ### 6.1. 注意事项 1：抽象类
 
-```typescript
+```ts
 abstract class Animal {
   constructor(public name: string) {}
   abstract makeSound(): void
@@ -276,7 +276,7 @@ const animal = new Animal('Dog') // 错误
 
 ### 6.2. 注意事项 2：私有构造函数
 
-```typescript
+```ts
 class Singleton {
   private static instance: Singleton
   private constructor(private value: string) {}
@@ -299,7 +299,7 @@ const s = new Singleton('test') // 错误：构造函数是私有的
 
 ### 6.3. 注意事项 3：默认参数
 
-```typescript
+```ts
 class Config {
   constructor(
     public env: string = 'development',
@@ -318,7 +318,7 @@ const config3 = new Config('production', true)
 
 ### 6.4. 注意事项 4：重载构造函数
 
-```typescript
+```ts
 class Point {
   constructor(x: number, y: number)
   constructor(coords: { x: number; y: number })

@@ -50,7 +50,7 @@ declare module 用于为模块提供类型信息。
 
 ### 3.1. 基本语法
 
-```typescript
+```ts
 // 为没有类型声明的 npm 包提供类型
 declare module 'some-library' {
   export function doSomething(value: string): void
@@ -76,7 +76,7 @@ const instance = new MyClass({ timeout: 5000, retries: 3 })
 
 ### 3.2. 默认导出
 
-```typescript
+```ts
 // 声明默认导出的模块
 declare module 'default-export-lib' {
   const lib: {
@@ -97,7 +97,7 @@ lib.init({ apiKey: 'xxx' })
 
 ### 3.3. 混合导出
 
-```typescript
+```ts
 // 既有命名导出又有默认导出
 declare module 'mixed-exports' {
   export interface Config {
@@ -123,7 +123,7 @@ helper('test')
 
 ### 3.4. UMD 模块
 
-```typescript
+```ts
 // 声明 UMD 模块（可作为模块或全局变量使用）
 declare module 'umd-library' {
   export = UMDLibrary
@@ -150,7 +150,7 @@ UMDLibrary.method('test')
 
 ### 4.1. 扩展第三方库
 
-```typescript
+```ts
 // 扩展 Express 的 Request 接口
 import 'express'
 
@@ -195,7 +195,7 @@ app.use((req, res, next) => {
 
 ### 4.2. 扩展 Vue
 
-```typescript
+```ts
 // 扩展 Vue 实例
 import Vue from 'vue'
 
@@ -226,7 +226,7 @@ export default Vue.extend({
 
 ### 4.3. 扩展 Node.js 全局对象
 
-```typescript
+```ts
 // 扩展 global 对象
 declare module 'global' {
   global {
@@ -259,7 +259,7 @@ global.logger.info('Application started')
 
 ### 4.4. 扩展第三方类型
 
-```typescript
+```ts
 // 扩展 lodash
 import 'lodash'
 
@@ -282,7 +282,7 @@ _.customMethod([1, 2, 3])
 
 ### 5.1. CSS 模块
 
-```typescript
+```ts
 // 声明 CSS 模块
 declare module '*.css' {
   const content: { [className: string]: string }
@@ -308,7 +308,7 @@ const className = styles.container
 
 ### 5.2. 图片资源
 
-```typescript
+```ts
 // 声明图片模块
 declare module '*.png' {
   const value: string
@@ -337,7 +337,7 @@ const iconComponent = <Icon width={24} height={24} />
 
 ### 5.3. JSON 文件
 
-```typescript
+```ts
 // 声明 JSON 模块
 declare module '*.json' {
   const value: any
@@ -359,7 +359,7 @@ console.log(config.apiUrl)
 
 ### 5.4. 其他资源
 
-```typescript
+```ts
 // 视频文件
 declare module '*.mp4' {
   const src: string
@@ -398,7 +398,7 @@ import readme from './README.md'
 
 ### 5.5. Web Worker
 
-```typescript
+```ts
 // 声明 Worker 模块
 declare module '*.worker.ts' {
   class WebpackWorker extends Worker {
@@ -417,7 +417,7 @@ worker.postMessage({ type: 'start' })
 
 ### 5.6. 实际应用示例
 
-```typescript
+```ts
 // types/modules.d.ts
 
 // 样式文件
@@ -476,7 +476,7 @@ declare module '*.worker.ts' {
 
 ### 5.7. 复杂模块声明
 
-```typescript
+```ts
 // 为复杂的第三方库提供类型
 declare module 'complex-library' {
   // 命名空间

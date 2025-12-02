@@ -57,7 +57,7 @@ typescript-go 是 TypeScript 编译器的原生实现版本，使用 Go 语言�
 
 ### 3.1. 项目目标
 
-```typescript
+```ts
 // typescript-go 的核心目标
 const projectGoals = {
   performance: '10x faster compilation',
@@ -75,7 +75,7 @@ const projectGoals = {
 
 ### 3.2. 项目背景
 
-```typescript
+```ts
 // TypeScript 编译器的性能瓶颈
 // 1. 单线程架构限制
 //    - JavaScript 引擎的 GC 开销
@@ -108,7 +108,7 @@ const projectGoals = {
 
 ### 4.1. 技术优势
 
-```typescript
+```ts
 // Go 语言的关键优势
 
 // 1. 并发性能
@@ -138,7 +138,7 @@ func compileFiles(files []string) {
 }
 ```
 
-```typescript
+```ts
 // 对比：JavaScript 单线程处理
 // ❌ 无法真正并行
 async function compileFiles(files: string[]) {
@@ -165,7 +165,7 @@ async function compileFiles(files: string[]) {
 
 ### 4.3. 架构优势
 
-```typescript
+```ts
 // typescript-go 的架构优势
 
 // 1. 更好的模块化设计
@@ -188,7 +188,7 @@ async function compileFiles(files: string[]) {
 
 ### 5.1. 基准测试数据
 
-```typescript
+```ts
 // 官方基准测试结果（示例数据）
 
 // 小型项目（100 个文件）
@@ -221,7 +221,7 @@ const largeProject = {
 
 ### 5.2. 性能提升的关键因素
 
-```typescript
+```ts
 // 1. 并行类型检查
 // typescript-go 可以同时检查多个文件
 
@@ -240,7 +240,7 @@ const largeProject = {
 
 ### 5.3. 实际应用场景
 
-```typescript
+```ts
 // 场景 1：开发时的 watch 模式
 // typescript: 修改文件后需要等待 3-5 秒
 // typescript-go: 修改文件后只需 0.3-0.5 秒
@@ -262,7 +262,7 @@ const largeProject = {
 
 ### 6.1. 核心架构
 
-```typescript
+```ts
 // typescript-go 的分层架构
 
 // 1. 词法分析层（Lexer）
@@ -302,7 +302,7 @@ graph TD
 
 ### 6.2. 并发模型
 
-```typescript
+```ts
 // typescript-go 的并发设计
 
 // 1. 文件级并行
@@ -332,7 +332,7 @@ const typeCheckStrategy = {
 
 ### 6.3. 缓存策略
 
-```typescript
+```ts
 // typescript-go 的缓存优化
 
 // 1. 多级缓存
@@ -396,7 +396,7 @@ go test -cover ./...
 
 ### 7.3. 贡献代码
 
-```typescript
+```ts
 // 贡献指南
 
 // 1. 选择合适的 Issue
@@ -429,7 +429,7 @@ go test -cover ./...
 
 ### 7.4. 问题反馈
 
-```typescript
+```ts
 // 如何报告问题
 
 // 1. 性能问题
@@ -458,7 +458,7 @@ go test -cover ./...
 
 ### 8.1. 当前状态
 
-```typescript
+```ts
 // 项目里程碑（截至文档编写时）
 
 const projectStatus = {
@@ -477,7 +477,7 @@ const projectStatus = {
 
 ### 8.2. 发布计划
 
-```typescript
+```ts
 // 预期发布路线图（非官方保证）
 
 // Phase 1: Alpha（当前）
@@ -506,7 +506,7 @@ const projectStatus = {
 
 ### 8.3. 使用建议
 
-```typescript
+```ts
 // 不同场景的使用建议
 
 // ✅ 可以尝试的场景
@@ -527,7 +527,7 @@ const projectStatus = {
 // - 逐步迁移，保持回滚能力
 ```
 
-```typescript
+```ts
 // 示例：混合使用配置
 // package.json
 {

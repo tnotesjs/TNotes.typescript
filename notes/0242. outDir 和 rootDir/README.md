@@ -156,7 +156,7 @@ dist/
 }
 ```
 
-```typescript
+```ts
 // src/utils/helper.ts
 export function add(a: number, b: number) {
   return a + b
@@ -422,7 +422,7 @@ dist/
 }
 ```
 
-```typescript
+```ts
 // src/index.ts
 import { helper } from '@/utils/helper' // ✅ 编译时解析
 // 编译后 dist/index.js 中的路径需要运行时处理
@@ -462,7 +462,7 @@ error TS6059: File 'shared/config.ts' is not under 'rootDir' 'src'.
 
 ### 7.4. 相对路径导入
 
-```typescript
+```ts
 // src/index.ts
 import { config } from '../config' // ⚠️ 超出 rootDir
 

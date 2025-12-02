@@ -67,7 +67,7 @@ sourceMap 是一个映射文件，建立编译后代码与源代码的对应关�
 
 ### 3.2. 工作原理
 
-```typescript
+```ts
 // index.ts（源代码）
 function greet(name: string): string {
   return `Hello, ${name}!`

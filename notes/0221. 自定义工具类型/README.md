@@ -35,7 +35,7 @@
 
 基本的工具类型通常基于映射类型和条件类型：
 
-```typescript
+```ts
 // 工具 1：使所有属性可选并可为 null
 type Nullable<T> = {
   [K in keyof T]: T[K] | null
@@ -179,7 +179,7 @@ config.server.ssl.enabled = false
 
 条件类型配合 `infer` 关键字可以创建强大的工具类型：
 
-```typescript
+```ts
 // 工具 1：提取 Promise 的值类型（支持嵌套）
 type UnwrapPromise<T> = T extends Promise<infer U> ? UnwrapPromise<U> : T
 
@@ -303,7 +303,7 @@ type LoginForm = RequiredKeys<FormData, 'username' | 'password'>
 
 递归工具类型可以处理嵌套结构：
 
-```typescript
+```ts
 // 工具 1：深度可选
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]
@@ -464,7 +464,7 @@ type StringToNumber = DeepModify<Original, string, number>
 
 针对常见业务场景的工具类型：
 
-```typescript
+```ts
 // 工具 1：API 响应包装
 type ApiResponse<T, E = string> =
   | {
@@ -680,7 +680,7 @@ const userCrud: UserCrud = {
 
 在创建和使用自定义工具类型时需要注意以下实践：
 
-````typescript
+````ts
 // 实践 1：使用描述性命名
 // ❌ 不好：缩写和模糊的名称
 type P<T> = Partial<T>
@@ -754,7 +754,7 @@ export type ApiUser = {
  * 将对象的所有属性变为可选，并递归处理嵌套对象
  * @template T - 要处理的对象类型
  * @example
- * ```typescript
+ * ```ts
  * interface User {
  *   name: string;
  *   profile: {
@@ -812,7 +812,7 @@ type SafeDeepPartial<T> = VeryDeepPartial<T, 5>
 
 **组织和维护建议：**
 
-```typescript
+```ts
 // 文件结构建议
 // types/
 //   utils/

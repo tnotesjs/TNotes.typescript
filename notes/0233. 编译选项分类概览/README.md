@@ -172,7 +172,7 @@ graph TB
 
 ### 4.4. 使用示例
 
-```typescript
+```ts
 // strictNullChecks: true
 function greet(name: string) {
   // ✅ 必须检查 null
@@ -251,7 +251,7 @@ function calc() {
 
 ### 5.3. 使用示例
 
-```typescript
+```ts
 // baseUrl 和 paths 配置后
 import { Button } from '@components/Button' // 解析为 src/components/Button
 import { format } from '@utils/format' // 解析为 src/utils/format
@@ -348,7 +348,7 @@ import config from './config.json' // ✅ 可以导入 JSON
 
 ### 6.5. 使用示例
 
-```typescript
+```ts
 // target: "ES5"
 // 输入
 const arr = [1, 2, 3]

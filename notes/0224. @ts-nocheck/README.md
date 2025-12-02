@@ -32,7 +32,7 @@
 
 `@ts-nocheck` 跳过整个文件的类型检查：
 
-```typescript
+```ts
 // @ts-nocheck
 // ⚠️ 必须位于所有非注释代码之前
 

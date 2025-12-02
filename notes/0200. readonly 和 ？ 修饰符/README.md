@@ -67,7 +67,7 @@
 
 ### 3.1. 基本用法
 
-```typescript
+```ts
 type User = {
   readonly id: number
   name: string
@@ -96,7 +96,7 @@ user.createdAt = new Date() // 错误：无法分配到 "createdAt"，因为它�
 
 1. **编译时检查**：`readonly` 只在编译时生效，运行时没有任何限制。
 
-```typescript
+```ts
 type Point = {
   readonly x: number
   readonly y: number
@@ -113,7 +113,7 @@ point.x = 30 // ❌ 错误
 
 2. **浅只读**：`readonly` 只作用于直接属性，不会递归到嵌套对象。
 
-```typescript
+```ts
 type Config = {
   readonly server: {
     host: string
@@ -138,7 +138,7 @@ config.server.port = 8080 // 合法
 
 3. **与 const 的区别**：
 
-```typescript
+```ts
 // const 用于变量
 const x = 10
 x = 20 // ❌ 错误：无法分配到 "x"，因为它是常量
@@ -158,7 +158,7 @@ obj.value = 20 // ✅ 合法
 
 ### 3.3. readonly 数组
 
-```typescript
+```ts
 // 只读数组
 type ReadonlyArray1 = readonly number[]
 type ReadonlyArray2 = ReadonlyArray<number>
@@ -182,7 +182,7 @@ const mapped = arr1.map((x) => x * 2) // [2, 4, 6]
 
 ### 3.4. readonly 元组
 
-```typescript
+```ts
 type Point = readonly [number, number]
 
 const point: Point = [10, 20]
@@ -202,7 +202,7 @@ console.log(point.length) // 2
 
 ### 4.1. 基本用法
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -242,7 +242,7 @@ const user4: User = {
 
 可选属性的类型实际上是 `T | undefined`。
 
-```typescript
+```ts
 type User = {
   name: string
   age?: number
@@ -265,7 +265,7 @@ function printAge(user: User) {
 
 ### 4.3. 可选属性 vs. undefined 类型
 
-```typescript
+```ts
 type A = {
   x?: number // 可选属性
 }
@@ -285,7 +285,7 @@ const b3: B = { x: 10 } // ✅ 合法
 
 ### 4.4. 可选参数
 
-```typescript
+```ts
 // 函数参数也可以是可选的
 function greet(name: string, greeting?: string) {
   console.log(`${greeting ?? 'Hello'}, ${name}!`)
@@ -306,7 +306,7 @@ function invalid(optional?: string, required: string) {
 
 ### 5.1. 添加 readonly
 
-```typescript
+```ts
 // 将所有属性变为只读
 type Readonly<T> = {
   +readonly [K in keyof T]: T[K]
@@ -337,7 +337,7 @@ user.name = 'Bob' // ❌ 错误：无法分配到 "name"
 
 ### 5.2. 移除 readonly
 
-```typescript
+```ts
 // 移除所有 readonly 修饰符
 type Mutable<T> = {
   -readonly [K in keyof T]: T[K]
@@ -366,7 +366,7 @@ config.port = 8080 // ✅ 可以修改
 
 ### 5.3. 深度 readonly
 
-```typescript
+```ts
 // 递归地将所有嵌套属性变为只读
 type DeepReadonly<T> = {
   +readonly [K in keyof T]: T[K] extends object ? DeepReadonly<T[K]> : T[K]
@@ -406,7 +406,7 @@ config.server.port = 8080 // ❌ 错误
 
 ### 5.4. 条件 readonly
 
-```typescript
+```ts
 // 只将特定类型的属性变为只读
 type ReadonlyStrings<T> = {
   [K in keyof T]: T[K] extends string ? readonly T[K] : T[K]
@@ -436,7 +436,7 @@ type ReadonlyStringProps<T> = {
 
 ### 6.1. 添加可选修饰符
 
-```typescript
+```ts
 // 将所有属性变为可选
 type Partial<T> = {
   [K in keyof T]+?: T[K]
@@ -463,7 +463,7 @@ const user3: PartialUser = { id: 1, name: 'Bob', email: 'bob@example.com' } // �
 
 ### 6.2. 移除可选修饰符
 
-```typescript
+```ts
 // 将所有属性变为必需
 type Required<T> = {
   [K in keyof T]-?: T[K]
@@ -496,7 +496,7 @@ const incompleteUser: RequiredUser = {
 
 ### 6.3. 深度可选
 
-```typescript
+```ts
 // 递归地将所有嵌套属性变为可选
 type DeepPartial<T> = {
   [K in keyof T]+?: T[K] extends object ? DeepPartial<T[K]> : T[K]
@@ -538,7 +538,7 @@ const config4: PartialConfig = {
 
 ### 6.4. 选择性可选
 
-```typescript
+```ts
 // 只将特定属性变为可选
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
@@ -569,7 +569,7 @@ const user: UserWithOptionalContacts = {
 
 ### 7.1. 场景 1：不可变状态管理
 
-```typescript
+```ts
 // Redux Store 状态类型
 type AppState = {
   user: {
@@ -601,7 +601,7 @@ function reducer(state: ReadonlyState, action: any): ReadonlyState {
 
 ### 7.2. 场景 2：API 响应类型
 
-```typescript
+```ts
 // API 返回的数据是只读的
 type ApiResponse<T> = {
   readonly data: T
@@ -626,7 +626,7 @@ response.status = 404 // ❌ 错误：无法修改
 
 ### 7.3. 场景 3：配置对象
 
-```typescript
+```ts
 // 配置类型定义
 type DatabaseConfig = {
   host: string
@@ -670,7 +670,7 @@ config.port = 3306 // ❌ 错误：无法修改运行时配置
 
 ### 7.4. 场景 4：表单数据
 
-```typescript
+```ts
 // 表单字段定义
 type FormData = {
   username: string
@@ -703,7 +703,7 @@ const submit: SubmitFormData = {
 
 ### 7.5. 场景 5：事件处理
 
-```typescript
+```ts
 // 事件对象是只读的
 type MouseEventData = {
   readonly x: number
@@ -732,7 +732,7 @@ handleClick(event)
 
 ### 7.6. 场景 6：数据库查询选项
 
-```typescript
+```ts
 // 查询选项
 type QueryOptions = {
   select?: string[] // 选择字段
@@ -767,7 +767,7 @@ findUsers({ where: { active: true }, orderBy: 'createdAt' }) // ✅ 合法
 
 `readonly` 只保护直接属性，不会递归到嵌套对象。
 
-```typescript
+```ts
 type Config = {
   readonly server: {
     host: string
@@ -796,7 +796,7 @@ type DeepReadonlyConfig = DeepReadonly<Config>
 
 可选属性的类型自动包含 `undefined`。
 
-```typescript
+```ts
 type User = {
   name: string
   age?: number
@@ -813,7 +813,7 @@ function getAge(user: User): number {
 
 ### 8.3. 注意事项 3：可选属性 vs. undefined 联合类型
 
-```typescript
+```ts
 type A = {
   x?: number
 }
@@ -834,7 +834,7 @@ const b2: B = { x: undefined } // ✅ 合法
 
 `strictNullChecks` 编译选项会影响可选属性的行为。
 
-```typescript
+```ts
 // strictNullChecks: true
 type User = {
   name?: string
@@ -853,7 +853,7 @@ function getName(user: User): string {
 
 `readonly` 属性可以赋值给非 `readonly` 属性，反之则不行。
 
-```typescript
+```ts
 type ReadonlyPoint = {
   readonly x: number
   readonly y: number
@@ -879,7 +879,7 @@ mu2.x = 30 // ✅ 合法，因为 mu2 的类型是 MutablePoint
 
 ### 8.6. 注意事项 6：数组和元组的 readonly
 
-```typescript
+```ts
 // readonly 数组
 const arr1: readonly number[] = [1, 2, 3]
 arr1.push(4) // ❌ 错误：类型"readonly number[]"上不存在属性"push"
@@ -895,7 +895,7 @@ const arr4: number[] = arr1 // ❌ 错误：readonly 数组不能赋值给可变
 
 ### 8.7. 注意事项 7：解构和可选属性
 
-```typescript
+```ts
 type User = {
   name: string
   age?: number

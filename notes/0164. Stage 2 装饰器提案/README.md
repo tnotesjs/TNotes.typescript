@@ -45,7 +45,7 @@ Stage 2 装饰器是 TypeScript 早期实现的装饰器规范，现已被 Stage
 
 Stage 2 装饰器是 TC39 在 2016 年提出的装饰器规范，TypeScript 基于此实现了装饰器功能。
 
-```typescript
+```ts
 // Stage 2 装饰器需要启用配置
 // tsconfig.json
 {
@@ -56,7 +56,7 @@ Stage 2 装饰器是 TC39 在 2016 年提出的装饰器规范，TypeScript 基�
 }
 ```
 
-```typescript
+```ts
 // Stage 2 装饰器示例
 function sealed(constructor: Function) {
   Object.seal(constructor)
@@ -83,7 +83,7 @@ Stage 2 装饰器具有以下主要特点。
 
 ### 4.1. 支持元数据
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 // 可以存储和读取元数据
@@ -104,7 +104,7 @@ console.log(metadata) // { selector: 'app-root' }
 
 ### 4.2. 自动类型元数据
 
-```typescript
+```ts
 import 'reflect-metadata'
 
 function Injectable() {
@@ -128,7 +128,7 @@ class UserService {
 
 ### 4.3. 装饰器签名
 
-```typescript
+```ts
 // 类装饰器
 type ClassDecorator = <TFunction extends Function>(
   target: TFunction
@@ -158,7 +158,7 @@ Stage 2 装饰器在各类框架中广泛使用。
 
 ### 5.1. Angular 示例
 
-```typescript
+```ts
 import { Component, Input, Output, EventEmitter } from '@angular/core'
 
 @Component({
@@ -177,7 +177,7 @@ export class UserComponent {
 
 ### 5.2. NestJS 示例
 
-```typescript
+```ts
 import { Controller, Get, Post, Body, Param } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
@@ -211,7 +211,7 @@ class UserController {
 
 ### 5.3. TypeORM 示例
 
-```typescript
+```ts
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
 @Entity()
@@ -236,7 +236,7 @@ Stage 2 装饰器存在多个问题，导致其被 Stage 3 提案替代。
 
 ### 6.1. 与 JavaScript 标准不一致
 
-```typescript
+```ts
 // Stage 2 装饰器是 TypeScript 独有
 // JavaScript 引擎不支持
 
@@ -246,7 +246,7 @@ Stage 2 装饰器存在多个问题，导致其被 Stage 3 提案替代。
 
 ### 6.2. 性能和实现复杂度
 
-```typescript
+```ts
 // Stage 2 装饰器依赖运行时反射
 import 'reflect-metadata'
 
@@ -261,7 +261,7 @@ class Service {
 
 ### 6.3. API 设计问题
 
-```typescript
+```ts
 // Stage 2 装饰器 API 较复杂
 function decorator(
   target: any,
@@ -298,7 +298,7 @@ function decorator(target: Function, context: ClassMethodDecoratorContext) {
 
 ### 6.5. 实际影响
 
-```typescript
+```ts
 // Stage 2 装饰器（旧代码）
 function OldDecorator(
   target: any,

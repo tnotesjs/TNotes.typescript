@@ -48,7 +48,7 @@
 
 `satisfies` 运算符用于验证表达式是否符合某个类型，同时保持原有的类型推断。
 
-```typescript
+```ts
 // 语法：expression satisfies Type
 
 const value = { x: 10, y: 20 } satisfies { x: number; y: number }
@@ -60,7 +60,7 @@ const point = { x: 10, y: 20 } satisfies Record<string, number>
 
 **基本示例：**
 
-```typescript
+```ts
 type Color = 'red' | 'green' | 'blue'
 
 const color = 'red' satisfies Color // ✅ 通过验证
@@ -73,7 +73,7 @@ const invalid = 'yellow' satisfies Color // ❌ 错误：'yellow' 不满足 Colo
 
 在 `satisfies` 出现之前，我们面临两难选择：
 
-```typescript
+```ts
 // 问题 1：类型注解会丢失精确类型
 type Colors = 'red' | 'green' | 'blue'
 const palette: Record<Colors, string> = {
@@ -93,7 +93,7 @@ const palette2 = {
 
 **satisfies 解决了这个问题：**
 
-```typescript
+```ts
 const palette = {
   red: '#ff0000',
   green: '#00ff00',
@@ -116,7 +116,7 @@ const invalid = {
 
 类型注解会将变量的类型固定为注解的类型，丢失更精确的信息。
 
-```typescript
+```ts
 type RGB = [red: number, green: number, blue: number]
 
 // 使用类型注解
@@ -132,7 +132,7 @@ const red: number = color1[0] // 只知道是 number
 
 **丢失字面量类型：**
 
-```typescript
+```ts
 type Status = 'success' | 'error' | 'loading'
 
 // 使用类型注解
@@ -149,7 +149,7 @@ if (status1 === 'success') {
 
 `satisfies` 保留了推断的精确类型，同时确保类型安全。
 
-```typescript
+```ts
 // 使用 satisfies
 const color2 = [255, 0, 0] satisfies RGB
 // color2 的类型：[255, 0, 0]（精确的元组字面量类型）
@@ -170,7 +170,7 @@ if (status2 === 'success') {
 
 ::: code-group
 
-```typescript [类型注解]
+```ts [类型注解]
 type Point = { x: number; y: number }
 
 const p1: Point = { x: 10, y: 20 }
@@ -179,7 +179,7 @@ const p1: Point = { x: 10, y: 20 }
 p1.x // number
 ```
 
-```typescript [satisfies]
+```ts [satisfies]
 const p2 = { x: 10, y: 20 } satisfies Point
 // p2 的类型：{ x: number; y: number }（推断）
 
@@ -201,7 +201,7 @@ const p4 = { x: 10 } satisfies Point // ❌ 错误：缺少 y
 
 **配置对象：**
 
-```typescript
+```ts
 type Config = Record<string, string | number | boolean>
 
 const config = {
@@ -226,7 +226,7 @@ config2.host // string | number | boolean（丢失精确类型）
 
 **路由配置：**
 
-```typescript
+```ts
 type Route = { path: string; handler: Function }
 type Routes = Record<string, Route>
 
@@ -249,7 +249,7 @@ routes2.home.path // string
 
 **确保所有属性存在：**
 
-```typescript
+```ts
 type Features = 'search' | 'filter' | 'sort'
 type FeatureFlags = Record<Features, boolean>
 
@@ -268,7 +268,7 @@ const incomplete = {
 
 **验证方法签名：**
 
-```typescript
+```ts
 interface API {
   get(id: string): Promise<any>
   post(data: any): Promise<any>
@@ -293,7 +293,7 @@ const badApi = {
 
 **穷尽性检查：**
 
-```typescript
+```ts
 type Status = 'pending' | 'success' | 'error'
 
 const statusMessages = {
@@ -317,7 +317,7 @@ const messages = {
 
 ### 6.1. 与泛型结合
 
-```typescript
+```ts
 function createMap<T extends Record<string, any>>(obj: T) {
   return new Map(Object.entries(obj))
 }
@@ -333,7 +333,7 @@ userMap.get('john') // { age: number } | undefined
 
 ### 6.2. 与映射类型结合
 
-```typescript
+```ts
 type EventMap = {
   click: MouseEvent
   keydown: KeyboardEvent
@@ -357,7 +357,7 @@ handlers.keydown // (event: KeyboardEvent) => void
 
 ### 6.3. 复杂类型验证
 
-```typescript
+```ts
 type Validator<T> = {
   [K in keyof T]: (value: T[K]) => boolean
 }
@@ -384,7 +384,7 @@ validators.email('a@b.c') // boolean
 
 **1. 不能用于类型定义**
 
-```typescript
+```ts
 // ❌ 错误：satisfies 不能用于类型别名
 type MyType = string satisfies string;
 
@@ -399,7 +399,7 @@ const value = 'hello' satisfies string;
 
 **2. 不改变推断类型**
 
-```typescript
+```ts
 const value = 'hello' satisfies string
 // value 的类型是 'hello'，不是 string
 
@@ -410,7 +410,7 @@ const value2: string = 'hello'
 
 **3. 与 as 断言的区别**
 
-```typescript
+```ts
 // as 断言：强制类型转换（不安全）
 const value1 = 'hello' as number // ⚠️ 不安全，但编译通过
 
@@ -427,7 +427,7 @@ const obj2 = {} satisfies { x: number } // ❌ 错误：缺少 x
 
 **4. 子类型检查**
 
-```typescript
+```ts
 interface Animal {
   name: string
 }
@@ -456,7 +456,7 @@ dog2.bark() // ❌ 错误：Animal 上不存在 bark
 
 **5. 联合类型的处理**
 
-```typescript
+```ts
 type Value = string | number
 
 const val1 = 'hello' satisfies Value
@@ -474,7 +474,7 @@ if (typeof val1 === 'string') {
 
 **6. 性能考虑**
 
-```typescript
+```ts
 // ❌ 不好：在循环中使用 satisfies
 for (let i = 0; i < 1000; i++) {
   const value = computeValue() satisfies ComplexType

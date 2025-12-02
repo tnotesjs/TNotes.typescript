@@ -366,7 +366,7 @@ tsc --noEmit
 
 ### 5.5. 在代码中引用
 
-```typescript
+```ts
 // TypeScript 会根据 tsconfig.json 解析路径别名
 import { utils } from '@/utils' // 根据 paths 配置解析
 import type { User } from '@types/user' // 根据 typeRoots 解析
@@ -656,7 +656,7 @@ project/
 }
 ```
 
-```typescript
+```ts
 // ✅ TypeScript 可以解析
 import { utils } from '@/utils'
 

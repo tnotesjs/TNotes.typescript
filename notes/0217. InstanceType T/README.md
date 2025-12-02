@@ -35,7 +35,7 @@
 
 `InstanceType<T>` 的源码定义如下：
 
-```typescript
+```ts
 type InstanceType<T extends abstract new (...args: any) => any> =
   T extends abstract new (...args: any) => infer R ? R : any
 ```
@@ -47,7 +47,7 @@ type InstanceType<T extends abstract new (...args: any) => any> =
 3. 推断变量：`infer R` 捕获实例类型
 4. 兜底类型：如果不匹配，返回 `any`
 
-```typescript
+```ts
 // 基本使用
 class User {
   constructor(public id: number, public name: string) {}
@@ -71,7 +71,7 @@ const wrongUser: typeof User = new User(1, 'Alice')
 
 **与 `ConstructorParameters<T>` 的关系：**
 
-```typescript
+```ts
 class Product {
   constructor(public id: number, public name: string, public price: number) {}
 }
@@ -97,7 +97,7 @@ console.log(product.id) // ✅ 可以访问实例属性
 
 在需要引用类的实例类型但不直接使用类名的场景中，`InstanceType<T>` 非常有用：
 
-```typescript
+```ts
 // 场景 1：泛型工厂函数
 class Database {
   constructor(public connectionString: string) {}
@@ -210,7 +210,7 @@ if (animal instanceof Dog) {
 
 在工厂模式中，`InstanceType<T>` 用于类型安全的实例创建：
 
-```typescript
+```ts
 // 应用 1：抽象工厂
 abstract class Vehicle {
   abstract startEngine(): void
@@ -319,7 +319,7 @@ connectionPool.release(conn)
 
 在依赖注入容器中，`InstanceType<T>` 用于类型安全的服务解析：
 
-```typescript
+```ts
 // 应用 1：简单的依赖注入容器
 class Container {
   private services = new Map<any, any>()
@@ -451,7 +451,7 @@ notificationService.notify(1)
 
 在使用 `InstanceType<T>` 时，有以下几点需要注意：
 
-```typescript
+```ts
 // 注意 1：必须使用 typeof 获取构造函数类型
 class User {
   constructor(public name: string) {}
@@ -558,7 +558,7 @@ function playWithPet(pet: PetInstance) {
 
 **常见陷阱和解决方案：**
 
-```typescript
+```ts
 // 陷阱 1：在泛型约束中使用
 function processClass<T extends new (...args: any) => any>(
   Class: T

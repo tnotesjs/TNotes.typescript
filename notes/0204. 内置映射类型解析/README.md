@@ -66,7 +66,7 @@ TypeScript 在 `lib.es5.d.ts` 中定义了多个常用的映射类型工具。
 
 ### 3.1. 核心映射类型列表
 
-```typescript
+```ts
 // 1. Partial<T> - 将所有属性变为可选
 type Partial<T> = {
   [P in keyof T]?: T[P]
@@ -98,7 +98,7 @@ type Record<K extends keyof any, T> = {
 
 ### 3.2. 使用示例
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -134,7 +134,7 @@ type UserRoles = Record<'admin' | 'user' | 'guest', boolean>
 
 ### 4.1. Partial 的实现
 
-```typescript
+```ts
 // TypeScript 源码中的定义
 type Partial<T> = {
   [P in keyof T]?: T[P]
@@ -160,7 +160,7 @@ const user3: PartialUser = { id: 1, name: 'Alice' } // ✅ 合法
 
 ### 4.2. Partial 的深层实现
 
-```typescript
+```ts
 // TypeScript 自带的 Partial 只处理第一层
 type ShallowPartial<T> = {
   [P in keyof T]?: T[P]
@@ -191,7 +191,7 @@ type PartialConfig2 = DeepPartial<Config>
 
 ### 4.3. Required 的实现
 
-```typescript
+```ts
 // TypeScript 源码中的定义
 type Required<T> = {
   [P in keyof T]-?: T[P]
@@ -217,7 +217,7 @@ const user: RequiredUser = { id: 1 } // 错误：缺少 name
 
 ### 4.4. Required 的实际应用
 
-```typescript
+```ts
 // 场景：表单数据验证
 type FormData = {
   username?: string
@@ -245,7 +245,7 @@ function submitForm(data: FormData) {
 
 ### 5.1. Readonly 的实现
 
-```typescript
+```ts
 // TypeScript 源码中的定义
 type Readonly<T> = {
   readonly [P in keyof T]: T[P]
@@ -268,7 +268,7 @@ user.name = 'Bob' // 错误
 
 ### 5.2. Readonly 的深层实现
 
-```typescript
+```ts
 // 浅层只读
 type ShallowReadonly<T> = {
   readonly [P in keyof T]: T[P]
@@ -301,7 +301,7 @@ type Config2 = DeepReadonly<Config>
 
 ### 5.3. Record 的实现
 
-```typescript
+```ts
 // TypeScript 源码中的定义
 type Record<K extends keyof any, T> = {
   [P in K]: T
@@ -324,7 +324,7 @@ const messages: StatusMessages = {
 
 ### 5.4. Record 的实际应用
 
-```typescript
+```ts
 // 场景 1：配置对象
 type Environment = 'development' | 'staging' | 'production'
 type Config = Record<
@@ -372,7 +372,7 @@ type GoodCache = Record<string, { value: any; timestamp: number }>
 
 ### 5.5. Record 的变体
 
-```typescript
+```ts
 // 部分键的 Record
 type PartialRecord<K extends keyof any, T> = {
   [P in K]?: T
@@ -391,7 +391,7 @@ type ReadonlyRecord<K extends keyof any, T> = {
 
 ### 6.1. Pick 的实现
 
-```typescript
+```ts
 // TypeScript 源码中的定义
 type Pick<T, K extends keyof T> = {
   [P in K]: T[P]
@@ -421,7 +421,7 @@ const preview: UserPreview = {
 
 ### 6.2. Pick 的实际应用
 
-```typescript
+```ts
 // 场景 1：API 响应精简
 type FullUser = {
   id: number
@@ -445,7 +445,7 @@ type UpdateUserForm = Partial<Pick<FullUser, 'username' | 'email'>>
 
 ### 6.3. Omit 的实现
 
-```typescript
+```ts
 // TypeScript 源码中的定义
 type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>
 
@@ -471,7 +471,7 @@ type UserWithoutPassword = Omit<User, 'password'>
 
 ### 6.4. Omit 的实际应用
 
-```typescript
+```ts
 // 场景 1：移除敏感信息
 type User = {
   id: number
@@ -512,7 +512,7 @@ type ArticleWithAuthorId = Omit<Article, 'author'> & {
 
 ### 6.5. Pick 和 Omit 的对比
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -537,7 +537,7 @@ type Method2 = Omit<User, 'email' | 'age' | 'address'>
 
 ### 7.1. 基本组合模式
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -561,7 +561,7 @@ type UserWithId = EnsureId<User>
 
 ### 7.2. 创建自定义工具类型
 
-```typescript
+```ts
 // 只读 + 可选
 type ReadonlyPartial<T> = Readonly<Partial<T>>
 
@@ -584,7 +584,7 @@ type RequiredIdUser = PickRequired<User, 'id'>
 
 ### 7.3. 实际应用场景
 
-```typescript
+```ts
 // 场景 1：表单状态管理
 type FormState<T> = {
   values: Partial<T>
@@ -639,7 +639,7 @@ type UpdateProduct = UpdateDto<Product>
 
 ### 7.4. 高级组合模式
 
-```typescript
+```ts
 // 深度转换
 type DeepPartialReadonly<T> = {
   readonly [P in keyof T]?: T[P] extends object
@@ -673,7 +673,7 @@ type SelectiveRequired<T, K extends keyof T> = Required<Pick<T, K>> &
 
 内置映射类型都是浅层的，只影响第一层属性。
 
-```typescript
+```ts
 type User = {
   id: number
   profile: {
@@ -709,7 +709,7 @@ type DeepPartial<T> = {
 
 某些组合可能导致类型错误。
 
-```typescript
+```ts
 type User = {
   id: number
   name: string
@@ -724,7 +724,7 @@ type Good = Pick<User, 'id' | 'name'>
 
 ### 8.3. 注意事项 3：与索引签名的交互
 
-```typescript
+```ts
 type Dict = {
   [key: string]: any
   id: number
@@ -741,7 +741,7 @@ type PartialDict = Partial<Dict>
 
 ### 8.4. 注意事项 4：函数类型的处理
 
-```typescript
+```ts
 type Mixed = {
   name: string
   handler: () => void
@@ -769,7 +769,7 @@ obj.handler() // 正确
 
 复杂的类型组合可能影响 TypeScript 编译性能。
 
-```typescript
+```ts
 // ⚠️ 复杂嵌套可能影响性能
 type Complex<T> = Readonly<Required<Partial<Pick<Omit<T, 'a'>, 'b' | 'c'>>>>
 
@@ -779,7 +779,7 @@ type Simple<T> = Readonly<Required<Pick<T, 'b' | 'c'>>>
 
 ### 8.6. 注意事项 6：与泛型的结合
 
-```typescript
+```ts
 // 确保类型参数的约束正确
 function updateUser<T extends User, K extends keyof T>(
   user: T,
@@ -796,7 +796,7 @@ function badUpdate<T>(user: T, updates: Partial<T>): T {
 
 ### 8.7. 注意事项 7：循环引用
 
-```typescript
+```ts
 type Node = {
   value: number
   next?: Node

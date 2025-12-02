@@ -56,7 +56,7 @@
 
 ### 3.1. 基本特征
 
-```typescript
+```ts
 // math.ts - 实现文件
 export function add(a: number, b: number): number {
   return a + b
@@ -75,7 +75,7 @@ export function subtract(a: number, b: number): number
 
 ::: code-group
 
-```typescript [❌ 不能包含实现]
+```ts [❌ 不能包含实现]
 // error.d.ts
 export function greet(name: string): string {
   return `Hello, ${name}` // ❌ 声明文件不能包含实现
@@ -84,7 +84,7 @@ export function greet(name: string): string {
 export const PI = 3.14159 // ❌ 不能有初始化器
 ```
 
-```typescript [✅ 只能包含类型声明]
+```ts [✅ 只能包含类型声明]
 // correct.d.ts
 export function greet(name: string): string
 
@@ -102,7 +102,7 @@ export type Status = 'active' | 'inactive'
 
 ### 3.3. 声明文件的内容
 
-```typescript
+```ts
 // types.d.ts - 完整示例
 
 // 变量声明
@@ -167,13 +167,13 @@ export function calculateDiscount(price, percent) {
 }
 ```
 
-```typescript
+```ts
 // utils.d.ts - 类型声明
 export function formatPrice(price: number): string
 export function calculateDiscount(price: number, percent: number): number
 ```
 
-```typescript
+```ts
 // main.ts - 使用时有类型检查
 import { formatPrice, calculateDiscount } from './utils.js'
 
@@ -185,7 +185,7 @@ formatPrice('invalid') // ❌ 类型错误
 
 ### 4.2. 为第三方库提供类型
 
-```typescript
+```ts
 // 场景：使用没有类型的 npm 包
 // node_modules/awesome-lib/index.js
 module.exports = {
@@ -217,7 +217,7 @@ init({ timeout: 5000 }) // ❌ 缺少 apiKey
 
 ### 4.3. 类型复用和共享
 
-```typescript
+```ts
 // types/models.d.ts - 共享的类型定义
 export interface User {
   id: string
@@ -265,7 +265,7 @@ export function UserProfile({ user }: Props) {
 
 ### 4.4. 代码提示和自动补全
 
-```typescript
+```ts
 // api.d.ts
 export interface RequestOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
@@ -288,12 +288,12 @@ request('/api/users', {
 
 ### 4.5. 文档作用
 
-````typescript
+````ts
 // logger.d.ts - 类型声明本身就是文档
 /**
  * 日志记录器
  * @example
- * ```typescript
+ * ```ts
  * const logger = new Logger('MyApp');
  * logger.info('Application started');
  * logger.error('An error occurred', error);
@@ -336,7 +336,7 @@ export class Logger {
 
 为库提供类型声明。
 
-```typescript
+```ts
 // node_modules/@types/lodash/index.d.ts
 declare module 'lodash' {
   export function debounce<T extends (...args: any[]) => any>(
@@ -357,7 +357,7 @@ declare module 'lodash' {
 
 声明全局变量、函数、类型。
 
-```typescript
+```ts
 // types/global.d.ts
 declare const __DEV__: boolean
 declare const __VERSION__: string
@@ -380,7 +380,7 @@ declare namespace NodeJS {
 
 扩展现有模块的类型。
 
-```typescript
+```ts
 // types/express.d.ts
 import 'express'
 
@@ -403,7 +403,7 @@ declare module 'express' {
 
 项目内部的类型定义。
 
-```typescript
+```ts
 // src/types/index.d.ts
 export interface User {
   id: string
@@ -428,7 +428,7 @@ export type ApiResponse<T> = {
 
 声明非代码资源的类型。
 
-```typescript
+```ts
 // types/assets.d.ts
 declare module '*.css' {
   const content: { [className: string]: string }
@@ -459,7 +459,7 @@ TypeScript 如何查找和加载类型声明文件。
 
 ### 6.1. 查找顺序
 
-```typescript
+```ts
 // 当导入模块时：import { something } from 'my-library';
 // TypeScript 按以下顺序查找类型：
 
@@ -486,7 +486,7 @@ TypeScript 如何查找和加载类型声明文件。
 
 ### 6.2. 相对路径导入
 
-```typescript
+```ts
 // src/utils/math.ts
 export function add(a: number, b: number): number {
   return a + b
@@ -502,7 +502,7 @@ import { add } from './utils/math' // 找到类型定义
 
 ### 6.3. 非相对路径导入
 
-```typescript
+```ts
 // import 'lodash';
 // 查找顺序：
 // 1. node_modules/lodash/package.json 的 types 字段
@@ -537,7 +537,7 @@ import { add } from './utils/math' // 找到类型定义
 
 ### 6.5. 实际案例
 
-```typescript
+```ts
 // 项目结构
 /**
  * project/
@@ -567,7 +567,7 @@ import 'custom-lib' // ✅ 找到 types/custom-lib.d.ts
 
 ### 6.6. 声明文件的优先级
 
-```typescript
+```ts
 // 同时存在多个声明文件时的优先级
 
 // 1. 最高优先级：项目内的声明文件

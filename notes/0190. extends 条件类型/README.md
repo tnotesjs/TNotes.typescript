@@ -49,7 +49,7 @@
 
 条件类型允许根据类型之间的关系选择不同的类型，类似于 JavaScript 中的三元运算符。
 
-```typescript
+```ts
 // 语法：T extends U ? X : Y
 // 如果 T 可以赋值给 U，则类型为 X，否则为 Y
 
@@ -64,7 +64,7 @@ type C = IsString<'hello'> // type C = true (字面量类型也是 string 的子
 
 在条件类型中，`extends` 表示类型兼容性或子类型关系，不是类继承的意思。
 
-```typescript
+```ts
 // T extends U 意思是：T 可以赋值给 U
 
 // 示例 1：基本类型
@@ -97,7 +97,7 @@ type R7 = IsStringOrNumber<boolean> // 'no'
 
 **extends 的类型兼容性规则：**
 
-```typescript
+```ts
 // 1. 字面量类型 extends 基本类型
 type T1 = 'hello' extends string ? true : false // true
 type T2 = 42 extends number ? true : false // true
@@ -125,7 +125,7 @@ type T10 = unknown extends any ? true : false // true (特殊情况)
 
 **基于类型进行分支：**
 
-```typescript
+```ts
 type TypeName<T> = T extends string
   ? 'string'
   : T extends number
@@ -147,7 +147,7 @@ type T5 = TypeName<{}> // 'object'
 
 **检查可选属性：**
 
-```typescript
+```ts
 type HasProperty<T, K extends keyof T> = undefined extends T[K]
   ? 'optional'
   : 'required'
@@ -166,7 +166,7 @@ type T2 = HasProperty<User, 'email'> // 'optional'
 
 **约束函数参数：**
 
-```typescript
+```ts
 // 只接受数组类型
 function getLength<T extends any[]>(arr: T): number {
   return arr.length
@@ -188,7 +188,7 @@ function getLength2<T>(value: T): ArrayLength<T> {
 
 **条件返回类型：**
 
-```typescript
+```ts
 type ApiResponse<T> = T extends { error: any }
   ? { success: false; error: T['error'] }
   : { success: true; data: T }
@@ -205,7 +205,7 @@ function handleResponse<T>(response: T): ApiResponse<T> {
 
 **多层条件判断：**
 
-```typescript
+```ts
 type DeepReadonly<T> = T extends (infer U)[]
   ? ReadonlyArray<DeepReadonly<U>>
   : T extends object
@@ -234,7 +234,7 @@ type ReadonlyPerson = DeepReadonly<Person>
 
 **复杂类型转换：**
 
-```typescript
+```ts
 type FlattenArray<T> = T extends (infer U)[]
   ? U extends any[]
     ? FlattenArray<U>
@@ -253,7 +253,7 @@ type T4 = FlattenArray<string> // string
 
 **Exclude 的实现：**
 
-```typescript
+```ts
 type MyExclude<T, U> = T extends U ? never : T
 
 type T1 = MyExclude<'a' | 'b' | 'c', 'a'> // 'b' | 'c'
@@ -263,7 +263,7 @@ type T3 = MyExclude<1 | 2 | 3, 1 | 2> // 3
 
 **Extract 的实现：**
 
-```typescript
+```ts
 type MyExtract<T, U> = T extends U ? T : never
 
 type T1 = MyExtract<'a' | 'b' | 'c', 'a' | 'c'> // 'a' | 'c'
@@ -273,7 +273,7 @@ type T3 = MyExtract<1 | 2 | 3, 2 | 4> // 2
 
 **NonNullable 的实现：**
 
-```typescript
+```ts
 type MyNonNullable<T> = T extends null | undefined ? never : T
 
 type T1 = MyNonNullable<string | null> // string
@@ -285,7 +285,7 @@ type T3 = MyNonNullable<string | null | undefined> // string
 
 **根据参数类型返回不同结果：**
 
-```typescript
+```ts
 function createLogger<T extends 'console' | 'file'>(
   type: T
 ): T extends 'console' ? ConsoleLogger : FileLogger
@@ -315,7 +315,7 @@ const logger2 = createLogger('file') // FileLogger
 
 **智能类型推断：**
 
-```typescript
+```ts
 type ParseResult<T> = T extends 'json'
   ? object
   : T extends 'text'
@@ -349,7 +349,7 @@ const data3 = await fetchData('/api/file', 'blob') // Blob
 
 **提取数组元素类型：**
 
-```typescript
+```ts
 type ElementType<T> = T extends (infer U)[] ? U : never
 
 type T1 = ElementType<string[]> // string
@@ -359,7 +359,7 @@ type T3 = ElementType<(string | number)[]> // string | number
 
 **提取对象值类型：**
 
-```typescript
+```ts
 type ValueOf<T> = T extends { [key: string]: infer U } ? U : never
 
 interface User {
@@ -373,7 +373,7 @@ type UserValue = ValueOf<User> // string | number | boolean
 
 **提取构造函数类型：**
 
-```typescript
+```ts
 type ConstructorParameters<T> = T extends new (...args: infer P) => any
   ? P
   : never
@@ -389,7 +389,7 @@ type PersonParams = ConstructorParameters<typeof Person> // [string, number]
 
 ### 6.1. 推断函数返回值
 
-```typescript
+```ts
 type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never
 
 function getString(): string {
@@ -406,7 +406,7 @@ type T2 = ReturnType<typeof getNumber> // number
 
 ### 6.2. 推断函数参数
 
-```typescript
+```ts
 type Parameters<T> = T extends (...args: infer P) => any ? P : never
 
 function add(a: number, b: number): number {
@@ -423,7 +423,7 @@ function wrapper(...args: AddParams) {
 
 ### 6.3. 推断 Promise 值类型
 
-```typescript
+```ts
 type Awaited<T> = T extends Promise<infer U> ? U : T
 
 type T1 = Awaited<Promise<string>> // string
@@ -438,7 +438,7 @@ type T4 = DeepAwaited<Promise<Promise<string>>> // string
 
 **实际应用：**
 
-```typescript
+```ts
 async function fetchUser(): Promise<{ id: number; name: string }> {
   const response = await fetch('/api/user')
   return response.json()
@@ -457,7 +457,7 @@ type User = Awaited<ReturnType<typeof fetchUser>>
 
 当条件类型作用于联合类型时，会自动分发：
 
-```typescript
+```ts
 type ToArray<T> = T extends any ? T[] : never
 
 type T1 = ToArray<string | number>
@@ -473,7 +473,7 @@ type T2 = ToArrayNonDist<string | number>
 
 **2. never 的特殊行为**
 
-```typescript
+```ts
 type Test<T> = T extends string ? true : false
 
 type T1 = Test<never> // never (而不是 false)
@@ -486,7 +486,7 @@ type T2 = TestFixed<never> // false
 
 **3. extends 不是严格相等**
 
-```typescript
+```ts
 // extends 检查的是兼容性，不是相等性
 type T1 = 'hello' extends string ? true : false // true
 type T2 = string extends 'hello' ? true : false // false
@@ -500,7 +500,7 @@ type T4 = IsExact<string, 'hello'> // false
 
 **4. 条件类型的延迟求值**
 
-```typescript
+```ts
 type TypeName<T> = T extends string
   ? 'string'
   : T extends number
@@ -522,7 +522,7 @@ function getName<T>(value: T): TypeName<T> {
 
 **5. 循环引用问题**
 
-```typescript
+```ts
 // ❌ 错误：类型实例化过深
 type InfiniteNest<T> = {
   value: T
@@ -542,7 +542,7 @@ type Prev<T extends number> = T extends 0 ? 0 : [-1, 0, 1, 2, 3, 4, 5][T]
 
 **6. 性能考虑**
 
-```typescript
+```ts
 // ❌ 不好：复杂的嵌套条件类型可能影响性能
 type Complex<T> = T extends A
   ? T extends B

@@ -88,7 +88,7 @@
 
 ### 3.2. CommonJS 格式
 
-```typescript
+```ts
 // 源代码
 export const name = 'Alice'
 export function greet() {
@@ -110,7 +110,7 @@ function greet() {
 exports.greet = greet
 ```
 
-```typescript
+```ts
 // 导入
 import { name, greet } from './module'
 
@@ -122,7 +122,7 @@ module_1.greet()
 
 ### 3.3. ES2015/ES6 格式
 
-```typescript
+```ts
 // 源代码
 export const name = 'Alice'
 export function greet() {
@@ -138,7 +138,7 @@ export function greet() {
 }
 ```
 
-```typescript
+```ts
 // 导入也保持原样
 import { name, greet } from './module'
 ```
@@ -203,7 +203,7 @@ define(['require', 'exports'], function (require, exports) {
 
 ### 4.2. Node 解析策略
 
-```typescript
+```ts
 // import { something } from "module-name";
 
 // 解析顺序：
@@ -213,7 +213,7 @@ define(['require', 'exports'], function (require, exports) {
 // 4. node_modules/@types/module-name/index.d.ts
 ```
 
-```typescript
+```ts
 // import { utils } from "./utils";
 
 // 相对路径解析顺序：
@@ -227,7 +227,7 @@ define(['require', 'exports'], function (require, exports) {
 
 ### 4.3. Classic 解析策略
 
-```typescript
+```ts
 // import { something } from "module-name";
 
 // 解析顺序：
@@ -250,7 +250,7 @@ define(['require', 'exports'], function (require, exports) {
 }
 ```
 
-```typescript
+```ts
 // 必须包含文件扩展名
 import { utils } from './utils.js' // ✅ 正确
 import { utils } from './utils' // ❌ 错误
@@ -267,7 +267,7 @@ import { utils } from './utils' // ❌ 错误
 }
 ```
 
-```typescript
+```ts
 // 类似 Webpack/Vite 的解析方式
 import { utils } from './utils' // ✅ 可以省略扩展名
 import styles from './styles.css' // ✅ 可以导入非 TS 文件
@@ -298,7 +298,7 @@ import data from './data.json' // ✅ 支持 JSON 导入
 }
 ```
 
-```typescript
+```ts
 // 源代码
 import { helper } from './helper'
 import * as lodash from 'lodash'
@@ -364,7 +364,7 @@ const lodash = require('lodash')
 }
 ```
 
-```typescript
+```ts
 // 使用 require 和 module.exports
 const express = require('express')
 module.exports = app
@@ -392,7 +392,7 @@ export default app
 }
 ```
 
-```typescript
+```ts
 // 必须使用 .js 扩展名
 import { utils } from './utils.js'
 export { helper } from './helper.js'
@@ -412,7 +412,7 @@ export { helper } from './helper.js'
 }
 ```
 
-```typescript
+```ts
 // Webpack/Vite 会处理模块
 import React from 'react'
 import styles from './App.module.css'
@@ -433,7 +433,7 @@ import { Button } from '@/components/Button'
 }
 ```
 
-```typescript
+```ts
 // 输出 ES 模块，让使用者选择打包方式
 export { createApp } from './app'
 export type { AppOptions } from './types'
@@ -481,7 +481,7 @@ node dist/index.js
 
 ### 7.2. Node16/NodeNext 必须包含扩展名
 
-```typescript
+```ts
 // module: "node16"
 
 // ❌ 错误
@@ -505,7 +505,7 @@ import type { User } from './types.js'
 }
 ```
 
-```typescript
+```ts
 // esModuleInterop: true
 import React from 'react' // ✅ 可以使用默认导入
 
@@ -524,7 +524,7 @@ import * as React from 'react' // ❌ 必须使用命名空间导入
 }
 ```
 
-```typescript
+```ts
 // ✅ 可以导入 JSON 文件
 import config from './config.json'
 console.log(config.apiUrl)
@@ -544,7 +544,7 @@ console.log(config.apiUrl)
 }
 ```
 
-```typescript
+```ts
 // ✅ TypeScript 可以解析
 import { Button } from '@components/Button'
 
@@ -563,7 +563,7 @@ import { Button } from '@components/Button'
 }
 ```
 
-```typescript
+```ts
 // ❌ 错误：isolatedModules 不允许
 export { SomeType } // 仅导出类型
 
@@ -573,14 +573,14 @@ export type { SomeType } // 明确标记为类型导出
 
 ### 7.7. 混合使用 CommonJS 和 ES 模块
 
-```typescript
+```ts
 // 在 ES 模块中使用 CommonJS 模块
 import express from 'express' // CommonJS 模块
 
 // 需要 esModuleInterop: true
 ```
 
-```typescript
+```ts
 // 在 CommonJS 中使用 ES 模块（动态导入）
 async function loadModule() {
   const { default: chalk } = await import('chalk') // ES 模块
@@ -644,7 +644,7 @@ async function loadModule() {
 }
 ```
 
-```typescript
+```ts
 // ✅ 可以导入
 import styles from './App.module.css'
 import data from './data.json'

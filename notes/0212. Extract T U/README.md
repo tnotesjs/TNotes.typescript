@@ -4,23 +4,23 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 Extract\<T, U\> 是什么？](#3--extractt-u-是什么)
+- [3. 🤔 `Extract<T, U>` 是什么？](#3--extractt-u-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. 工作原理](#32-工作原理)
   - [3.3. 与 Exclude 的对比](#33-与-exclude-的对比)
   - [3.4. 基本示例](#34-基本示例)
-- [4. 🤔 如何使用 Extract\<T, U\>？](#4--如何使用-extractt-u)
+- [4. 🤔 如何使用 `Extract<T, U>`？](#4--如何使用-extractt-u)
   - [4.1. 场景 1：事件处理器类型提取](#41-场景-1事件处理器类型提取)
   - [4.2. 场景 2：Redux Action 类型过滤](#42-场景-2redux-action-类型过滤)
   - [4.3. 场景 3：API 响应类型提取](#43-场景-3api-响应类型提取)
   - [4.4. 场景 4：路由参数类型提取](#44-场景-4路由参数类型提取)
-- [5. 🤔 Extract\<T, U\> 的实际应用场景有哪些？](#5--extractt-u-的实际应用场景有哪些)
+- [5. 🤔 `Extract<T, U>` 的实际应用场景有哪些？](#5--extractt-u-的实际应用场景有哪些)
   - [5.1. 应用 1：表单字段类型提取](#51-应用-1表单字段类型提取)
   - [5.2. 应用 2：数据库查询结果类型](#52-应用-2数据库查询结果类型)
   - [5.3. 应用 3：WebSocket 消息类型](#53-应用-3websocket-消息类型)
   - [5.4. 应用 4：状态机类型提取](#54-应用-4状态机类型提取)
   - [5.5. 应用 5：日志级别过滤](#55-应用-5日志级别过滤)
-- [6. 🤔 使用 Extract\<T, U\> 需要注意什么？](#6--使用-extractt-u-需要注意什么)
+- [6. 🤔 使用 `Extract<T, U>` 需要注意什么？](#6--使用-extractt-u-需要注意什么)
   - [6.1. 注意事项 1：类型兼容性判断](#61-注意事项-1类型兼容性判断)
   - [6.2. 注意事项 2：对象类型的提取](#62-注意事项-2对象类型的提取)
   - [6.3. 注意事项 3：never 的处理](#63-注意事项-3never-的处理)
@@ -49,26 +49,25 @@
 
 `Extract<T, U>` 从联合类型 `T` 中提取可以赋值给 `U` 的类型。
 
+## 3. 🤔 `Extract<T, U>` 是什么？
+
+`Extract<T, U>` 从联合类型 `T` 中提取可以赋值给类型 `U` 的成员。
+
 - 与 `Exclude<T, U>` 互为相反操作
 - 基于条件类型和分布式特性
 - 用于联合类型的交集运算
 - 常用于类型过滤和提取
 - 在泛型约束中非常有用
 
-## 3. 🤔 Extract\<T, U\> 是什么？
-
-`Extract<T, U>` 从联合类型 `T` 中提取可以赋值给类型 `U` 的成员。
-
 ### 3.1. 源码定义
 
-```typescript
-// TypeScript lib.es5.d.ts 中的定义
+```ts
 type Extract<T, U> = T extends U ? T : never
 ```
 
 ### 3.2. 工作原理
 
-```typescript
+```ts
 // 分布式条件类型的展开过程
 type Example = Extract<'a' | 'b' | 'c', 'a' | 'c'>
 
@@ -86,7 +85,7 @@ type Example = Extract<'a' | 'b' | 'c', 'a' | 'c'>
 
 ### 3.3. 与 Exclude 的对比
 
-```typescript
+```ts
 type Union = 'a' | 'b' | 'c'
 type Target = 'a' | 'c'
 
@@ -102,7 +101,7 @@ type Both = Extracted | Excluded // 'a' | 'b' | 'c'
 
 ### 3.4. 基本示例
 
-```typescript
+```ts
 // 字符串字面量
 type Colors = 'red' | 'green' | 'blue' | 'yellow'
 type PrimaryColors = Extract<Colors, 'red' | 'green' | 'blue'>
@@ -122,11 +121,11 @@ type WithValue = Extract<Objects, { value: any }>
 // { type: 'a'; value: number; } | { type: 'b'; value: string; }
 ```
 
-## 4. 🤔 如何使用 Extract\<T, U\>？
+## 4. 🤔 如何使用 `Extract<T, U>`？
 
 ### 4.1. 场景 1：事件处理器类型提取
 
-```typescript
+```ts
 type EventMap = {
   click: MouseEvent
   dblclick: MouseEvent
@@ -161,7 +160,7 @@ addMouseListener('keydown', (e) => {}) // 错误
 
 ### 4.2. 场景 2：Redux Action 类型过滤
 
-```typescript
+```ts
 type Action =
   | { type: 'USER_LOGIN'; payload: { username: string } }
   | { type: 'USER_LOGOUT' }
@@ -191,7 +190,7 @@ function handleUserAction(action: UserActions): void {
 
 ### 4.3. 场景 3：API 响应类型提取
 
-```typescript
+```ts
 type ApiResponse<T> =
   | { status: 'success'; data: T }
   | { status: 'error'; error: string }
@@ -226,7 +225,7 @@ if (response.status === 'success') {
 
 ### 4.4. 场景 4：路由参数类型提取
 
-```typescript
+```ts
 type Route =
   | { path: '/'; params: never }
   | { path: '/users'; params: never }
@@ -262,11 +261,11 @@ navigateWithParams({
 })
 ```
 
-## 5. 🤔 Extract\<T, U\> 的实际应用场景有哪些？
+## 5. 🤔 `Extract<T, U>` 的实际应用场景有哪些？
 
 ### 5.1. 应用 1：表单字段类型提取
 
-```typescript
+```ts
 type FormField =
   | { type: 'text'; name: string; value: string }
   | { type: 'number'; name: string; value: number; min?: number; max?: number }
@@ -320,7 +319,7 @@ builder.addNumericField({
 
 ### 5.2. 应用 2：数据库查询结果类型
 
-```typescript
+```ts
 type DbResult =
   | { type: 'single'; value: any }
   | { type: 'multiple'; values: any[] }
@@ -360,7 +359,7 @@ if (result.type === 'single') {
 
 ### 5.3. 应用 3：WebSocket 消息类型
 
-```typescript
+```ts
 type WebSocketMessage =
   | { type: 'connect'; clientId: string }
   | { type: 'disconnect'; clientId: string; reason: string }
@@ -407,7 +406,7 @@ class WebSocketServer {
 
 ### 5.4. 应用 4：状态机类型提取
 
-```typescript
+```ts
 type State =
   | { status: 'idle' }
   | { status: 'loading'; progress: number }
@@ -454,7 +453,7 @@ class StateMachine {
 
 ### 5.5. 应用 5：日志级别过滤
 
-```typescript
+```ts
 type LogEntry =
   | { level: 'debug'; message: string; timestamp: number }
   | { level: 'info'; message: string; timestamp: number }
@@ -515,11 +514,11 @@ logger.log({
 })
 ```
 
-## 6. 🤔 使用 Extract\<T, U\> 需要注意什么？
+## 6. 🤔 使用 `Extract<T, U>` 需要注意什么？
 
 ### 6.1. 注意事项 1：类型兼容性判断
 
-```typescript
+```ts
 // Extract 基于 extends 判断
 type Numbers = 1 | 2 | 3
 
@@ -534,7 +533,7 @@ type All = Extract<Numbers, number> // 1 | 2 | 3
 
 ### 6.2. 注意事项 2：对象类型的提取
 
-```typescript
+```ts
 type Objects =
   | { a: number }
   | { a: number; b: string }
@@ -551,7 +550,7 @@ type ExactlyAB = Extract<Objects, { a: number; b: string } & { c?: never }>
 
 ### 6.3. 注意事项 3：never 的处理
 
-```typescript
+```ts
 type Union = 'a' | 'b' | 'c'
 
 // Extract 不匹配的结果是 never
@@ -568,7 +567,7 @@ type Check2 = IsNever<'a'> // false
 
 ### 6.4. 注意事项 4：函数类型的提取
 
-```typescript
+```ts
 type Funcs = (() => void) | ((x: number) => void) | ((x: string) => string)
 
 // ⚠️ 函数类型的 extends 基于参数和返回值
@@ -582,7 +581,7 @@ type NumberFunc = Extract<Funcs, (x: number) => any>
 
 ### 6.5. 注意事项 5：与泛型的结合
 
-```typescript
+```ts
 // ⚠️ 泛型约束可能影响结果
 function extract<T extends string, U extends string>(
   value: T,
@@ -599,7 +598,7 @@ type Extracted = Extract<StringLiterals, 'a' | 'b'>
 
 ### 6.6. 注意事项 6：模板字面量类型
 
-```typescript
+```ts
 type Events = 'onClick' | 'onFocus' | 'onBlur' | 'onKeyDown'
 
 // ✅ 可以使用模板字面量提取
@@ -615,7 +614,7 @@ type NoMatch = Extract<Events, 'click'> // never（不匹配）
 
 ### 6.7. 注意事项 7：分布式条件类型的限制
 
-```typescript
+```ts
 // ✅ 正常分布
 type Normal = Extract<'a' | 'b', 'a'> // 'a'
 
@@ -644,7 +643,7 @@ type ExtractTuple = Extract<Tuples, [1, 2]> // [1, 2]
 
 ### 7.2. 互补关系
 
-```typescript
+```ts
 type Union = 'a' | 'b' | 'c'
 type Target = 'a' | 'b'
 
@@ -665,7 +664,7 @@ type IsOriginal = Combined extends Union
 
 ### 7.3. 使用场景选择
 
-```typescript
+```ts
 type AllColors = 'red' | 'green' | 'blue' | 'yellow' | 'orange'
 type PrimaryColors = 'red' | 'green' | 'blue'
 
@@ -684,7 +683,7 @@ type UseSecondary = Exclude<AllColors, PrimaryColors>
 
 ### 7.4. 性能对比
 
-```typescript
+```ts
 type Large = 'a' | 'b' | 'c' /* ... 100个成员 */
 
 // 如果只需要少数类型

@@ -75,7 +75,7 @@
 
 ### 3.2. strict 的作用
 
-```typescript
+```ts
 // strict: false（默认行为）
 function greet(name) {
   // ✅ 允许，name 类型为 any
@@ -124,7 +124,7 @@ function greet(name: string) {
 
 禁止隐式 `any` 类型。
 
-```typescript
+```ts
 // noImplicitAny: false
 function add(a, b) {
   // ✅ 允许，a 和 b 是 any
@@ -147,7 +147,7 @@ function add(a: number, b: number) {
 
 严格的 `null` 和 `undefined` 检查。
 
-```typescript
+```ts
 // strictNullChecks: false
 const name: string = null // ✅ 允许
 const age: number = undefined // ✅ 允许
@@ -171,7 +171,7 @@ greet(null) // ❌ 错误：类型 null 不能赋值给类型 string
 
 严格的函数类型检查。
 
-```typescript
+```ts
 // 函数参数的逆变检查
 type Callback = (value: string | number) => void
 
@@ -199,7 +199,7 @@ const cb: Callback = (value: string | number) => {
 
 严格检查 `bind`、`call`、`apply`。
 
-```typescript
+```ts
 function greet(name: string, age: number) {
   console.log(`${name} is ${age} years old`)
 }
@@ -219,7 +219,7 @@ bound(30) // ✅ 正确
 
 严格检查类属性初始化。
 
-```typescript
+```ts
 // strictPropertyInitialization: false
 class User {
   name: string // ✅ 允许（未初始化）
@@ -265,7 +265,7 @@ class User {
 
 禁止 `this` 的隐式 `any` 类型。
 
-```typescript
+```ts
 // noImplicitThis: false
 const obj = {
   name: 'Alice',
@@ -300,7 +300,7 @@ const obj: Obj = {
 
 始终以严格模式解析并输出 `"use strict"`。
 
-```typescript
+```ts
 // alwaysStrict: false
 // 输出文件不包含 "use strict"
 
@@ -314,7 +314,7 @@ const obj: Obj = {
 
 `catch` 变量使用 `unknown` 而非 `any`。
 
-```typescript
+```ts
 // useUnknownInCatchVariables: false
 try {
   throw new Error('error')
@@ -407,7 +407,7 @@ try {
 }
 ```
 
-```typescript
+```ts
 // 修复所有隐式 any
 function process(data) {
   // ❌ 需要修复
@@ -436,7 +436,7 @@ function process(data: unknown) {
 }
 ```
 
-```typescript
+```ts
 // 修复所有 null/undefined 问题
 function getName(user: User): string {
   return user.name // ❌ 如果 name 可能为 null
@@ -499,7 +499,7 @@ function getName(user: User): string | null {
 
 ### 7.1. 显式类型注解
 
-```typescript
+```ts
 // ❌ 依赖类型推断可能不够
 const data = JSON.parse(response) // any 类型
 
@@ -512,7 +512,7 @@ const data = JSON.parse(response) as UserData
 
 ### 7.2. 处理 null 和 undefined
 
-```typescript
+```ts
 // ❌ 直接访问可能为 null 的属性
 const name = user.profile.name
 
@@ -530,7 +530,7 @@ if (user.profile) {
 
 ### 7.3. 函数参数类型
 
-```typescript
+```ts
 // ❌ 缺少类型
 function handleEvent(event) {
   console.log(event.target)
@@ -549,7 +549,7 @@ function handleEvent(event: MouseEvent | KeyboardEvent) {
 
 ### 7.4. 类属性初始化
 
-```typescript
+```ts
 // ❌ 未初始化
 class Component {
   element: HTMLElement
@@ -576,7 +576,7 @@ class Component {
 
 ### 7.5. catch 错误处理
 
-```typescript
+```ts
 // ❌ 假设 error 是 Error 类型
 try {
   throw new Error('error')
@@ -605,7 +605,7 @@ npm install --save-dev @types/react
 npm install --save-dev @types/node
 ```
 
-```typescript
+```ts
 // ✅ 有类型声明
 import _ from 'lodash'
 import React from 'react'
@@ -616,7 +616,7 @@ import someLib from 'some-lib' // any 类型
 
 ### 7.7. 使用类型断言（谨慎）
 
-```typescript
+```ts
 // ⚠️ 类型断言绕过检查
 const element = document.getElementById('app') as HTMLDivElement
 

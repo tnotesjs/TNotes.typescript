@@ -53,7 +53,7 @@ AST（Abstract Syntax Tree，抽象语法树）是源代码结构的树状表示
 
 ### 3.1. 基本概念
 
-```typescript
+```ts
 // 源代码
 const x = 1 + 2
 
@@ -72,7 +72,7 @@ VariableStatement
 
 ### 3.2. 为什么需要 AST
 
-```typescript
+```ts
 // ✅ AST 的用途
 
 // 1. 类型检查
@@ -98,7 +98,7 @@ foo()
 
 ### 4.1. Node 节点类型
 
-```typescript
+```ts
 import * as ts from 'typescript'
 
 // TypeScript 中的主要节点类型
@@ -138,7 +138,7 @@ enum SyntaxKind {
 
 ### 4.2. 节点属性
 
-```typescript
+```ts
 // TypeScript Node 接口
 interface Node {
   kind: SyntaxKind // 节点类型
@@ -156,7 +156,7 @@ interface Node {
 
 ### 4.3. 变量声明示例
 
-```typescript
+```ts
 // 源代码
 const message: string = 'Hello'
 
@@ -191,7 +191,7 @@ SourceFile
 
 ### 4.4. 函数声明示例
 
-```typescript
+```ts
 // 源代码
 function add(a: number, b: number): number {
   return a + b
@@ -221,7 +221,7 @@ FunctionDeclaration
 
 ### 5.1. 创建和解析源文件
 
-```typescript
+```ts
 import * as ts from 'typescript'
 
 // ✅ 从字符串创建源文件
@@ -249,7 +249,7 @@ console.log(sourceFile.statements.length) // 2（interface 和 const）
 
 ### 5.2. 访问特定节点
 
-```typescript
+```ts
 // ✅ 查找所有变量声明
 function findVariableDeclarations(sourceFile: ts.SourceFile) {
   const variables: ts.VariableDeclaration[] = []
@@ -274,7 +274,7 @@ vars.forEach((v) => {
 
 ### 5.3. 获取类型信息
 
-```typescript
+```ts
 // ✅ 使用 TypeChecker 获取类型
 function getTypeInfo(sourceCode: string) {
   const sourceFile = ts.createSourceFile(
@@ -331,7 +331,7 @@ getTypeInfo(`
 
 ### 6.1. 深度优先遍历
 
-```typescript
+```ts
 // ✅ 递归遍历所有节点
 function traverseAST(node: ts.Node, callback: (node: ts.Node) => void) {
   callback(node)
@@ -346,7 +346,7 @@ traverseAST(sourceFile, (node) => {
 
 ### 6.2. 使用 Visitor 模式
 
-```typescript
+```ts
 // ✅ Visitor 模式
 class ASTVisitor {
   visitSourceFile(node: ts.SourceFile) {
@@ -388,7 +388,7 @@ visitor.visitSourceFile(sourceFile)
 
 ### 6.3. Transformer API
 
-```typescript
+```ts
 // ✅ 使用 Transformer 修改 AST
 function removeConsoleLog(): ts.TransformerFactory<ts.SourceFile> {
   return (context: ts.TransformationContext) => {
@@ -425,7 +425,7 @@ console.log(output)
 
 ### 7.1. 代码分析工具
 
-```typescript
+```ts
 // ✅ 查找未使用的变量
 function findUnusedVariables(sourceFile: ts.SourceFile) {
   const declared = new Set<string>()
@@ -454,7 +454,7 @@ function findUnusedVariables(sourceFile: ts.SourceFile) {
 
 ### 7.2. 代码重构工具
 
-```typescript
+```ts
 // ✅ 重命名变量
 function renameVariable(
   sourceFile: ts.SourceFile,
@@ -481,7 +481,7 @@ function renameVariable(
 
 ### 7.3. 代码生成工具
 
-```typescript
+```ts
 // ✅ 生成类型安全的 API 客户端
 function generateAPIClient(endpoints: { name: string; path: string }[]) {
   const statements: ts.Statement[] = endpoints.map((endpoint) => {
@@ -535,7 +535,7 @@ export function getUser(): Promise<any> {
 
 ### 7.4. Lint 规则实现
 
-```typescript
+```ts
 // ✅ 自定义 Lint 规则：禁止使用 var
 function noVarRule(sourceFile: ts.SourceFile): string[] {
   const errors: string[] = []
