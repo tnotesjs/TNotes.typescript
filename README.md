@@ -307,7 +307,7 @@
 
 - [x] [0108. 类型工具](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0108.%20%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/README.md)
 - [x] [0205. Partial T](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0205.%20Partial%20T/README.md)
-- [ ] [0206. Required T](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0206.%20Required%20T/README.md)
+- [x] [0206. Required T](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0206.%20Required%20T/README.md)
 - [ ] [0207. Readonly T](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0207.%20Readonly%20T/README.md)
 - [ ] [0208. Record T](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0208.%20Record%20T/README.md)
 - [ ] [0209. Pick T K](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0209.%20Pick%20T%20K/README.md)
