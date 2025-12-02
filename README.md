@@ -326,6 +326,7 @@
 
 ## 25. 注释指令
 
+- [x] [0228. 注释指令](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0228.%20%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/README.md)
 - [x] [0222. @ts-ignore](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0222.%20%40ts-ignore/README.md)
 - [x] [0223. @ts-expect-error](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0223.%20%40ts-expect-error/README.md)
 - [x] [0291. @ts-ignore vs @ts-expect-error](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0291.%20%40ts-ignore%20vs%20%40ts-expect-error/README.md)
@@ -408,7 +409,6 @@
 
 ## xxx
 
-- [ ] [0228. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0228.%20new/README.md)
 - [ ] [0229. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0229.%20new/README.md)
 - [ ] [0230. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0230.%20new/README.md)
 - [ ] [0231. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0231.%20new/README.md)

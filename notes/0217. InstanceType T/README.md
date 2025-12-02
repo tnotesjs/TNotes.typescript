@@ -25,13 +25,13 @@
 
 `InstanceType<T>` 用于从构造函数类型中提取实例类型，与 `ConstructorParameters<T>` 配合使用可以完整描述类的类型信息。
 
+## 3. 🤔 `InstanceType<T>` 的源码实现是什么？
+
 - 在工厂模式中，常用于推断工厂函数的返回类型
 - 在依赖注入容器中，用于类型安全的实例解析
 - 与 `typeof` 配合使用时需要注意类型和值的区别
 - 对于泛型类，`InstanceType<T>` 会丢失泛型参数信息
 - 抽象类可以提取实例类型，但不能直接实例化
-
-## 3. 🤔 `InstanceType<T>` 的源码实现是什么？
 
 `InstanceType<T>` 的源码定义如下：
 

@@ -1008,6 +1008,10 @@
     "collapsed": true,
     "items": [
       {
+        "text": "✅ 注释指令",
+        "link": "/notes/0228. 注释指令/README"
+      },
+      {
         "text": "✅ @ts-ignore",
         "link": "/notes/0222. @ts-ignore/README"
       },
@@ -1293,10 +1297,6 @@
     "text": "xxx",
     "collapsed": true,
     "items": [
-      {
-        "text": "⏰ new",
-        "link": "/notes/0228. new/README"
-      },
       {
         "text": "⏰ new",
         "link": "/notes/0229. new/README"
