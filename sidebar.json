@@ -850,6 +850,10 @@
     "collapsed": true,
     "items": [
       {
+        "text": "⏰ 类型运算符",
+        "link": "/notes/0229. 类型运算符/README"
+      },
+      {
         "text": "✅ keyof 运算符",
         "link": "/notes/0188. keyof 运算符/README"
       },
@@ -1297,10 +1301,6 @@
     "text": "xxx",
     "collapsed": true,
     "items": [
-      {
-        "text": "⏰ new",
-        "link": "/notes/0229. new/README"
-      },
       {
         "text": "⏰ new",
         "link": "/notes/0230. new/README"

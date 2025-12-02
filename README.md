@@ -282,6 +282,7 @@
 
 ## 22. 类型运算符
 
+- [ ] [0229. 类型运算符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0229.%20%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/README.md)
 - [x] [0188. keyof 运算符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0188.%20keyof%20%E8%BF%90%E7%AE%97%E7%AC%A6/README.md)
 - [ ] [0189. in 运算符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0189.%20in%20%E8%BF%90%E7%AE%97%E7%AC%A6/README.md)
 - [ ] [0190. extends 条件类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0190.%20extends%20%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B/README.md)
@@ -409,7 +410,6 @@
 
 ## xxx
 
-- [ ] [0229. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0229.%20new/README.md)
 - [ ] [0230. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0230.%20new/README.md)
 - [ ] [0231. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0231.%20new/README.md)
 - [ ] [0292. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0292.%20new/README.md)

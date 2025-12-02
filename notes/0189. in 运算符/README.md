@@ -4,9 +4,7 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 in 运算符有哪些用途？](#3--in-运算符有哪些用途)
-  - [3.1. JavaScript 中的 in 运算符](#31-javascript-中的-in-运算符)
-  - [3.2. TypeScript 类型系统中的 in](#32-typescript-类型系统中的-in)
+- [3. 🤔 `in` 是什么？](#3--in-是什么)
 - [4. 🤔 如何使用 in 创建映射类型？](#4--如何使用-in-创建映射类型)
   - [4.1. 基本映射类型](#41-基本映射类型)
   - [4.2. 遍历联合类型](#42-遍历联合类型)
@@ -34,24 +32,18 @@
 
 ## 2. 🫧 评价
 
-这篇笔记详细介绍了 `in` 运算符在 TypeScript 中的双重作用：作为 JavaScript 运行时的属性检查运算符，以及作为 TypeScript 类型系统中创建映射类型的关键字。
+JS 中也有 `in` 运算符，主要用于属性检查是否存在，本节主要介绍 TS 中的 `in` 运算符，重点介绍在类型运算中 `in` 运算符的作用，它是实现 `Partial`、`Required`、`Readonly` 等工具类型的基础。
 
-- `in` 在 JavaScript 中用于检查对象是否包含某个属性
-- 在 TypeScript 类型系统中，`in` 用于遍历联合类型创建映射类型
-- 作为类型守卫，`in` 可以安全地区分联合类型
-- 理解 `in` 的两种用途是掌握 TypeScript 高级类型的关键
-- `in` 是实现 `Partial`、`Required`、`Readonly` 等工具类型的基础
-- 在实际开发中，合理使用 `in` 可以编写更安全、更灵活的代码
+## 3. 🤔 `in` 是什么？
 
-## 3. 🤔 in 运算符有哪些用途？
+`in` 运算符在 TypeScript 中的双重作用：
 
-### 3.1. JavaScript 中的 in 运算符
+1. 作为 JavaScript 运行时的属性检查运算符，用于检查对象是否包含指定的属性
+2. 作为 TypeScript 类型系统中创建映射类型的关键字，用于创建映射类型，遍历联合类型的每个成员
 
-`in` 运算符是 JavaScript 原生运算符，用于检查对象是否包含指定的属性。
+::: code-group
 
-**基本用法：**
-
-```ts
+```ts [1]
 const person = {
   name: 'Alice',
   age: 25,
@@ -65,28 +57,7 @@ console.log('email' in person) // false
 console.log('toString' in person) // true（继承自 Object.prototype）
 ```
 
-**与 hasOwnProperty 的区别：**
-
-```ts
-const obj = {
-  own: 'value',
-}
-
-// in 会检查原型链
-'toString' in obj // true
-
-// hasOwnProperty 只检查自有属性
-obj.hasOwnProperty('toString') // false
-obj.hasOwnProperty('own') // true
-```
-
-### 3.2. TypeScript 类型系统中的 in
-
-在 TypeScript 的类型系统中，`in` 用于创建映射类型，遍历联合类型的每个成员。
-
-**基本语法：**
-
-```ts
+```ts [2]
 // 语法：[K in Keys]: Type
 type Keys = 'a' | 'b' | 'c'
 
@@ -101,11 +72,13 @@ type Obj = {
 // }
 ```
 
+:::
+
 ## 4. 🤔 如何使用 in 创建映射类型？
 
 ### 4.1. 基本映射类型
 
-**将联合类型转换为对象类型：**
+将联合类型转换为对象类型：
 
 ```ts
 type Status = 'pending' | 'success' | 'error'
@@ -127,7 +100,7 @@ const statusFlags: StatusMap = {
 }
 ```
 
-**指定不同的值类型：**
+指定不同的值类型：
 
 ```ts
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
@@ -161,7 +134,7 @@ const apiHandlers: Handlers = {
 
 ### 4.2. 遍历联合类型
 
-**从数字创建对象：**
+从数字创建对象：
 
 ```ts
 type Range = 0 | 1 | 2 | 3 | 4
@@ -178,7 +151,7 @@ type RangeMap = {
 // }
 ```
 
-**结合模板字面量类型：**
+结合模板字面量类型：
 
 ```ts
 type Direction = 'top' | 'right' | 'bottom' | 'left'
@@ -203,7 +176,7 @@ const margins: Margins = {
 
 ### 4.3. 结合 keyof 使用
 
-**遍历对象的所有键：**
+遍历对象的所有键：
 
 ```ts
 interface Person {
@@ -233,7 +206,7 @@ type ReadonlyPerson = {
 // }
 ```
 
-**添加属性修饰符：**
+添加属性修饰符：
 
 ```ts
 type Mutable<T> = {
@@ -282,7 +255,7 @@ function makeSound(pet: Pet) {
 
 ### 5.2. 区分联合类型
 
-**多个类型的判断：**
+多个类型的判断：
 
 ```ts
 interface Square {
@@ -313,7 +286,7 @@ function getArea(shape: Shape): number {
     return shape.width * shape.height
   } else if ('radius' in shape) {
     // shape: Circle
-    return Math.PI * shape.radius ** 2
+    return Math.PI * shape.radius  2
   }
 
   throw new Error('Unknown shape')
@@ -322,7 +295,7 @@ function getArea(shape: Shape): number {
 
 ### 5.3. 复杂类型判断
 
-**可选属性的处理：**
+可选属性的处理：
 
 ```ts
 interface User {
@@ -346,7 +319,7 @@ function sendNotification(user: User) {
 }
 ```
 
-**与其他类型守卫结合：**
+与其他类型守卫结合：
 
 ```ts
 interface ApiSuccess {
@@ -375,7 +348,7 @@ function handleResponse(response: ApiResponse) {
 
 ### 6.1. 实现工具类型
 
-**Partial 的实现：**
+Partial 的实现：
 
 ```ts
 type MyPartial<T> = {
@@ -396,7 +369,7 @@ type PartialTodo = MyPartial<Todo>
 // }
 ```
 
-**Required 的实现：**
+Required 的实现：
 
 ```ts
 type MyRequired<T> = {
@@ -411,7 +384,7 @@ type RequiredTodo = MyRequired<PartialTodo>
 // }
 ```
 
-**Pick 的实现：**
+Pick 的实现：
 
 ```ts
 type MyPick<T, K extends keyof T> = {
@@ -427,7 +400,7 @@ type TodoPreview = MyPick<Todo, 'title' | 'completed'>
 
 ### 6.2. 对象转换
 
-**将对象值类型转换：**
+将对象值类型转换：
 
 ```ts
 interface Config {
@@ -456,7 +429,7 @@ function toStringConfig(config: Config): StringConfig {
 }
 ```
 
-**创建 Getter 类型：**
+创建 Getter 类型：
 
 ```ts
 type Getters<T> = {
@@ -483,7 +456,7 @@ const stateGetters: StateGetters = {
 
 ### 6.3. API 响应处理
 
-**安全地处理不同的响应类型：**
+安全地处理不同的响应类型：
 
 ```ts
 interface UserResponse {
@@ -523,7 +496,7 @@ async function processUser(id: number) {
 
 ## 7. 🤔 in 运算符有哪些注意事项？
 
-**1. in 与原型链**
+1. in 与原型链
 
 ```ts
 const obj = { name: 'Alice' }
@@ -544,7 +517,7 @@ function check(obj: object): obj is WithToString {
 }
 ```
 
-**2. in 不能检查可选属性的值**
+2. in 不能检查可选属性的值
 
 ```ts
 interface User {
@@ -565,7 +538,7 @@ if ('email' in user && user.email !== undefined) {
 }
 ```
 
-**3. 映射类型中的 never**
+3. 映射类型中的 never
 
 ```ts
 type ExcludeKey<T, K extends keyof T> = {
@@ -585,7 +558,7 @@ type PublicUser = ExcludeKey<User, 'password'>
 // }
 ```
 
-**4. 性能考虑**
+4. 性能考虑
 
 ```ts
 // ❌ 不好：频繁使用 in 检查
@@ -626,7 +599,7 @@ function processBetter(items: any[]) {
 }
 ```
 
-**5. 与联合类型的配合**
+5. 与联合类型的配合
 
 ```ts
 // ✅ 好的实践
