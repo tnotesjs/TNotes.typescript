@@ -4,21 +4,11 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 keyof 运算符？](#3--什么是-keyof-运算符)
-  - [3.1. 基本语法](#31-基本语法)
-  - [3.2. 返回的类型](#32-返回的类型)
-- [4. 🤔 keyof 如何处理不同类型？](#4--keyof-如何处理不同类型)
-  - [4.1. 对象类型](#41-对象类型)
-  - [4.2. 数组类型](#42-数组类型)
-  - [4.3. 元组类型](#43-元组类型)
-  - [4.4. 类类型](#44-类类型)
-- [5. 🤔 keyof 在实际开发中有哪些应用场景？](#5--keyof-在实际开发中有哪些应用场景)
-  - [5.1. 属性访问约束](#51-属性访问约束)
-  - [5.2. 泛型约束](#52-泛型约束)
-  - [5.3. 映射类型](#53-映射类型)
-  - [5.4. 工具类型实现](#54-工具类型实现)
+- [3. 🤔 `keyof` 是什么？](#3--keyof-是什么)
+- [4. 🤔 `keyof` 如何处理不同类型？](#4--keyof-如何处理不同类型)
+- [5. 🤔 如何利用 `keyof` 创建映射类型？](#5--如何利用-keyof-创建映射类型)
 - [6. 🤔 keyof 与索引签名如何配合？](#6--keyof-与索引签名如何配合)
-- [7. 🤔 keyof 有哪些注意事项？](#7--keyof-有哪些注意事项)
+- [7. 🤔 keyof 的使用都有哪些需要留意的细节？](#7--keyof-的使用都有哪些需要留意的细节)
 - [8. 🔗 引用](#8--引用)
 
 <!-- endregion:toc -->
@@ -27,29 +17,18 @@
 
 - `keyof` 运算符的基本概念和语法
 - `keyof` 对不同类型的处理
-- `keyof` 在属性访问约束中的应用
-- `keyof` 与泛型、映射类型的结合
-- `keyof` 与索引签名的关系
-- 实际开发中的最佳实践
+- `keyof` 映射类型的结合
+- `keyof` 与索引签名配合使用
 
 ## 2. 🫧 评价
 
-这篇笔记详细介绍了 TypeScript 中 `keyof` 运算符的使用方法和应用场景。`keyof` 是 TypeScript 类型系统中最强大的工具之一。
+`keyof` 能够获取对象类型的所有键组成的联合类型，是实现高级类型工具的基础，TS 中的大多内置类型，比如 `Partial<T>`、`Required<T>`、`Readonly<T>` 等，都是利用 `keyof` 创建的映射类型。
 
-- `keyof` 能够获取对象类型的所有键组成的联合类型
-- 配合泛型使用可以实现类型安全的属性访问
-- 是实现高级类型工具的基础
-- 在实际开发中广泛用于约束函数参数、实现类型安全的对象操作
-- 理解 `keyof` 是掌握 TypeScript 高级类型的关键
-- 配合其他类型运算符使用能够创建强大的类型工具
-
-## 3. 🤔 什么是 keyof 运算符？
-
-### 3.1. 基本语法
+## 3. 🤔 `keyof` 是什么？
 
 `keyof` 是 TypeScript 的类型运算符，用于获取对象类型的所有键（key）组成的联合类型。
 
-**基本用法：**
+基本用法：
 
 ```ts
 // 定义一个对象类型
@@ -64,19 +43,21 @@ type PersonKeys = keyof Person
 // 等同于: type PersonKeys = "name" | "age" | "email"
 
 // 使用示例
-const key1: PersonKeys = 'name' // ✅ 正确
-const key2: PersonKeys = 'age' // ✅ 正确
-const key3: PersonKeys = 'email' // ✅ 正确
-const key4: PersonKeys = 'address' // ❌ 错误：不存在的键
+const key1: PersonKeys = 'name' // ✅ OK
+const key2: PersonKeys = 'age' // ✅ OK
+const key3: PersonKeys = 'email' // ✅ OK
+const key4: PersonKeys = 'address' // ❌ Error 不存在的键
 ```
 
-### 3.2. 返回的类型
+`keyof` 返回的是“键”的联合类型。
 
-`keyof` 返回的是字符串字面量类型或数字字面量类型的联合类型。
+1. 字符串键
+2. 数字键
+3. 混合键
 
-**字符串键：**
+::: code-group
 
-```ts
+```ts [1]
 interface User {
   id: number
   name: string
@@ -84,22 +65,27 @@ interface User {
 
 type UserKeys = keyof User
 // type UserKeys = "id" | "name"
+
+const key1: UserKeys = 'id' // ✅ OK
+const key2: UserKeys = 'name' // ✅ ok
+const key3: UserKeys = 'xxx' // ❌ Error
+// Type '"xxx"' is not assignable to type 'keyof User'.(2322)
 ```
 
-**数字键：**
-
-```ts
+```ts [2]
 interface NumericKeys {
   [key: number]: string
 }
 
 type Keys = keyof NumericKeys
 // type Keys = number
+
+const key1: Keys = 123 // ✅ OK
+const key2: Keys = '123' // ❌ Error
+// Type 'string' is not assignable to type 'number'.(2322)
 ```
 
-**混合键：**
-
-```ts
+```ts [3]
 interface MixedKeys {
   name: string
   [key: number]: string
@@ -107,15 +93,29 @@ interface MixedKeys {
 
 type Keys = keyof MixedKeys
 // type Keys = "name" | number
+
+const key1: Keys = 123 // ✅ OK
+const key2: Keys = 'name' // ✅ OK
+const key3: Keys = '123' // ❌ Error
+// Type '"123"' is not assignable to type 'keyof MixedKeys'.(2322)
 ```
 
-## 4. 🤔 keyof 如何处理不同类型？
+:::
 
-### 4.1. 对象类型
+## 4. 🤔 `keyof` 如何处理不同类型？
 
-**接口类型：**
+总的来说，`keyof` 对不同类型的处理，还是比较符合直觉的，简单推断一下，基本就能得知 `keyof` 的返回结果。
 
-```ts
+1. 接口
+2. 类型别名
+3. 数组类型，对数组使用 `keyof` 会得到数组所有方法和属性的键
+4. 元组类型，元组的 `keyof` 包含索引和数组方法
+5. 类类型，对类使用 `keyof` 只会获取公开属性和方法
+6. ……
+
+::: code-group
+
+```ts [1]
 interface Book {
   title: string
   author: string
@@ -137,13 +137,11 @@ const myBook: Book = {
   year: 2023,
 }
 
-getBookProperty(myBook, 'title') // ✅ 正确
-getBookProperty(myBook, 'price') // ❌ 错误
+getBookProperty(myBook, 'title') // ✅ OK
+getBookProperty(myBook, 'price') // ❌ Error
 ```
 
-**类型别名：**
-
-```ts
+```ts [2]
 type Product = {
   id: number
   name: string
@@ -154,11 +152,7 @@ type ProductKeys = keyof Product
 // type ProductKeys = "id" | "name" | "price"
 ```
 
-### 4.2. 数组类型
-
-对数组使用 `keyof` 会得到数组所有方法和属性的键。
-
-```ts
+```ts [3]
 type ArrayKeys = keyof any[]
 // 包含所有数组方法和属性：
 // "length" | "toString" | "push" | "pop" | "concat" | "join" | ...
@@ -167,42 +161,31 @@ type Arr = string[]
 type ArrKeys = keyof Arr
 // type ArrKeys = number | "length" | "toString" | "push" | ...
 
-// 实际使用
-const arr: string[] = ['a', 'b', 'c']
-const key: ArrKeys = 'length' // ✅
-const key2: ArrKeys = 'push' // ✅
-const key3: ArrKeys = 0 // ✅ 数字索引
+const key1: ArrKeys = 'length' // ✅ OK
+const key2: ArrKeys = 'push' // ✅ OK
+const key3: ArrKeys = 123 // ✅ OK 数字索引
+const key4: ArrKeys = 'xxx' // ❌ Error
+// Type '"xxx"' is not assignable to type 'keyof Arr'.(2322)
 ```
 
-### 4.3. 元组类型
-
-元组的 `keyof` 包含索引和数组方法。
-
-```ts
+```ts [4]
 type Tuple = [string, number, boolean]
 
 type TupleKeys = keyof Tuple
 // type TupleKeys = "0" | "1" | "2" | "length" | "toString" | "push" | ...
 
-// 使用示例
-function getTupleValue<T extends any[]>(
-  tuple: T,
-  index: keyof T
-): T[typeof index] {
-  return tuple[index]
-}
+const key1: TupleKeys = '0' // ✅ OK
+const key2: TupleKeys = '1' // ✅ OK
+const key3: TupleKeys = '2' // ✅ OK
 
-const myTuple: [string, number] = ['hello', 42]
-getTupleValue(myTuple, '0') // ✅ 'hello'
-getTupleValue(myTuple, '1') // ✅ 42
-getTupleValue(myTuple, 0) // ✅ 也可以用数字
+const key4: TupleKeys = '3' // ❌ Error
+// Type '"3"' is not assignable to type 'keyof Tuple'.(2322)
+
+const key5: TupleKeys = 'length' // ✅ OK
+const key6: TupleKeys = 'push' // ✅ OK
 ```
 
-### 4.4. 类类型
-
-对类使用 `keyof` 只会获取公开属性和方法。
-
-```ts
+```ts [5]
 class Person {
   public name: string
   private age: number
@@ -225,100 +208,21 @@ class Person {
 
 type PersonKeys = keyof Person
 // type PersonKeys = "name" | "greet"
-// ⚠️ 只包含 public 成员，不包含 private 和 protected
+// ⚠️ 注意，只包含 public 成员，不包含 private 和 protected
+
+const key1: PersonKeys = 'name' // ✅ OK
+const key2: PersonKeys = 'greet' // ✅ OK
+
+const key3: PersonKeys = 'getAge' // ❌ Error
+// Type '"getAge"' is not assignable to type 'keyof Person'.(2322)
+
+const key4: PersonKeys = 'email' // ❌ Error
+// Type '"email"' is not assignable to type 'keyof Person'.(2322)
 ```
 
-## 5. 🤔 keyof 在实际开发中有哪些应用场景？
+:::
 
-### 5.1. 属性访问约束
-
-**类型安全的属性获取：**
-
-```ts
-interface User {
-  id: number
-  name: string
-  email: string
-  age: number
-}
-
-// ❌ 不安全的写法
-function getProperty(obj: User, key: string) {
-  return obj[key] // any 类型
-}
-
-// ✅ 使用 keyof 约束
-function getPropertySafe<T, K extends keyof T>(obj: T, key: K): T[K] {
-  return obj[key]
-}
-
-const user: User = {
-  id: 1,
-  name: 'Alice',
-  email: 'alice@example.com',
-  age: 25,
-}
-
-const name = getPropertySafe(user, 'name') // string
-const age = getPropertySafe(user, 'age') // number
-const invalid = getPropertySafe(user, 'xxx') // ❌ 编译错误
-```
-
-**类型安全的属性设置：**
-
-```ts
-function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): void {
-  obj[key] = value
-}
-
-const user: User = {
-  id: 1,
-  name: 'Alice',
-  email: 'alice@example.com',
-  age: 25,
-}
-
-setProperty(user, 'name', 'Bob') // ✅ 正确
-setProperty(user, 'age', 30) // ✅ 正确
-setProperty(user, 'age', '30') // ❌ 错误：类型不匹配
-setProperty(user, 'invalid', 'test') // ❌ 错误：属性不存在
-```
-
-### 5.2. 泛型约束
-
-**约束泛型参数必须是对象的键：**
-
-```ts
-interface Product {
-  id: number
-  name: string
-  price: number
-  stock: number
-}
-
-// 排序函数
-function sortBy<T, K extends keyof T>(arr: T[], key: K): T[] {
-  return arr.sort((a, b) => {
-    if (a[key] < b[key]) return -1
-    if (a[key] > b[key]) return 1
-    return 0
-  })
-}
-
-const products: Product[] = [
-  { id: 1, name: 'Apple', price: 5, stock: 100 },
-  { id: 2, name: 'Banana', price: 3, stock: 50 },
-  { id: 3, name: 'Orange', price: 4, stock: 75 },
-]
-
-sortBy(products, 'price') // ✅ 按价格排序
-sortBy(products, 'name') // ✅ 按名称排序
-sortBy(products, 'invalid') // ❌ 错误
-```
-
-### 5.3. 映射类型
-
-**结合映射类型创建新类型：**
+## 5. 🤔 如何利用 `keyof` 创建映射类型？
 
 ```ts
 interface Person {
@@ -328,115 +232,71 @@ interface Person {
 }
 
 // 将所有属性变为可选
-type Partial<T> = {
+type MyPartial<T> = {
   [K in keyof T]?: T[K]
 }
 
 type PartialPerson = Partial<Person>
 // type PartialPerson = {
-//   name?: string;
-//   age?: number;
-//   email?: string;
+//     name?: string | undefined;
+//     age?: number | undefined;
+//     email?: string | undefined;
 // }
 
 // 将所有属性变为只读
-type Readonly<T> = {
+type MyReadonly<T> = {
   readonly [K in keyof T]: T[K]
 }
 
 type ReadonlyPerson = Readonly<Person>
 // type ReadonlyPerson = {
-//   readonly name: string;
-//   readonly age: number;
-//   readonly email: string;
+//     readonly name: string;
+//     readonly age: number;
+//     readonly email: string;
 // }
 ```
 
-### 5.4. 工具类型实现
-
-**Pick 实现：**
-
-```ts
-// Pick 从类型中选择指定的属性
-type MyPick<T, K extends keyof T> = {
-  [P in K]: T[P]
-}
-
-interface User {
-  id: number
-  name: string
-  email: string
-  age: number
-}
-
-type UserBasic = MyPick<User, 'id' | 'name'>
-// type UserBasic = {
-//   id: number;
-//   name: string;
-// }
-```
-
-**Omit 实现：**
-
-```ts
-// Omit 从类型中排除指定的属性
-type MyOmit<T, K extends keyof T> = {
-  [P in keyof T as P extends K ? never : P]: T[P]
-}
-
-type UserWithoutEmail = MyOmit<User, 'email'>
-// type UserWithoutEmail = {
-//   id: number;
-//   name: string;
-//   age: number;
-// }
-```
-
-**Record 实现：**
-
-```ts
-// Record 创建具有指定键和值类型的对象类型
-type MyRecord<K extends keyof any, T> = {
-  [P in K]: T
-}
-
-type Roles = 'admin' | 'user' | 'guest'
-type Permissions = MyRecord<Roles, boolean>
-// type Permissions = {
-//   admin: boolean;
-//   user: boolean;
-//   guest: boolean;
-// }
-```
+这个示例中定义的两个工具类型 `MyPartial`、`MyReadonly` 其实就是 TS 内置的工具类型 `Partial`、`Readonly` 的实现逻辑，那些 TS 中内置的工具类型，本质上也是这样通过类型运算来实现的。
 
 ## 6. 🤔 keyof 与索引签名如何配合？
 
-**字符串索引签名：**
+1. 字符串索引签名，如果只有字符串索引签名，在提取的时候会自动联合上 `| number` 类型，因为 JS 会将数字键转为字符串
+2. 数字索引签名
+3. 混合使用，索引签名会覆盖明确的属性键（父集包含子集）
 
-```ts
+::: code-group
+
+```ts [1]
 interface StringMap {
   [key: string]: any
 }
 
 type Keys = keyof StringMap
 // type Keys = string | number
-// ⚠️ 包含 number 是因为 JavaScript 会将数字键转为字符串
+// ⚠️ 包含 number 是因为 JS 会将数字键转为字符串
+
+const key1: Keys = 'xxx' // ✅ OK
+const key2: Keys = 123 // ✅ OK
 ```
 
-**数字索引签名：**
-
-```ts
+```ts [2]
 interface NumberMap {
   [key: number]: string
 }
 
 type Keys = keyof NumberMap
 // type Keys = number
+
+// const key1: Keys = 'xxx' // ❌ Error
+// Type 'string' is not assignable to type 'number'.(2322)
+
+const key2: Keys = 123 // ✅ OK
 ```
 
-**混合使用：**
-
-```ts
+```ts [3]
+// [key: string]
+// 有索引签名，意味着可以有任意键
+// 只要满足键的类型是 string 或者 number 即可
 interface MixedMap {
   name: string // 明确的属性
   [key: string]: any // 字符串索引签名
@@ -446,43 +306,41 @@ type Keys = keyof MixedMap
 // type Keys = string | number
 // ⚠️ 索引签名会覆盖明确的属性键
 
-// 实际应用
-function getValue<T extends { [key: string]: any }>(
-  obj: T,
-  key: keyof T
-): T[typeof key] {
-  return obj[key]
-}
-```
+const key1: Keys = 'name' // ✅ OK
+const key2: Keys = 'xxx' // ✅ OK
+const key3: Keys = 123 // ✅ OK
 
-**限制索引签名：**
-
-```ts
-// 只允许已知的键
+// 没有索引签名的情况下，只允许已知的键
 interface StrictObject {
   id: number
   name: string
-  // 不添加索引签名
 }
 
 type StrictKeys = keyof StrictObject
 // type StrictKeys = "id" | "name"
 
-// 允许任意字符串键
-interface FlexibleObject {
-  id: number
-  [key: string]: any
-}
+const key4: StrictKeys = 'id' // ✅ OK
+const key5: StrictKeys = 'name' // ✅ OK
 
-type FlexibleKeys = keyof FlexibleObject
-// type FlexibleKeys = string | number
+const key6: StrictKeys = 'xxx' // ❌ Error
+// Type '"xxx"' is not assignable to type 'keyof StrictObject'.(2322)
+
+const key7: StrictKeys = 123 // ❌ Error
+// Type '123' is not assignable to type 'keyof StrictObject'.(2322)
 ```
 
-## 7. 🤔 keyof 有哪些注意事项？
+:::
 
-**1. keyof 与联合类型**
+## 7. 🤔 keyof 的使用都有哪些需要留意的细节？
 
-```ts
+1. `keyof` 与联合类型一起使用，只保留共同的键；与交叉类型一起使用，包含所有键
+2. `keyof` 不能用于值，在提取值的 key 时，可以先使用 `typeof` 提取值的类型，然后再由 `keyof` 提取 key
+3. `keyof` 也会提取可选属性的 key
+4. `keyof` 提取空对象时，会得到 `never` 类型
+
+::: code-group
+
+```ts [1]
 interface A {
   a: string
   common: string
@@ -502,25 +360,28 @@ type IntersectionKeys = keyof (A & B)
 // ✅ 包含所有键
 ```
 
-**2. keyof 不能用于值**
-
-```ts
+```ts [2]
 const obj = {
   name: 'Alice',
   age: 25,
 }
 
-// ❌ 错误：keyof 只能用于类型
-type Keys = keyof obj
+// ❌ Error：keyof 只能用于类型
+// type Keys = keyof obj
+// 报错信息：
+// 'obj' refers to a value, but is being used as a type here.
+// Did you mean 'typeof obj'?(2749)
 
-// ✅ 正确：使用 typeof 转换
+// 报错信息中提醒我们，这里的 obj 是一个值
+// keyof 后面跟的应该是一个类型
+// 你是不是应该写 typeof obj 呢？
+
+// ✅ OK：使用 typeof 转换
 type Keys = keyof typeof obj
 // type Keys = "name" | "age"
 ```
 
-**3. 可选属性也会被包含**
-
-```ts
+```ts [3]
 interface User {
   id: number
   name: string
@@ -529,76 +390,33 @@ interface User {
 
 type Keys = keyof User
 // type Keys = "id" | "name" | "email"
-// ✅ 包含可选属性
+
+const key1: Keys = 'id'
+const key2: Keys = 'name'
+const key3: Keys = 'email'
+
+const key4: Keys = 'xxx'
+// Type '"xxx"' is not assignable to type 'keyof User'.(2322)
 ```
 
-**4. 与 never 类型**
-
-```ts
+```ts [4]
 interface Empty {}
 
 type Keys = keyof Empty
 // type Keys = never
 // 空对象的 keyof 是 never
 
-// 实际应用
+// 如果不想提取到 never 类型，那么可以自定义一个工具类型来对空对象做一个特殊处理。
+// keyof T extends never 假如提取的结果是 never 类型
+// 'empty' 就返回字面量 'empty' 类型
+// keyof T 否则就返回 keyof 返回的类型
 type NonEmptyKeys<T> = keyof T extends never ? 'empty' : keyof T
 
 type Test1 = NonEmptyKeys<Empty> // 'empty'
 type Test2 = NonEmptyKeys<{ a: 1 }> // 'a'
 ```
 
-**5. 性能考虑**
-
-```ts
-// ❌ 不好：在循环中重复计算
-function processObjects<T>(objects: T[]) {
-  for (const obj of objects) {
-    const keys: (keyof T)[] = Object.keys(obj) as (keyof T)[]
-    // 处理...
-  }
-}
-
-// ✅ 好：提前计算
-function processObjectsBetter<T>(objects: T[]) {
-  const keys: (keyof T)[] = Object.keys(objects[0]) as (keyof T)[]
-  for (const obj of objects) {
-    // 使用 keys...
-  }
-}
-```
-
-**6. 实际案例：类型安全的深度路径访问**
-
-```ts
-type DeepKeys<T> = T extends object
-  ? {
-      [K in keyof T]: K extends string
-        ? T[K] extends object
-          ? K | `${K}.${DeepKeys<T[K]>}`
-          : K
-        : never
-    }[keyof T]
-  : never
-
-interface NestedObject {
-  user: {
-    profile: {
-      name: string
-      age: number
-    }
-    settings: {
-      theme: string
-    }
-  }
-  posts: Array<{ title: string }>
-}
-
-type Paths = DeepKeys<NestedObject>
-// type Paths = "user" | "posts" | "user.profile" | "user.settings"
-//            | "user.profile.name" | "user.profile.age"
-//            | "user.settings.theme"
-```
+:::
 
 ## 8. 🔗 引用
 
