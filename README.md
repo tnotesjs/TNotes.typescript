@@ -286,7 +286,7 @@
 - [x] [0188. keyof 运算符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0188.%20keyof%20%E8%BF%90%E7%AE%97%E7%AC%A6/README.md)
 - [x] [0189. in 运算符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0189.%20in%20%E8%BF%90%E7%AE%97%E7%AC%A6/README.md)
 - [ ] [0190. extends 条件类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0190.%20extends%20%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B/README.md)
-- [ ] [0191. infer 关键字](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0191.%20infer%20%E5%85%B3%E9%94%AE%E5%AD%97/README.md)
+- [x] [0191. infer 关键字](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0191.%20infer%20%E5%85%B3%E9%94%AE%E5%AD%97/README.md)
 - [ ] [0192. 索引访问类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0192.%20%E7%B4%A2%E5%BC%95%E8%AE%BF%E9%97%AE%E7%B1%BB%E5%9E%8B/README.md)
 - [ ] [0193. 条件类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0193.%20%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B/README.md)
 - [ ] [0194. 条件类型的分布式特性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0194.%20%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E7%89%B9%E6%80%A7/README.md)

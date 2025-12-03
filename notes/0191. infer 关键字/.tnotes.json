@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TS 中的 infer 关键字是 TS 4.7 中新增的关键字，主要在在条件模式匹配过程中提取类型，你可以通过修改模式匹配的写法，提取特定位置的类型信息（比如数组/元组的第一个/最后一个成员类型，指定位置的函数参数类型，等等）。",
   "id": "21bf9a83-ef3a-4c68-8453-90ee1bb201cc",
   "created_at": 1760521823000,
-  "updated_at": 1764669797070
+  "updated_at": 1764726755672
 }
