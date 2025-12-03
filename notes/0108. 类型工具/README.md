@@ -6,6 +6,7 @@
 - [2. 🫧 评价](#2--评价)
 - [3. 🔍 章节速览](#3--章节速览)
 - [4. 🤔 TS 内置的工具类型本质上是类型别名（Type Alias）还是接口（interface）？](#4--ts-内置的工具类型本质上是类型别名type-alias还是接口interface)
+- [5. 🤔 目前 TS （25.12 v5.9 版）内置的类型工具（Utility Types）都有哪些？](#5--目前-ts-2512-v59-版内置的类型工具utility-types都有哪些)
 
 <!-- endregion:toc -->
 
@@ -33,3 +34,29 @@ TS 内置的工具类型（如 `Record`、`Partial`、`Pick` 等）本质上是�
 | 条件类型 | `interface` 不支持条件类型（`T extends U ? X : Y`） |
 | 联合类型 | `interface` 无法表示联合类型                        |
 | 类型运算 | `type` 可以进行复杂的类型运算和组合                 |
+
+## 5. 🤔 目前 TS （25.12 v5.9 版）内置的类型工具（Utility Types）都有哪些？
+
+- `Awaited<Type>`
+- `Partial<Type>`
+- `Required<Type>`
+- `Readonly<Type>`
+- `Record<Keys, Type>`
+- `Pick<Type, Keys>`
+- `Omit<Type, Keys>`
+- `Exclude<UnionType, ExcludedMembers>`
+- `Extract<Type, Union>`
+- `NonNullable<Type>`
+- `Parameters<Type>`
+- `ConstructorParameters<Type>`
+- `ReturnType<Type>`
+- `InstanceType<Type>`
+- `NoInfer<Type>`
+- `ThisParameterType<Type>`
+- `OmitThisParameter<Type>`
+- `ThisType<Type>`
+- Intrinsic String Manipulation Types 内置字符串操作类型
+  - `Uppercase<StringType>`
+  - `Lowercase<StringType>`
+  - `Capitalize<StringType>`
+  - `Uncapitalize<StringType>`

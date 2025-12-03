@@ -998,6 +998,10 @@
         "link": "/notes/0220. Awaited/README"
       },
       {
+        "text": "⏰ 内置字符串操作类型",
+        "link": "/notes/0230. 内置字符串操作类型/README"
+      },
+      {
         "text": "⏰ 自定义工具类型",
         "link": "/notes/0221. 自定义工具类型/README"
       }
@@ -1297,10 +1301,6 @@
     "text": "xxx",
     "collapsed": true,
     "items": [
-      {
-        "text": "⏰ new",
-        "link": "/notes/0230. new/README"
-      },
       {
         "text": "⏰ new",
         "link": "/notes/0231. new/README"

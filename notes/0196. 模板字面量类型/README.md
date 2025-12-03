@@ -4,24 +4,17 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是模板字面量类型？](#3--什么是模板字面量类型)
-  - [3.1. 基本语法](#31-基本语法)
-  - [3.2. 与 JavaScript 模板字符串的关系](#32-与-javascript-模板字符串的关系)
-- [4. 🤔 内置字符串操作类型有哪些？](#4--内置字符串操作类型有哪些)
-  - [4.1. Uppercase](#41-uppercase)
-  - [4.2. Lowercase](#42-lowercase)
-  - [4.3. Capitalize](#43-capitalize)
-  - [4.4. Uncapitalize](#44-uncapitalize)
-- [5. 🤔 模板字面量类型的高级用法](#5--模板字面量类型的高级用法)
-  - [5.1. 联合类型的组合](#51-联合类型的组合)
-  - [5.2. 字符串推断](#52-字符串推断)
-  - [5.3. 递归模板类型](#53-递归模板类型)
-- [6. 🤔 模板字面量类型的实际应用](#6--模板字面量类型的实际应用)
-  - [6.1. 事件处理器类型](#61-事件处理器类型)
-  - [6.2. CSS 属性类型](#62-css-属性类型)
-  - [6.3. 路由路径类型](#63-路由路径类型)
-- [7. 🤔 模板字面量类型有哪些注意事项？](#7--模板字面量类型有哪些注意事项)
-- [8. 🔗 引用](#8--引用)
+- [3. 🤔 模板字面量类型是什么？](#3--模板字面量类型是什么)
+- [4. 🤔 模板字面量类型的高级用法](#4--模板字面量类型的高级用法)
+  - [4.1. 联合类型的组合](#41-联合类型的组合)
+  - [4.2. 字符串推断](#42-字符串推断)
+  - [4.3. 递归模板类型](#43-递归模板类型)
+- [5. 🤔 模板字面量类型的实际应用](#5--模板字面量类型的实际应用)
+  - [5.1. 事件处理器类型](#51-事件处理器类型)
+  - [5.2. CSS 属性类型](#52-css-属性类型)
+  - [5.3. 路由路径类型](#53-路由路径类型)
+- [6. 🤔 模板字面量类型有哪些注意事项？](#6--模板字面量类型有哪些注意事项)
+- [7. 🔗 引用](#7--引用)
 
 <!-- endregion:toc -->
 
@@ -37,18 +30,16 @@
 
 这篇笔记详细介绍了 TypeScript 4.1+ 引入的模板字面量类型，这是类型系统中进行字符串操作的强大工具。
 
+## 3. 🤔 模板字面量类型是什么？
+
+模板字面量类型使用反引号 ` 语法，从写法上看，类似于 JS 中的的模板字符串语法。
+
 - 模板字面量类型使用反引号语法创建基于字符串的类型
 - 支持 `Uppercase`、`Lowercase`、`Capitalize`、`Uncapitalize` 内置操作
 - 可以与联合类型结合生成所有可能的字符串组合
 - 支持字符串模式匹配和类型推断
 - 在键名重映射、API 类型定义等场景非常有用
 - 是构建类型安全的字符串操作 API 的关键特性
-
-## 3. 🤔 什么是模板字面量类型？
-
-### 3.1. 基本语法
-
-模板字面量类型使用反引号（```）语法，类似于 JavaScript 的模板字符串。
 
 ```ts
 // 基本语法：`string ${Type} string`
@@ -60,29 +51,38 @@ type Greeting = `hello ${World}` // 'hello world'
 type MakeGreeting<T extends string> = `hello ${T}`
 type G1 = MakeGreeting<'world'> // 'hello world'
 type G2 = MakeGreeting<'TypeScript'> // 'hello TypeScript'
-```
 
-插入类型：
-
-```ts
+// 插入类型：
 type EmailAddress<User extends string> = `${User}@example.com`
 
 type JohnEmail = EmailAddress<'john'> // 'john@example.com'
 type JaneEmail = EmailAddress<'jane'> // 'jane@example.com'
-```
 
-多个插值：
-
-```ts
+// 多个插值：
 type Path<Root extends string, Sub extends string> = `${Root}/${Sub}`
 
 type ApiPath = Path<'api', 'users'> // 'api/users'
 type DocsPath = Path<'docs', 'guide'> // 'docs/guide'
+
+// 递归实现任意数量的插值：
+type Join<T extends string[], D extends string = '/'> = T extends []
+  ? ''
+  : T extends [infer F]
+  ? F
+  : T extends [infer F, ...infer R]
+  ? F extends string
+    ? `${F}${D}${Join<Extract<R, string[]>, D>}`
+    : never
+  : string
+
+type ApiPath2 = Join<['api', 'users', 'profile']> // 'api/users/profile'
+type DeepPath2 = Join<['a', 'b', 'c', 'd', 'e']> // 'a/b/c/d/e'
 ```
 
-### 3.2. 与 JavaScript 模板字符串的关系
+对比 JS 模板字符串：
 
-模板字面量类型是类型级别的，JavaScript 模板字符串是值级别的。
+- 模板字面量类型是编译时 TS 类型层面的概念
+- 模板字符串是运行时 JS 值层面的概念
 
 ```ts
 // 类型级别：编译时
@@ -96,76 +96,14 @@ function validateMethod(method: Pattern) {
   console.log(`Calling ${method}`)
 }
 
-validateMethod('getName') // ✅
-validateMethod('setName') // ❌ 错误
+validateMethod('getName') // ✅ OK
+validateMethod('setName') // ❌ Error
+// Argument of type '"setName"' is not assignable to parameter of type '`get${string}`'.(2345)
 ```
 
-## 4. 🤔 内置字符串操作类型有哪些？
+## 4. 🤔 模板字面量类型的高级用法
 
-### 4.1. Uppercase
-
-将字符串转换为大写。
-
-```ts
-type Uppercase<S extends string> = intrinsic
-
-type Loud = Uppercase<'hello'> // 'HELLO'
-type ShoutName = Uppercase<'TypeScript'> // 'TYPESCRIPT'
-
-// 与模板字面量结合
-type MakeConstant<T extends string> = Uppercase<`${T}_CONSTANT`>
-type API_KEY = MakeConstant<'api'> // 'API_CONSTANT'
-```
-
-### 4.2. Lowercase
-
-将字符串转换为小写。
-
-```ts
-type Lowercase<S extends string> = intrinsic
-
-type Quiet = Lowercase<'HELLO'> // 'hello'
-type VariableName = Lowercase<'UserName'> // 'username'
-
-// 实际应用
-type ToSnakeCase<T extends string> = Lowercase<T>
-type FileName = ToSnakeCase<'MyComponent'> // 'mycomponent'
-```
-
-### 4.3. Capitalize
-
-将首字母大写。
-
-```ts
-type Capitalize<S extends string> = intrinsic
-
-type Title = Capitalize<'hello'> // 'Hello'
-type PropertyName = Capitalize<'firstName'> // 'FirstName'
-
-// 生成 getter 方法名
-type Getter<T extends string> = `get${Capitalize<T>}`
-type GetName = Getter<'name'> // 'getName'
-type GetAge = Getter<'age'> // 'getAge'
-```
-
-### 4.4. Uncapitalize
-
-将首字母小写。
-
-```ts
-type Uncapitalize<S extends string> = intrinsic
-
-type LowerFirst = Uncapitalize<'Hello'> // 'hello'
-type CamelCase = Uncapitalize<'FirstName'> // 'firstName'
-
-// 从类型名生成实例变量名
-type InstanceName<T extends string> = Uncapitalize<T>
-type UserVar = InstanceName<'User'> // 'user'
-```
-
-## 5. 🤔 模板字面量类型的高级用法
-
-### 5.1. 联合类型的组合
+### 4.1. 联合类型的组合
 
 模板字面量类型与联合类型结合会生成所有可能的组合。
 
@@ -191,7 +129,7 @@ type ResponsiveClass = `${Breakpoint}:${Property}`
 // type ResponsiveClass = 'sm:flex' | 'sm:grid' | 'md:flex' | 'md:grid' | 'lg:flex' | 'lg:grid'
 ```
 
-### 5.2. 字符串推断
+### 4.2. 字符串推断
 
 使用 `infer` 从模板字面量类型中提取部分。
 
@@ -228,7 +166,7 @@ type Params = ExtractRouteParams<'/users/:id/posts/:postId'>
 // type Params = 'id' | 'postId'
 ```
 
-### 5.3. 递归模板类型
+### 4.3. 递归模板类型
 
 ```ts
 // 字符串反转
@@ -249,9 +187,9 @@ type TrimSpaces<S extends string> = S extends ` ${infer Rest}`
 type T1 = TrimSpaces<'  hello  '> // 'hello'
 ```
 
-## 6. 🤔 模板字面量类型的实际应用
+## 5. 🤔 模板字面量类型的实际应用
 
-### 6.1. 事件处理器类型
+### 5.1. 事件处理器类型
 
 ```ts
 type EventName = 'click' | 'focus' | 'blur' | 'change'
@@ -276,7 +214,7 @@ const handlers: Handlers = {
 }
 ```
 
-### 6.2. CSS 属性类型
+### 5.2. CSS 属性类型
 
 ```ts
 type CSSUnit = 'px' | 'em' | 'rem' | '%'
@@ -300,7 +238,7 @@ type CSSProperty = Property | `${Property}${Side}`
 // type CSSProperty = 'margin' | 'padding' | 'marginTop' | 'marginRight' | ...
 ```
 
-### 6.3. 路由路径类型
+### 5.3. 路由路径类型
 
 ```ts
 // 定义路由模式
@@ -334,7 +272,7 @@ navigate('/users/:id', { id: '123' }) // ✅
 navigate('/users/:id', { postId: '123' }) // ❌ 错误：类型不匹配
 ```
 
-## 7. 🤔 模板字面量类型有哪些注意事项？
+## 6. 🤔 模板字面量类型有哪些注意事项？
 
 1. 类型数量爆炸
 
@@ -428,7 +366,7 @@ type UserGetters = PropGetters<User>
 // 注意：需要 string & K 确保 K 是字符串类型
 ```
 
-## 8. 🔗 引用
+## 7. 🔗 引用
 
 - [TypeScript 4.1 Release Notes - Template Literal Types][1]
 - [TypeScript Handbook - Template Literal Types][2]

@@ -322,6 +322,7 @@
 - [ ] [0218. ThisParameterType](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0218.%20ThisParameterType/README.md)
 - [ ] [0219. OmitThisParameter](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0219.%20OmitThisParameter/README.md)
 - [ ] [0220. Awaited](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0220.%20Awaited/README.md)
+- [ ] [0230. 内置字符串操作类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0230.%20%E5%86%85%E7%BD%AE%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B/README.md)
 - [ ] [0221. 自定义工具类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0221.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%9E%8B/README.md)
 
 ## 25. 注释指令
@@ -409,7 +410,6 @@
 
 ## xxx
 
-- [ ] [0230. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0230.%20new/README.md)
 - [ ] [0231. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0231.%20new/README.md)
 - [ ] [0292. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0292.%20new/README.md)
 - [ ] [0293. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0293.%20new/README.md)
