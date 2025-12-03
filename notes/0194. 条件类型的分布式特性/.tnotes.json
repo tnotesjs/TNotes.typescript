@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TS 中条件类型的分布式特性是 Exclude、Extract、NonNullable 等工具类型的实现基础。",
   "id": "080d7bb0-cf99-411f-b17f-1da2920678f9",
   "created_at": 1761877358000,
-  "updated_at": 1764655398320
+  "updated_at": 1764732704325
 }

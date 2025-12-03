@@ -94,7 +94,7 @@ user.createdAt = new Date() // 错误：无法分配到 "createdAt"，因为它�
 
 ### 3.2. readonly 的特性
 
-1. **编译时检查**：`readonly` 只在编译时生效，运行时没有任何限制。
+1. 编译时检查：`readonly` 只在编译时生效，运行时没有任何限制。
 
 ```ts
 type Point = {
@@ -111,7 +111,7 @@ point.x = 30 // ❌ 错误
 ;(point as any).x = 30 // ✅ 运行时不报错，但破坏了类型安全
 ```
 
-2. **浅只读**：`readonly` 只作用于直接属性，不会递归到嵌套对象。
+2. 浅只读：`readonly` 只作用于直接属性，不会递归到嵌套对象。
 
 ```ts
 type Config = {
@@ -136,7 +136,7 @@ config.server.host = '0.0.0.0' // 合法
 config.server.port = 8080 // 合法
 ```
 
-3. **与 const 的区别**：
+3. 与 const 的区别：
 
 ```ts
 // const 用于变量

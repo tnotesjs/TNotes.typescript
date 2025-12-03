@@ -62,7 +62,7 @@ type G1 = MakeGreeting<'world'> // 'hello world'
 type G2 = MakeGreeting<'TypeScript'> // 'hello TypeScript'
 ```
 
-**插入类型：**
+插入类型：
 
 ```ts
 type EmailAddress<User extends string> = `${User}@example.com`
@@ -71,7 +71,7 @@ type JohnEmail = EmailAddress<'john'> // 'john@example.com'
 type JaneEmail = EmailAddress<'jane'> // 'jane@example.com'
 ```
 
-**多个插值：**
+多个插值：
 
 ```ts
 type Path<Root extends string, Sub extends string> = `${Root}/${Sub}`
@@ -182,7 +182,7 @@ type ClassNames = `${Size}-${Color}`
 //                   'medium-blue' | 'large-red' | 'large-blue'
 ```
 
-**生成 CSS 类名：**
+生成 CSS 类名：
 
 ```ts
 type Breakpoint = 'sm' | 'md' | 'lg'
@@ -214,7 +214,7 @@ type RemoveSuffix<
 type WithoutHandler = RemoveSuffix<'clickHandler', 'Handler'> // 'click'
 ```
 
-**提取路径参数：**
+提取路径参数：
 
 ```ts
 type ExtractRouteParams<Route extends string> =
@@ -321,7 +321,7 @@ type CommentParams = ExtractParams<'/posts/:postId/comments/:commentId'>
 // type CommentParams = { postId: string; commentId: string }
 ```
 
-**类型安全的路由函数：**
+类型安全的路由函数：
 
 ```ts
 declare function navigate<Path extends Route>(
@@ -336,7 +336,7 @@ navigate('/users/:id', { postId: '123' }) // ❌ 错误：类型不匹配
 
 ## 7. 🤔 模板字面量类型有哪些注意事项？
 
-**1. 类型数量爆炸**
+1. 类型数量爆炸
 
 ```ts
 // ⚠️ 警告：联合类型组合会指数增长
@@ -352,7 +352,7 @@ type Combined = `${A}-${B}-${C}`
 type TooMany = `${A}-${B}-${C}-${A}-${B}` // 5×3×2×5×3 = 450 种组合
 ```
 
-**2. string 类型的特殊性**
+2. string 类型的特殊性
 
 ```ts
 // string 类型在模板中的行为
@@ -364,7 +364,7 @@ const s1: Test1 = 'prefix-anything' // ✅
 const s2: Test1 = 'prefix-xyz' // ✅
 ```
 
-**3. 推断的限制**
+3. 推断的限制
 
 ```ts
 // infer 只能捕获字符串字面量
@@ -374,7 +374,7 @@ type R1 = Extract<'hello-world'> // 'hello'
 type R2 = Extract<string> // string (无法精确推断)
 ```
 
-**4. 递归深度限制**
+4. 递归深度限制
 
 ```ts
 // ❌ 递归太深可能导致错误
@@ -392,7 +392,7 @@ type SafeRecursive<S extends string> = S extends `${infer First}${infer Rest}`
   : S
 ```
 
-**5. 类型检查性能**
+5. 类型检查性能
 
 ```ts
 // ❌ 不好：复杂的嵌套模板类型
@@ -406,7 +406,7 @@ type Simplified<T> = T extends `${infer First}_${infer Rest}`
   : never;
 ```
 
-**6. 与其他类型特性的结合**
+6. 与其他类型特性的结合
 
 ```ts
 // 结合映射类型

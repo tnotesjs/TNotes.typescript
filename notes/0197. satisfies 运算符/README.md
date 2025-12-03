@@ -58,7 +58,7 @@ const point = { x: 10, y: 20 } satisfies Record<string, number>
 // point 的类型被推断为 { x: number; y: number }
 ```
 
-**基本示例：**
+基本示例：
 
 ```ts
 type Color = 'red' | 'green' | 'blue'
@@ -91,7 +91,7 @@ const palette2 = {
 }
 ```
 
-**satisfies 解决了这个问题：**
+satisfies 解决了这个问题：
 
 ```ts
 const palette = {
@@ -130,7 +130,7 @@ color1.length // 3（元组长度是已知的）
 const red: number = color1[0] // 只知道是 number
 ```
 
-**丢失字面量类型：**
+丢失字面量类型：
 
 ```ts
 type Status = 'success' | 'error' | 'loading'
@@ -166,7 +166,7 @@ if (status2 === 'success') {
 }
 ```
 
-**对比示例：**
+对比示例：
 
 ::: code-group
 
@@ -199,7 +199,7 @@ const p4 = { x: 10 } satisfies Point // ❌ 错误：缺少 y
 
 ### 5.1. 保留字面量类型
 
-**配置对象：**
+配置对象：
 
 ```ts
 type Config = Record<string, string | number | boolean>
@@ -224,7 +224,7 @@ const config2: Config = {
 config2.host // string | number | boolean（丢失精确类型）
 ```
 
-**路由配置：**
+路由配置：
 
 ```ts
 type Route = { path: string; handler: Function }
@@ -247,7 +247,7 @@ routes2.home.path // string
 
 ### 5.2. 验证对象结构
 
-**确保所有属性存在：**
+确保所有属性存在：
 
 ```ts
 type Features = 'search' | 'filter' | 'sort'
@@ -266,7 +266,7 @@ const incomplete = {
 } satisfies FeatureFlags
 ```
 
-**验证方法签名：**
+验证方法签名：
 
 ```ts
 interface API {
@@ -291,7 +291,7 @@ const badApi = {
 
 ### 5.3. 确保类型覆盖
 
-**穷尽性检查：**
+穷尽性检查：
 
 ```ts
 type Status = 'pending' | 'success' | 'error'
@@ -382,7 +382,7 @@ validators.email('a@b.c') // boolean
 
 ## 7. 🤔 satisfies 有哪些注意事项？
 
-**1. 不能用于类型定义**
+1. 不能用于类型定义
 
 ```ts
 // ❌ 错误：satisfies 不能用于类型别名
@@ -397,7 +397,7 @@ interface MyInterface satisfies SomeType {
 const value = 'hello' satisfies string;
 ```
 
-**2. 不改变推断类型**
+2. 不改变推断类型
 
 ```ts
 const value = 'hello' satisfies string
@@ -408,7 +408,7 @@ const value2: string = 'hello'
 // value2 的类型是 string
 ```
 
-**3. 与 as 断言的区别**
+3. 与 as 断言的区别
 
 ```ts
 // as 断言：强制类型转换（不安全）
@@ -425,7 +425,7 @@ obj.x // number，但运行时是 undefined
 const obj2 = {} satisfies { x: number } // ❌ 错误：缺少 x
 ```
 
-**4. 子类型检查**
+4. 子类型检查
 
 ```ts
 interface Animal {
@@ -454,7 +454,7 @@ const dog2: Animal = {
 dog2.bark() // ❌ 错误：Animal 上不存在 bark
 ```
 
-**5. 联合类型的处理**
+5. 联合类型的处理
 
 ```ts
 type Value = string | number
@@ -472,7 +472,7 @@ if (typeof val1 === 'string') {
 }
 ```
 
-**6. 性能考虑**
+6. 性能考虑
 
 ```ts
 // ❌ 不好：在循环中使用 satisfies

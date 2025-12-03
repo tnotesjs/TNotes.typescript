@@ -64,7 +64,7 @@ type Mapped = {
 // }
 ```
 
-**使用 keyof 遍历对象键：**
+使用 keyof 遍历对象键：
 
 ```ts
 interface Person {
@@ -100,7 +100,7 @@ type Result = {
 }
 ```
 
-**保留原类型：**
+保留原类型：
 
 ```ts
 type Clone<T> = {
@@ -125,7 +125,7 @@ type ClonedUser = Clone<User>
 
 ### 4.1. readonly 修饰符
 
-**添加 readonly：**
+添加 readonly：
 
 ```ts
 type Readonly<T> = {
@@ -147,7 +147,7 @@ const point: Immutable = { x: 10, y: 20 }
 point.x = 30 // ❌ 错误：无法分配到 "x" ，因为它是只读属性
 ```
 
-**移除 readonly：**
+移除 readonly：
 
 ```ts
 type Mutable<T> = {
@@ -171,7 +171,7 @@ point.x = 30 // ✅ 可以修改
 
 ### 4.2. 可选修饰符
 
-**添加可选：**
+添加可选：
 
 ```ts
 type Partial<T> = {
@@ -194,7 +194,7 @@ type PartialTodo = Partial<Todo>
 const todo: PartialTodo = { title: 'Learn TypeScript' } // ✅
 ```
 
-**移除可选：**
+移除可选：
 
 ```ts
 type Required<T> = {
@@ -217,7 +217,7 @@ const config: RequiredConfig = { host: 'localhost' } // ❌ 缺少 port
 
 ### 4.3. 添加和移除修饰符
 
-**同时使用多个修饰符：**
+同时使用多个修饰符：
 
 ```ts
 // 移除 readonly 和可选
@@ -239,7 +239,7 @@ type ConcreteProps = Concrete<MixedProps>
 // }
 ```
 
-**修饰符的符号：**
+修饰符的符号：
 
 ```ts
 // + 表示添加修饰符（默认行为）
@@ -311,7 +311,7 @@ type NonNumber = OmitByType<Mixed, number>
 // }
 ```
 
-**移除特定属性：**
+移除特定属性：
 
 ```ts
 type OmitKeys<T, K extends keyof T> = {
@@ -335,7 +335,7 @@ type PublicUser = OmitKeys<User, 'password'>
 
 ### 5.3. 属性名转换
 
-**添加前缀：**
+添加前缀：
 
 ```ts
 type AddPrefix<T, Prefix extends string> = {
@@ -354,7 +354,7 @@ type OnActions = AddPrefix<Actions, 'on'>
 // }
 ```
 
-**转换命名风格：**
+转换命名风格：
 
 ```ts
 type CamelToSnake<S extends string> = S extends `${infer T}${infer U}`
@@ -383,7 +383,7 @@ type SnakeCaseObj = SnakeCase<CamelCase>
 
 ### 6.1. 实现工具类型
 
-**Pick 的实现：**
+Pick 的实现：
 
 ```ts
 type MyPick<T, K extends keyof T> = {
@@ -403,7 +403,7 @@ type TodoPreview = MyPick<Todo, 'title' | 'completed'>
 // }
 ```
 
-**Record 的实现：**
+Record 的实现：
 
 ```ts
 type MyRecord<K extends keyof any, T> = {
@@ -423,7 +423,7 @@ type PageInfo = MyRecord<
 
 ### 6.2. 类型转换
 
-**深度只读：**
+深度只读：
 
 ```ts
 type DeepReadonly<T> = {
@@ -454,7 +454,7 @@ type ReadonlyNested = DeepReadonly<Nested>
 // }
 ```
 
-**类型值包装：**
+类型值包装：
 
 ```ts
 type Boxed<T> = {
@@ -475,7 +475,7 @@ type BoxedData = Boxed<Data>
 
 ### 6.3. 条件映射
 
-**根据类型条件转换：**
+根据类型条件转换：
 
 ```ts
 type Nullish<T> = {
@@ -496,7 +496,7 @@ type NullableUser = Nullish<User>
 // }
 ```
 
-**提取特定类型的属性：**
+提取特定类型的属性：
 
 ```ts
 type FunctionPropertyNames<T> = {
@@ -521,7 +521,7 @@ type ExampleFunctions = FunctionProperties<Example>
 
 ## 7. 🤔 映射类型有哪些注意事项？
 
-**1. 映射类型是同态的**
+1. 映射类型是同态的
 
 同态映射会保留原类型的修饰符：
 
@@ -552,7 +552,7 @@ type R2 = Mapped2<Optional>
 // }
 ```
 
-**2. 键名重映射的限制**
+2. 键名重映射的限制
 
 ```ts
 // ❌ 错误：as 子句必须产生字符串、数字或 symbol 类型
@@ -566,7 +566,7 @@ type Correct<T> = {
 }
 ```
 
-**3. never 键会被过滤**
+3. never 键会被过滤
 
 ```ts
 type FilterByValue<T, ValueType> = {
@@ -586,7 +586,7 @@ type StringOnly = FilterByValue<Data, string>
 // } // b 被过滤掉了
 ```
 
-**4. 循环引用问题**
+4. 循环引用问题
 
 ```ts
 // ❌ 可能导致类型实例化过深
@@ -602,7 +602,7 @@ type SafeDeepReadonly<T> = T extends object
   : T
 ```
 
-**5. 联合类型的处理**
+5. 联合类型的处理
 
 ```ts
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
@@ -621,7 +621,7 @@ type MappedUnion = {
 // }
 ```
 
-**6. 性能考虑**
+6. 性能考虑
 
 ```ts
 // ❌ 不好：复杂的嵌套映射
