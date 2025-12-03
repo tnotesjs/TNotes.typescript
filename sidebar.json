@@ -850,7 +850,7 @@
     "collapsed": true,
     "items": [
       {
-        "text": "⏰ 类型运算符",
+        "text": "✅ 类型运算符",
         "link": "/notes/0229. 类型运算符/README"
       },
       {
@@ -870,7 +870,7 @@
         "link": "/notes/0191. infer 关键字/README"
       },
       {
-        "text": "⏰ 索引访问类型",
+        "text": "✅ 索引访问类型",
         "link": "/notes/0192. 索引访问类型/README"
       },
       {
@@ -934,68 +934,68 @@
         "link": "/notes/0108. 类型工具/README"
       },
       {
-        "text": "✅ Partial T",
-        "link": "/notes/0205. Partial T/README"
+        "text": "✅ Partial",
+        "link": "/notes/0205. Partial/README"
       },
       {
-        "text": "✅ Required T",
-        "link": "/notes/0206. Required T/README"
+        "text": "✅ Required",
+        "link": "/notes/0206. Required/README"
       },
       {
-        "text": "✅ Readonly T",
-        "link": "/notes/0207. Readonly T/README"
+        "text": "✅ Readonly",
+        "link": "/notes/0207. Readonly/README"
       },
       {
-        "text": "✅ Record T",
-        "link": "/notes/0208. Record T/README"
+        "text": "✅ Record",
+        "link": "/notes/0208. Record/README"
       },
       {
-        "text": "✅ Pick T K",
-        "link": "/notes/0209. Pick T K/README"
+        "text": "✅ Pick",
+        "link": "/notes/0209. Pick/README"
       },
       {
-        "text": "⏰ Omit T K",
-        "link": "/notes/0210. Omit T K/README"
+        "text": "⏰ Omit",
+        "link": "/notes/0210. Omit/README"
       },
       {
-        "text": "⏰ Exclude T U",
-        "link": "/notes/0211. Exclude T U/README"
+        "text": "⏰ Exclude",
+        "link": "/notes/0211. Exclude/README"
       },
       {
-        "text": "⏰ Extract T U",
-        "link": "/notes/0212. Extract T U/README"
+        "text": "⏰ Extract",
+        "link": "/notes/0212. Extract/README"
       },
       {
-        "text": "⏰ NonNullable T",
-        "link": "/notes/0213. NonNullable T/README"
+        "text": "⏰ NonNullable",
+        "link": "/notes/0213. NonNullable/README"
       },
       {
-        "text": "⏰ ReturnType T",
-        "link": "/notes/0214. ReturnType T/README"
+        "text": "⏰ ReturnType",
+        "link": "/notes/0214. ReturnType/README"
       },
       {
-        "text": "⏰ Parameters T",
-        "link": "/notes/0215. Parameters T/README"
+        "text": "⏰ Parameters",
+        "link": "/notes/0215. Parameters/README"
       },
       {
-        "text": "⏰ ConstructorParameters T",
-        "link": "/notes/0216. ConstructorParameters T/README"
+        "text": "⏰ ConstructorParameters",
+        "link": "/notes/0216. ConstructorParameters/README"
       },
       {
-        "text": "⏰ InstanceType T",
-        "link": "/notes/0217. InstanceType T/README"
+        "text": "⏰ InstanceType",
+        "link": "/notes/0217. InstanceType/README"
       },
       {
-        "text": "⏰ ThisParameterType T",
-        "link": "/notes/0218. ThisParameterType T/README"
+        "text": "⏰ ThisParameterType",
+        "link": "/notes/0218. ThisParameterType/README"
       },
       {
-        "text": "⏰ OmitThisParameter T",
-        "link": "/notes/0219. OmitThisParameter T/README"
+        "text": "⏰ OmitThisParameter",
+        "link": "/notes/0219. OmitThisParameter/README"
       },
       {
-        "text": "⏰ Awaited T",
-        "link": "/notes/0220. Awaited T/README"
+        "text": "⏰ Awaited",
+        "link": "/notes/0220. Awaited/README"
       },
       {
         "text": "⏰ 自定义工具类型",

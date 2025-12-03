@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TS 中的索引访问类型是一种通过索引获取其他类型的子类型的机制。",
   "id": "8e540748-c002-4f15-b5df-ac9ede1a8f65",
   "created_at": 1760521823000,
-  "updated_at": 1764732704325
+  "updated_at": 1764742429376
 }

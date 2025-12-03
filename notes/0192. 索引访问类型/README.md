@@ -4,23 +4,9 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是索引访问类型？](#3--什么是索引访问类型)
-  - [3.1. 基本语法](#31-基本语法)
-  - [3.2. 与 JavaScript 的区别](#32-与-javascript-的区别)
+- [3. 🤔 索引访问类型是什么？](#3--索引访问类型是什么)
 - [4. 🤔 索引访问类型如何使用？](#4--索引访问类型如何使用)
-  - [4.1. 访问对象属性类型](#41-访问对象属性类型)
-  - [4.2. 访问数组元素类型](#42-访问数组元素类型)
-  - [4.3. 访问元组元素类型](#43-访问元组元素类型)
-- [5. 🤔 索引访问类型的高级用法](#5--索引访问类型的高级用法)
-  - [5.1. 使用联合类型索引](#51-使用联合类型索引)
-  - [5.2. 结合 keyof 使用](#52-结合-keyof-使用)
-  - [5.3. 嵌套索引访问](#53-嵌套索引访问)
-- [6. 🤔 索引访问类型的实际应用](#6--索引访问类型的实际应用)
-  - [6.1. 提取特定属性类型](#61-提取特定属性类型)
-  - [6.2. 构建工具类型](#62-构建工具类型)
-  - [6.3. 类型安全的属性访问](#63-类型安全的属性访问)
-- [7. 🤔 索引访问类型有哪些注意事项？](#7--索引访问类型有哪些注意事项)
-- [8. 🔗 引用](#8--引用)
+- [5. 🔗 引用](#5--引用)
 
 <!-- endregion:toc -->
 
@@ -28,30 +14,26 @@
 
 - 索引访问类型的基本概念和语法
 - 索引访问类型的使用方法
-- 索引访问类型的高级用法
-- 索引访问类型在实际开发中的应用
-- 使用注意事项和最佳实践
+- 联合类型的分发机制
 
 ## 2. 🫧 评价
 
-这篇笔记详细介绍了 TypeScript 中的索引访问类型，这是一种通过索引获取其他类型的子类型的机制。
+TS 中的索引访问类型是一种通过索引获取其他类型的子类型的机制。
 
-- 索引访问类型使用 `T[K]` 语法访问类型 `T` 中键 `K` 对应的类型
-- 这是类型级别的操作，类似于 JavaScript 中的属性访问
-- 索引访问类型是构建复杂类型工具的基础
-- 可以与 `keyof`、联合类型等其他类型特性结合使用
-- 支持嵌套访问，可以深入获取复杂结构中的类型
-- 理解索引访问类型是编写类型安全代码的重要技能
+相关笔记：`0101. 对象索引签名`
 
-## 3. 🤔 什么是索引访问类型？
-
-### 3.1. 基本语法
+## 3. 🤔 索引访问类型是什么？
 
 索引访问类型允许通过索引获取另一个类型的子类型。
 
+- 索引访问类型使用 `T[K]` 语法访问类型 `T` 中键 `K` 对应的类型
+- 索引是指 `string | number | symbol` 类型，或者它们的子类型
+- 可以与 `keyof`、联合类型等其他类型特性结合使用
+- 支持嵌套访问，可以深入获取复杂结构中的类型
+
 ```ts
-// 语法：Type[Key]
-// 获取 Type 类型中 Key 对应的类型
+// 基本语法：Type[Key]
+// 作用：获取 Type 类型中 Key 对应的类型
 
 interface Person {
   name: string
@@ -64,25 +46,7 @@ type AgeType = Person['age'] // number
 type EmailType = Person['email'] // string
 ```
 
-工作原理：
-
-```ts
-// TypeScript 在编译时查找类型中的属性
-interface User {
-  id: number
-  profile: {
-    name: string
-    avatar: string
-  }
-}
-
-type UserId = User['id'] // number
-type UserProfile = User['profile'] // { name: string; avatar: string; }
-```
-
-### 3.2. 与 JavaScript 的区别
-
-索引访问类型是类型级别的操作，不是运行时的值访问。
+索引访问类型是类型层面的操作，不能和运行时的值操作混用。
 
 ```ts
 interface Product {
@@ -91,33 +55,44 @@ interface Product {
   price: number
 }
 
-// 类型级别：访问类型
+// TS 类型层面：访问类型
 type ProductName = Product['name'] // string
 
-// 值级别：访问属性值
+// JS 值层面：访问属性值
 const product: Product = { id: 1, name: 'Book', price: 20 }
 const productName = product['name'] // 'Book'
-```
 
-对比：
-
-```ts
-// ❌ 错误：类型和值不能混用
 const obj = { x: 10, y: 20 }
-type Wrong = obj['x'] // 错误：'obj' 仅表示值,但在此处用作类型
+
+// ❌ 错误：类型和值不能混用
+// type Wrong = obj['x'] // ❌ Error - 'obj' 仅表示值，但在此处用作类型
+// 'obj' refers to a value, but is being used as a type here. Did you mean 'typeof obj'?(2749)
 
 // ✅ 正确：使用 typeof 将值转为类型
-type ObjType = typeof obj
-type XType = ObjType['x'] // number
+type XType = (typeof obj)['x'] // number
+
+// ❌ 错误：类型和值不能混用
+// const key = 'x'
+// type Wrong2 = (typeof obj)[key] // ❌ Error - key 是值层面的
+// Type 'key' cannot be used as an index type.(2538)
+
+// ✅ 正确：使用 typeof 将值转为类型
+const key = 'x'
+type XType2 = (typeof obj)[typeof key] // number
 ```
 
 ## 4. 🤔 索引访问类型如何使用？
 
-### 4.1. 访问对象属性类型
+索引访问通常用于以下这些类型：
 
-基本属性访问：
+1. 访问对象属性类型
+2. 访问数组元素类型
+3. 访问元组元素类型
 
-```ts
+::: code-group
+
+```ts [1]
+// 基本属性访问：
 interface User {
   id: number
   name: string
@@ -129,11 +104,8 @@ type UserId = User['id'] // number
 type UserName = User['name'] // string
 type UserEmail = User['email'] // string
 type IsActive = User['isActive'] // boolean
-```
 
-访问可选属性：
-
-```ts
+// 访问可选属性：
 interface Config {
   host: string
   port: number
@@ -141,11 +113,8 @@ interface Config {
 }
 
 type SSLType = Config['ssl'] // boolean | undefined
-```
 
-访问只读属性：
-
-```ts
+// 访问只读属性：
 interface ReadonlyData {
   readonly id: number
   readonly created: Date
@@ -155,55 +124,36 @@ type IdType = ReadonlyData['id'] // number (readonly 在类型中不保留)
 type CreatedType = ReadonlyData['created'] // Date
 ```
 
-### 4.2. 访问数组元素类型
-
-普通数组：
-
-```ts
+```ts [2]
+// 普通数组：
 type StringArray = string[]
 type StringArrayElement = StringArray[number] // string
 
 type NumberArray = number[]
 type NumberArrayElement = NumberArray[number] // number
-```
 
-混合类型数组：
-
-```ts
+// 混合类型数组：
 type MixedArray = (string | number)[]
 type MixedElement = MixedArray[number] // string | number
-```
 
-对象数组：
-
-```ts
+// 对象数组：
 type UserArray = Array<{ id: number; name: string }>
 type UserElement = UserArray[number]
 // type UserElement = { id: number; name: string; }
 ```
 
-### 4.3. 访问元组元素类型
-
-按索引访问：
-
-```ts
+```ts [3]
+// 按索引访问：
 type Tuple = [string, number, boolean]
 
 type First = Tuple[0] // string
 type Second = Tuple[1] // number
 type Third = Tuple[2] // boolean
-```
 
-使用 number 访问所有元素：
-
-```ts
-type Tuple = [string, number, boolean]
+// 使用 number 访问所有元素：
 type TupleElement = Tuple[number] // string | number | boolean
-```
 
-具名元组：
-
-```ts
+// 具名元组：这个名称只起到一个语义提示的作用，没有任何实际作用，当名称不存在即可。
 type NamedTuple = [name: string, age: number, active: boolean]
 
 type NameType = NamedTuple[0] // string
@@ -211,13 +161,17 @@ type AgeType = NamedTuple[1] // number
 type AllTypes = NamedTuple[number] // string | number | boolean
 ```
 
-## 5. 🤔 索引访问类型的高级用法
+:::
 
-### 5.1. 使用联合类型索引
+一些常见的高级用法：
 
-访问多个属性：
+1. 使用联合类型索引访问多个属性
+2. 结合 keyof 使用
+3. 嵌套索引访问
 
-```ts
+::: code-group
+
+```ts [1]
 interface User {
   id: number
   name: string
@@ -228,31 +182,13 @@ interface User {
 type UserStringFields = User['name' | 'email'] // string
 type UserIdOrAge = User['id' | 'age'] // number
 type AllFields = User['id' | 'name' | 'email' | 'age'] // string | number
+
+// AllFields 的获取可以利用 keyof 简写：
+type AllFields2 = User[keyof User] // string | number
 ```
 
-实际应用：
-
-```ts
-interface ApiResponse {
-  data: {
-    users: User[]
-    total: number
-  }
-  error?: {
-    code: number
-    message: string
-  }
-}
-
-type DataOrError = ApiResponse['data' | 'error']
-// type DataOrError = { users: User[]; total: number; } | { code: number; message: string; } | undefined
-```
-
-### 5.2. 结合 keyof 使用
-
-获取所有属性值类型的联合：
-
-```ts
+```ts [2]
+// 获取所有属性值类型的联合：
 interface Person {
   name: string
   age: number
@@ -260,23 +196,17 @@ interface Person {
 }
 
 type PersonValue = Person[keyof Person] // string | number
-```
 
-泛型函数中的应用：
-
-```ts
+// 泛型函数中的应用：
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
   return obj[key]
 }
 
 const person = { name: 'Alice', age: 25 }
-const name = getProperty(person, 'name') // string
-const age = getProperty(person, 'age') // number
-```
+const person_name = getProperty(person, 'name') // string
+const person_age = getProperty(person, 'age') // number
 
-复杂示例：
-
-```ts
+// 复杂示例：
 interface Data {
   id: number
   name: string
@@ -290,11 +220,8 @@ type ValueTypes = Data[keyof Data]
 // type ValueTypes = number | string | { created: Date; updated: Date; }
 ```
 
-### 5.3. 嵌套索引访问
-
-多层访问：
-
-```ts
+```ts [3]
+// 多层访问：
 interface Organization {
   name: string
   address: {
@@ -308,18 +235,22 @@ interface Organization {
 }
 
 type AddressType = Organization['address']
-// type AddressType = { street: string; city: string; country: { name: string; code: string; }; }
+// type AddressType = {
+//     street: string;
+//     city: string;
+//     country: {
+//         name: string;
+//         code: string;
+//     };
+// }
 
 type CityType = Organization['address']['city']
 // type CityType = string
 
 type CountryNameType = Organization['address']['country']['name']
 // type CountryNameType = string
-```
 
-数组嵌套访问：
-
-```ts
+// 数组嵌套访问：
 interface Company {
   departments: Array<{
     name: string
@@ -331,208 +262,24 @@ interface Company {
 }
 
 type DepartmentType = Company['departments'][number]
-// type DepartmentType = { name: string; employees: Array<{ id: number; name: string; }>; }
+// type DepartmentType = {
+//     name: string;
+//     employees: Array<{
+//         id: number;
+//         name: string;
+//     }>;
+// }
 
 type EmployeeType = Company['departments'][number]['employees'][number]
-// type EmployeeType = { id: number; name: string; }
+// type EmployeeType = {
+//     id: number;
+//     name: string;
+// }
 ```
 
-## 6. 🤔 索引访问类型的实际应用
+:::
 
-### 6.1. 提取特定属性类型
-
-提取函数类型属性：
-
-```ts
-interface EventHandlers {
-  onClick: (event: MouseEvent) => void
-  onInput: (value: string) => void
-  onSubmit: (data: FormData) => Promise<void>
-}
-
-type OnClickHandler = EventHandlers['onClick']
-// type OnClickHandler = (event: MouseEvent) => void
-
-type OnSubmitHandler = EventHandlers['onSubmit']
-// type OnSubmitHandler = (data: FormData) => Promise<void>
-```
-
-提取数据结构：
-
-```ts
-interface State {
-  user: {
-    id: number
-    profile: {
-      name: string
-      avatar: string
-    }
-  }
-  posts: Array<{
-    id: number
-    title: string
-    content: string
-  }>
-}
-
-type UserProfile = State['user']['profile']
-// type UserProfile = { name: string; avatar: string; }
-
-type Post = State['posts'][number]
-// type Post = { id: number; title: string; content: string; }
-```
-
-### 6.2. 构建工具类型
-
-实现 Pick：
-
-```ts
-type MyPick<T, K extends keyof T> = {
-  [P in K]: T[P]
-}
-
-interface User {
-  id: number
-  name: string
-  email: string
-  password: string
-}
-
-type PublicUser = MyPick<User, 'id' | 'name'>
-// type PublicUser = { id: number; name: string; }
-```
-
-获取特定类型的属性：
-
-```ts
-type PickByType<T, ValueType> = {
-  [K in keyof T as T[K] extends ValueType ? K : never]: T[K]
-}
-
-interface Mixed {
-  id: number
-  name: string
-  count: number
-  active: boolean
-  description: string
-}
-
-type StringProps = PickByType<Mixed, string>
-// type StringProps = { name: string; description: string; }
-
-type NumberProps = PickByType<Mixed, number>
-// type NumberProps = { id: number; count: number; }
-```
-
-### 6.3. 类型安全的属性访问
-
-深度路径访问：
-
-```ts
-type PathValue<T, Path extends string> = Path extends keyof T
-  ? T[Path]
-  : Path extends `${infer K}.${infer Rest}`
-  ? K extends keyof T
-    ? PathValue<T[K], Rest>
-    : never
-  : never
-
-interface Config {
-  server: {
-    host: string
-    port: number
-    ssl: {
-      enabled: boolean
-      cert: string
-    }
-  }
-}
-
-type HostType = PathValue<Config, 'server.host'> // string
-type PortType = PathValue<Config, 'server.port'> // number
-type SSLEnabled = PathValue<Config, 'server.ssl.enabled'> // boolean
-```
-
-类型安全的 getter：
-
-```ts
-function get<T, K extends keyof T>(obj: T, key: K): T[K] {
-  return obj[key]
-}
-
-function getDeep<T, K1 extends keyof T, K2 extends keyof T[K1]>(
-  obj: T,
-  key1: K1,
-  key2: K2
-): T[K1][K2] {
-  return obj[key1][key2]
-}
-
-interface Data {
-  user: {
-    name: string
-    age: number
-  }
-}
-
-const data: Data = { user: { name: 'Alice', age: 25 } }
-const user = get(data, 'user') // { name: string; age: number; }
-const name = getDeep(data, 'user', 'name') // string
-```
-
-## 7. 🤔 索引访问类型有哪些注意事项？
-
-1. 索引必须是类型
-
-```ts
-interface User {
-  name: string
-  age: number
-}
-
-// ❌ 错误：使用值作为索引
-const key = 'name'
-type Wrong = User[key] // 错误
-
-// ✅ 正确：使用类型作为索引
-type KeyType = 'name'
-type Correct = User[KeyType] // string
-
-// ✅ 正确：使用 typeof 将值转为类型
-type AlsoCorrect = User[typeof key] // string
-```
-
-2. 索引超出范围
-
-```ts
-interface User {
-  name: string
-  age: number
-}
-
-// ❌ 错误：访问不存在的属性
-type Wrong = User['email'] // 错误：类型 "User" 上不存在属性 "email"
-
-// ✅ 正确：使用联合类型处理可能不存在的属性
-type Safe = User extends { email: infer E } ? E : never // never
-```
-
-3. 数组索引的特殊性
-
-```ts
-// 使用 number 访问数组元素类型
-type Arr = string[]
-type Element = Arr[number] // string
-
-// ❌ 错误：不能使用具体数字索引
-type Wrong = Arr[0] // 错误
-
-// 元组可以使用具体数字
-type Tuple = [string, number]
-type First = Tuple[0] // ✅ string
-```
-
-4. 联合类型的分发
+注意：联合类型的分发机制
 
 ```ts
 interface A {
@@ -549,57 +296,7 @@ type Union = A | B
 type XType = Union['x'] // string | number (分发到两个类型)
 ```
 
-5. 可选属性的处理
-
-```ts
-interface User {
-  name: string
-  email?: string
-}
-
-type EmailType = User['email'] // string | undefined
-
-// 如果需要去除 undefined
-type RequiredEmail = NonNullable<User['email']> // string
-```
-
-6. 循环引用问题
-
-```ts
-// ❌ 可能导致类型实例化过深
-interface Tree {
-  value: number
-  children: Tree[]
-}
-
-type ChildValue = Tree['children'][number]['value'] // ✅ 可以工作
-
-// 但是深度嵌套可能出问题
-type DeepNested =
-  Tree['children'][number]['children'][number]['children'][number]
-// 如果递归太深会报错
-```
-
-7. 与映射类型结合
-
-```ts
-type Getters<T> = {
-  [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K]
-}
-
-interface State {
-  count: number
-  name: string
-}
-
-type StateGetters = Getters<State>
-// type StateGetters = {
-//   getCount: () => number;
-//   getName: () => string;
-// }
-```
-
-## 8. 🔗 引用
+## 5. 🔗 引用
 
 - [TypeScript Handbook - Indexed Access Types][1]
 - [TypeScript Handbook - keyof Type Operator][2]
