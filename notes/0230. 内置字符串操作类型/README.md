@@ -9,6 +9,7 @@
   - [3.2. Lowercase](#32-lowercase)
   - [3.3. Capitalize](#33-capitalize)
   - [3.4. Uncapitalize](#34-uncapitalize)
+- [4. 🔗 引用](#4--引用)
 
 <!-- endregion:toc -->
 
@@ -82,3 +83,9 @@ type CamelCase = Uncapitalize<'FirstName'> // 'firstName'
 type InstanceName<T extends string> = Uncapitalize<T>
 type UserVar = InstanceName<'User'> // 'user'
 ```
+
+## 4. 🔗 引用
+
+- [TypeScript Handbook - Template Literal Types][1]
+
+[1]: https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html#intrinsic-string-manipulation-types

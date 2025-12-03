@@ -2,11 +2,11 @@
   "bilibili": [],
   "tnotes": [],
   "yuque": [],
-  "done": false,
+  "done": true,
   "deprecated": false,
-  "enableDiscussions": false,
-  "description": "",
+  "enableDiscussions": true,
+  "description": "TS 4.1+ 引入了模板字面量类型，它是类型系统中进行字符串操作的强大工具，有不少高级用法。",
   "id": "933138b4-cc6a-4d1b-8a6d-51a66d60c8d8",
   "created_at": 1760521823000,
-  "updated_at": 1764751964976
+  "updated_at": 1764755735994
 }
