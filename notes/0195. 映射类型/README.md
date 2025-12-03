@@ -4,22 +4,11 @@
 
 - [1. 🎯 本节内容](#1--本节内容)
 - [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是映射类型？](#3--什么是映射类型)
-  - [3.1. 基本语法](#31-基本语法)
-  - [3.2. 工作原理](#32-工作原理)
+- [3. 🤔 映射类型是什么？](#3--映射类型是什么)
 - [4. 🤔 映射类型修饰符有哪些？](#4--映射类型修饰符有哪些)
-  - [4.1. readonly 修饰符](#41-readonly-修饰符)
-  - [4.2. 可选修饰符](#42-可选修饰符)
-  - [4.3. 添加和移除修饰符](#43-添加和移除修饰符)
-- [5. 🤔 如何使用键名重映射？](#5--如何使用键名重映射)
-  - [5.1. as 子句](#51-as-子句)
-  - [5.2. 过滤属性](#52-过滤属性)
-  - [5.3. 属性名转换](#53-属性名转换)
-- [6. 🤔 映射类型的实际应用](#6--映射类型的实际应用)
-  - [6.1. 实现工具类型](#61-实现工具类型)
-  - [6.2. 类型转换](#62-类型转换)
-  - [6.3. 条件映射](#63-条件映射)
-- [7. 🤔 映射类型有哪些注意事项？](#7--映射类型有哪些注意事项)
+- [5. 🤔 键名重映射是什么？](#5--键名重映射是什么)
+- [6. 🤔 同态映射是什么？](#6--同态映射是什么)
+- [7. 🤔 在映射类型中，`never` 键会被如何处理？](#7--在映射类型中never-键会被如何处理)
 - [8. 🔗 引用](#8--引用)
 
 <!-- endregion:toc -->
@@ -27,27 +16,26 @@
 ## 1. 🎯 本节内容
 
 - 映射类型的基本概念和语法
-- 映射类型的修饰符使用
+- 映射类型的修饰符
 - 键名重映射（Key Remapping）
-- 映射类型的实际应用场景
-- 使用注意事项和最佳实践
+- 同态映射类型（homomorphic mapped type）
 
 ## 2. 🫧 评价
 
-这篇笔记全面介绍了 TypeScript 中的映射类型，这是类型系统中创建新类型的强大工具。
+TS 中的映射类型是类型系统中的一种基于旧类型创建新类型的机制。
+
+本节介绍的相关知识点是自定义 TS 类型工具的基础。
+
+## 3. 🤔 映射类型是什么？
+
+映射类型允许基于旧类型创建新类型，通过遍历键来转换属性。
 
 - 映射类型使用 `[K in Keys]: Type` 语法遍历键并转换类型
 - 支持 `readonly` 和可选 `?` 修饰符的添加和移除
 - TypeScript 4.1+ 支持键名重映射（`as` 子句）
-- 映射类型是实现 `Partial`、`Required`、`Readonly`、`Pick` 等工具类型的基础
+- 映射类型是实现 `Readonly`、`Partial`、`Required` 等 TS 内置工具类型的基础
+  - 你会发现本节提到的一些 TS 的内置工具类型的实现其实都非常简单，即便 TS 没有给我们提供这些工具类型，也完全可以自行封装它们
 - 可以与条件类型、模板字面量类型等特性结合使用
-- 理解映射类型是编写高级类型工具的关键
-
-## 3. 🤔 什么是映射类型？
-
-### 3.1. 基本语法
-
-映射类型允许基于旧类型创建新类型，通过遍历键来转换属性。
 
 ```ts
 // 基本语法：{ [K in Keys]: Type }
@@ -62,11 +50,8 @@ type Mapped = {
 //   b: string;
 //   c: string;
 // }
-```
 
-使用 keyof 遍历对象键：
-
-```ts
+// 可以使用 keyof 遍历对象键：
 interface Person {
   name: string
   age: number
@@ -81,54 +66,17 @@ type StringPerson = {
 // }
 ```
 
-### 3.2. 工作原理
-
-映射类型的执行过程：
-
-```ts
-// 1. 获取键的联合类型
-type Keys = keyof Person // 'name' | 'age'
-
-// 2. 遍历每个键
-// K = 'name'  → name: string
-// K = 'age'   → age: string
-
-// 3. 创建新对象类型
-type Result = {
-  name: string
-  age: string
-}
-```
-
-保留原类型：
-
-```ts
-type Clone<T> = {
-  [K in keyof T]: T[K]
-}
-
-interface User {
-  id: number
-  name: string
-  email: string
-}
-
-type ClonedUser = Clone<User>
-// type ClonedUser = {
-//   id: number;
-//   name: string;
-//   email: string;
-// }
-```
-
 ## 4. 🤔 映射类型修饰符有哪些？
 
-### 4.1. readonly 修饰符
+1. `+readonly` 添加 readonly（`+` 号可以省略）
+2. `-readonly` 移除 readonly
+3. `+?` 添加可选（`+` 号可以省略）
+4. `-?` 移除可选
 
-添加 readonly：
+::: code-group
 
-```ts
-type Readonly<T> = {
+```ts [1]
+type MyReadonly<T> = {
   readonly [K in keyof T]: T[K]
 }
 
@@ -137,19 +85,30 @@ interface Mutable {
   y: number
 }
 
-type Immutable = Readonly<Mutable>
+type Immutable = MyReadonly<Mutable>
 // type Immutable = {
-//   readonly x: number;
-//   readonly y: number;
+//     readonly x: number;
+//     readonly y: number;
 // }
 
 const point: Immutable = { x: 10, y: 20 }
-point.x = 30 // ❌ 错误：无法分配到 "x" ，因为它是只读属性
+point.x = 30 // ❌ Error 无法分配到 "x" ，因为它是只读属性
+// Cannot assign to 'x' because it is a read-only property.(2540)
+
+// MyReadonly 和 TS 内置的工具类型 Readonly 的定义是一样的
+// type Readonly<T> = { readonly [P in keyof T]: T[P]; }
+type Immutable2 = Readonly<Mutable>
+// type Immutable2 = {
+//     readonly x: number;
+//     readonly y: number;
+// }
+
+const point2: Immutable = { x: 10, y: 20 }
+point2.x = 30 // ❌ Error 无法分配到 "x" ，因为它是只读属性
+// Cannot assign to 'x' because it is a read-only property.(2540)
 ```
 
-移除 readonly：
-
-```ts
+```ts [2]
 type Mutable<T> = {
   -readonly [K in keyof T]: T[K]
 }
@@ -161,22 +120,17 @@ interface ReadonlyPoint {
 
 type MutablePoint = Mutable<ReadonlyPoint>
 // type MutablePoint = {
-//   x: number;
-//   y: number;
+//     x: number;
+//     y: number;
 // }
 
 const point: MutablePoint = { x: 10, y: 20 }
-point.x = 30 // ✅ 可以修改
+point.x = 30 // ✅ OK
 ```
 
-### 4.2. 可选修饰符
-
-添加可选：
-
-```ts
-type Partial<T> = {
-  [K in keyof T]?: T[K]
-}
+```ts [3]
+// TS 内置的工具类型 Partial 的定义：
+// type Partial<T> = { [P in keyof T]?: T[P] | undefined; }
 
 interface Todo {
   title: string
@@ -186,20 +140,17 @@ interface Todo {
 
 type PartialTodo = Partial<Todo>
 // type PartialTodo = {
-//   title?: string;
-//   description?: string;
-//   completed?: boolean;
+//     title?: string | undefined;
+//     description?: string | undefined;
+//     completed?: boolean | undefined;
 // }
 
-const todo: PartialTodo = { title: 'Learn TypeScript' } // ✅
+const todo: PartialTodo = { title: 'Learn TypeScript' } // ✅ OK
 ```
 
-移除可选：
-
-```ts
-type Required<T> = {
-  [K in keyof T]-?: T[K]
-}
+```ts [4]
+// TS 内置的工具类型 Required 的定义：
+// type Required<T> = { [P in keyof T]-?: T[P]; }
 
 interface Config {
   host?: string
@@ -212,12 +163,13 @@ type RequiredConfig = Required<Config>
 //   port: number;
 // }
 
-const config: RequiredConfig = { host: 'localhost' } // ❌ 缺少 port
+const config: RequiredConfig = { host: 'localhost' } // ❌ Error 缺少 port
+// Property 'port' is missing in type '{ host: string; }' but required in type 'Required<Config>'.(2741)
 ```
 
-### 4.3. 添加和移除修饰符
+:::
 
-同时使用多个修饰符：
+可以同时使用多个修饰符：
 
 ```ts
 // 移除 readonly 和可选
@@ -239,32 +191,7 @@ type ConcreteProps = Concrete<MixedProps>
 // }
 ```
 
-修饰符的符号：
-
-```ts
-// + 表示添加修饰符（默认行为）
-type AddReadonly<T> = {
-  +readonly [K in keyof T]: T[K]
-}
-
-// - 表示移除修饰符
-type RemoveReadonly<T> = {
-  -readonly [K in keyof T]: T[K]
-}
-
-// 可选修饰符同理
-type AddOptional<T> = {
-  [K in keyof T]+?: T[K]
-}
-
-type RemoveOptional<T> = {
-  [K in keyof T]-?: T[K]
-}
-```
-
-## 5. 🤔 如何使用键名重映射？
-
-### 5.1. as 子句
+## 5. 🤔 键名重映射是什么？
 
 TypeScript 4.1+ 支持使用 `as` 子句重新映射键名。
 
@@ -287,11 +214,16 @@ type PersonGetters = Getters<Person>
 // }
 ```
 
-### 5.2. 过滤属性
+常见用法：
 
-使用 `as` 子句结合条件类型过滤属性：
+1. 过滤属性 - 使用 `as` 子句结合条件类型过滤属性
+2. 过滤属性 - 移除特定属性
+3. 属性名转换 - 添加前缀
+4. 属性名转换 - 转换命名风格
 
-```ts
+::: code-group
+
+```ts [1]
 // 过滤掉值为 never 的键
 type OmitByType<T, ValueType> = {
   [K in keyof T as T[K] extends ValueType ? never : K]: T[K]
@@ -311,9 +243,7 @@ type NonNumber = OmitByType<Mixed, number>
 // }
 ```
 
-移除特定属性：
-
-```ts
+```ts [2]
 type OmitKeys<T, K extends keyof T> = {
   [P in keyof T as P extends K ? never : P]: T[P]
 }
@@ -333,11 +263,7 @@ type PublicUser = OmitKeys<User, 'password'>
 // }
 ```
 
-### 5.3. 属性名转换
-
-添加前缀：
-
-```ts
+```ts [3]
 type AddPrefix<T, Prefix extends string> = {
   [K in keyof T as `${Prefix}${string & K}`]: T[K]
 }
@@ -354,9 +280,7 @@ type OnActions = AddPrefix<Actions, 'on'>
 // }
 ```
 
-转换命名风格：
-
-```ts
+```ts [4]
 type CamelToSnake<S extends string> = S extends `${infer T}${infer U}`
   ? `${T extends Capitalize<T> ? '_' : ''}${Lowercase<T>}${CamelToSnake<U>}`
   : S
@@ -379,151 +303,29 @@ type SnakeCaseObj = SnakeCase<CamelCase>
 // }
 ```
 
-## 6. 🤔 映射类型的实际应用
+:::
 
-### 6.1. 实现工具类型
-
-Pick 的实现：
+注意：`as` 子句必须产生 `string | number | symbol` 类型。
 
 ```ts
-type MyPick<T, K extends keyof T> = {
-  [P in K]: T[P]
+// ❌ 错误：键的类型不合法
+type Wrong<T> = {
+  [K in keyof T as K extends string ? object : never]: T[K]
 }
+// 报错信息如下：
+// Type 'K extends string ? object : never' is not assignable to type 'string | number | symbol'.
+//   Type 'keyof T extends string ? object : never' is not assignable to type 'string | number | symbol'.
+//     Type 'object' is not assignable to type 'string | number | symbol'.(2322)
 
-interface Todo {
-  title: string
-  description: string
-  completed: boolean
+// ✅ 正确：确保结果是有效的键类型
+type Correct<T> = {
+  [K in keyof T as K extends string ? `prefix_${K}` : never]: T[K]
 }
-
-type TodoPreview = MyPick<Todo, 'title' | 'completed'>
-// type TodoPreview = {
-//   title: string;
-//   completed: boolean;
-// }
 ```
 
-Record 的实现：
+## 6. 🤔 同态映射是什么？
 
-```ts
-type MyRecord<K extends keyof any, T> = {
-  [P in K]: T
-}
-
-type PageInfo = MyRecord<
-  'home' | 'about' | 'contact',
-  { title: string; url: string }
->
-// type PageInfo = {
-//   home: { title: string; url: string };
-//   about: { title: string; url: string };
-//   contact: { title: string; url: string };
-// }
-```
-
-### 6.2. 类型转换
-
-深度只读：
-
-```ts
-type DeepReadonly<T> = {
-  readonly [K in keyof T]: T[K] extends object
-    ? T[K] extends (...args: any[]) => any
-      ? T[K]
-      : DeepReadonly<T[K]>
-    : T[K]
-}
-
-interface Nested {
-  user: {
-    profile: {
-      name: string
-      age: number
-    }
-  }
-}
-
-type ReadonlyNested = DeepReadonly<Nested>
-// type ReadonlyNested = {
-//   readonly user: {
-//     readonly profile: {
-//       readonly name: string;
-//       readonly age: number;
-//     };
-//   };
-// }
-```
-
-类型值包装：
-
-```ts
-type Boxed<T> = {
-  [K in keyof T]: { value: T[K] }
-}
-
-interface Data {
-  x: number
-  y: string
-}
-
-type BoxedData = Boxed<Data>
-// type BoxedData = {
-//   x: { value: number };
-//   y: { value: string };
-// }
-```
-
-### 6.3. 条件映射
-
-根据类型条件转换：
-
-```ts
-type Nullish<T> = {
-  [K in keyof T]: T[K] extends object ? T[K] | null : T[K]
-}
-
-interface User {
-  name: string
-  profile: {
-    avatar: string
-  }
-}
-
-type NullableUser = Nullish<User>
-// type NullableUser = {
-//   name: string;
-//   profile: { avatar: string } | null;
-// }
-```
-
-提取特定类型的属性：
-
-```ts
-type FunctionPropertyNames<T> = {
-  [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never
-}[keyof T]
-
-type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>
-
-interface Example {
-  id: number
-  getName(): string
-  setName(name: string): void
-  age: number
-}
-
-type ExampleFunctions = FunctionProperties<Example>
-// type ExampleFunctions = {
-//   getName: () => string;
-//   setName: (name: string) => void;
-// }
-```
-
-## 7. 🤔 映射类型有哪些注意事项？
-
-1. 映射类型是同态的
-
-同态映射会保留原类型的修饰符：
+同态映射（homomorphic mapped）是指映射类型会保留原类型的修饰符。
 
 ```ts
 interface Optional {
@@ -537,7 +339,7 @@ type Mapped1<T> = {
 }
 type R1 = Mapped1<Optional>
 // type R1 = {
-//   a?: number;  // ✅ 保留了可选
+//   a?: number | undefined; // ✅ 保留了可选
 //   b: string;
 // }
 
@@ -547,26 +349,14 @@ type Mapped2<T> = {
 }
 type R2 = Mapped2<Optional>
 // type R2 = {
-//   a?: number;  // 使用 as 后仍保留
+//   a?: number | undefined; // ✅ 使用 as 后仍保留
 //   b: string;
 // }
 ```
 
-2. 键名重映射的限制
+## 7. 🤔 在映射类型中，`never` 键会被如何处理？
 
-```ts
-// ❌ 错误：as 子句必须产生字符串、数字或 symbol 类型
-type Wrong<T> = {
-  [K in keyof T as T[K]]: string // 错误
-}
-
-// ✅ 正确：确保结果是有效的键类型
-type Correct<T> = {
-  [K in keyof T as K extends string ? `prefix_${K}` : never]: T[K]
-}
-```
-
-3. never 键会被过滤
+never 键会自动被过滤掉。
 
 ```ts
 type FilterByValue<T, ValueType> = {
@@ -583,60 +373,8 @@ type StringOnly = FilterByValue<Data, string>
 // type StringOnly = {
 //   a: string;
 //   c: string;
-// } // b 被过滤掉了
-```
-
-4. 循环引用问题
-
-```ts
-// ❌ 可能导致类型实例化过深
-type DeepReadonly<T> = {
-  readonly [K in keyof T]: DeepReadonly<T[K]>
-}
-
-// ✅ 添加终止条件
-type SafeDeepReadonly<T> = T extends object
-  ? T extends (...args: any[]) => any
-    ? T
-    : { readonly [K in keyof T]: SafeDeepReadonly<T[K]> }
-  : T
-```
-
-5. 联合类型的处理
-
-```ts
-type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
-  k: infer I
-) => void
-  ? I
-  : never
-
-// 映射联合类型
-type MappedUnion = {
-  [K in 'a' | 'b']: K
-}
-// type MappedUnion = {
-//   a: 'a';
-//   b: 'b';
 // }
-```
-
-6. 性能考虑
-
-```ts
-// ❌ 不好：复杂的嵌套映射
-type Complex<T> = {
-  [K in keyof T]: {
-    [P in keyof T[K]]: {
-      [Q in keyof T[K][P]]: T[K][P][Q]
-    }
-  }
-}
-
-// ✅ 好：简化或分步处理
-type Inner<T> = { [K in keyof T]: T[K] }
-type Middle<T> = { [K in keyof T]: Inner<T[K]> }
-type Simplified<T> = { [K in keyof T]: Middle<T[K]> }
+// b 会被自动过滤掉
 ```
 
 ## 8. 🔗 引用
@@ -644,7 +382,13 @@ type Simplified<T> = { [K in keyof T]: Middle<T[K]> }
 - [TypeScript Handbook - Mapped Types][1]
 - [TypeScript 4.1 Release Notes - Key Remapping in Mapped Types][2]
 - [TypeScript Handbook - Utility Types][3]
+- [wikipedia - Homomorphism 同态映射][4]
+- [stackoverflow - What does "homomorphic mapped type" mean?][5]
+- [Improved control over mapped type modifiers #21919][6]
 
 [1]: https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
 [2]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-1.html#key-remapping-in-mapped-types
 [3]: https://www.typescriptlang.org/docs/handbook/utility-types.html
+[4]: https://en.wikipedia.org/wiki/Homomorphism
+[5]: https://stackoverflow.com/questions/59790508/what-does-homomorphic-mapped-type-mean
+[6]: https://github.com/microsoft/TypeScript/pull/21919

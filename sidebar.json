@@ -846,12 +846,12 @@
     ]
   },
   {
-    "text": "22. 类型运算符",
+    "text": "22. 类型运算",
     "collapsed": true,
     "items": [
       {
-        "text": "✅ 类型运算符",
-        "link": "/notes/0229. 类型运算符/README"
+        "text": "✅ 类型运算",
+        "link": "/notes/0229. 类型运算/README"
       },
       {
         "text": "✅ keyof 运算符",
@@ -878,7 +878,7 @@
         "link": "/notes/0194. 条件类型的分布式特性/README"
       },
       {
-        "text": "⏰ 映射类型",
+        "text": "✅ 映射类型",
         "link": "/notes/0195. 映射类型/README"
       },
       {

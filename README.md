@@ -23,7 +23,7 @@
 - [19. 装饰器（旧语法）](#19-装饰器旧语法)
 - [20. declare 关键字](#20-declare-关键字)
 - [21. d.ts 类型声明文件](#21-dts-类型声明文件)
-- [22. 类型运算符](#22-类型运算符)
+- [22. 类型运算](#22-类型运算)
 - [23. 类型映射](#23-类型映射)
 - [24. 类型工具](#24-类型工具)
 - [25. 注释指令](#25-注释指令)
@@ -280,16 +280,16 @@
 - [ ] [0186. UMD 模块的类型声明](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0186.%20UMD%20%E6%A8%A1%E5%9D%97%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E/README.md)
 - [ ] [0187. 发布类型声明文件](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0187.%20%E5%8F%91%E5%B8%83%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/README.md)
 
-## 22. 类型运算符
+## 22. 类型运算
 
-- [x] [0229. 类型运算符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0229.%20%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/README.md)
+- [x] [0229. 类型运算](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0229.%20%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97/README.md)
 - [x] [0188. keyof 运算符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0188.%20keyof%20%E8%BF%90%E7%AE%97%E7%AC%A6/README.md)
 - [x] [0189. in 运算符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0189.%20in%20%E8%BF%90%E7%AE%97%E7%AC%A6/README.md)
 - [x] [0190. extends 条件类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0190.%20extends%20%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0191. infer 关键字](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0191.%20infer%20%E5%85%B3%E9%94%AE%E5%AD%97/README.md)
 - [x] [0192. 索引访问类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0192.%20%E7%B4%A2%E5%BC%95%E8%AE%BF%E9%97%AE%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0194. 条件类型的分布式特性](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0194.%20%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E7%89%B9%E6%80%A7/README.md)
-- [ ] [0195. 映射类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0195.%20%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/README.md)
+- [x] [0195. 映射类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0195.%20%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/README.md)
 - [ ] [0196. 模板字面量类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0196.%20%E6%A8%A1%E6%9D%BF%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B/README.md)
 - [ ] [0197. satisfies 运算符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0197.%20satisfies%20%E8%BF%90%E7%AE%97%E7%AC%A6/README.md)
 
