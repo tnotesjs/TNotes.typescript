@@ -8,8 +8,9 @@
 - [4. 🤔 `keyof` 如何处理不同类型？](#4--keyof-如何处理不同类型)
 - [5. 🤔 如何利用 `keyof` 创建映射类型？](#5--如何利用-keyof-创建映射类型)
 - [6. 🤔 keyof 与索引签名如何配合？](#6--keyof-与索引签名如何配合)
-- [7. 🤔 keyof 的使用都有哪些需要留意的细节？](#7--keyof-的使用都有哪些需要留意的细节)
-- [8. 🔗 引用](#8--引用)
+- [7. 🤔 `keyof any` 的结果是什么？](#7--keyof-any-的结果是什么)
+- [8. 🤔 keyof 的使用都有哪些需要留意的细节？](#8--keyof-的使用都有哪些需要留意的细节)
+- [9. 🔗 引用](#9--引用)
 
 <!-- endregion:toc -->
 
@@ -331,7 +332,33 @@ const key7: StrictKeys = 123 // ❌ Error
 
 :::
 
-## 7. 🤔 keyof 的使用都有哪些需要留意的细节？
+## 7. 🤔 `keyof any` 的结果是什么？
+
+`keyof any` 等价于 `string | number | symbol`。
+
+```ts
+type Result = keyof any
+// type Result = string | number | symbol
+
+// 下面两个定义是等价的
+type Dict1<T> = { [K in string | number | symbol]: T }
+type Dict2<T> = { [K in keyof any]: T }
+
+type StringDict = Dict1<string>
+// type StringDict = {
+//     [x: string]: string;
+//     [x: number]: string;
+//     [x: symbol]: string;
+// }
+
+const dict: StringDict = {
+  a: 'hello',
+  1: 'world',
+  [Symbol('key')]: 'symbol',
+}
+```
+
+## 8. 🤔 keyof 的使用都有哪些需要留意的细节？
 
 1. `keyof` 与联合类型一起使用，只保留共同的键；与交叉类型一起使用，包含所有键
 2. `keyof` 不能用于值，在提取值的 key 时，可以先使用 `typeof` 提取值的类型，然后再由 `keyof` 提取 key
@@ -418,7 +445,7 @@ type Test2 = NonEmptyKeys<{ a: 1 }> // 'a'
 
 :::
 
-## 8. 🔗 引用
+## 9. 🔗 引用
 
 - [TypeScript Handbook - Keyof Type Operator][1]
 - [TypeScript Handbook - Indexed Access Types][2]

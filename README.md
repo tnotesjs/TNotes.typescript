@@ -24,7 +24,6 @@
 - [20. declare 关键字](#20-declare-关键字)
 - [21. d.ts 类型声明文件](#21-dts-类型声明文件)
 - [22. 类型运算](#22-类型运算)
-- [23. 类型映射](#23-类型映射)
 - [24. 类型工具](#24-类型工具)
 - [25. 注释指令](#25-注释指令)
 - [26. tsconfig.json 文件](#26-tsconfigjson-文件)
@@ -292,16 +291,6 @@
 - [x] [0195. 映射类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0195.%20%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0196. 模板字面量类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0196.%20%E6%A8%A1%E6%9D%BF%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0197. satisfies 运算符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0197.%20satisfies%20%E8%BF%90%E7%AE%97%E7%AC%A6/README.md)
-
-## 23. 类型映射
-
-- [ ] [0198. 映射类型的基本语法](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0198.%20%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/README.md)
-- [ ] [0199. 映射修饰符（+ 和 -）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0199.%20%E6%98%A0%E5%B0%84%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%88%2B%20%E5%92%8C%20-%EF%BC%89/README.md)
-- [ ] [0200. readonly 和 ？ 修饰符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0200.%20readonly%20%E5%92%8C%20%EF%BC%9F%20%E4%BF%AE%E9%A5%B0%E7%AC%A6/README.md)
-- [ ] [0201. 键名重映射（as 子句）](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0201.%20%E9%94%AE%E5%90%8D%E9%87%8D%E6%98%A0%E5%B0%84%EF%BC%88as%20%E5%AD%90%E5%8F%A5%EF%BC%89/README.md)
-- [ ] [0202. 映射类型的过滤](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0202.%20%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BF%87%E6%BB%A4/README.md)
-- [ ] [0203. 基于映射类型创建新类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0203.%20%E5%9F%BA%E4%BA%8E%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B%E5%88%9B%E5%BB%BA%E6%96%B0%E7%B1%BB%E5%9E%8B/README.md)
-- [ ] [0204. 内置映射类型解析](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0204.%20%E5%86%85%E7%BD%AE%E6%98%A0%E5%B0%84%E7%B1%BB%E5%9E%8B%E8%A7%A3%E6%9E%90/README.md)
 
 ## 24. 类型工具
 

@@ -8,5 +8,5 @@
   "description": "keyof 能够获取对象类型的所有键组成的联合类型，是实现高级类型工具的基础，TS 中的大多内置类型，比如 Partial<T>、Required<T>、Readonly<T> 等，都是利用 keyof 创建的映射类型。",
   "id": "3eab6980-bdca-4231-9d07-dc4c7b47b614",
   "created_at": 1760521823000,
-  "updated_at": 1764661014662
+  "updated_at": 1764798163096
 }

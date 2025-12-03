@@ -892,40 +892,6 @@
     ]
   },
   {
-    "text": "23. 类型映射",
-    "collapsed": true,
-    "items": [
-      {
-        "text": "⏰ 映射类型的基本语法",
-        "link": "/notes/0198. 映射类型的基本语法/README"
-      },
-      {
-        "text": "⏰ 映射修饰符（+ 和 -）",
-        "link": "/notes/0199. 映射修饰符（+ 和 -）/README"
-      },
-      {
-        "text": "⏰ readonly 和 ？ 修饰符",
-        "link": "/notes/0200. readonly 和 ？ 修饰符/README"
-      },
-      {
-        "text": "⏰ 键名重映射（as 子句）",
-        "link": "/notes/0201. 键名重映射（as 子句）/README"
-      },
-      {
-        "text": "⏰ 映射类型的过滤",
-        "link": "/notes/0202. 映射类型的过滤/README"
-      },
-      {
-        "text": "⏰ 基于映射类型创建新类型",
-        "link": "/notes/0203. 基于映射类型创建新类型/README"
-      },
-      {
-        "text": "⏰ 内置映射类型解析",
-        "link": "/notes/0204. 内置映射类型解析/README"
-      }
-    ]
-  },
-  {
     "text": "24. 类型工具",
     "collapsed": true,
     "items": [
