@@ -1264,13 +1264,19 @@
     ]
   },
   {
-    "text": "xxx",
+    "text": "32. 踩坑记录",
     "collapsed": true,
     "items": [
       {
-        "text": "⏰ new",
-        "link": "/notes/0231. new/README"
-      },
+        "text": "✅ VSCode 打开 TS 项目提示 Intellisense 问题",
+        "link": "/notes/0231. VSCode 打开 TS 项目提示 Intellisense 问题/README"
+      }
+    ]
+  },
+  {
+    "text": "xxx",
+    "collapsed": true,
+    "items": [
       {
         "text": "⏰ new",
         "link": "/notes/0292. new/README"

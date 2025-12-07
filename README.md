@@ -32,6 +32,7 @@
 - [29. 深入原理](#29-深入原理)
 - [30. 进阶话题](#30-进阶话题)
 - [31. TS 7.0](#31-ts-70)
+- [32. 踩坑记录](#32-踩坑记录)
 - [xxx](#xxx)
 
 <!-- endregion:toc -->
@@ -397,8 +398,11 @@
 
 - [ ] [0284. typescript-go 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0284.%20typescript-go%20%E9%A1%B9%E7%9B%AE/README.md)
 
+## 32. 踩坑记录
+
+- [x] [0231. VSCode 打开 TS 项目提示 Intellisense 问题](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0231.%20VSCode%20%E6%89%93%E5%BC%80%20TS%20%E9%A1%B9%E7%9B%AE%E6%8F%90%E7%A4%BA%20Intellisense%20%E9%97%AE%E9%A2%98/README.md)
+
 ## xxx
 
-- [ ] [0231. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0231.%20new/README.md)
 - [ ] [0292. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0292.%20new/README.md)
 - [ ] [0293. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0293.%20new/README.md)

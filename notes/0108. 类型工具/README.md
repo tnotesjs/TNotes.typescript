@@ -6,7 +6,7 @@
 - [2. 🫧 评价](#2--评价)
 - [3. 🔍 章节速览](#3--章节速览)
 - [4. 🤔 TS 内置的工具类型本质上是类型别名（Type Alias）还是接口（interface）？](#4--ts-内置的工具类型本质上是类型别名type-alias还是接口interface)
-- [5. 🤔 目前 TS （25.12 v5.9 版）内置的类型工具（Utility Types）都有哪些？](#5--目前-ts-2512-v59-版内置的类型工具utility-types都有哪些)
+- [5. 🤔 TS 内置的类型工具（Utility Types）都有哪些？](#5--ts-内置的类型工具utility-types都有哪些)
 
 <!-- endregion:toc -->
 
@@ -35,7 +35,9 @@ TS 内置的工具类型（如 `Record`、`Partial`、`Pick` 等）本质上是�
 | 联合类型 | `interface` 无法表示联合类型                        |
 | 类型运算 | `type` 可以进行复杂的类型运算和组合                 |
 
-## 5. 🤔 目前 TS （25.12 v5.9 版）内置的类型工具（Utility Types）都有哪些？
+## 5. 🤔 TS 内置的类型工具（Utility Types）都有哪些？
+
+目前 `25.12` TS 的最新版是：`v5.9`，有以下内置的工具类型：
 
 - `Awaited<Type>`
 - `Partial<Type>`

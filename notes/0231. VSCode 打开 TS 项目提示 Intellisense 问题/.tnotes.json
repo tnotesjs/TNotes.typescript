@@ -1,0 +1,12 @@
+{
+  "bilibili": [],
+  "tnotes": [],
+  "yuque": [],
+  "done": true,
+  "deprecated": false,
+  "enableDiscussions": true,
+  "description": "一个在 VSCode 中打开 TS 项目时，TS 服务长时间卡死在 Intellisense 阶段的问题解决方案记录。",
+  "id": "886c0154-bb0f-4003-b3f5-80fb44872cba",
+  "created_at": 1763286320242,
+  "updated_at": 1765073853993
+}
