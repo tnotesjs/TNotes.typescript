@@ -20,10 +20,6 @@
     },
     "title": "typescript",
     "completed_notes_count": {
-      "24.09": 0,
-      "24.10": 0,
-      "24.11": 0,
-      "24.12": 0,
       "25.01": 0,
       "25.02": 0,
       "25.03": 0,
@@ -35,12 +31,12 @@
       "25.09": 0,
       "25.10": 60,
       "25.11": 127,
-      "25.12": 145
+      "25.12": 146
     },
     "details": "TS 笔记",
     "link": "https://tnotesjs.github.io/TNotes.typescript/",
     "created_at": 1727046787000,
-    "updated_at": 1765072329851,
+    "updated_at": 1765719231867,
     "days_since_birth": 9219
   },
   "port": 9219,
