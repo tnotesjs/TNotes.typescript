@@ -24,16 +24,16 @@
 - [20. declare 关键字](#20-declare-关键字)
 - [21. d.ts 类型声明文件](#21-dts-类型声明文件)
 - [22. 类型运算](#22-类型运算)
-- [24. 类型工具](#24-类型工具)
-- [25. 注释指令](#25-注释指令)
-- [26. tsconfig.json 文件](#26-tsconfigjson-文件)
-- [27. tsc 命令](#27-tsc-命令)
-- [28. 实战技巧](#28-实战技巧)
-- [29. 深入原理](#29-深入原理)
-- [30. 进阶话题](#30-进阶话题)
-- [31. TS 7.0](#31-ts-70)
-- [32. 踩坑记录](#32-踩坑记录)
-- [xxx](#xxx)
+- [23. 类型工具](#23-类型工具)
+- [24. 注释指令](#24-注释指令)
+- [25. tsconfig.json 文件](#25-tsconfigjson-文件)
+- [26. tsc 命令](#26-tsc-命令)
+- [27. 实战技巧](#27-实战技巧)
+- [28. 深入原理](#28-深入原理)
+- [29. 进阶话题](#29-进阶话题)
+- [30. TS 7.0](#30-ts-70)
+- [31. 踩坑记录](#31-踩坑记录)
+- [32. xxx](#32-xxx)
 
 <!-- endregion:toc -->
 
@@ -293,7 +293,7 @@
 - [x] [0196. 模板字面量类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0196.%20%E6%A8%A1%E6%9D%BF%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B/README.md)
 - [x] [0197. satisfies 运算符](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0197.%20satisfies%20%E8%BF%90%E7%AE%97%E7%AC%A6/README.md)
 
-## 24. 类型工具
+## 23. 类型工具
 
 - [x] [0108. 类型工具](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0108.%20%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/README.md)
 - [x] [0205. Partial](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0205.%20Partial/README.md)
@@ -315,7 +315,7 @@
 - [ ] [0230. 内置字符串操作类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0230.%20%E5%86%85%E7%BD%AE%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B/README.md)
 - [ ] [0221. 自定义工具类型](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0221.%20%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%9E%8B/README.md)
 
-## 25. 注释指令
+## 24. 注释指令
 
 - [x] [0228. 注释指令](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0228.%20%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/README.md)
 - [x] [0222. @ts-ignore](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0222.%20%40ts-ignore/README.md)
@@ -325,7 +325,7 @@
 - [x] [0225. @ts-check](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0225.%20%40ts-check/README.md)
 - [x] [0226. JSDoc 类型注释](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0226.%20JSDoc%20%E7%B1%BB%E5%9E%8B%E6%B3%A8%E9%87%8A/README.md)
 
-## 26. tsconfig.json 文件
+## 25. tsconfig.json 文件
 
 - [ ] [0232. tsconfig.json 的作用](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0232.%20tsconfig.json%20%E7%9A%84%E4%BD%9C%E7%94%A8/README.md)
 - [ ] [0233. 编译选项分类概览](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0233.%20%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%88%86%E7%B1%BB%E6%A6%82%E8%A7%88/README.md)
@@ -345,7 +345,7 @@
 - [ ] [0247. incremental 增量编译](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0247.%20incremental%20%E5%A2%9E%E9%87%8F%E7%BC%96%E8%AF%91/README.md)
 - [ ] [0248. 常用编译配置组合](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0248.%20%E5%B8%B8%E7%94%A8%E7%BC%96%E8%AF%91%E9%85%8D%E7%BD%AE%E7%BB%84%E5%90%88/README.md)
 
-## 27. tsc 命令
+## 26. tsc 命令
 
 - [ ] [0257. tsc 命令的基本用法](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0257.%20tsc%20%E5%91%BD%E4%BB%A4%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/README.md)
 - [ ] [0258. tsc 常用参数](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0258.%20tsc%20%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0/README.md)
@@ -359,7 +359,7 @@
 - [ ] [0266. tsc --listFiles 列出编译文件](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0266.%20tsc%20--listFiles%20%E5%88%97%E5%87%BA%E7%BC%96%E8%AF%91%E6%96%87%E4%BB%B6/README.md)
 - [ ] [0267. tsc --init 初始化配置](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0267.%20tsc%20--init%20%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE/README.md)
 
-## 28. 实战技巧
+## 27. 实战技巧
 
 - [ ] [0268. 常见类型错误处理](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0268.%20%E5%B8%B8%E8%A7%81%E7%B1%BB%E5%9E%8B%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/README.md)
 - [ ] [0269. 类型收窄技巧](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0269.%20%E7%B1%BB%E5%9E%8B%E6%94%B6%E7%AA%84%E6%8A%80%E5%B7%A7/README.md)
@@ -371,7 +371,7 @@
 - [ ] [0275. Node.js 中的 TypeScript](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0275.%20Node.js%20%E4%B8%AD%E7%9A%84%20TypeScript/README.md)
 - [ ] [0276. 第三方库的类型处理](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0276.%20%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%A4%84%E7%90%86/README.md)
 
-## 29. 深入原理
+## 28. 深入原理
 
 - [ ] [0045. 深入原理](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0045.%20%E6%B7%B1%E5%85%A5%E5%8E%9F%E7%90%86/README.md)
 - [x] [0043. Source Map 的基本概念和原理](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0043.%20Source%20Map%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%8E%9F%E7%90%86/README.md)
@@ -384,7 +384,7 @@
 - [ ] [0255. 结构类型系统的实现](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0255.%20%E7%BB%93%E6%9E%84%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0/README.md)
 - [ ] [0256. 编译性能优化](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0256.%20%E7%BC%96%E8%AF%91%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/README.md)
 
-## 30. 进阶话题
+## 29. 进阶话题
 
 - [ ] [0277. 高级类型技巧](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0277.%20%E9%AB%98%E7%BA%A7%E7%B1%BB%E5%9E%8B%E6%8A%80%E5%B7%A7/README.md)
 - [ ] [0278. 类型体操](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0278.%20%E7%B1%BB%E5%9E%8B%E4%BD%93%E6%93%8D/README.md)
@@ -394,15 +394,15 @@
 - [ ] [0282. 大型项目的类型组织](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0282.%20%E5%A4%A7%E5%9E%8B%E9%A1%B9%E7%9B%AE%E7%9A%84%E7%B1%BB%E5%9E%8B%E7%BB%84%E7%BB%87/README.md)
 - [ ] [0283. monorepo 中的 TypeScript](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0283.%20monorepo%20%E4%B8%AD%E7%9A%84%20TypeScript/README.md)
 
-## 31. TS 7.0
+## 30. TS 7.0
 
 - [ ] [0284. typescript-go 项目](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0284.%20typescript-go%20%E9%A1%B9%E7%9B%AE/README.md)
 
-## 32. 踩坑记录
+## 31. 踩坑记录
 
 - [x] [0231. VSCode 打开 TS 项目提示 Intellisense 问题](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0231.%20VSCode%20%E6%89%93%E5%BC%80%20TS%20%E9%A1%B9%E7%9B%AE%E6%8F%90%E7%A4%BA%20Intellisense%20%E9%97%AE%E9%A2%98/README.md)
 
-## xxx
+## 32. xxx
 
 - [ ] [0292. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0292.%20new/README.md)
 - [ ] [0293. new](https://github.com/tnotesjs/TNotes.typescript/tree/main/notes/0293.%20new/README.md)

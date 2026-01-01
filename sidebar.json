@@ -892,7 +892,7 @@
     ]
   },
   {
-    "text": "24. 类型工具",
+    "text": "23. 类型工具",
     "collapsed": true,
     "items": [
       {
@@ -974,7 +974,7 @@
     ]
   },
   {
-    "text": "25. 注释指令",
+    "text": "24. 注释指令",
     "collapsed": true,
     "items": [
       {
@@ -1008,7 +1008,7 @@
     ]
   },
   {
-    "text": "26. tsconfig.json 文件",
+    "text": "25. tsconfig.json 文件",
     "collapsed": true,
     "items": [
       {
@@ -1082,7 +1082,7 @@
     ]
   },
   {
-    "text": "27. tsc 命令",
+    "text": "26. tsc 命令",
     "collapsed": true,
     "items": [
       {
@@ -1132,7 +1132,7 @@
     ]
   },
   {
-    "text": "28. 实战技巧",
+    "text": "27. 实战技巧",
     "collapsed": true,
     "items": [
       {
@@ -1174,7 +1174,7 @@
     ]
   },
   {
-    "text": "29. 深入原理",
+    "text": "28. 深入原理",
     "collapsed": true,
     "items": [
       {
@@ -1220,7 +1220,7 @@
     ]
   },
   {
-    "text": "30. 进阶话题",
+    "text": "29. 进阶话题",
     "collapsed": true,
     "items": [
       {
@@ -1254,7 +1254,7 @@
     ]
   },
   {
-    "text": "31. TS 7.0",
+    "text": "30. TS 7.0",
     "collapsed": true,
     "items": [
       {
@@ -1264,7 +1264,7 @@
     ]
   },
   {
-    "text": "32. 踩坑记录",
+    "text": "31. 踩坑记录",
     "collapsed": true,
     "items": [
       {
@@ -1274,7 +1274,7 @@
     ]
   },
   {
-    "text": "xxx",
+    "text": "32. xxx",
     "collapsed": true,
     "items": [
       {
