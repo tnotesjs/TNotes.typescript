@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "TypeScript 中应始终使用小写的原始类型（string、number、boolean）而非大写的包装对象类型（String、Number、Boolean），因为后者性能较差、行为异常且 TypeScript 官方明确不推荐使用。",
   "id": "31b9cea6-3fbc-4209-be53-6eca57eed668",

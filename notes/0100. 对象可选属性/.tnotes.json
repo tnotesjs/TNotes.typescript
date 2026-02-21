@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "可选属性（Optional Property）使用 ? 修饰符，表示对象的某个属性可以存在也可以不存在。",
   "id": "0327c9fe-a6e4-48f1-adb7-98d1c7ce029e",

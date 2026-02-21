@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "外部枚举是 TypeScript 中用于描述“存在于运行时但由外部提供”的枚举类型声明，它不产生运行时代码，只为类型系统提供信息。",
   "id": "bdc8b0b8-8bc5-44c1-bd60-fd28e0a9a0eb",

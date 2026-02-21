@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "系统梳理了 TypeScript 在前端（如 React、Vue、Angular）和后端（如 Node.js、ORM）领域的主流应用场景及其生态支持。",
   "id": "01a80800-d808-4774-85f0-5f751086539c",

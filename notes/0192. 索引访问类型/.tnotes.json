@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "TS 中的索引访问类型是一种通过索引获取其他类型的子类型的机制。",
   "id": "8e540748-c002-4f15-b5df-ac9ede1a8f65",

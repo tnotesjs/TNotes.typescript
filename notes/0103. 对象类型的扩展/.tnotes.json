@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "本文概述了在 TypeScript 中通过接口继承（extends）和交叉类型（&）扩展对象类型的常用用法、差异与注意事项，包括属性覆盖规则、类型冲突会产生 never 以及接口的声明合并行为。",
   "id": "6be9baaa-81ac-490a-80dc-b9df40df1627",

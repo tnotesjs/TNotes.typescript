@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "TypeScript 的 type 关键字用于创建类型别名，能够为原始类型、对象、联合类型、交叉类型等定义可读性更强的名称，特别适合处理复杂类型结构和类型运算。",
   "id": "85714541-925f-4f2b-9609-546defb6145e",

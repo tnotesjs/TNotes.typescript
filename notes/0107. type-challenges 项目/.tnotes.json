@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "type-challenges 是一个通过“闯关”、“刷题”的方式来学习 TypeScript 类型系统的开源项目，学过 TS 之后，可以自测一下，看看自己的掌握情况，查漏补缺。",
   "id": "5fa2adcd-c686-4bc3-8cfa-aa3b7e0161b4",

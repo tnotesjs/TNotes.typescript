@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "Partial<T> 是 TS 中最常用的工具类型之一，它将类型的所有属性变为可选，在表单、配置、API 更新等场景中广泛使用。",
   "id": "470493d4-b2ae-4988-a9d8-22a9f3a3f6b9",

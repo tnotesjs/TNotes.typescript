@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "反向映射（Reverse Mapping）是 TS 中数字枚举独有的特性，允许通过枚举值获取枚举名称。",
   "id": "bad45c4f-d8e6-46ae-b9d5-9d81accd354a",

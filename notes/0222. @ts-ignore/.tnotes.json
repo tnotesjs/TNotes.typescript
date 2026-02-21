@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "@ts-ignore 无条件忽略下一行类型错误，易掩盖问题；应仅作临时手段并附详尽注释，优先用更安全的 @ts-expect-error 替代。",
   "id": "d20917e1-c452-40d0-b20e-9b13dcd7f3ce",

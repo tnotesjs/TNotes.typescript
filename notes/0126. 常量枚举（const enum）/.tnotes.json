@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "常量枚举（const enum）是 TS 中编译时内联的枚举类型，实战中推荐使用。",
   "id": "1190422c-1a09-4896-98e7-6d60e5c423a2",

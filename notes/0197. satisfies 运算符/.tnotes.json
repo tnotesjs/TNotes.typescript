@@ -3,7 +3,6 @@
   "tnotes": [],
   "yuque": [],
   "done": true,
-  "deprecated": false,
   "enableDiscussions": true,
   "description": "在 TS 4.9 中引入的 satisfies 运算符，这是一个在类型安全和类型推断之间取得平衡的重要特性。",
   "id": "9f61edde-a15f-42c4-8bc1-234f54fd2bd0",
