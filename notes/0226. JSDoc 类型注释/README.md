@@ -2,26 +2,26 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 💻 demos.1 - 认识 JSDoc 类型注释](#3--demos1---认识-jsdoc-类型注释)
-- [4. 💻 demos.2 - `@type` 标记的经典用法](#4--demos2---type-标记的经典用法)
-- [5. 🤔 TS 支持哪些 JSDoc 标记？](#5--ts-支持哪些-jsdoc-标记)
-- [6. 🤔 JSDoc 与 TS 有什么区别？](#6--jsdoc-与-ts-有什么区别)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. demos.1 - 认识 JSDoc 类型注释](#3-demos1---认识-jsdoc-类型注释)
+- [4. demos.2 - `@type` 标记的经典用法](#4-demos2---type-标记的经典用法)
+- [5. TS 支持哪些 JSDoc 标记？](#5-ts-支持哪些-jsdoc-标记)
+- [6. JSDoc 与 TS 有什么区别？](#6-jsdoc-与-ts-有什么区别)
   - [6.1. JSDoc 和 TS 两种写法对比](#61-jsdoc-和-ts-两种写法对比)
   - [6.2. 优势、劣势分析](#62-优势劣势分析)
   - [6.3. 决策建议](#63-决策建议)
-- [7. 🔗 引用](#7--引用)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - JSDoc 类型注释系统概述
 - TS 支持的 JSDoc 标记
 - JSDoc 与 TS 的关系和区别
 
-## 2. 🫧 评价
+## 2. 评价
 
 本节介绍的内容，在官方文档有专门的介绍文档：[TS Handbook - JSDoc Reference][1] - 这是在 JS 中渐进引入 TS 类型系统的“桥梁手册”——通过标准 JSDoc 让 .js 文件获得接近 .ts 的类型检查能力。
 
@@ -33,7 +33,7 @@ JSDoc 是 JS 的文档注释标准，TS 扩展了 JSDoc 以支持类型注释，
 - 编辑器（VS Code）能提供智能提示和类型检查
 - 是从 JS 到 TS 的平滑过渡方案
 
-## 3. 💻 demos.1 - 认识 JSDoc 类型注释
+## 3. demos.1 - 认识 JSDoc 类型注释
 
 JSDoc 是 JS 的文档注释标准，TS 扩展了它以支持类型信息：
 
@@ -45,7 +45,7 @@ JSDoc 是 JS 的文档注释标准，TS 扩展了它以支持类型信息：
 
 :::
 
-## 4. 💻 demos.2 - `@type` 标记的经典用法
+## 4. demos.2 - `@type` 标记的经典用法
 
 使用 `@type` 标记，可以让我们在指定 JS 模块中为特定变量添加完整类型信息。
 
@@ -81,7 +81,7 @@ JSDoc 是 JS 的文档注释标准，TS 扩展了它以支持类型信息：
 
 :::
 
-## 5. 🤔 TS 支持哪些 JSDoc 标记？
+## 5. TS 支持哪些 JSDoc 标记？
 
 直接上官方文档查看：
 
@@ -94,7 +94,7 @@ JSDoc 是 JS 的文档注释标准，TS 扩展了它以支持类型信息：
 
 :::
 
-## 6. 🤔 JSDoc 与 TS 有什么区别？
+## 6. JSDoc 与 TS 有什么区别？
 
 ### 6.1. JSDoc 和 TS 两种写法对比
 
@@ -186,7 +186,7 @@ function displayUserTS(user: User): void {
   - 可以在 TS 项目中导入使用 JSDoc 的 JS 文件
   - 也可以在 JS 项目中逐步添加 JSDoc，最终迁移到 TS
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TS Handbook - JSDoc Reference][1]
 - [JSDoc Official Documentation][2]

@@ -2,26 +2,26 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🔍 TS 官方对 Ambient enums 的介绍](#3--ts-官方对-ambient-enums-的介绍)
-- [4. 🤔 外部枚举是什么？](#4--外部枚举是什么)
-- [5. 🆚 `declare const enum` vs `const enum`](#5--declare-const-enum-vs-const-enum)
-- [6. 🤔 使用外部枚举的主要场景是什么？](#6--使用外部枚举的主要场景是什么)
-- [7. 🔗 引用](#7--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. TS 官方对 Ambient enums 的介绍](#3-ts-官方对-ambient-enums-的介绍)
+- [4. 外部枚举是什么？](#4-外部枚举是什么)
+- [5. `declare const enum` vs `const enum`](#5-declare-const-enum-vs-const-enum)
+- [6. 使用外部枚举的主要场景是什么？](#6-使用外部枚举的主要场景是什么)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 外部枚举（ambient enum）的概念
 - declare const enum 和 const enum 的差异
 
-## 2. 🫧 评价
+## 2. 评价
 
 外部枚举是 TypeScript 中用于描述“存在于运行时但由外部提供”的枚举类型声明，它不产生运行时代码，只为类型系统提供信息。
 
-## 3. 🔍 TS 官方对 Ambient enums 的介绍
+## 3. TS 官方对 Ambient enums 的介绍
 
 Ambient enums - 外部枚举
 
@@ -41,7 +41,7 @@ One important difference between ambient and non-ambient enums is that, in regul
 
 外部枚举与非外部枚举的一个重要区别在于：在常规枚举中，若前置枚举成员被视作常量，则没有初始化器的成员也会被视为常量。相比之下，在外部（且非常量）枚举中，没有初始化器的成员始终被视为需计算值。
 
-## 4. 🤔 外部枚举是什么？
+## 4. 外部枚举是什么？
 
 外部枚举（ambient enum）使用 declare 修饰，表示枚举的实现由外部提供（例如运行时 JS）。TS 只保留类型信息，不生成对应的 JS 枚举对象。
 
@@ -101,7 +101,7 @@ const d = Direction.Up // 编译为 0（或带注释的 0）
 
 注意：declare const enum 与普通 const enum 的差别在于前者通常出现在声明文件里，表示“外部存在且应当内联”。使用时要确保运行时环境与声明一致。
 
-## 5. 🆚 `declare const enum` vs `const enum`
+## 5. `declare const enum` vs `const enum`
 
 1. `declare const enum Direction { Up = 0, Down = 1, Left = 2, Right = 3 }`
 2. `const enum Direction { Up = 0, Down = 1, Left = 2, Right = 3 }`
@@ -125,7 +125,7 @@ const d = Direction.Up // 编译为 0（或带注释的 0）
    - 如果你是在写业务逻辑代码（.ts / .tsx）那么需要使用使用这种写法。
    - 你是在告诉编译器：“我要创建一个枚举，请在编译时把它内联掉。”
 
-## 6. 🤔 使用外部枚举的主要场景是什么？
+## 6. 使用外部枚举的主要场景是什么？
 
 - 为第三方 JS 库提供类型声明（.d.ts），库在运行时已经定义了相应枚举对象。
 - 为全局运行时常量（例如通过脚本注入或 CDN 提供的对象）提供类型提示。
@@ -148,7 +148,7 @@ function use(v: MyEnum) {
 
 这其实也正是 `declare` 声明的使用场景。
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript Handbook - Enums][1]
 - [TypeScript Declaration Files - Handbook][2]

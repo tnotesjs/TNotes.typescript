@@ -2,35 +2,35 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 declare global 的作用是什么？](#3--declare-global-的作用是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. declare global 的作用是什么？](#3-declare-global-的作用是什么)
   - [3.1. 基本语法](#31-基本语法)
   - [3.2. 为什么需要 declare global](#32-为什么需要-declare-global)
   - [3.3. 与普通 declare 的区别](#33-与普通-declare-的区别)
-- [4. 🤔 如何扩展浏览器全局对象？](#4--如何扩展浏览器全局对象)
+- [4. 如何扩展浏览器全局对象？](#4-如何扩展浏览器全局对象)
   - [4.1. 扩展 Window 对象](#41-扩展-window-对象)
   - [4.2. 扩展 Document 对象](#42-扩展-document-对象)
   - [4.3. 扩展 globalThis](#43-扩展-globalthis)
   - [4.4. 扩展 Navigator](#44-扩展-navigator)
   - [4.5. 添加全局事件类型](#45-添加全局事件类型)
-- [5. 🤔 如何扩展 Node.js 全局对象？](#5--如何扩展-nodejs-全局对象)
+- [5. 如何扩展 Node.js 全局对象？](#5-如何扩展-nodejs-全局对象)
   - [5.1. 扩展 global 对象](#51-扩展-global-对象)
   - [5.2. 扩展 process 对象](#52-扩展-process-对象)
   - [5.3. 扩展 console](#53-扩展-console)
   - [5.4. 扩展 Buffer](#54-扩展-buffer)
-- [6. 🤔 模块内如何使用 declare global？](#6--模块内如何使用-declare-global)
+- [6. 模块内如何使用 declare global？](#6-模块内如何使用-declare-global)
   - [6.1. 基本模式](#61-基本模式)
   - [6.2. 多个声明块](#62-多个声明块)
   - [6.3. 结合类型导出](#63-结合类型导出)
   - [6.4. 实际应用示例](#64-实际应用示例)
   - [6.5. Vue 插件示例](#65-vue-插件示例)
   - [6.6. React Context 全局化](#66-react-context-全局化)
-- [7. 🔗 引用](#7--引用)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - declare global 的基本概念
 - 扩展浏览器全局对象
@@ -38,7 +38,7 @@
 - 在模块中使用 declare global
 - 实际应用场景
 
-## 2. 🫧 评价
+## 2. 评价
 
 declare global 用于在模块文件中向全局作用域添加类型声明。
 
@@ -48,7 +48,7 @@ declare global 用于在模块文件中向全局作用域添加类型声明。
 - 常用于为全局脚本、polyfill、第三方库添加类型
 - 是连接模块系统与全局作用域的桥梁
 
-## 3. 🤔 declare global 的作用是什么？
+## 3. declare global 的作用是什么？
 
 declare global 用于在模块文件中向全局作用域添加声明。
 
@@ -137,7 +137,7 @@ window.MyLib.doSomething() // 通过 Window
 console.log(ENV) // 直接访问全局变量
 ```
 
-## 4. 🤔 如何扩展浏览器全局对象？
+## 4. 如何扩展浏览器全局对象？
 
 常见的浏览器全局对象扩展场景。
 
@@ -292,7 +292,7 @@ window.dispatchEvent(
 )
 ```
 
-## 5. 🤔 如何扩展 Node.js 全局对象？
+## 5. 如何扩展 Node.js 全局对象？
 
 Node.js 环境下的全局对象扩展。
 
@@ -430,7 +430,7 @@ const buffer = Buffer.fromBase64('SGVsbG8=')
 const base64 = Buffer.toBase64(buffer)
 ```
 
-## 6. 🤔 模块内如何使用 declare global？
+## 6. 模块内如何使用 declare global？
 
 在模块文件中正确使用 declare global。
 
@@ -662,7 +662,7 @@ export const AppProvider: React.FC = ({ children }) => {
 }
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript Handbook - Global Augmentation][1]
 - [Declaration Merging - Global Augmentation][2]

@@ -2,38 +2,38 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 如何定义组件 Props？](#3--如何定义组件-props)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 如何定义组件 Props？](#3-如何定义组件-props)
   - [3.1. 函数组件基本 Props](#31-函数组件基本-props)
   - [3.2. children 属性](#32-children-属性)
   - [3.3. 可选 Props 和默认值](#33-可选-props-和默认值)
   - [3.4. 扩展 HTML 属性](#34-扩展-html-属性)
   - [3.5. 泛型组件](#35-泛型组件)
-- [4. 🤔 如何使用 React Hooks？](#4--如何使用-react-hooks)
+- [4. 如何使用 React Hooks？](#4-如何使用-react-hooks)
   - [4.1. useState](#41-usestate)
   - [4.2. useEffect](#42-useeffect)
   - [4.3. useRef](#43-useref)
   - [4.4. useCallback](#44-usecallback)
   - [4.5. useMemo](#45-usememo)
   - [4.6. 自定义 Hook](#46-自定义-hook)
-- [5. 🤔 如何处理事件？](#5--如何处理事件)
+- [5. 如何处理事件？](#5-如何处理事件)
   - [5.1. 常见事件类型](#51-常见事件类型)
   - [5.2. 事件处理器类型](#52-事件处理器类型)
   - [5.3. 自定义事件处理](#53-自定义事件处理)
-- [6. 🤔 如何使用 refs？](#6--如何使用-refs)
+- [6. 如何使用 refs？](#6-如何使用-refs)
   - [6.1. 基本 ref 使用](#61-基本-ref-使用)
   - [6.2. forwardRef](#62-forwardref)
   - [6.3. useImperativeHandle](#63-useimperativehandle)
-- [7. 🤔 高级组件模式？](#7--高级组件模式)
+- [7. 高级组件模式？](#7-高级组件模式)
   - [7.1. 高阶组件（HOC）](#71-高阶组件hoc)
   - [7.2. Render Props](#72-render-props)
   - [7.3. Context](#73-context)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 组件 Props 类型
 - React Hooks 类型
@@ -41,7 +41,7 @@
 - Refs 类型
 - 高级组件模式
 
-## 2. 🫧 评价
+## 2. 评价
 
 TypeScript 与 React 的结合能够显著提升开发体验和代码质量。
 
@@ -51,7 +51,7 @@ TypeScript 与 React 的结合能够显著提升开发体验和代码质量。
 - 提升代码可维护性
 - React 官方推荐
 
-## 3. 🤔 如何定义组件 Props？
+## 3. 如何定义组件 Props？
 
 ### 3.1. 函数组件基本 Props
 
@@ -163,7 +163,7 @@ interface User {
 ;<List<User> items={users} renderItem={(user) => <span>{user.name}</span>} />
 ```
 
-## 4. 🤔 如何使用 React Hooks？
+## 4. 如何使用 React Hooks？
 
 ### 4.1. useState
 
@@ -233,7 +233,7 @@ const handleSubmit = useCallback<React.FormEventHandler<HTMLFormElement>>(
     event.preventDefault()
     // 处理提交
   },
-  []
+  [],
 )
 ```
 
@@ -279,7 +279,7 @@ function useCounter(initialValue = 0): UseCounterReturn {
 const { count, increment, decrement } = useCounter(10)
 ```
 
-## 5. 🤔 如何处理事件？
+## 5. 如何处理事件？
 
 ### 5.1. 常见事件类型
 
@@ -359,7 +359,7 @@ function Select({ options, onChange }: SelectProps) {
 }
 ```
 
-## 6. 🤔 如何使用 refs？
+## 6. 如何使用 refs？
 
 ### 6.1. 基本 ref 使用
 
@@ -450,7 +450,7 @@ function Parent() {
 }
 ```
 
-## 7. 🤔 高级组件模式？
+## 7. 高级组件模式？
 
 ### 7.1. 高阶组件（HOC）
 
@@ -567,7 +567,7 @@ function ThemedButton() {
 }
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [React TypeScript Cheatsheet][1]
 - [React TypeScript][2]

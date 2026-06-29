@@ -2,31 +2,31 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 reflect-metadata？](#3--什么是-reflect-metadata)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 reflect-metadata？](#3-什么是-reflect-metadata)
   - [3.1. 核心功能](#31-核心功能)
   - [3.2. 应用场景](#32-应用场景)
-- [4. 🤔 如何安装和使用 reflect-metadata？](#4--如何安装和使用-reflect-metadata)
+- [4. 如何安装和使用 reflect-metadata？](#4-如何安装和使用-reflect-metadata)
   - [4.1. 安装](#41-安装)
   - [4.2. TypeScript 配置](#42-typescript-配置)
   - [4.3. 导入方式](#43-导入方式)
   - [4.4. 基本使用](#44-基本使用)
-- [5. 🤔 reflect-metadata 的核心 API 有哪些？](#5--reflect-metadata-的核心-api-有哪些)
+- [5. reflect-metadata 的核心 API 有哪些？](#5-reflect-metadata-的核心-api-有哪些)
   - [5.1. defineMetadata 和 getMetadata](#51-definemetadata-和-getmetadata)
   - [5.2. hasMetadata 和 hasOwnMetadata](#52-hasmetadata-和-hasownmetadata)
   - [5.3. getMetadataKeys 和 getOwnMetadataKeys](#53-getmetadatakeys-和-getownmetadatakeys)
   - [5.4. deleteMetadata](#54-deletemetadata)
   - [5.5. metadata 装饰器](#55-metadata-装饰器)
-- [6. 🤔 如何使用元数据键管理复杂元数据？](#6--如何使用元数据键管理复杂元数据)
+- [6. 如何使用元数据键管理复杂元数据？](#6-如何使用元数据键管理复杂元数据)
   - [6.1. 使用 Symbol 键](#61-使用-symbol-键)
   - [6.2. 元数据继承](#62-元数据继承)
   - [6.3. 复杂元数据管理](#63-复杂元数据管理)
-- [7. 🔗 引用](#7--引用)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - reflect-metadata 库的作用
 - reflect-metadata 的安装和配置
@@ -34,7 +34,7 @@
 - 元数据的存储和读取
 - 元数据的继承和删除
 
-## 2. 🫧 评价
+## 2. 评价
 
 reflect-metadata 是支持装饰器元数据的关键库，实现了元数据反射 API。
 
@@ -44,7 +44,7 @@ reflect-metadata 是支持装饰器元数据的关键库，实现了元数据反
 - API 设计简洁，支持对象、属性、方法级别的元数据
 - 新装饰器（Stage 3）不再支持，需要等待新的元数据标准
 
-## 3. 🤔 什么是 reflect-metadata？
+## 3. 什么是 reflect-metadata？
 
 reflect-metadata 是一个提供元数据反射 API 的 JavaScript 库。
 
@@ -92,7 +92,7 @@ import 'reflect-metadata'
 // 实现自己的元数据系统
 ```
 
-## 4. 🤔 如何安装和使用 reflect-metadata？
+## 4. 如何安装和使用 reflect-metadata？
 
 reflect-metadata 的安装和配置非常简单。
 
@@ -156,7 +156,7 @@ const required = Reflect.getMetadata('required', Product.prototype, 'name')
 console.log(required) // true
 ```
 
-## 5. 🤔 reflect-metadata 的核心 API 有哪些？
+## 5. reflect-metadata 的核心 API 有哪些？
 
 reflect-metadata 提供了丰富的 API 来操作元数据。
 
@@ -177,7 +177,7 @@ Reflect.defineMetadata(
   'method-meta',
   'method value',
   Example.prototype,
-  'method'
+  'method',
 )
 
 // 读取类的元数据
@@ -207,7 +207,7 @@ console.log(Reflect.hasMetadata('inherited', Child.prototype, 'parentMethod')) /
 
 // hasOwnMetadata 只查找自身
 console.log(
-  Reflect.hasOwnMetadata('inherited', Child.prototype, 'parentMethod')
+  Reflect.hasOwnMetadata('inherited', Child.prototype, 'parentMethod'),
 ) // false
 console.log(Reflect.hasOwnMetadata('own', Child.prototype, 'childMethod')) // true
 ```
@@ -277,7 +277,7 @@ console.log(Reflect.getMetadata('type', Service.prototype, 'name')) // 'string'
 console.log(Reflect.getMetadata('async', Service.prototype, 'fetchData')) // true
 ```
 
-## 6. 🤔 如何使用元数据键管理复杂元数据？
+## 6. 如何使用元数据键管理复杂元数据？
 
 使用 Symbol 作为元数据键可以避免命名冲突。
 
@@ -319,12 +319,12 @@ class UserController {
 const validators = Reflect.getMetadata(
   ValidatorsKey,
   UserController.prototype,
-  'getUsers'
+  'getUsers',
 )
 const route = Reflect.getMetadata(
   RouteKey,
   UserController.prototype,
-  'getUsers'
+  'getUsers',
 )
 
 console.log('路由：', route) // '/users'
@@ -402,7 +402,7 @@ class MetadataManager {
       this.keys.permissions,
       permissions,
       target,
-      propertyKey
+      propertyKey,
     )
   }
 
@@ -439,14 +439,14 @@ class AdminController {
 const route = MetadataManager.getRoute(AdminController.prototype, 'getUsers')
 const permissions = MetadataManager.getPermissions(
   AdminController.prototype,
-  'getUsers'
+  'getUsers',
 )
 
 console.log('路由：', route) // '/admin/users'
 console.log('权限：', permissions) // ['admin', 'user:read']
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [reflect-metadata GitHub][1]
 - [Reflect Metadata API][2]

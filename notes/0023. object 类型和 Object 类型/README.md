@@ -2,26 +2,26 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 Object 类型（大写 O）？](#3--什么是-object-类型大写-o)
-- [4. 🤔 什么是 object 类型（小写 o）？](#4--什么是-object-类型小写-o)
-- [5. 🆚 Object vs. object](#5--object-vs-object)
-- [6. 🤔 使用 object 类型的最佳实践是什么？](#6--使用-object-类型的最佳实践是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 Object 类型（大写 O）？](#3-什么是-object-类型大写-o)
+- [4. 什么是 object 类型（小写 o）？](#4-什么是-object-类型小写-o)
+- [5. Object vs. object](#5-object-vs-object)
+- [6. 使用 object 类型的最佳实践是什么？](#6-使用-object-类型的最佳实践是什么)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - object
 - Object
 
-## 2. 🫧 评价
+## 2. 评价
 
 - object 和 Object 都不太常用，简单了解即可。
 - 官方文档对 object 和 Object 的描述也不多（因为它们的约束太宽泛了，通常起不到太大的作用），更多的篇幅都是在介绍 interface 类型和 type 类型，以定义对象的具体类型。
 
-## 3. 🤔 什么是 Object 类型（大写 O）？
+## 3. 什么是 Object 类型（大写 O）？
 
 - `Object` 是 JavaScript 内置的 `Object` 构造函数的类型，它代表所有对象的基类。
 - 大写的 `Object` 类型代表 JavaScript 语言里面的广义对象。所有可以转成对象的值，都是 `Object` 类型，这囊括了几乎所有的值。
@@ -94,7 +94,7 @@ function processItem(item: Record<string, any>) {
 // 如果能够明确具体的字段，更推荐直接使用 interface 或类型别名来明确具体的结构。
 ```
 
-## 4. 🤔 什么是 object 类型（小写 o）？
+## 4. 什么是 object 类型（小写 o）？
 
 - `object` 是 TypeScript 2.2 引入的类型，专门表示非原始类型的值。
 - 小写的 `object` 类型代表 JavaScript 里面的狭义对象，即可以用字面量表示的对象，只包含对象、数组和函数，不包括原始类型的值。
@@ -140,7 +140,7 @@ type Config = {
 }
 ```
 
-## 5. 🆚 Object vs. object
+## 5. Object vs. object
 
 | 特性     | `Object` (大写) | `object` (小写)     |
 | -------- | --------------- | ------------------- |
@@ -151,7 +151,7 @@ type Config = {
 | 推荐使用 | ❌ 不推荐       | ✅ 推荐             |
 | 引入版本 | TypeScript 1.0+ | TypeScript 2.2+     |
 
-## 6. 🤔 使用 object 类型的最佳实践是什么？
+## 6. 使用 object 类型的最佳实践是什么？
 
 1. 优先使用 `object`：当你需要表示非原始类型的对象时
 2. 避免使用 `Object`：除非你有特殊需求
@@ -162,7 +162,7 @@ type Config = {
 // 推荐的模式
 function mergeObjects<T extends object, U extends object>(
   obj1: T,
-  obj2: U
+  obj2: U,
 ): T & U {
   return { ...obj1, ...obj2 }
 }

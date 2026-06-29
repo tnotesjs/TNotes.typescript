@@ -2,27 +2,27 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 JavaScript 中的 `typeof` 是什么？【回顾 JS】](#3--javascript-中的-typeof-是什么回顾-js)
-- [4. 🤔 JavaScript 中 `typeof null` 为什么会返回 "object"？【回顾 JS】](#4--javascript-中-typeof-null-为什么会返回-object回顾-js)
-- [5. 🤔 JavaScript 中 `typeof` 的实际用途有哪些？【回顾 JS】](#5--javascript-中-typeof-的实际用途有哪些回顾-js)
-- [6. 🤔 TypeScript 中的 `typeof` 与 JavaScript 有什么不同？](#6--typescript-中的-typeof-与-javascript-有什么不同)
-- [7. 🤔 TypeScript 中 `typeof` 有哪些典型用法？](#7--typescript-中-typeof-有哪些典型用法)
-- [8. 🆚 `typeof` vs. `instanceof`](#8--typeof-vs-instanceof)
-- [9. 🤔 使用 `typeof` 来检查引用类型会存在什么问题？](#9--使用-typeof-来检查引用类型会存在什么问题)
-- [10. 🤔 可以使用 `typeof` 来获取表达式的类型吗？](#10--可以使用-typeof-来获取表达式的类型吗)
-- [11. 🤔 可以使用 `typeof` 来获取类型的类型吗？](#11--可以使用-typeof-来获取类型的类型吗)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. JavaScript 中的 `typeof` 是什么？【回顾 JS】](#3-javascript-中的-typeof-是什么回顾-js)
+- [4. JavaScript 中 `typeof null` 为什么会返回 "object"？【回顾 JS】](#4-javascript-中-typeof-null-为什么会返回-object回顾-js)
+- [5. JavaScript 中 `typeof` 的实际用途有哪些？【回顾 JS】](#5-javascript-中-typeof-的实际用途有哪些回顾-js)
+- [6. TypeScript 中的 `typeof` 与 JavaScript 有什么不同？](#6-typescript-中的-typeof-与-javascript-有什么不同)
+- [7. TypeScript 中 `typeof` 有哪些典型用法？](#7-typescript-中-typeof-有哪些典型用法)
+- [8. `typeof` vs. `instanceof`](#8-typeof-vs-instanceof)
+- [9. 使用 `typeof` 来检查引用类型会存在什么问题？](#9-使用-typeof-来检查引用类型会存在什么问题)
+- [10. 可以使用 `typeof` 来获取表达式的类型吗？](#10-可以使用-typeof-来获取表达式的类型吗)
+- [11. 可以使用 `typeof` 来获取类型的类型吗？](#11-可以使用-typeof-来获取类型的类型吗)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 回顾 JS 中的 typeof 运算符
 - 学习 TS 中对 typeof 运算符的增强
 - typeof vs. instanceof
 
-## 2. 🫧 评价
+## 2. 评价
 
 - 内容概述：
   - 先是对 JS 中的 `typeof` 运算做了简单的回顾，TS 是 JS 的超集，因此 TS 中的 `typeof` 自然也具备这些特性。
@@ -31,7 +31,7 @@
   - 原始类型 - 用 typeof 检测
   - 实例（引用）类型 - 用 instanceof 检测
 
-## 3. 🤔 JavaScript 中的 `typeof` 是什么？【回顾 JS】
+## 3. JavaScript 中的 `typeof` 是什么？【回顾 JS】
 
 JavaScript 中的 `typeof` 是一个内置运算符，用于在运行时检测一个值的原始类型（primitive type）。
 
@@ -55,7 +55,7 @@ typeof value
 | 函数 | `"function"` | 函数对象（特殊） |
 | 其他对象（包括数组、日期等） | `"object"` | 所有非函数对象 |
 
-## 4. 🤔 JavaScript 中 `typeof null` 为什么会返回 "object"？【回顾 JS】
+## 4. JavaScript 中 `typeof null` 为什么会返回 "object"？【回顾 JS】
 
 ```js
 console.log(typeof null) // "object"
@@ -73,7 +73,7 @@ if (value === null) { ... }
 if (value == null) { ... } // 因为 null == undefined 为 true
 ```
 
-## 5. 🤔 JavaScript 中 `typeof` 的实际用途有哪些？【回顾 JS】
+## 5. JavaScript 中 `typeof` 的实际用途有哪些？【回顾 JS】
 
 检查变量是否已声明（避免 ReferenceError）：
 
@@ -92,7 +92,7 @@ function add(a, b) {
 }
 ```
 
-## 6. 🤔 TypeScript 中的 `typeof` 与 JavaScript 有什么不同？
+## 6. TypeScript 中的 `typeof` 与 JavaScript 有什么不同？
 
 TypeScript 扩展了 `typeof` 的能力，使其不仅能在运行时使用，还能在类型层面获取值的类型。
 
@@ -114,7 +114,7 @@ let myVar = 'hello'
 type MyType = typeof myVar // MyType === string
 ```
 
-## 7. 🤔 TypeScript 中 `typeof` 有哪些典型用法？
+## 7. TypeScript 中 `typeof` 有哪些典型用法？
 
 1. 从变量推导类型
 2. 从函数推导函数类型
@@ -237,7 +237,7 @@ function process(input: string | number) {
 // 不过这里的 typeof 并非 TS 中的 typeof 运算符，在编译后会保留在结果 JS 中。
 ```
 
-## 8. 🆚 `typeof` vs. `instanceof`
+## 8. `typeof` vs. `instanceof`
 
 | 运算符 | 用途 | 适用场景 |
 | --- | --- | --- |
@@ -273,7 +273,7 @@ console.log(user instanceof User) // true
 console.log(typeof user) // "object"
 ```
 
-## 9. 🤔 使用 `typeof` 来检查引用类型会存在什么问题？
+## 9. 使用 `typeof` 来检查引用类型会存在什么问题？
 
 问题：会检测不准，太宽泛了。
 
@@ -316,7 +316,7 @@ if (arr !== null && typeof arr === 'object') {
 
 :::
 
-## 10. 🤔 可以使用 `typeof` 来获取表达式的类型吗？
+## 10. 可以使用 `typeof` 来获取表达式的类型吗？
 
 ```ts
 type T = typeof 1 + 1 // ❌ 报错
@@ -326,7 +326,7 @@ type T = typeof Date() // ❌ 报错
 
 由于编译时不会进行 JavaScript 的值运算，所以 TypeScript 规定，`typeof` 的参数只能是标识符，不能是需要运算的表达式。
 
-## 11. 🤔 可以使用 `typeof` 来获取类型的类型吗？
+## 11. 可以使用 `typeof` 来获取类型的类型吗？
 
 先说结轮：基本上都不行，可以直接暴力认为就是“TS 禁止 🚫 使用 `typeof` 来获取类型的类型”
 

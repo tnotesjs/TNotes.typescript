@@ -2,21 +2,21 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 boolean 类型是什么？](#3--boolean-类型是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. boolean 类型是什么？](#3-boolean-类型是什么)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - boolean
 
-## 2. 🫧 评价
+## 2. 评价
 
 - boolean 类型很简单也很常用
 
-## 3. 🤔 boolean 类型是什么？
+## 3. boolean 类型是什么？
 
 在 TypeScript 中，boolean 是基本数据类型之一，用于表示逻辑值：真 (true) 或假 (false)。boolean 类型是 TypeScript 和 JavaScript 中用于控制逻辑流程的关键数据类型，如条件语句、循环控制等。
 

@@ -2,28 +2,28 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `Record<K, T>` 是什么？](#3--recordk-t-是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `Record<K, T>` 是什么？](#3-recordk-t-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. 工作原理](#32-工作原理)
   - [3.3. 基本示例](#33-基本示例)
-- [4. 🆚 `Record<K, T>` vs 索引签名](#4--recordk-t-vs-索引签名)
-- [5. 🔗 引用](#5--引用)
+- [4. `Record<K, T>` vs 索引签名](#4-recordk-t-vs-索引签名)
+- [5. 引用](#5-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `Record<K, T>` 的定义和实现原理
 - 基本使用方法
 - 与索引签名的对比
 
-## 2. 🫧 评价
+## 2. 评价
 
 `Record<K, T>` 创建一个对象类型，其属性键为 `K`，属性值为 `T`，其中 `K` 的类型必须兼容 `string | number | symbol`。
 
-## 3. 🤔 `Record<K, T>` 是什么？
+## 3. `Record<K, T>` 是什么？
 
 `Record<K, T>` 创建一个对象类型，其属性键为 `K`，属性值为 `T`。
 
@@ -106,7 +106,7 @@ const extra: StatusMessages = {
 }
 ```
 
-## 4. 🆚 `Record<K, T>` vs 索引签名
+## 4. `Record<K, T>` vs 索引签名
 
 1. 索引签名 `[key: string]: number`：灵活但不精确，允许任意字符串 key
 2. Record `Record<Status, number>`：精确且严格，key 必须是 `Status`，不能多也不能少
@@ -174,7 +174,7 @@ type Dictionary = {
 }
 ```
 
-## 5. 🔗 引用
+## 5. 引用
 
 - [TypeScript Utility Types - Record][1]
 - [TypeScript Handbook - Index Signatures][2]

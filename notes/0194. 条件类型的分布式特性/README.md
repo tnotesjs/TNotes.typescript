@@ -2,16 +2,16 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是分布式条件类型？](#3--什么是分布式条件类型)
-- [4. 🆚 裸类型 vs 包裹类型](#4--裸类型-vs-包裹类型)
-- [5. 🔍 TS 内置工具类型 `Exclude`、`Extract`、`NonNullable` 的实现原理](#5--ts-内置工具类型-excludeextractnonnullable-的实现原理)
-- [6. 🔗 引用](#6--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是分布式条件类型？](#3-什么是分布式条件类型)
+- [4. 裸类型 vs 包裹类型](#4-裸类型-vs-包裹类型)
+- [5. TS 内置工具类型 `Exclude`、`Extract`、`NonNullable` 的实现原理](#5-ts-内置工具类型-excludeextractnonnullable-的实现原理)
+- [6. 引用](#6-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 分布式条件类型的基本概念
 - 分布式条件类型的工作原理
@@ -19,11 +19,11 @@
 - 裸类型和包裹类型
 - 阻止分布的写法
 
-## 2. 🫧 评价
+## 2. 评价
 
 TS 中条件类型的分布式特性是 `Exclude`、`Extract`、`NonNullable` 等工具类型的实现基础。
 
-## 3. 🤔 什么是分布式条件类型？
+## 3. 什么是分布式条件类型？
 
 分布式条件类型是指当条件类型作用于联合类型时，会自动将联合类型的每个成员分别应用条件类型。
 
@@ -103,7 +103,7 @@ type R2 = TestFixed<never> // true
 // never 是空集，是所有类型的子类型
 ```
 
-## 4. 🆚 裸类型 vs 包裹类型
+## 4. 裸类型 vs 包裹类型
 
 ```ts
 // 裸类型参数 - 会分发
@@ -144,7 +144,7 @@ type T2 = NoDistribute<string | number>
 
 :::
 
-## 5. 🔍 TS 内置工具类型 `Exclude`、`Extract`、`NonNullable` 的实现原理
+## 5. TS 内置工具类型 `Exclude`、`Extract`、`NonNullable` 的实现原理
 
 1. `Exclude`
 2. `Extract`
@@ -258,7 +258,7 @@ type WithId = ExtractWithId<Items>
 
 :::
 
-## 6. 🔗 引用
+## 6. 引用
 
 - [TypeScript Handbook - Distributive Conditional Types][1]
 - [TypeScript Handbook - Conditional Types][2]

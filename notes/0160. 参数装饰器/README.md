@@ -2,30 +2,30 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是参数装饰器？](#3--什么是参数装饰器)
-- [4. 🤔 参数装饰器的基本语法是什么？](#4--参数装饰器的基本语法是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是参数装饰器？](#3-什么是参数装饰器)
+- [4. 参数装饰器的基本语法是什么？](#4-参数装饰器的基本语法是什么)
   - [4.1. 参数说明](#41-参数说明)
   - [4.2. 类型定义](#42-类型定义)
-- [5. 🤔 参数装饰器如何收集元数据？](#5--参数装饰器如何收集元数据)
+- [5. 参数装饰器如何收集元数据？](#5-参数装饰器如何收集元数据)
   - [5.1. 基本元数据收集](#51-基本元数据收集)
   - [5.2. 收集参数类型信息](#52-收集参数类型信息)
-- [6. 🤔 参数装饰器有哪些实际应用场景？](#6--参数装饰器有哪些实际应用场景)
+- [6. 参数装饰器有哪些实际应用场景？](#6-参数装饰器有哪些实际应用场景)
   - [6.1. 依赖注入](#61-依赖注入)
   - [6.2. 参数验证](#62-参数验证)
   - [6.3. 路由参数绑定](#63-路由参数绑定)
   - [6.4. 日志记录](#64-日志记录)
-- [7. 🤔 使用参数装饰器时需要注意什么？](#7--使用参数装饰器时需要注意什么)
+- [7. 使用参数装饰器时需要注意什么？](#7-使用参数装饰器时需要注意什么)
   - [7.1. 返回值会被忽略](#71-返回值会被忽略)
   - [7.2. 必须配合方法装饰器使用](#72-必须配合方法装饰器使用)
   - [7.3. 装饰器执行顺序](#73-装饰器执行顺序)
   - [7.4. 类型信息获取](#74-类型信息获取)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 参数装饰器的定义和本质
 - 参数装饰器的基本语法
@@ -34,7 +34,7 @@
 - 参数装饰器的实际应用场景
 - 参数装饰器的使用注意事项
 
-## 2. 🫧 评价
+## 2. 评价
 
 参数装饰器主要用于标记和收集参数元数据，配合方法装饰器实现参数验证、依赖注入等功能。
 
@@ -44,7 +44,7 @@
 - 需要使用 `reflect-metadata` 库来存储和读取元数据
 - 参数装饰器的返回值会被忽略，不影响程序执行
 
-## 3. 🤔 什么是参数装饰器？
+## 3. 什么是参数装饰器？
 
 参数装饰器是应用在方法参数上的函数，用于标记参数并收集元数据。
 
@@ -53,7 +53,7 @@
 function logParameter(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   console.log('类：', target.constructor.name)
   console.log('方法：', propertyKey)
@@ -72,7 +72,7 @@ class UserService {
 // 参数索引：0
 ```
 
-## 4. 🤔 参数装饰器的基本语法是什么？
+## 4. 参数装饰器的基本语法是什么？
 
 参数装饰器接收三个参数，返回值会被忽略。
 
@@ -83,7 +83,7 @@ class UserService {
 function parameterDecorator(
   target: any, // 静态方法是类的构造函数，实例方法是类的原型对象
   propertyKey: string | symbol, // 方法的名称
-  parameterIndex: number // 参数在函数参数列表中的索引
+  parameterIndex: number, // 参数在函数参数列表中的索引
 ): void {
   // 装饰器逻辑
 }
@@ -92,7 +92,7 @@ class Example {
   // 实例方法的参数装饰器
   instanceMethod(
     @parameterDecorator param1: string,
-    @parameterDecorator param2: number
+    @parameterDecorator param2: number,
   ) {}
 
   // 静态方法的参数装饰器
@@ -107,7 +107,7 @@ class Example {
 type ParameterDecorator = (
   target: Object,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) => void
 
 // 示例装饰器
@@ -122,7 +122,7 @@ class Demo {
 }
 ```
 
-## 5. 🤔 参数装饰器如何收集元数据？
+## 5. 参数装饰器如何收集元数据？
 
 参数装饰器通常使用 `reflect-metadata` 存储参数信息，供方法装饰器读取。
 
@@ -135,7 +135,7 @@ import 'reflect-metadata'
 function Required(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   const existingRequiredParameters: number[] =
     Reflect.getOwnMetadata('required', target, propertyKey) || []
@@ -145,7 +145,7 @@ function Required(
     'required',
     existingRequiredParameters,
     target,
-    propertyKey
+    propertyKey,
   )
 }
 
@@ -153,7 +153,7 @@ function Required(
 function ValidateRequired(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -193,7 +193,7 @@ function Type(type: any) {
   return function (
     target: any,
     propertyKey: string | symbol,
-    parameterIndex: number
+    parameterIndex: number,
   ) {
     const existingTypes: any[] =
       Reflect.getOwnMetadata('paramTypes', target, propertyKey) || []
@@ -207,7 +207,7 @@ function Type(type: any) {
 function ValidateTypes(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -221,7 +221,7 @@ function ValidateTypes(
         throw new TypeError(
           `参数 ${index} 类型错误，期望 ${
             expectedType.name
-          }，实际 ${typeof arg}`
+          }，实际 ${typeof arg}`,
         )
       }
     })
@@ -242,7 +242,7 @@ service.saveData('user', { name: 'Alice' }) // 正常执行
 // service.saveData(123 as any, {});          // ❌ TypeError
 ```
 
-## 6. 🤔 参数装饰器有哪些实际应用场景？
+## 6. 参数装饰器有哪些实际应用场景？
 
 ### 6.1. 依赖注入
 
@@ -254,7 +254,7 @@ function Inject(token: string) {
   return function (
     target: any,
     propertyKey: string | symbol,
-    parameterIndex: number
+    parameterIndex: number,
   ) {
     const existingInjections: Array<{ index: number; token: string }> =
       Reflect.getOwnMetadata('injections', target, propertyKey) || []
@@ -264,7 +264,7 @@ function Inject(token: string) {
       'injections',
       existingInjections,
       target,
-      propertyKey
+      propertyKey,
     )
   }
 }
@@ -286,7 +286,7 @@ class Container {
 function InjectDependencies(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -335,7 +335,7 @@ function Min(min: number) {
   return function (
     target: any,
     propertyKey: string | symbol,
-    parameterIndex: number
+    parameterIndex: number,
   ) {
     const validators =
       Reflect.getOwnMetadata('validators', target, propertyKey) || []
@@ -355,7 +355,7 @@ function Max(max: number) {
   return function (
     target: any,
     propertyKey: string | symbol,
-    parameterIndex: number
+    parameterIndex: number,
   ) {
     const validators =
       Reflect.getOwnMetadata('validators', target, propertyKey) || []
@@ -375,7 +375,7 @@ function Max(max: number) {
 function Validate(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -414,7 +414,7 @@ function Param(name: string) {
   return function (
     target: any,
     propertyKey: string | symbol,
-    parameterIndex: number
+    parameterIndex: number,
   ) {
     const params = Reflect.getOwnMetadata('params', target, propertyKey) || []
     params.push({ index: parameterIndex, name, type: 'param' })
@@ -426,7 +426,7 @@ function Query(name: string) {
   return function (
     target: any,
     propertyKey: string | symbol,
-    parameterIndex: number
+    parameterIndex: number,
   ) {
     const params = Reflect.getOwnMetadata('params', target, propertyKey) || []
     params.push({ index: parameterIndex, name, type: 'query' })
@@ -438,7 +438,7 @@ function Body() {
   return function (
     target: any,
     propertyKey: string | symbol,
-    parameterIndex: number
+    parameterIndex: number,
   ) {
     const params = Reflect.getOwnMetadata('params', target, propertyKey) || []
     params.push({ index: parameterIndex, type: 'body' })
@@ -457,7 +457,7 @@ interface Request {
 function HandleRequest(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -524,7 +524,7 @@ import 'reflect-metadata'
 function Sensitive(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   const sensitiveParams =
     Reflect.getOwnMetadata('sensitive', target, propertyKey) || []
@@ -536,7 +536,7 @@ function Sensitive(
 function LogMethod(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -546,7 +546,7 @@ function LogMethod(
 
     // 隐藏敏感参数
     const logArgs = args.map((arg, index) =>
-      sensitiveParams.includes(index) ? '***' : arg
+      sensitiveParams.includes(index) ? '***' : arg,
     )
 
     console.log(`[LOG] 调用 ${String(propertyKey)}，参数：`, logArgs)
@@ -573,7 +573,7 @@ auth.login('alice', 'secret123')
 // [LOG] login 返回：{ token: 'abc123', username: 'alice' }
 ```
 
-## 7. 🤔 使用参数装饰器时需要注意什么？
+## 7. 使用参数装饰器时需要注意什么？
 
 ### 7.1. 返回值会被忽略
 
@@ -584,7 +584,7 @@ auth.login('alice', 'secret123')
 function WrongDecorator(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   // ❌ 返回值会被忽略
   return function (value: any) {
@@ -602,7 +602,7 @@ class Example {
 function CorrectDecorator(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   // 存储元数据供其他装饰器使用
   const metadata =
@@ -627,7 +627,7 @@ import 'reflect-metadata'
 function Validate(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   console.log('装饰器执行了，但不影响方法行为')
 }
@@ -648,7 +648,7 @@ example.method('test') // 正常执行，装饰器没有任何作用
 function ValidateParam(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   const validators =
     Reflect.getOwnMetadata('validators', target, propertyKey) || []
@@ -659,7 +659,7 @@ function ValidateParam(
 function ValidateMethod(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -694,7 +694,7 @@ import 'reflect-metadata'
 function First(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   console.log('First 装饰器执行，参数索引：', parameterIndex)
 }
@@ -702,7 +702,7 @@ function First(
 function Second(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   console.log('Second 装饰器执行，参数索引：', parameterIndex)
 }
@@ -728,7 +728,7 @@ import 'reflect-metadata'
 function LogType(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   // ⚠️ 这里无法直接获取参数的 TypeScript 类型
   console.log(`参数 ${parameterIndex} 的类型信息需要通过 reflect-metadata 获取`)
@@ -738,18 +738,18 @@ function LogType(
 function GetParamType(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   // 获取方法的参数类型数组
   const paramTypes = Reflect.getMetadata(
     'design:paramtypes',
     target,
-    propertyKey
+    propertyKey,
   )
   if (paramTypes) {
     console.log(
       `参数 ${parameterIndex} 的类型：`,
-      paramTypes[parameterIndex].name
+      paramTypes[parameterIndex].name,
     )
   }
 }
@@ -769,7 +769,7 @@ class Example {
 // }
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Handbook - Parameter Decorators][1]
 - [Reflect Metadata][2]

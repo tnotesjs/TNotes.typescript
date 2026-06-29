@@ -2,20 +2,20 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 @ts-ignore 的作用是什么？](#3--ts-ignore-的作用是什么)
-- [4. 🤔 何时应该使用 @ts-ignore？](#4--何时应该使用-ts-ignore)
-- [5. 🤔 使用 @ts-ignore 会有什么问题？](#5--使用-ts-ignore-会有什么问题)
-- [6. 🔗 引用](#6--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. @ts-ignore 的作用是什么？](#3-ts-ignore-的作用是什么)
+- [4. 何时应该使用 @ts-ignore？](#4-何时应该使用-ts-ignore)
+- [5. 使用 @ts-ignore 会有什么问题？](#5-使用-ts-ignore-会有什么问题)
+- [6. 引用](#6-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `@ts-ignore` 注释简介
 
-## 2. 🫧 评价
+## 2. 评价
 
 `@ts-ignore` 用于忽略下一行代码的类型错误，但应该谨慎使用，因为它会完全禁用类型检查。
 
@@ -25,7 +25,7 @@
 - 推荐使用 `@ts-expect-error` 代替，因为更安全
 - 定期审查代码中的 `@ts-ignore`，尝试移除它们
 
-## 3. 🤔 @ts-ignore 的作用是什么？
+## 3. @ts-ignore 的作用是什么？
 
 `@ts-ignore` 注释告诉 TypeScript 编译器忽略下一行代码的所有类型错误：
 
@@ -104,7 +104,7 @@ const config2: Config = {
 }
 ```
 
-## 4. 🤔 何时应该使用 @ts-ignore？
+## 4. 何时应该使用 @ts-ignore？
 
 只在特定场景下使用 `@ts-ignore`，且必须有充分理由：
 
@@ -161,7 +161,7 @@ someFunction()
 const value = getData()
 ```
 
-## 5. 🤔 使用 @ts-ignore 会有什么问题？
+## 5. 使用 @ts-ignore 会有什么问题？
 
 ```ts
 // ⚠️ 核心问题：维护困难
@@ -213,7 +213,7 @@ eslint 配置示例：
 }
 ```
 
-## 6. 🔗 引用
+## 6. 引用
 
 - [TypeScript Handbook - Comment Directives][1]
 - [TypeScript 3.9 Release Notes - @ts-expect-error][2]

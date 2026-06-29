@@ -2,21 +2,21 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 @ts-expect-error 的作用是什么？](#3--ts-expect-error-的作用是什么)
-- [4. 🔗 引用](#4--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. @ts-expect-error 的作用是什么？](#3-ts-expect-error-的作用是什么)
+- [4. 引用](#4-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `@ts-expect-error` 注释的基本用法
 - 在测试代码中的应用
 - 未使用指令的检测和处理
 - 与 `@ts-ignore` 的区别和优势
 
-## 2. 🫧 评价
+## 2. 评价
 
 `@ts-expect-error` 是 TypeScript 3.9 引入的注释指令，用于标记预期会出现类型错误的代码，比 `@ts-ignore` 更安全。
 
@@ -26,7 +26,7 @@
 - 推荐优先使用它而不是 `@ts-ignore`
 - 配合 ESLint 规则可以强制使用说明注释
 
-## 3. 🤔 @ts-expect-error 的作用是什么？
+## 3. @ts-expect-error 的作用是什么？
 
 `@ts-expect-error` 用于标记预期会有类型错误的代码，并在错误消失时发出警告。
 
@@ -60,7 +60,7 @@ const anotherUser: User = {
 }
 ```
 
-## 4. 🔗 引用
+## 4. 引用
 
 - [TypeScript 3.9 Release Notes - @ts-expect-error][1]
 - [TypeScript Handbook - Comment Directives][2]

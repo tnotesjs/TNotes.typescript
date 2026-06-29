@@ -2,24 +2,24 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 Record 工具类型？](#3--什么是-record-工具类型)
-- [4. 🤔 Record 的实现原理是？](#4--record-的实现原理是)
-- [5. 🆚 Record vs 索引签名](#5--record-vs-索引签名)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 Record 工具类型？](#3-什么是-record-工具类型)
+- [4. Record 的实现原理是？](#4-record-的实现原理是)
+- [5. Record vs 索引签名](#5-record-vs-索引签名)
   - [5.1. 语法对比](#51-语法对比)
   - [5.2. 完整性检查](#52-完整性检查)
   - [5.3. 经典使用场景差异](#53-经典使用场景差异)
-- [6. 🤔 Record 都有哪些高级用法？](#6--record-都有哪些高级用法)
+- [6. Record 都有哪些高级用法？](#6-record-都有哪些高级用法)
   - [6.1. 可以嵌套 Record 定义深层对象结构](#61-可以嵌套-record-定义深层对象结构)
   - [6.2. 可以结合泛型传递类型参数](#62-可以结合泛型传递类型参数)
   - [6.3. 可以结合 Partial 实现可选属性](#63-可以结合-partial-实现可选属性)
   - [6.4. 结合 Pick/Omit 筛选/排除特定键](#64-结合-pickomit-筛选排除特定键)
-- [7. 🔗 引用](#7--引用)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - Record 工具类型的定义
 - Record 的基本用法
@@ -27,7 +27,7 @@
 - Record 与索引签名的区别
 - 结合其他工具类型使用
 
-## 2. 🫧 评价
+## 2. 评价
 
 `Record<K, T>` 是 TypeScript 提供的工具类型（Utility Type），用于创建键值对类型。
 
@@ -38,7 +38,7 @@ Record 的特点：
 - 简洁语法：相比索引签名更简洁
 - 完整性检查：确保所有键都存在
 
-## 3. 🤔 什么是 Record 工具类型？
+## 3. 什么是 Record 工具类型？
 
 `Record<K, T>` 创建一个对象类型，其键的类型为 K，值的类型为 T。
 
@@ -156,7 +156,7 @@ const config: EndpointConfig = {
 }
 ```
 
-## 4. 🤔 Record 的实现原理是？
+## 4. Record 的实现原理是？
 
 Record 的实际定义：
 
@@ -209,7 +209,7 @@ type ImmutableMessages = ReadonlyRecord<Status, string>
 // 所有属性都是只读的
 ```
 
-## 5. 🆚 Record vs 索引签名
+## 5. Record vs 索引签名
 
 Record 与索引签名的区别：
 
@@ -304,7 +304,7 @@ interface Config {
 
 :::
 
-## 6. 🤔 Record 都有哪些高级用法？
+## 6. Record 都有哪些高级用法？
 
 ### 6.1. 可以嵌套 Record 定义深层对象结构
 
@@ -430,7 +430,7 @@ type NonErrorStatus = Omit<Record<AllStatus, boolean>, 'error' | 'cancelled'>
 // }
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript Handbook - Record][1]
 - [TypeScript Handbook - Mapped Types][2]

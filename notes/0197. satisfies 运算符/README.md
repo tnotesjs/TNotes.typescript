@@ -2,26 +2,26 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `satisfies` 运算符是什么？](#3--satisfies-运算符是什么)
-- [4. 🆚 `satisfies` vs. `类型注解`](#4--satisfies-vs-类型注解)
-- [5. 🆚 `satisfies` vs `as 断言`](#5--satisfies-vs-as-断言)
-- [6. 🔗 引用](#6--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `satisfies` 运算符是什么？](#3-satisfies-运算符是什么)
+- [4. `satisfies` vs. `类型注解`](#4-satisfies-vs-类型注解)
+- [5. `satisfies` vs `as 断言`](#5-satisfies-vs-as-断言)
+- [6. 引用](#6-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `satisfies` 运算符的基本概念和语法
 - `satisfies` 与类型注解的区别
 - `satisfies` 与 `as 断言` 的区别
 
-## 2. 🫧 评价
+## 2. 评价
 
 在 TS 4.9 中引入的 `satisfies` 运算符，这是一个在类型安全和类型推断之间取得平衡的重要特性。
 
-## 3. 🤔 `satisfies` 运算符是什么？
+## 3. `satisfies` 运算符是什么？
 
 `satisfies` 这个单词的中文含义是“满足”，它是 TS 在 v4.9 中新增的运算符，用于验证表达式是否符合某个类型，同时保持原有的类型推断。
 
@@ -127,7 +127,7 @@ const palette4 = {
 //   Property 'blue' is missing in type '{ red: string; green: string; }' but required in type 'Record<Colors, string>'.(1360)
 ```
 
-## 4. 🆚 `satisfies` vs. `类型注解`
+## 4. `satisfies` vs. `类型注解`
 
 1. 类型注解的问题 -> 类型注解会将变量的类型固定为注解的类型，丢失更精确的信息
 2. satisfies 的优势 -> satisfies 保留了推断的精确类型，同时确保类型安全
@@ -166,7 +166,7 @@ const color2 = ['255', 0, 0] as const satisfies RGB // ❌ Error
 
 :::
 
-## 5. 🆚 `satisfies` vs `as 断言`
+## 5. `satisfies` vs `as 断言`
 
 1. `satisfies` 不改变变量的类型，只验证变量是否满足类型
 2. `as 断言` 改变变量的类型
@@ -181,7 +181,7 @@ const value2 = 'hello' satisfies number // ❌ 错误：string 不满足 number
 // const value2: "hello"
 ```
 
-## 6. 🔗 引用
+## 6. 引用
 
 - [TypeScript 4.9 Release Notes - The satisfies Operator][1]
 - [TypeScript PR #46827 - The satisfies operator][2]

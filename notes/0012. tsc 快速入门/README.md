@@ -2,37 +2,37 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 tsc 是什么？](#3--tsc-是什么)
-- [4. 🤔 如何安装和验证 tsc 编译器？](#4--如何安装和验证-tsc-编译器)
-- [5. 🤔 如何获取 tsc 命令的帮助信息？](#5--如何获取-tsc-命令的帮助信息)
-- [6. 🤔 如何使用 tsc 编译单个或多个 TypeScript 文件？](#6--如何使用-tsc-编译单个或多个-typescript-文件)
-- [7. 🤔 tsc 有哪些常用的编译选项？](#7--tsc-有哪些常用的编译选项)
-- [8. 🤔 TypeScript 编译出错时会发生什么？](#8--typescript-编译出错时会发生什么)
-- [9. 🤔 如何使用 tsconfig.json 配置文件？](#9--如何使用-tsconfigjson-配置文件)
-- [10. 🤔 tsconfig.json 配置文件的作用是什么？](#10--tsconfigjson-配置文件的作用是什么)
-- [11. 🤔 tsconfig.json 和 tsc 之间的关系是？](#11--tsconfigjson-和-tsc-之间的关系是)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. tsc 是什么？](#3-tsc-是什么)
+- [4. 如何安装和验证 tsc 编译器？](#4-如何安装和验证-tsc-编译器)
+- [5. 如何获取 tsc 命令的帮助信息？](#5-如何获取-tsc-命令的帮助信息)
+- [6. 如何使用 tsc 编译单个或多个 TypeScript 文件？](#6-如何使用-tsc-编译单个或多个-typescript-文件)
+- [7. tsc 有哪些常用的编译选项？](#7-tsc-有哪些常用的编译选项)
+- [8. TypeScript 编译出错时会发生什么？](#8-typescript-编译出错时会发生什么)
+- [9. 如何使用 tsconfig.json 配置文件？](#9-如何使用-tsconfigjson-配置文件)
+- [10. tsconfig.json 配置文件的作用是什么？](#10-tsconfigjson-配置文件的作用是什么)
+- [11. tsconfig.json 和 tsc 之间的关系是？](#11-tsconfigjson-和-tsc-之间的关系是)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - tsc
 - tsconfig.json
 
-## 2. 🫧 评价
+## 2. 评价
 
 - 本节主要对 tsc 和 tsconfig.json 做一个简单的介绍，接下来的学习过程中会接触到 ts 配置和 ts 编译相关的知识点。
 - 对于 tsc 和 tsconfig.json 的具体细节，比如都有哪些配置，每个配置的具体作用，会在后续内容中详细介绍。
 
-## 3. 🤔 tsc 是什么？
+## 3. tsc 是什么？
 
 - tsc 是 TypeScript Compiler 的缩写，是 TypeScript 官方提供的编译器工具。它的主要作用是将 TypeScript 代码编译成 JavaScript 代码，使 TypeScript 能够在各种 JavaScript 运行环境中执行。
 - TypeScript 是 JavaScript 的超集，添加了静态类型检查等功能，但浏览器和 Node.js 等环境无法直接执行 TypeScript 代码，因此需要使用 tsc 将其编译为标准的 JavaScript 代码。
 - tsc 不仅仅是一个简单的编译器，它还提供了丰富的编译选项和配置功能，允许开发者根据项目需求定制编译行为，如指定目标 JavaScript 版本、模块系统、输出目录等。
 
-## 4. 🤔 如何安装和验证 tsc 编译器？
+## 4. 如何安装和验证 tsc 编译器？
 
 - tsc 是 TypeScript 官方提供的编译器，需要通过 npm 进行安装。可以使用以下命令全局安装：
 
@@ -52,7 +52,7 @@ tsc --version
 - 示例：
 - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-16-12-22-19.png)
 
-## 5. 🤔 如何获取 tsc 命令的帮助信息？
+## 5. 如何获取 tsc 命令的帮助信息？
 
 - tsc 提供了帮助命令来查看可用选项：
 
@@ -80,7 +80,7 @@ tsc --all
 
 :::
 
-## 6. 🤔 如何使用 tsc 编译单个或多个 TypeScript 文件？
+## 6. 如何使用 tsc 编译单个或多个 TypeScript 文件？
 
 - 编译单个 TypeScript 文件非常简单，只需执行：
 
@@ -96,7 +96,7 @@ tsc file1.ts file2.ts file3.ts
 # 这将分别生成 file1.js、file2.js 和 file3.js 文件
 ```
 
-## 7. 🤔 tsc 有哪些常用的编译选项？
+## 7. tsc 有哪些常用的编译选项？
 
 - tsc 提供了多个编译选项来控制编译行为，这里先简单认识几个常用的：
 
@@ -141,7 +141,7 @@ tsc --allowJs app.js
 tsc --allowJs --checkJs app.js
 ```
 
-## 8. 🤔 TypeScript 编译出错时会发生什么？
+## 8. TypeScript 编译出错时会发生什么？
 
 - 当 TypeScript 代码存在类型错误时，`tsc` 命令会显示错误信息，但仍会生成 JavaScript 文件。例如：
 
@@ -163,7 +163,7 @@ tsc --noEmitOnError app.ts
 tsc --noEmit app.ts
 ```
 
-## 9. 🤔 如何使用 tsconfig.json 配置文件？
+## 9. 如何使用 tsconfig.json 配置文件？
 
 - TypeScript 支持使用 tsconfig.json 文件来配置编译选项。当目录中存在此文件时，直接运行 `tsc` 命令即可自动读取配置。
 - 例如，将以下命令：
@@ -189,7 +189,7 @@ tsc file1.ts file2.ts --outFile dist/app.js
 tsc
 ```
 
-## 10. 🤔 tsconfig.json 配置文件的作用是什么？
+## 10. tsconfig.json 配置文件的作用是什么？
 
 tsconfig.json 是 TypeScript 项目的配置文件，它的主要作用包括：
 
@@ -201,7 +201,7 @@ tsconfig.json 是 TypeScript 项目的配置文件，它的主要作用包括：
 
 通过 tsconfig.json，开发者可以配置包括编译目标、模块系统、输出目录、包含/排除文件、严格模式等在内的各种选项，实现项目级的 TypeScript 编译管理。
 
-## 11. 🤔 tsconfig.json 和 tsc 之间的关系是？
+## 11. tsconfig.json 和 tsc 之间的关系是？
 
 - 配置与执行的关系：tsconfig.json 是配置文件，定义了编译选项和项目设置；tsc 是执行引擎，读取并应用这些配置来完成实际的编译工作
 - 默认读取机制：当运行 `tsc` 命令时，如果当前目录存在 tsconfig.json 文件，tsc 会自动读取其中的配置，无需手动指定编译选项

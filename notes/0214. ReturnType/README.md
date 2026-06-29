@@ -2,25 +2,25 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `ReturnType<T>` 是什么？](#3--returntypet-是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `ReturnType<T>` 是什么？](#3-returntypet-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. infer 关键字](#32-infer-关键字)
   - [3.3. 工作原理](#33-工作原理)
   - [3.4. 基本示例](#34-基本示例)
-- [4. 🤔 如何使用 `ReturnType<T>`？](#4--如何使用-returntypet)
+- [4. 如何使用 `ReturnType<T>`？](#4-如何使用-returntypet)
   - [4.1. 场景 1：从函数推导类型](#41-场景-1从函数推导类型)
   - [4.2. 场景 2：高阶函数类型推导](#42-场景-2高阶函数类型推导)
   - [4.3. 场景 3：工厂函数类型](#43-场景-3工厂函数类型)
   - [4.4. 场景 4：异步函数返回值](#44-场景-4异步函数返回值)
-- [5. 🤔 `ReturnType<T>` 的实际应用场景有哪些？](#5--returntypet-的实际应用场景有哪些)
+- [5. `ReturnType<T>` 的实际应用场景有哪些？](#5-returntypet-的实际应用场景有哪些)
   - [5.1. 应用 1：Redux Action Creator](#51-应用-1redux-action-creator)
   - [5.2. 应用 2：API 客户端类型推导](#52-应用-2api-客户端类型推导)
   - [5.3. 应用 3：数据处理管道](#53-应用-3数据处理管道)
   - [5.4. 应用 4：React Hooks 返回类型](#54-应用-4react-hooks-返回类型)
   - [5.5. 应用 5：数据库查询构建器](#55-应用-5数据库查询构建器)
-- [6. 🤔 使用 `ReturnType<T>` 需要注意什么？](#6--使用-returntypet-需要注意什么)
+- [6. 使用 `ReturnType<T>` 需要注意什么？](#6-使用-returntypet-需要注意什么)
   - [6.1. 注意事项 1：泛型函数的返回类型](#61-注意事项-1泛型函数的返回类型)
   - [6.2. 注意事项 2：重载函数](#62-注意事项-2重载函数)
   - [6.3. 注意事项 3：void 返回类型](#63-注意事项-3void-返回类型)
@@ -28,11 +28,11 @@
   - [6.5. 注意事项 5：异步函数](#65-注意事项-5异步函数)
   - [6.6. 注意事项 6：条件类型中的使用](#66-注意事项-6条件类型中的使用)
   - [6.7. 注意事项 7：构造函数](#67-注意事项-7构造函数)
-- [7. 🔗 引用](#7--引用)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `ReturnType<T>` 的定义和实现原理
 - `infer` 关键字的使用
@@ -40,11 +40,11 @@
 - 实际应用场景
 - 使用注意事项
 
-## 2. 🫧 评价
+## 2. 评价
 
 `ReturnType<T>` 提取函数类型 `T` 的返回值类型。
 
-## 3. 🤔 `ReturnType<T>` 是什么？
+## 3. `ReturnType<T>` 是什么？
 
 `ReturnType<T>` 从函数类型 `T` 中提取返回值的类型。
 
@@ -126,7 +126,7 @@ async function fetchData(): Promise<string> {
 type FetchReturn = ReturnType<typeof fetchData> // Promise<string>
 ```
 
-## 4. 🤔 如何使用 `ReturnType<T>`？
+## 4. 如何使用 `ReturnType<T>`？
 
 ### 4.1. 场景 1：从函数推导类型
 
@@ -238,7 +238,7 @@ async function processUser(): Promise<void> {
 }
 ```
 
-## 5. 🤔 `ReturnType<T>` 的实际应用场景有哪些？
+## 5. `ReturnType<T>` 的实际应用场景有哪些？
 
 ### 5.1. 应用 1：Redux Action Creator
 
@@ -461,7 +461,7 @@ async function findUsers(): Promise<void> {
 }
 ```
 
-## 6. 🤔 使用 `ReturnType<T>` 需要注意什么？
+## 6. 使用 `ReturnType<T>` 需要注意什么？
 
 ### 6.1. 注意事项 1：泛型函数的返回类型
 
@@ -577,7 +577,7 @@ type UserReturn = ReturnType<typeof User> // 错误
 type UserInstance = InstanceType<typeof User> // User
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript Utility Types - ReturnType][1]
 - [TypeScript Handbook - Conditional Types][2]

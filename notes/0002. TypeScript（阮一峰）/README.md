@@ -2,18 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🔍 教程目录](#3--教程目录)
-- [4. 🔗 引用](#4--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 教程目录](#3-教程目录)
+- [4. 引用](#4-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 阮一峰的 TypeScript 教程简介
 
-## 2. 🫧 评价
+## 2. 评价
 
 本文介绍的是阮一峰前辈开源的 TypeScript 教程，文章主要以 markdown 的形式来记录，在 github 上能够轻松获取到该教程的所有内容。
 
@@ -25,7 +25,7 @@
 - [github - typescript-tutorial][1]
 - [wangdoc - typescript][2] -> 在线阅读链接
 
-## 3. 🔍 教程目录
+## 3. 教程目录
 
 ```yml
 - intro.md: 简介
@@ -60,7 +60,7 @@
 
 ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-07-20-24-14.png)
 
-## 4. 🔗 引用
+## 4. 引用
 
 - [github - typescript-tutorial][1]
 - [wangdoc - typescript][2]

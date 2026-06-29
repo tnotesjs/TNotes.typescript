@@ -2,35 +2,35 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是装饰器工厂？](#3--什么是装饰器工厂)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是装饰器工厂？](#3-什么是装饰器工厂)
   - [3.1. 装饰器工厂的本质](#31-装饰器工厂的本质)
-- [4. 🤔 装饰器工厂的基本语法是什么？](#4--装饰器工厂的基本语法是什么)
+- [4. 装饰器工厂的基本语法是什么？](#4-装饰器工厂的基本语法是什么)
   - [4.1. 类装饰器工厂](#41-类装饰器工厂)
   - [4.2. 方法装饰器工厂](#42-方法装饰器工厂)
   - [4.3. 属性装饰器工厂](#43-属性装饰器工厂)
   - [4.4. 参数装饰器工厂](#44-参数装饰器工厂)
-- [5. 🤔 装饰器工厂如何传递参数？](#5--装饰器工厂如何传递参数)
+- [5. 装饰器工厂如何传递参数？](#5-装饰器工厂如何传递参数)
   - [5.1. 单个参数](#51-单个参数)
   - [5.2. 多个参数](#52-多个参数)
   - [5.3. 对象参数](#53-对象参数)
   - [5.4. 可选参数](#54-可选参数)
-- [6. 🤔 装饰器工厂有哪些应用场景？](#6--装饰器工厂有哪些应用场景)
+- [6. 装饰器工厂有哪些应用场景？](#6-装饰器工厂有哪些应用场景)
   - [6.1. 条件装饰](#61-条件装饰)
   - [6.2. 权限控制](#62-权限控制)
   - [6.3. 参数转换](#63-参数转换)
   - [6.4. 元数据配置](#64-元数据配置)
-- [7. 🤔 使用装饰器工厂需要注意什么？](#7--使用装饰器工厂需要注意什么)
+- [7. 使用装饰器工厂需要注意什么？](#7-使用装饰器工厂需要注意什么)
   - [7.1. 必须调用工厂函数](#71-必须调用工厂函数)
   - [7.2. 返回正确的装饰器类型](#72-返回正确的装饰器类型)
   - [7.3. 闭包变量的生命周期](#73-闭包变量的生命周期)
   - [7.4. 参数验证](#74-参数验证)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 装饰器工厂的定义和本质
 - 装饰器工厂的基本语法
@@ -39,7 +39,7 @@
 - 装饰器工厂的使用注意事项
 - 装饰器工厂与普通装饰器的区别
 
-## 2. 🫧 评价
+## 2. 评价
 
 装饰器工厂是返回装饰器函数的函数，主要用于实现可配置的装饰器功能。
 
@@ -49,7 +49,7 @@
 - 需要注意返回正确签名的装饰器函数
 - 合理使用闭包可以在装饰器间共享配置和状态
 
-## 3. 🤔 什么是装饰器工厂？
+## 3. 什么是装饰器工厂？
 
 装饰器工厂是一个返回装饰器的函数，用于创建可配置的装饰器。
 
@@ -90,7 +90,7 @@ function createLogger(prefix: string) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     // 这才是真正的装饰器
     const originalMethod = descriptor.value
@@ -119,7 +119,7 @@ service.method1() // [DEBUG] 调用方法 method1
 service.method2() // [INFO] 调用方法 method2
 ```
 
-## 4. 🤔 装饰器工厂的基本语法是什么？
+## 4. 装饰器工厂的基本语法是什么？
 
 装饰器工厂返回对应类型的装饰器函数。
 
@@ -156,7 +156,7 @@ function timeout(ms: number) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
@@ -164,7 +164,7 @@ function timeout(ms: number) {
       return Promise.race([
         originalMethod.apply(this, args),
         new Promise((_, reject) =>
-          setTimeout(() => reject(new Error(`超时 ${ms}ms`)), ms)
+          setTimeout(() => reject(new Error(`超时 ${ms}ms`)), ms),
         ),
       ])
     }
@@ -224,7 +224,7 @@ function validate(rule: (value: any) => boolean, message: string) {
   return function (
     target: any,
     propertyKey: string | symbol,
-    parameterIndex: number
+    parameterIndex: number,
   ) {
     const validators =
       Reflect.getOwnMetadata('validators', target, propertyKey) || []
@@ -236,7 +236,7 @@ function validate(rule: (value: any) => boolean, message: string) {
 function validateMethod(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -258,7 +258,7 @@ class UserService {
   @validateMethod
   createUser(
     @validate((v) => v.length >= 3, '用户名至少3个字符') name: string,
-    @validate((v) => v >= 18, '年龄必须大于等于18') age: number
+    @validate((v) => v >= 18, '年龄必须大于等于18') age: number,
   ) {
     return { name, age }
   }
@@ -270,7 +270,7 @@ console.log(service.createUser('Alice', 25))
 // service.createUser('Alice', 16);  // ❌ Error: 年龄必须大于等于18
 ```
 
-## 5. 🤔 装饰器工厂如何传递参数？
+## 5. 装饰器工厂如何传递参数？
 
 装饰器工厂可以接收任意类型和数量的参数。
 
@@ -282,7 +282,7 @@ function log(enabled: boolean) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     if (!enabled) {
       return descriptor
@@ -322,7 +322,7 @@ function retry(times: number, delay: number) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
@@ -373,7 +373,7 @@ function cache(options: CacheOptions) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
     const cacheMap = new Map<string, { value: any; timestamp: number }>()
@@ -421,7 +421,7 @@ function measure(unit: string = 'ms') {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
@@ -451,7 +451,7 @@ class Service {
 }
 ```
 
-## 6. 🤔 装饰器工厂有哪些应用场景？
+## 6. 装饰器工厂有哪些应用场景？
 
 ### 6.1. 条件装饰
 
@@ -461,7 +461,7 @@ function debugOnly(enabled: boolean = process.env.NODE_ENV === 'development') {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     if (!enabled) {
       return descriptor
@@ -496,7 +496,7 @@ function requireRole(...roles: string[]) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
@@ -544,13 +544,13 @@ function transform(transformer: (value: any) => any, ...indices: number[]) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
     descriptor.value = function (...args: any[]) {
       const transformedArgs = args.map((arg, index) =>
-        indices.includes(index) ? transformer(arg) : arg
+        indices.includes(index) ? transformer(arg) : arg,
       )
 
       return originalMethod.apply(this, transformedArgs)
@@ -584,12 +584,12 @@ import 'reflect-metadata'
 // 存储路由元数据
 function Route(
   path: string,
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET'
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
 ) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     Reflect.defineMetadata('route:path', path, target, propertyKey)
     Reflect.defineMetadata('route:method', method, target, propertyKey)
@@ -626,7 +626,7 @@ function getRoutes(controller: any) {
   const basePath = Reflect.getMetadata('controller:basePath', controller)
   const prototype = controller.prototype
   const methods = Object.getOwnPropertyNames(prototype).filter(
-    (m) => m !== 'constructor'
+    (m) => m !== 'constructor',
   )
 
   return methods.map((method) => ({
@@ -644,7 +644,7 @@ console.log(getRoutes(UserController))
 // ]
 ```
 
-## 7. 🤔 使用装饰器工厂需要注意什么？
+## 7. 使用装饰器工厂需要注意什么？
 
 ### 7.1. 必须调用工厂函数
 
@@ -656,7 +656,7 @@ function log(message: string) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     console.log(message)
   }
@@ -675,7 +675,7 @@ function log(message: string) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     console.log(message)
   }
@@ -705,7 +705,7 @@ function methodDecoratorFactory(config: any) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     return descriptor
   }
@@ -728,7 +728,7 @@ function counter() {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
@@ -763,7 +763,7 @@ function instanceCounter() {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
@@ -804,7 +804,7 @@ function timeout(ms: number) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
@@ -812,7 +812,7 @@ function timeout(ms: number) {
       return Promise.race([
         originalMethod.apply(this, args),
         new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('超时')), ms)
+          setTimeout(() => reject(new Error('超时')), ms),
         ),
       ])
     }
@@ -828,7 +828,7 @@ class Service {
 }
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Handbook - Decorator Factories][1]
 - [TC39 Decorator Proposal][2]

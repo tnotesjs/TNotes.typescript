@@ -2,26 +2,26 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是模块的类型声明？](#3--什么是模块的类型声明)
-- [4. 🤔 为什么需要类型声明文件？](#4--为什么需要类型声明文件)
-- [5. 🤔 类型声明文件的基本语法是什么？](#5--类型声明文件的基本语法是什么)
-- [6. 🤔 如何为第三方模块添加类型声明？](#6--如何为第三方模块添加类型声明)
-- [7. 🤔 模块类型声明的查找规则是什么？](#7--模块类型声明的查找规则是什么)
-- [8. 🤔 如何声明全局模块？](#8--如何声明全局模块)
-- [9. 🤔 如何声明命名空间模块？](#9--如何声明命名空间模块)
-- [10. 🤔 如何扩展现有模块的类型？](#10--如何扩展现有模块的类型)
-- [11. 🤔 如何处理非 JS/TS 文件的导入？](#11--如何处理非-jsts-文件的导入)
-- [12. 🤔 declare module 和 declare namespace 有什么区别？](#12--declare-module-和-declare-namespace-有什么区别)
-- [13. 🤔 @types 包是什么？](#13--types-包是什么)
-- [14. 🤔 如何编写可发布的类型声明文件？](#14--如何编写可发布的类型声明文件)
-- [15. 🤔 最佳实践是什么？](#15--最佳实践是什么)
-- [16. 🔗 引用](#16--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是模块的类型声明？](#3-什么是模块的类型声明)
+- [4. 为什么需要类型声明文件？](#4-为什么需要类型声明文件)
+- [5. 类型声明文件的基本语法是什么？](#5-类型声明文件的基本语法是什么)
+- [6. 如何为第三方模块添加类型声明？](#6-如何为第三方模块添加类型声明)
+- [7. 模块类型声明的查找规则是什么？](#7-模块类型声明的查找规则是什么)
+- [8. 如何声明全局模块？](#8-如何声明全局模块)
+- [9. 如何声明命名空间模块？](#9-如何声明命名空间模块)
+- [10. 如何扩展现有模块的类型？](#10-如何扩展现有模块的类型)
+- [11. 如何处理非 JS/TS 文件的导入？](#11-如何处理非-jsts-文件的导入)
+- [12. declare module 和 declare namespace 有什么区别？](#12-declare-module-和-declare-namespace-有什么区别)
+- [13. @types 包是什么？](#13-types-包是什么)
+- [14. 如何编写可发布的类型声明文件？](#14-如何编写可发布的类型声明文件)
+- [15. 最佳实践是什么？](#15-最佳实践是什么)
+- [16. 引用](#16-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 类型声明文件（`.d.ts`）
 - `declare module` 语法
@@ -30,7 +30,7 @@
 - 全局模块声明
 - @types 包
 
-## 2. 🫧 评价
+## 2. 评价
 
 - 类型声明文件是 TypeScript 项目中不可或缺的一部分，它为 JavaScript 代码提供类型信息。
 - 理解模块的类型声明有助于：
@@ -40,7 +40,7 @@
   - 发布自己的类型安全的库
 - 在实际开发中，我们经常需要编写或修改类型声明文件，掌握这个知识点能够显著提升开发体验。
 
-## 3. 🤔 什么是模块的类型声明？
+## 3. 什么是模块的类型声明？
 
 模块的类型声明是使用 `.d.ts` 文件来描述模块的类型信息，而不包含实际的实现代码。这些文件只在 TypeScript 编译时使用，编译后会被删除。
 
@@ -87,7 +87,7 @@ user.greet() // 返回 string
 
 :::
 
-## 4. 🤔 为什么需要类型声明文件？
+## 4. 为什么需要类型声明文件？
 
 为 JavaScript 库提供类型支持
 
@@ -137,7 +137,7 @@ console.log(APP_VERSION) // string 类型
 initApp() // 无需导入，直接使用
 ```
 
-## 5. 🤔 类型声明文件的基本语法是什么？
+## 5. 类型声明文件的基本语法是什么？
 
 声明变量
 
@@ -195,7 +195,7 @@ declare module 'my-module' {
 }
 ```
 
-## 6. 🤔 如何为第三方模块添加类型声明？
+## 6. 如何为第三方模块添加类型声明？
 
 为没有类型定义的 npm 包添加类型
 
@@ -242,7 +242,7 @@ const instance = new AwesomeClass({ name: 'test' })
 }
 ```
 
-## 7. 🤔 模块类型声明的查找规则是什么？
+## 7. 模块类型声明的查找规则是什么？
 
 TypeScript 按以下顺序查找模块的类型声明：
 
@@ -295,7 +295,7 @@ node_modules/
 }
 ```
 
-## 8. 🤔 如何声明全局模块？
+## 8. 如何声明全局模块？
 
 声明全局变量
 
@@ -347,7 +347,7 @@ declare const DEBUG: boolean
 
 :::
 
-## 9. 🤔 如何声明命名空间模块？
+## 9. 如何声明命名空间模块？
 
 使用 `declare module` 声明模块
 
@@ -407,7 +407,7 @@ import { helper } from 'my-library/utils'
 import type { User } from 'my-library/types'
 ```
 
-## 10. 🤔 如何扩展现有模块的类型？
+## 10. 如何扩展现有模块的类型？
 
 模块扩展（Module Augmentation）允许我们为现有模块添加新的类型定义。
 
@@ -487,7 +487,7 @@ declare module 'lodash' {
 }
 ```
 
-## 11. 🤔 如何处理非 JS/TS 文件的导入？
+## 11. 如何处理非 JS/TS 文件的导入？
 
 声明 CSS 模块
 
@@ -585,7 +585,7 @@ declare module '*.woff2' {
 }
 ```
 
-## 12. 🤔 declare module 和 declare namespace 有什么区别？
+## 12. declare module 和 declare namespace 有什么区别？
 
 `declare module` 用于模块声明
 
@@ -632,7 +632,7 @@ MyNamespace.Nested.helper()
 | 作用域   | 模块作用域     | 全局作用域           |
 | 推荐使用 | 是（现代开发） | 否（旧式，向后兼容） |
 
-## 13. 🤔 @types 包是什么？
+## 13. @types 包是什么？
 
 @types 是 DefinitelyTyped 项目的 npm 组织，为没有类型定义的 JavaScript 库提供类型声明。
 
@@ -677,7 +677,7 @@ pnpm install lodash
 # yarn 也可以配置自动安装
 ```
 
-## 14. 🤔 如何编写可发布的类型声明文件？
+## 14. 如何编写可发布的类型声明文件？
 
 项目结构
 
@@ -758,7 +758,10 @@ export function init(config: Config): void {
 
 ```ts [src/user.ts]
 export class User {
-  constructor(public name: string, public age: number) {}
+  constructor(
+    public name: string,
+    public age: number,
+  ) {}
 
   greet(): string {
     return `Hello, ${this.name}`
@@ -800,7 +803,7 @@ const user = new User('Alice', 25)
 init({ apiUrl: 'https://api.example.com' })
 ```
 
-## 15. 🤔 最佳实践是什么？
+## 15. 最佳实践是什么？
 
 使用 `declare` 关键字
 
@@ -929,7 +932,7 @@ declare function process(data: unknown): unknown
 declare function createUser(name: string, age: number): User
 ````
 
-## 16. 🔗 引用
+## 16. 引用
 
 - [TypeScript 官方文档 - Declaration Files][3]
 - [DefinitelyTyped][1]

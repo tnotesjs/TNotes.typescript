@@ -2,24 +2,24 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 TypeScript 在前端开发中的应用场景有哪些？](#3--typescript-在前端开发中的应用场景有哪些)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. TypeScript 在前端开发中的应用场景有哪些？](#3-typescript-在前端开发中的应用场景有哪些)
   - [3.1. React 生态](#31-react-生态)
   - [3.2. Vue 生态](#32-vue-生态)
   - [3.3. Angular 生态](#33-angular-生态)
-- [4. 🤔 TypeScript 在后端开发中的应用场景有哪些？](#4--typescript-在后端开发中的应用场景有哪些)
+- [4. TypeScript 在后端开发中的应用场景有哪些？](#4-typescript-在后端开发中的应用场景有哪些)
   - [4.1. Node.js 框架](#41-nodejs-框架)
   - [4.2. ORM/数据库](#42-orm数据库)
-- [5. 🔗 引用](#5--引用)
+- [5. 引用](#5-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - TS 在前、后端领域的应用
 
-## 2. 🫧 评价
+## 2. 评价
 
 TypeScript 的应用场景已经从最初的前端开发扩展到几乎所有 JavaScript 可以运行的领域。从 React/Vue 等前端框架，到 Node.js 后端服务，再到 VS Code 等桌面应用，TypeScript 都展现出了强大的适应性。
 
@@ -27,7 +27,7 @@ TypeScript 的应用场景已经从最初的前端开发扩展到几乎所有 Ja
 
 本节将系统梳理 TypeScript 在前、后端领域的应用场景，帮助你了解 TypeScript 的实际价值和最佳实践。
 
-## 3. 🤔 TypeScript 在前端开发中的应用场景有哪些？
+## 3. TypeScript 在前端开发中的应用场景有哪些？
 
 ### 3.1. React 生态
 
@@ -69,7 +69,7 @@ Angular 团队选择 TypeScript 的原因包括：
 - 装饰器语法对框架设计的支持
 - 与 ECMAScript 标准的兼容性
 
-## 4. 🤔 TypeScript 在后端开发中的应用场景有哪些？
+## 4. TypeScript 在后端开发中的应用场景有哪些？
 
 ### 4.1. Node.js 框架
 
@@ -89,7 +89,7 @@ Angular 团队选择 TypeScript 的原因包括：
 | [TypeORM][21] | 受 Hibernate 启发的 ORM，支持 Active Record 和 Data Mapper 模式，提供装饰器 API | ✅ 官方支持 |
 | [Drizzle][22] | 轻量级 SQL 查询构建器，提供类型安全的 SQL-like API，注重性能和类型推断 | ✅ 官方支持 |
 
-## 5. 🔗 引用
+## 5. 引用
 
 - [React TypeScript Cheatsheet][1]
 - [Vue 3 TS 支持][2]

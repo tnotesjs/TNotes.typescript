@@ -2,31 +2,31 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是三斜线指令？](#3--什么是三斜线指令)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是三斜线指令？](#3-什么是三斜线指令)
   - [3.1. 基本语法](#31-基本语法)
   - [3.2. 使用规则](#32-使用规则)
   - [3.3. 作用域](#33-作用域)
-- [4. 🤔 如何使用 reference path 指令？](#4--如何使用-reference-path-指令)
+- [4. 如何使用 reference path 指令？](#4-如何使用-reference-path-指令)
   - [4.1. 基本用法](#41-基本用法)
   - [4.2. 引用多个文件](#42-引用多个文件)
   - [4.3. 相对路径](#43-相对路径)
   - [4.4. 使用场景](#44-使用场景)
   - [4.5. 与 import 的对比](#45-与-import-的对比)
-- [5. 🤔 如何使用 reference types 指令？](#5--如何使用-reference-types-指令)
+- [5. 如何使用 reference types 指令？](#5-如何使用-reference-types-指令)
   - [5.1. 基本用法](#51-基本用法)
   - [5.2. 引用多个类型包](#52-引用多个类型包)
   - [5.3. 在 tsconfig.json 中配置](#53-在-tsconfigjson-中配置)
   - [5.4. 实际应用场景](#54-实际应用场景)
   - [5.5. 禁用自动引用](#55-禁用自动引用)
-- [6. 🤔 如何使用 reference lib 指令？](#6--如何使用-reference-lib-指令)
+- [6. 如何使用 reference lib 指令？](#6-如何使用-reference-lib-指令)
   - [6.1. 基本用法](#61-基本用法)
   - [6.2. 引用特定功能库](#62-引用特定功能库)
   - [6.3. 常用库类型](#63-常用库类型)
   - [6.4. 实际应用](#64-实际应用)
   - [6.5. 与 tsconfig.json 的关系](#65-与-tsconfigjson-的关系)
-- [7. 🤔 其他三斜线指令有哪些？](#7--其他三斜线指令有哪些)
+- [7. 其他三斜线指令有哪些？](#7-其他三斜线指令有哪些)
   - [7.1. reference no-default-lib](#71-reference-no-default-lib)
   - [7.2. amd-module](#72-amd-module)
   - [7.3. amd-dependency](#73-amd-dependency)
@@ -34,11 +34,11 @@
   - [7.5. 使用建议](#75-使用建议)
   - [7.6. 最佳实践](#76-最佳实践)
   - [7.7. 调试技巧](#77-调试技巧)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 三斜线指令的概念和语法
 - reference path 指令的使用
@@ -47,7 +47,7 @@
 - 其他三斜线指令
 - 使用注意事项
 
-## 2. 🫧 评价
+## 2. 评价
 
 三斜线指令是 TypeScript 中用于声明文件依赖关系的特殊注释。
 
@@ -57,7 +57,7 @@
 - 在某些特殊场景下仍然有用，比如引用库类型定义
 - 理解三斜线指令有助于维护旧项目和理解类型声明文件
 
-## 3. 🤔 什么是三斜线指令？
+## 3. 什么是三斜线指令？
 
 三斜线指令的基本概念。
 
@@ -115,7 +115,7 @@ export function readConfig(): Buffer
 export function processData(): void // ❌ Buffer 未定义
 ```
 
-## 4. 🤔 如何使用 reference path 指令？
+## 4. 如何使用 reference path 指令？
 
 reference path 用于引用其他声明文件。
 
@@ -224,7 +224,7 @@ export function getUser(id: string): Promise<User>
 
 :::
 
-## 5. 🤔 如何使用 reference types 指令？
+## 5. 如何使用 reference types 指令？
 
 reference types 用于引用 @types 包。
 
@@ -335,7 +335,7 @@ declare module 'my-library' {
 /// <reference types="jest" />
 ```
 
-## 6. 🤔 如何使用 reference lib 指令？
+## 6. 如何使用 reference lib 指令？
 
 reference lib 用于引用内置库类型定义。
 
@@ -459,7 +459,7 @@ function processData(data: any): any {
 // 这个文件只使用 ES2015 特性
 ```
 
-## 7. 🤔 其他三斜线指令有哪些？
+## 7. 其他三斜线指令有哪些？
 
 其他特殊的三斜线指令。
 
@@ -592,7 +592,7 @@ import { something } from './a';
 // tsc --traceResolution
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Handbook - Triple-Slash Directives][1]
 - [Declaration Files - Triple-Slash Directives][2]

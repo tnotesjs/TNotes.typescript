@@ -2,30 +2,30 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是额外属性检查？](#3--什么是额外属性检查)
-- [4. 🤔 额外属性检查（Excess Property Checking）都有哪些叫法？](#4--额外属性检查excess-property-checking都有哪些叫法)
-- [5. 💻 demos.1 - 如何通过 suppressExcessPropertyErrors 配置关闭额外的属性检查](#5--demos1---如何通过-suppressexcesspropertyerrors-配置关闭额外的属性检查)
-- [6. 🤔 如何触发额外属性检查？](#6--如何触发额外属性检查)
-- [7. 🤔 如何绕过额外属性检查？](#7--如何绕过额外属性检查)
-- [8. 🤔 额外属性检查的实现原理是？【扩展】](#8--额外属性检查的实现原理是扩展)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是额外属性检查？](#3-什么是额外属性检查)
+- [4. 额外属性检查（Excess Property Checking）都有哪些叫法？](#4-额外属性检查excess-property-checking都有哪些叫法)
+- [5. demos.1 - 如何通过 suppressExcessPropertyErrors 配置关闭额外的属性检查](#5-demos1---如何通过-suppressexcesspropertyerrors-配置关闭额外的属性检查)
+- [6. 如何触发额外属性检查？](#6-如何触发额外属性检查)
+- [7. 如何绕过额外属性检查？](#7-如何绕过额外属性检查)
+- [8. 额外属性检查的实现原理是？【扩展】](#8-额外属性检查的实现原理是扩展)
   - [8.1. 核心源码位置](#81-核心源码位置)
   - [8.2. 新鲜度（Freshness）标记机制](#82-新鲜度freshness标记机制)
   - [8.3. 双重检查规则](#83-双重检查规则)
   - [8.4. 编译器检查流程](#84-编译器检查流程)
   - [8.5. 设计动机](#85-设计动机)
-- [9. 🤔 常见使用场景](#9--常见使用场景)
+- [9. 常见使用场景](#9-常见使用场景)
   - [9.1. 场景 1：配置对象](#91-场景-1配置对象)
   - [9.2. 场景 2：函数选项](#92-场景-2函数选项)
   - [9.3. 场景 3：React Props](#93-场景-3react-props)
   - [9.4. 场景 4：API 请求体](#94-场景-4api-请求体)
   - [9.5. 场景 5：需要灵活性的配置](#95-场景-5需要灵活性的配置)
-- [10. 🔗 引用](#10--引用)
+- [10. 引用](#10-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 额外属性检查的概念
 - 触发条件
@@ -33,7 +33,7 @@
 - suppressExcessPropertyErrors 配置
 - 实现原理简介
 
-## 2. 🫧 评价
+## 2. 评价
 
 额外属性检查（Excess Property Checking）是 TypeScript 的一个特殊类型检查机制，用于检测对象字面量中的多余属性。
 
@@ -59,7 +59,7 @@ const config: Config = {
 - 帮助发现错误：特别是拼写错误
 - 有时过于严格：需要绕过机制
 
-## 3. 🤔 什么是额外属性检查？
+## 3. 什么是额外属性检查？
 
 额外属性检查会拒绝对象字面量中的多余属性。
 
@@ -99,7 +99,7 @@ const config: Config = {
 // Object literal may only specify known properties, and 'retrys' does not exist in type 'Config'.(2353)
 ```
 
-## 4. 🤔 额外属性检查（Excess Property Checking）都有哪些叫法？
+## 4. 额外属性检查（Excess Property Checking）都有哪些叫法？
 
 | 术语 | 来源 | 说明 |
 | --- | --- | --- |
@@ -141,7 +141,7 @@ let a: A = obj // ✅ 允许
 
 所以在学术或正式场合，推荐使用「额外属性检查」（Excess Property Checking）这个术语，因为它是官方文档的标准表述。
 
-## 5. 💻 demos.1 - 如何通过 suppressExcessPropertyErrors 配置关闭额外的属性检查
+## 5. demos.1 - 如何通过 suppressExcessPropertyErrors 配置关闭额外的属性检查
 
 先来看看官方对这个配置的描述：
 
@@ -175,7 +175,7 @@ let a: A = obj // ✅ 允许
 
 ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-11-12-18-52-23.png)
 
-## 6. 🤔 如何触发额外属性检查？
+## 6. 如何触发额外属性检查？
 
 触发条件：额外属性检查只在对象字面量直接赋值时触发。
 
@@ -264,7 +264,7 @@ function getUser2(): User {
 
 :::
 
-## 7. 🤔 如何绕过额外属性检查？
+## 7. 如何绕过额外属性检查？
 
 虽然 TS 官方不再支持 suppressExcessPropertyErrors 配置了，但我们还是有不少手段可以绕过对象类型的额外属性检查规则的。
 
@@ -354,7 +354,7 @@ const user: User = {
 
 :::
 
-## 8. 🤔 额外属性检查的实现原理是？【扩展】
+## 8. 额外属性检查的实现原理是？【扩展】
 
 ### 8.1. 核心源码位置
 
@@ -530,7 +530,7 @@ TS 通过新鲜度机制在类型安全和灵活性之间取得平衡：
 - 在最容易出错的地方（对象字面量）提供严格检查
 - 在需要兼容性的地方（变量赋值）保持灵活性
 
-## 9. 🤔 常见使用场景
+## 9. 常见使用场景
 
 ### 9.1. 场景 1：配置对象
 
@@ -661,7 +661,7 @@ const eslintConfig: PluginConfig = {
 }
 ```
 
-## 10. 🔗 引用
+## 10. 引用
 
 - [TypeScript Handbook - Excess Property Checks][1]
 - [TypeScript Handbook - Object Types][2]

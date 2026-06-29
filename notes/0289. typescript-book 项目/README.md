@@ -2,11 +2,11 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 typescript-book 项目?](#3--什么是-typescript-book-项目)
-- [4. 🤔 这本书的作者是谁？](#4--这本书的作者是谁)
-- [5. 🤔 typescript-book 都涵盖了哪些内容?](#5--typescript-book-都涵盖了哪些内容)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 typescript-book 项目?](#3-什么是-typescript-book-项目)
+- [4. 这本书的作者是谁？](#4-这本书的作者是谁)
+- [5. typescript-book 都涵盖了哪些内容?](#5-typescript-book-都涵盖了哪些内容)
   - [5.1. 主要内容模块](#51-主要内容模块)
     - [基础部分](#基础部分)
     - [类型系统深入](#类型系统深入)
@@ -19,19 +19,19 @@
     - [TypeScript 编译器内部](#typescript-编译器内部)
     - [Node.js 快速开始](#nodejs-快速开始)
     - [测试章节](#测试章节)
-- [6. 🔗 引用](#6--引用)
+- [6. 引用](#6-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - typescript-book 项目简介
 
-## 2. 🫧 评价
+## 2. 评价
 
 `typescript-book` 是由 Basarat Ali Syed 编写的开源 TypeScript 学习资源，也被称为《TypeScript Deep Dive》。这是一本深入浅出的 TypeScript 指南，不仅覆盖了语言基础，还包含了大量实战经验和最佳实践。目前（25.11）该项目在 GitHub 上获得了超过 21.4k 星标，是学习 TypeScript 的优质参考资料。
 
-## 3. 🤔 什么是 typescript-book 项目?
+## 3. 什么是 typescript-book 项目?
 
 typescript-book 是一个免费开源的 TypeScript 学习电子书项目。
 
@@ -49,7 +49,7 @@ typescript-book 是一个免费开源的 TypeScript 学习电子书项目。
 - GitHub 仓库：https://github.com/basarat/typescript-book
 - 中文翻译版本：https://jkchao.github.io/typescript-book-chinese/
 
-## 4. 🤔 这本书的作者是谁？
+## 4. 这本书的作者是谁？
 
 1. basarat（Basarat Ali Syed）
    - [作者 Basarat GitHub 主页][4]
@@ -68,7 +68,7 @@ typescript-book 是一个免费开源的 TypeScript 学习电子书项目。
 
 :::
 
-## 5. 🤔 typescript-book 都涵盖了哪些内容?
+## 5. typescript-book 都涵盖了哪些内容?
 
 ### 5.1. 主要内容模块
 
@@ -154,7 +154,7 @@ TypeScript 项目测试实践:
 - 类型安全的测试
 - Mock 和 Spy 使用
 
-## 6. 🔗 引用
+## 6. 引用
 
 - [TypeScript Deep Dive 在线阅读][1]
 - [typescript-book GitHub 仓库][2]

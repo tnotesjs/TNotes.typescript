@@ -2,30 +2,30 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 输出控制参数？](#3--输出控制参数)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 输出控制参数？](#3-输出控制参数)
   - [3.1. --outDir](#31---outdir)
   - [3.2. --outFile](#32---outfile)
   - [3.3. --removeComments](#33---removecomments)
   - [3.4. --declaration](#34---declaration)
-- [4. 🤔 类型检查参数？](#4--类型检查参数)
+- [4. 类型检查参数？](#4-类型检查参数)
   - [4.1. --strict](#41---strict)
   - [4.2. --noImplicitAny](#42---noimplicitany)
   - [4.3. --strictNullChecks](#43---strictnullchecks)
   - [4.4. --noUnusedLocals](#44---nounusedlocals)
   - [4.5. --noUnusedParameters](#45---nounusedparameters)
-- [5. 🤔 模块相关参数？](#5--模块相关参数)
+- [5. 模块相关参数？](#5-模块相关参数)
   - [5.1. --module](#51---module)
   - [5.2. --moduleResolution](#52---moduleresolution)
   - [5.3. --esModuleInterop](#53---esmoduleinterop)
   - [5.4. --allowSyntheticDefaultImports](#54---allowsyntheticdefaultimports)
-- [6. 🤔 调试相关参数？](#6--调试相关参数)
+- [6. 调试相关参数？](#6-调试相关参数)
   - [6.1. --sourceMap](#61---sourcemap)
   - [6.2. --inlineSourceMap](#62---inlinesourcemap)
   - [6.3. --listFiles](#63---listfiles)
   - [6.4. --diagnostics](#64---diagnostics)
-- [7. 🤔 项目管理参数？](#7--项目管理参数)
+- [7. 项目管理参数？](#7-项目管理参数)
   - [7.1. --project](#71---project)
   - [7.2. --build](#72---build)
   - [7.3. --incremental](#73---incremental)
@@ -33,11 +33,11 @@
   - [7.5. --noEmitOnError](#75---noemitonerror)
   - [7.6. --help](#76---help)
   - [7.7. --version](#77---version)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 输出控制参数
 - 类型检查参数
@@ -45,7 +45,7 @@
 - 调试相关参数
 - 项目管理参数
 
-## 2. 🫧 评价
+## 2. 评价
 
 tsc 提供了丰富的命令行参数，可以灵活控制编译行为。
 
@@ -55,7 +55,7 @@ tsc 提供了丰富的命令行参数，可以灵活控制编译行为。
 - 不同场景需要不同参数组合
 - 掌握常用参数提升开发效率
 
-## 3. 🤔 输出控制参数？
+## 3. 输出控制参数？
 
 ### 3.1. --outDir
 
@@ -160,7 +160,7 @@ export function greet(name: string): string {
 export declare function greet(name: string): string
 ```
 
-## 4. 🤔 类型检查参数？
+## 4. 类型检查参数？
 
 ### 4.1. --strict
 
@@ -253,7 +253,7 @@ function greet(name: string, _age: number) {
 }
 ```
 
-## 5. 🤔 模块相关参数？
+## 5. 模块相关参数？
 
 ### 5.1. --module
 
@@ -328,7 +328,7 @@ const express_default = express.default || express
 tsc --allowSyntheticDefaultImports
 ```
 
-## 6. 🤔 调试相关参数？
+## 6. 调试相关参数？
 
 ### 6.1. --sourceMap
 
@@ -401,7 +401,7 @@ Emit time:     0.67s
 Total time:    2.69s
 ```
 
-## 7. 🤔 项目管理参数？
+## 7. 项目管理参数？
 
 ### 7.1. --project
 
@@ -479,7 +479,7 @@ tsc --version
 # Version 5.3.3
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [Compiler Options][1]
 - [TSC CLI Reference][2]

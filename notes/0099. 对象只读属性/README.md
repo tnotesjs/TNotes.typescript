@@ -2,29 +2,29 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是只读属性？](#3--什么是只读属性)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是只读属性？](#3-什么是只读属性)
   - [3.1. 初始化时赋值](#31-初始化时赋值)
   - [3.2. 浅只读](#32-浅只读)
   - [3.3. 运行时行为](#33-运行时行为)
-- [4. 🤔 如何声明只读属性？](#4--如何声明只读属性)
-- [5. 🤔 如何将对象类型的所有属性变为只读？](#5--如何将对象类型的所有属性变为只读)
-- [6. 🤔 如何实现深层只读？](#6--如何实现深层只读)
+- [4. 如何声明只读属性？](#4-如何声明只读属性)
+- [5. 如何将对象类型的所有属性变为只读？](#5-如何将对象类型的所有属性变为只读)
+- [6. 如何实现深层只读？](#6-如何实现深层只读)
   - [6.1. 做法 1：手写类型工具](#61-做法-1手写类型工具)
   - [6.2. 做法 2：使用 `as const` 断言](#62-做法-2使用-as-const-断言)
-- [7. 🔗 引用](#7--引用)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 只读属性的定义和语法
 - readonly 修饰符
 - Readonly 工具类型
 - 深层只读的实现
 
-## 2. 🫧 评价
+## 2. 评价
 
 只读属性（Readonly Property）使用 `readonly` 修饰符，表示属性初始化后不能被修改。这是 TypeScript 提供的不可变性保障。
 
@@ -35,7 +35,7 @@
 - 浅只读：只保护属性本身，不保护嵌套对象
 - 类型层面：运行时仍可修改
 
-## 3. 🤔 什么是只读属性？
+## 3. 什么是只读属性？
 
 只读属性使用 `readonly` 修饰符，表示属性不能被重新赋值。
 
@@ -132,7 +132,7 @@ const frozenPoint = Object.freeze({ x: 10, y: 20 })
 frozenPoint.x = 30 // ❌ 编译时和运行时都会报错
 ```
 
-## 4. 🤔 如何声明只读属性？
+## 4. 如何声明只读属性？
 
 对象的只读属性可以声明在多个位置，比如：
 
@@ -206,7 +206,7 @@ map.age = '25' // ❌ Error: Index signature in type 'ReadonlyStringMap' only pe
 
 :::
 
-## 5. 🤔 如何将对象类型的所有属性变为只读？
+## 5. 如何将对象类型的所有属性变为只读？
 
 可以使用 Readonly 工具类型将对象类型的所有属性变为只读。
 
@@ -292,7 +292,7 @@ type PartialReadonly<T, K extends keyof T> = Readonly<Pick<T, K>> & Omit<T, K>
 type UserWithReadonlyId_2 = PartialReadonly<User, 'id'>
 ```
 
-## 6. 🤔 如何实现深层只读？
+## 6. 如何实现深层只读？
 
 ### 6.1. 做法 1：手写类型工具
 
@@ -338,10 +338,10 @@ user.profile.address.city = 'LA' // ❌ Error
 type DeepReadonly<T> = T extends (infer R)[]
   ? ReadonlyArray<DeepReadonly<R>>
   : T extends Function
-  ? T
-  : T extends object
-  ? { readonly [P in keyof T]: DeepReadonly<T[P]> }
-  : T
+    ? T
+    : T extends object
+      ? { readonly [P in keyof T]: DeepReadonly<T[P]> }
+      : T
 
 interface Data {
   items: Array<{
@@ -392,7 +392,7 @@ user.profile.age = 30 // ❌ Error
 user.profile.address.city = 'LA' // ❌ Error
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript Handbook - readonly][1]
 - [TypeScript Handbook - Readonly Utility Type][2]

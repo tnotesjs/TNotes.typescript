@@ -2,22 +2,22 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是成员重写（Member Override）？](#3--什么是成员重写member-override)
-- [4. 🤔 override 关键字有什么作用？](#4--override-关键字有什么作用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是成员重写（Member Override）？](#3-什么是成员重写member-override)
+- [4. override 关键字有什么作用？](#4-override-关键字有什么作用)
   - [4.1. override 关键字的作用](#41-override-关键字的作用)
   - [4.2. 重构安全保护](#42-重构安全保护)
-- [5. 🤔 什么时候应该使用 override 关键字？](#5--什么时候应该使用-override-关键字)
-- [6. 🤔 noImplicitOverride 编译选项是什么？](#6--noimplicitoverride-编译选项是什么)
-- [7. 🤔 子类重写成员时有哪些类型约束？](#7--子类重写成员时有哪些类型约束)
-- [8. 🤔 访问器（getter/setter）的重写规则是什么？](#8--访问器gettersetter的重写规则是什么)
-- [9. 🤔 属性重写与方法重写有什么区别？](#9--属性重写与方法重写有什么区别)
-- [10. 🔗 引用](#10--引用)
+- [5. 什么时候应该使用 override 关键字？](#5-什么时候应该使用-override-关键字)
+- [6. noImplicitOverride 编译选项是什么？](#6-noimplicitoverride-编译选项是什么)
+- [7. 子类重写成员时有哪些类型约束？](#7-子类重写成员时有哪些类型约束)
+- [8. 访问器（getter/setter）的重写规则是什么？](#8-访问器gettersetter的重写规则是什么)
+- [9. 属性重写与方法重写有什么区别？](#9-属性重写与方法重写有什么区别)
+- [10. 引用](#10-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 成员重写（Member Override）
 - 方法重写（Method Override）
@@ -26,7 +26,7 @@
 - noImplicitOverride 编译选项
 - 访问器重写
 
-## 2. 🫧 评价
+## 2. 评价
 
 成员重写是面向对象编程中实现多态的重要机制。TypeScript 4.3 引入的 `override` 关键字显著提升了代码的可维护性和安全性，它能够明确表达开发者的重写意图，并在编译期捕获潜在的重构错误。
 
@@ -34,7 +34,7 @@
 
 虽然 `override` 不是必需的，但强烈推荐在团队项目中启用 `noImplicitOverride`，以建立更清晰的继承契约，避免因重构导致的多态行为失效。
 
-## 3. 🤔 什么是成员重写（Member Override）？
+## 3. 什么是成员重写（Member Override）？
 
 成员重写是指子类定义一个与父类同名的成员（方法、属性或访问器），从而替换或扩展父类的实现。这是实现运行时多态的基础。
 
@@ -106,7 +106,7 @@ console.log(dog.age) // 14
 
 :::
 
-## 4. 🤔 override 关键字有什么作用？
+## 4. override 关键字有什么作用？
 
 ### 4.1. override 关键字的作用
 
@@ -273,7 +273,7 @@ const service = new AdminService()
 service.validateAccess() // ❌ 返回 false，预期的重写未生效
 ```
 
-## 5. 🤔 什么时候应该使用 override 关键字？
+## 5. 什么时候应该使用 override 关键字？
 
 选择策略：
 
@@ -293,7 +293,7 @@ service.validateAccess() // ❌ 返回 false，预期的重写未生效
 | 属性值覆盖           | ✅ 推荐           | 明确意图，避免混淆         |
 | 临时测试代码         | ⚠️ 可选           | 看团队规范                 |
 
-## 6. 🤔 noImplicitOverride 编译选项是什么？
+## 6. noImplicitOverride 编译选项是什么？
 
 `noImplicitOverride` 是 TypeScript 4.3 引入的编译选项，启用后会强制要求所有重写成员必须显式使用 `override` 关键字。
 
@@ -367,7 +367,7 @@ class Dog2 extends Animal {
 
 :::
 
-## 7. 🤔 子类重写成员时有哪些类型约束？
+## 7. 子类重写成员时有哪些类型约束？
 
 核心原则：子类必须遵守“里氏替换原则”（Liskov Substitution Principle - 子类对象必须能够替换其父类对象出现的任何地方） —— 子类对象必须能替换父类对象而不破坏程序正确性。
 
@@ -394,7 +394,7 @@ class Dog extends Animal {
 
 更多有关方法、属性的具体约束规则：可以参考 `类型兼容性` 相关笔记。
 
-## 8. 🤔 访问器（getter/setter）的重写规则是什么？
+## 8. 访问器（getter/setter）的重写规则是什么？
 
 访问器重写遵循以下核心规则：
 
@@ -540,7 +540,7 @@ animal.age = 3;
 
 :::
 
-## 9. 🤔 属性重写与方法重写有什么区别？
+## 9. 属性重写与方法重写有什么区别？
 
 | 特性         | 属性重写                       | 方法重写                     |
 | ------------ | ------------------------------ | ---------------------------- |
@@ -852,7 +852,7 @@ class Dog extends Animal {
 
 :::
 
-## 10. 🔗 引用
+## 10. 引用
 
 - [noImplicitOverride][1]
 - [TypeScript 4.3 Release Notes - override][2]

@@ -2,45 +2,45 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是协变与逆变？](#3--什么是协变与逆变)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是协变与逆变？](#3-什么是协变与逆变)
   - [3.1. 核心概念](#31-核心概念)
   - [3.2. 直观理解](#32-直观理解)
-- [4. 🤔 为什么需要协变与逆变？](#4--为什么需要协变与逆变)
+- [4. 为什么需要协变与逆变？](#4-为什么需要协变与逆变)
   - [4.1. 类型安全问题](#41-类型安全问题)
   - [4.2. 函数参数的特殊性](#42-函数参数的特殊性)
-- [5. 🤔 协变（Covariance）是什么？](#5--协变covariance是什么)
+- [5. 协变（Covariance）是什么？](#5-协变covariance是什么)
   - [5.1. 定义](#51-定义)
   - [5.2. 典型场景：函数返回值](#52-典型场景函数返回值)
   - [5.3. 典型场景：数组](#53-典型场景数组)
   - [5.4. 典型场景：Promise](#54-典型场景promise)
-- [6. 🤔 逆变（Contravariance）是什么？](#6--逆变contravariance是什么)
+- [6. 逆变（Contravariance）是什么？](#6-逆变contravariance是什么)
   - [6.1. 定义](#61-定义)
   - [6.2. 典型场景：函数参数](#62-典型场景函数参数)
   - [6.3. strictFunctionTypes 选项](#63-strictfunctiontypes-选项)
   - [6.4. 为什么参数是逆变的？](#64-为什么参数是逆变的)
-- [7. 🤔 双向协变（Bivariance）是什么？](#7--双向协变bivariance是什么)
+- [7. 双向协变（Bivariance）是什么？](#7-双向协变bivariance是什么)
   - [7.1. 定义](#71-定义)
   - [7.2. 为什么 TypeScript 默认允许双向协变？](#72-为什么-typescript-默认允许双向协变)
   - [7.3. 建议](#73-建议)
-- [8. 🤔 不变（Invariance）是什么？](#8--不变invariance是什么)
+- [8. 不变（Invariance）是什么？](#8-不变invariance是什么)
   - [8.1. 定义](#81-定义)
   - [8.2. TypeScript 的实际行为](#82-typescript-的实际行为)
-- [9. 🤔 实际应用中的协变与逆变](#9--实际应用中的协变与逆变)
+- [9. 实际应用中的协变与逆变](#9-实际应用中的协变与逆变)
   - [9.1. 场景 1：事件处理器](#91-场景-1事件处理器)
   - [9.2. 场景 2：数组方法](#92-场景-2数组方法)
   - [9.3. 场景 3：Promise 链](#93-场景-3promise-链)
   - [9.4. 场景 4：泛型约束](#94-场景-4泛型约束)
-- [10. 🤔 如何检查类型的变异性？](#10--如何检查类型的变异性)
+- [10. 如何检查类型的变异性？](#10-如何检查类型的变异性)
   - [10.1. 手动检查技巧](#101-手动检查技巧)
   - [10.2. 编译器选项](#102-编译器选项)
   - [10.3. 实用记忆法](#103-实用记忆法)
-- [11. 🔗 引用](#11--引用)
+- [11. 引用](#11-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 协变与逆变的概念
 - 类型兼容性规则
@@ -49,7 +49,7 @@
 - 实际应用场景
 - strictFunctionTypes 选项
 
-## 2. 🫧 评价
+## 2. 评价
 
 协变（Covariance）和逆变（Contravariance）是类型系统中的重要概念，用于描述类型之间的替换关系。虽然这两个术语听起来学术化，但它们解决的是非常实际的问题：什么时候可以用子类型替换父类型。
 
@@ -68,7 +68,7 @@
 
 本节将通过大量示例，深入浅出地讲解这个看似复杂的概念。
 
-## 3. 🤔 什么是协变与逆变？
+## 3. 什么是协变与逆变？
 
 ### 3.1. 核心概念
 
@@ -100,7 +100,7 @@
   Container<Dog> ≠ Container<Animal>  ❌
 ```
 
-## 4. 🤔 为什么需要协变与逆变？
+## 4. 为什么需要协变与逆变？
 
 ### 4.1. 类型安全问题
 
@@ -149,7 +149,7 @@ const handleAnimal2: AnimalHandler = handleDog2 // ❌ 应该禁止
 // 因为 handleAnimal2 可能接收任何 Animal，而 handleDog2 期望 Dog
 ```
 
-## 5. 🤔 协变（Covariance）是什么？
+## 5. 协变（Covariance）是什么？
 
 ### 5.1. 定义
 
@@ -244,7 +244,7 @@ const animal = await getAnimal()
 console.log(animal.name) // ✅ Dog 一定有 name
 ```
 
-## 6. 🤔 逆变（Contravariance）是什么？
+## 6. 逆变（Contravariance）是什么？
 
 ### 6.1. 定义
 
@@ -342,7 +342,7 @@ const handleAnimal: AnimalHandler = handleDog
 - 返回值：生产者视角（我能提供的更具体 → 协变）
 ```
 
-## 7. 🤔 双向协变（Bivariance）是什么？
+## 7. 双向协变（Bivariance）是什么？
 
 ### 7.1. 定义
 
@@ -402,7 +402,7 @@ document.addEventListener('click', handleClick)
 const handler: EventListener = handleClick as EventListener
 ```
 
-## 8. 🤔 不变（Invariance）是什么？
+## 8. 不变（Invariance）是什么？
 
 ### 8.1. 定义
 
@@ -448,7 +448,7 @@ animalBox.set({ name: 'Cat' }) // 将 Animal 放入 Box<Dog>
 dogBox.value.bark() // ❌ 运行时错误
 ```
 
-## 9. 🤔 实际应用中的协变与逆变
+## 9. 实际应用中的协变与逆变
 
 ### 9.1. 场景 1：事件处理器
 
@@ -563,7 +563,7 @@ processArray<Dog>(
 )
 ```
 
-## 10. 🤔 如何检查类型的变异性？
+## 10. 如何检查类型的变异性？
 
 ### 10.1. 手动检查技巧
 
@@ -624,7 +624,7 @@ Consumer（消费者）→ 逆变 → super
 - (Animal => void) → (Dog => void)
 ```
 
-## 11. 🔗 引用
+## 11. 引用
 
 - [TypeScript Handbook - Type Compatibility][1]
 - [TypeScript FAQ - Covariance and Contravariance][2]

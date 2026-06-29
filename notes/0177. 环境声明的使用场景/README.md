@@ -2,37 +2,37 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么时候需要环境声明?](#3--什么时候需要环境声明)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么时候需要环境声明?](#3-什么时候需要环境声明)
   - [3.1. 常见场景](#31-常见场景)
   - [3.2. 判断流程](#32-判断流程)
   - [3.3. 不需要环境声明的情况](#33-不需要环境声明的情况)
-- [4. 🤔 如何为第三方库添加类型？](#4--如何为第三方库添加类型)
+- [4. 如何为第三方库添加类型？](#4-如何为第三方库添加类型)
   - [4.1. 检查 @types 包](#41-检查-types-包)
   - [4.2. 创建类型声明文件](#42-创建类型声明文件)
   - [4.3. 实际案例：jQuery](#43-实际案例jquery)
   - [4.4. 实际案例：Web Component](#44-实际案例web-component)
-- [5. 🤔 如何处理全局脚本？](#5--如何处理全局脚本)
+- [5. 如何处理全局脚本？](#5-如何处理全局脚本)
   - [5.1. 内联脚本变量](#51-内联脚本变量)
   - [5.2. CDN 脚本](#52-cdn-脚本)
   - [5.3. 环境变量注入](#53-环境变量注入)
   - [5.4. Vite 环境变量](#54-vite-环境变量)
-- [6. 🤔 如何迁移 JavaScript 项目？](#6--如何迁移-javascript-项目)
+- [6. 如何迁移 JavaScript 项目？](#6-如何迁移-javascript-项目)
   - [6.1. 阶段 1：启用基础配置](#61-阶段-1启用基础配置)
   - [6.2. 阶段 2：添加基础类型](#62-阶段-2添加基础类型)
   - [6.3. 阶段 3：逐步严格化](#63-阶段-3逐步严格化)
   - [6.4. 阶段 4：完整类型化](#64-阶段-4完整类型化)
-- [7. 🤔 实际项目中的最佳实践是什么？](#7--实际项目中的最佳实践是什么)
+- [7. 实际项目中的最佳实践是什么？](#7-实际项目中的最佳实践是什么)
   - [7.1. 目录结构](#71-目录结构)
   - [7.2. 类型声明文件组织](#72-类型声明文件组织)
   - [7.3. 类型声明最佳实践](#73-类型声明最佳实践)
   - [7.4. 维护和更新策略](#74-维护和更新策略)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 环境声明的使用时机
 - 第三方库类型处理
@@ -40,7 +40,7 @@
 - JavaScript 迁移策略
 - 类型声明的最佳实践
 
-## 2. 🫧 评价
+## 2. 评价
 
 环境声明是 TypeScript 与 JavaScript 生态系统集成的关键技术。
 
@@ -50,7 +50,7 @@
 - 应当优先使用 @types 包，无法满足时才编写自定义声明
 - 良好的类型声明能显著提升开发体验和代码质量
 
-## 3. 🤔 什么时候需要环境声明?
+## 3. 什么时候需要环境声明?
 
 识别需要环境声明的场景。
 
@@ -162,7 +162,7 @@ interface Array<T> {
 }
 ```
 
-## 4. 🤔 如何为第三方库添加类型？
+## 4. 如何为第三方库添加类型？
 
 处理没有类型定义的第三方库。
 
@@ -233,12 +233,12 @@ declare module 'library-name' {
     request<T = any>(config: RequestConfig): Promise<Response<T>>
     get<T = any>(
       url: string,
-      config?: Partial<RequestConfig>
+      config?: Partial<RequestConfig>,
     ): Promise<Response<T>>
     post<T = any>(
       url: string,
       data?: any,
-      config?: Partial<RequestConfig>
+      config?: Partial<RequestConfig>,
     ): Promise<Response<T>>
   }
 
@@ -319,7 +319,7 @@ interface MyModalAttributes {
 // <my-modal open={true} title="Dialog" />
 ```
 
-## 5. 🤔 如何处理全局脚本？
+## 5. 如何处理全局脚本？
 
 为全局脚本提供类型声明。
 
@@ -423,7 +423,7 @@ const apiUrl = import.meta.env.VITE_API_URL
 const title = import.meta.env.VITE_APP_TITLE
 ```
 
-## 6. 🤔 如何迁移 JavaScript 项目？
+## 6. 如何迁移 JavaScript 项目？
 
 渐进式迁移策略。
 
@@ -500,7 +500,7 @@ declare global {
     gtag: (
       command: 'config' | 'event',
       targetId: string,
-      config?: Record<string, any>
+      config?: Record<string, any>,
     ) => void
   }
 }
@@ -562,7 +562,7 @@ declare module 'legacy-lib' {
 }
 ```
 
-## 7. 🤔 实际项目中的最佳实践是什么？
+## 7. 实际项目中的最佳实践是什么？
 
 类型声明的组织和管理。
 
@@ -801,7 +801,7 @@ declare global {
  */
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Handbook - Declaration Files][1]
 - [DefinitelyTyped Repository][2]

@@ -2,25 +2,25 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 类在 TS 中是“值”还是“类型”？](#3--类在-ts-中是值还是类型)
-- [4. 🤔 类作为类型使用时，表示什么？](#4--类作为类型使用时表示什么)
-- [5. 🤔 类视作值使用的时候，它的类型是什么？](#5--类视作值使用的时候它的类型是什么)
-- [6. 🔗 引用](#6--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 类在 TS 中是“值”还是“类型”？](#3-类在-ts-中是值还是类型)
+- [4. 类作为类型使用时，表示什么？](#4-类作为类型使用时表示什么)
+- [5. 类视作值使用的时候，它的类型是什么？](#5-类视作值使用的时候它的类型是什么)
+- [6. 引用](#6-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 类的类型（类的构造函数类型）
 - 类当做类型使用（类的实例类型）
 
-## 2. 🫧 评价
+## 2. 评价
 
 在 TypeScript 中，类（Class）具有双重身份：既是值也是类型，这篇笔记主要讨论 TS 中类的双重身份（值、类型）。
 
-## 3. 🤔 类在 TS 中是“值”还是“类型”？
+## 3. 类在 TS 中是“值”还是“类型”？
 
 类在 TS 中拥有双重身份，既是值也是类型。
 
@@ -58,7 +58,7 @@ type PersonConstructor = typeof Person
 const factory: PersonConstructor = Person
 ```
 
-## 4. 🤔 类作为类型使用时，表示什么？
+## 4. 类作为类型使用时，表示什么？
 
 类名直接作为类型时，表示类的实例的类型。
 
@@ -112,11 +112,18 @@ const user4: User = {
 
 ```ts
 class Point {
-  constructor(public x: number, public y: number) {}
+  constructor(
+    public x: number,
+    public y: number,
+  ) {}
 }
 
 class Point3D {
-  constructor(public x: number, public y: number, public z: number) {}
+  constructor(
+    public x: number,
+    public y: number,
+    public z: number,
+  ) {}
 }
 
 // Point3D 有 Point 的所有成员，所以可以赋值
@@ -126,7 +133,7 @@ const point: Point = new Point3D(1, 2, 3) // ✅ OK
 const point2: Point = { x: 1, y: 2 } // ✅ OK
 ```
 
-## 5. 🤔 类视作值使用的时候，它的类型是什么？
+## 5. 类视作值使用的时候，它的类型是什么？
 
 在 TS 中，所有值都是有类型的。
 
@@ -174,7 +181,10 @@ interface PersonConstructor {
 class Person {
   static species = 'Human'
 
-  constructor(public name: string, public age: number) {}
+  constructor(
+    public name: string,
+    public age: number,
+  ) {}
 
   static create(name: string): Person {
     return new Person(name, 0)
@@ -189,7 +199,7 @@ const person = new PersonCtor('Alice', 30)
 console.log(PersonCtor.species) // 'Human'
 ```
 
-## 6. 🔗 引用
+## 6. 引用
 
 - [TypeScript Handbook - Classes][1]
 - [TypeScript Handbook - Generics][2]

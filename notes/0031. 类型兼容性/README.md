@@ -2,20 +2,20 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 TypeScript 中的类型兼容性？](#3--什么是-typescript-中的类型兼容性)
-- [4. 🔗 引用](#4--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 TypeScript 中的类型兼容性？](#3-什么是-typescript-中的类型兼容性)
+- [4. 引用](#4-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - Type Compatibility
 - Structural Type System
 - 特殊类型之间的兼容性
 
-## 2. 🫧 评价
+## 2. 评价
 
 这章内容特别重要，它决定了「一个类型 A」是否可以赋值给「另一个类型 B」的判断标准。
 
@@ -41,11 +41,11 @@
   '0081'
 ]" />
 
-## 3. 🤔 什么是 TypeScript 中的类型兼容性？
+## 3. 什么是 TypeScript 中的类型兼容性？
 
 类型的兼容性（Type Compatibility）是 TypeScript 类型系统的核心机制之一。它决定了"一个类型是否可以赋值给另一个类型"，直接影响代码能否通过编译。理解这一机制至关重要，它能帮助你写出更灵活、更安全的代码，并避免常见的类型错误。
 
-## 4. 🔗 引用
+## 4. 引用
 
 - [Type Compatibility - 类型兼容性][3]
   - [any, unknown, object, void, undefined, null, and never assignability][1]

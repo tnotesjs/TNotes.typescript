@@ -2,26 +2,26 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是字面量类型（Literal Types）？](#3--什么是字面量类型literal-types)
-- [4. 🤔 字面量类型的常见使用场景都有哪些？](#4--字面量类型的常见使用场景都有哪些)
-- [5. 🤔 const 断言（`as const`）有什么用？](#5--const-断言as-const有什么用)
-- [6. 🤔 `as const` 断言如何配合字面量类型使用？](#6--as-const-断言如何配合字面量类型使用)
-- [7. 🤔 什么是模板字符串字面量类型 `Template Literal Types` （TS 4.1+）？](#7--什么是模板字符串字面量类型-template-literal-types-ts-41)
-- [8. 🆚 字面量类型 vs. 枚举（enum）](#8--字面量类型-vs-枚举enum)
-- [9. 🔗 引用](#9--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是字面量类型（Literal Types）？](#3-什么是字面量类型literal-types)
+- [4. 字面量类型的常见使用场景都有哪些？](#4-字面量类型的常见使用场景都有哪些)
+- [5. const 断言（`as const`）有什么用？](#5-const-断言as-const有什么用)
+- [6. `as const` 断言如何配合字面量类型使用？](#6-as-const-断言如何配合字面量类型使用)
+- [7. 什么是模板字符串字面量类型 `Template Literal Types` （TS 4.1+）？](#7-什么是模板字符串字面量类型-template-literal-types-ts-41)
+- [8. 字面量类型 vs. 枚举（enum）](#8-字面量类型-vs-枚举enum)
+- [9. 引用](#9-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 字面量类型（Literal Types）
 - 模板字符串字面量类型（Template Literal Types）
 - `as const` 断言
 - 枚举（enum）
 
-## 2. 🫧 评价
+## 2. 评价
 
 - 字面量类型（Literal Types）很简单也很常用，通常会配合联合类型一起使用。
 - 字面量类型让 TypeScript 能更精确描述具体的类型。
@@ -29,7 +29,7 @@
   - 有了字面量类型，TS 可以具体判定“这必须是 `'success'` 字符串”
 - `as const` 断言可以让 TS 宽泛的推导结果更加具体，可以配合字面量类型一起使用。
 
-## 3. 🤔 什么是字面量类型（Literal Types）？
+## 3. 什么是字面量类型（Literal Types）？
 
 字面量类型（Literal Types） 是 TypeScript 中一个强大而精巧的特性，它允许你将具体的值（如 `"success"`、`42`、`true`）用作类型。这使得类型系统不仅能描述"是什么类型"，还能精确描述"必须是哪个值"，从而实现更严格的类型安全和更智能的代码提示。
 
@@ -95,7 +95,7 @@ grantAccess(false) // ❌
 
 :::
 
-## 4. 🤔 字面量类型的常见使用场景都有哪些？
+## 4. 字面量类型的常见使用场景都有哪些？
 
 ::: code-group
 
@@ -152,7 +152,7 @@ type ThemeType = (typeof Theme)[keyof typeof Theme] // "light" | "dark"
 
 :::
 
-## 5. 🤔 const 断言（`as const`）有什么用？
+## 5. const 断言（`as const`）有什么用？
 
 `as const` 的作用：可以让 TS 「宽泛」 的类型推导结果更「准确」
 
@@ -196,7 +196,7 @@ const d = {
 // }
 ```
 
-## 6. 🤔 `as const` 断言如何配合字面量类型使用？
+## 6. `as const` 断言如何配合字面量类型使用？
 
 这俩配合使用，通常是为了解决 TS 默认推断行为得到的结果过于宽泛的问题。
 
@@ -227,7 +227,7 @@ go(directions[0]); // ✅ 安全！
 
 :::
 
-## 7. 🤔 什么是模板字符串字面量类型 `Template Literal Types` （TS 4.1+）？
+## 7. 什么是模板字符串字面量类型 `Template Literal Types` （TS 4.1+）？
 
 官方描述：
 
@@ -274,7 +274,7 @@ type ButtonClass = `btn--${Size}--${Variant}`
 const className: ButtonClass = 'btn--large--primary' // ✅
 ```
 
-## 8. 🆚 字面量类型 vs. 枚举（enum）
+## 8. 字面量类型 vs. 枚举（enum）
 
 | 特性     | 字面量类型 + `as const`  | `enum`                     |
 | -------- | ------------------------ | -------------------------- |
@@ -286,7 +286,7 @@ const className: ButtonClass = 'btn--large--primary' // ✅
 
 现代 TypeScript 项目更推荐字面量类型，除非你需要 enum 的运行时特性（比如你要读值）。
 
-## 9. 🔗 引用
+## 9. 引用
 
 - [typescript - Handbook - Everyday Types - Literal Types][2]
 - [typescript - Handbook - Type Manipulation - Template Literal Types][1]

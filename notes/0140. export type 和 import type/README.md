@@ -2,30 +2,30 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 为什么需要 export type 和 import type?](#3--为什么需要-export-type-和-import-type)
-- [4. 🤔 export type 和 import type 是什么?](#4--export-type-和-import-type-是什么)
-- [5. 🤔 export type 的使用场景是什么?](#5--export-type-的使用场景是什么)
-- [6. 🤔 import type 的使用场景是什么?](#6--import-type-的使用场景是什么)
-- [7. 🤔 普通导入导出和类型导入导出有什么区别?](#7--普通导入导出和类型导入导出有什么区别)
-- [8. 🤔 什么时候必须使用 import type?](#8--什么时候必须使用-import-type)
-- [9. 🤔 可以混合使用普通导入和类型导入吗?](#9--可以混合使用普通导入和类型导入吗)
-- [10. 🤔 TypeScript 如何判断是类型还是值?](#10--typescript-如何判断是类型还是值)
-- [11. 🤔 tsconfig 中的 isolatedModules 配置与此有什么关系?](#11--tsconfig-中的-isolatedmodules-配置与此有什么关系)
-- [12. 🤔 最佳实践是什么?](#12--最佳实践是什么)
-- [13. 🔗 引用](#13--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 为什么需要 export type 和 import type?](#3-为什么需要-export-type-和-import-type)
+- [4. export type 和 import type 是什么?](#4-export-type-和-import-type-是什么)
+- [5. export type 的使用场景是什么?](#5-export-type-的使用场景是什么)
+- [6. import type 的使用场景是什么?](#6-import-type-的使用场景是什么)
+- [7. 普通导入导出和类型导入导出有什么区别?](#7-普通导入导出和类型导入导出有什么区别)
+- [8. 什么时候必须使用 import type?](#8-什么时候必须使用-import-type)
+- [9. 可以混合使用普通导入和类型导入吗?](#9-可以混合使用普通导入和类型导入吗)
+- [10. TypeScript 如何判断是类型还是值?](#10-typescript-如何判断是类型还是值)
+- [11. tsconfig 中的 isolatedModules 配置与此有什么关系?](#11-tsconfig-中的-isolatedmodules-配置与此有什么关系)
+- [12. 最佳实践是什么?](#12-最佳实践是什么)
+- [13. 引用](#13-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - export type 语法
 - import type 语法
 - 类型导入导出的应用场景
 - isolatedModules 配置
 
-## 2. 🫧 评价
+## 2. 评价
 
 - `export type` 和 `import type` 是 TypeScript 3.8 引入的特性,用于明确地导入导出类型。
 - 理解这两个语法有助于:
@@ -34,7 +34,7 @@
   - 让代码意图更清晰
 - 在使用 Babel、esbuild 等编译工具时,显式的类型导入导出尤为重要,因为这些工具无法像 TypeScript 编译器那样准确分析类型和值。
 
-## 3. 🤔 为什么需要 export type 和 import type?
+## 3. 为什么需要 export type 和 import type?
 
 - TypeScript 中存在两个命名空间:
   - 类型命名空间 - 存放类型、接口、类型别名等
@@ -59,7 +59,7 @@ import { User } from './user'
 
 - 使用 `import type` 可以明确告诉编译器 "这个导入仅用于类型检查",编译时可以安全删除,无需深度分析。
 
-## 4. 🤔 export type 和 import type 是什么?
+## 4. export type 和 import type 是什么?
 
 - `export type` - 导出类型专用语法
 - `import type` - 导入类型专用语法
@@ -87,7 +87,7 @@ const user: UserType = { id: 1, name: 'Alice' }
 console.log(UserType) // 'UserType' cannot be used as a value because it was imported using 'import type'.
 ```
 
-## 5. 🤔 export type 的使用场景是什么?
+## 5. export type 的使用场景是什么?
 
 - 导出类型定义
 
@@ -122,7 +122,7 @@ export type { User } // 明确是类型导出
 export { User } // 明确是值导出(比如类的构造函数)
 ```
 
-## 6. 🤔 import type 的使用场景是什么?
+## 6. import type 的使用场景是什么?
 
 - 导入接口或类型别名
 
@@ -171,7 +171,7 @@ export class B {
 // 如果不使用 import type,可能会出现循环依赖问题
 ```
 
-## 7. 🤔 普通导入导出和类型导入导出有什么区别?
+## 7. 普通导入导出和类型导入导出有什么区别?
 
 | 特性   | 普通导入/导出        | 类型导入/导出 |
 | ------ | -------------------- | ------------- |
@@ -190,7 +190,7 @@ import type { User } from './user'
 // User 明确仅用于类型注解,编译后删除
 ```
 
-## 8. 🤔 什么时候必须使用 import type?
+## 8. 什么时候必须使用 import type?
 
 - 启用 `isolatedModules` 配置时(后面会详细说明)
 - 使用 Babel 或 esbuild 等非 TypeScript 官方编译器时
@@ -205,7 +205,7 @@ import type { User } from './user'
 }
 ```
 
-## 9. 🤔 可以混合使用普通导入和类型导入吗?
+## 9. 可以混合使用普通导入和类型导入吗?
 
 - 可以,TypeScript 支持在同一行混合导入值和类型。
 
@@ -229,7 +229,7 @@ import { createUser } from './user'
 import { api, config, type Config } from './api'
 ```
 
-## 10. 🤔 TypeScript 如何判断是类型还是值?
+## 10. TypeScript 如何判断是类型还是值?
 
 - TypeScript 编译器会分析标识符的使用方式:
 
@@ -249,7 +249,7 @@ User.prototype // 访问属性
 - 如果在所有使用场景中,`User` 仅出现在类型位置(类型注解、类型参数等),编译器会在输出的 JavaScript 中移除该导入。
 - 但这需要分析整个模块,使用 `import type` 可以跳过这个分析过程。
 
-## 11. 🤔 tsconfig 中的 isolatedModules 配置与此有什么关系?
+## 11. tsconfig 中的 isolatedModules 配置与此有什么关系?
 
 - `isolatedModules: true` 强制开发者遵循"单文件编译"的约束
 - 这是为了兼容 Babel、esbuild、swc 等快速编译工具,这些工具逐文件编译,不进行跨文件类型分析。
@@ -284,7 +284,7 @@ export type { User } from './user'
   - 使用 esbuild 或 swc 加速构建
   - 使用 Vite 等现代构建工具
 
-## 12. 🤔 最佳实践是什么?
+## 12. 最佳实践是什么?
 
 - 对纯类型(interface、type 别名)使用 `import type`
 
@@ -340,7 +340,7 @@ export { createUser, api }
 }
 ```
 
-## 13. 🔗 引用
+## 13. 引用
 
 - [TypeScript 官方文档 - Type-Only Imports and Exports][1]
 - [TypeScript 3.8 发布说明][2]

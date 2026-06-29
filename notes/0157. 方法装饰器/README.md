@@ -2,34 +2,34 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是方法装饰器？](#3--什么是方法装饰器)
-- [4. 🤔 方法装饰器的基本语法是什么？](#4--方法装饰器的基本语法是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是方法装饰器？](#3-什么是方法装饰器)
+- [4. 方法装饰器的基本语法是什么？](#4-方法装饰器的基本语法是什么)
   - [4.1. 参数说明](#41-参数说明)
   - [4.2. 属性描述符详解](#42-属性描述符详解)
-- [5. 🤔 方法装饰器如何修改方法行为？](#5--方法装饰器如何修改方法行为)
+- [5. 方法装饰器如何修改方法行为？](#5-方法装饰器如何修改方法行为)
   - [5.1. 添加日志记录](#51-添加日志记录)
   - [5.2. 性能监控](#52-性能监控)
   - [5.3. 参数验证](#53-参数验证)
   - [5.4. 方法缓存](#54-方法缓存)
   - [5.5. 异常处理](#55-异常处理)
-- [6. 🤔 方法装饰器有哪些实际应用场景？](#6--方法装饰器有哪些实际应用场景)
+- [6. 方法装饰器有哪些实际应用场景？](#6-方法装饰器有哪些实际应用场景)
   - [6.1. 权限控制](#61-权限控制)
   - [6.2. 重试机制](#62-重试机制)
   - [6.3. 防抖和节流](#63-防抖和节流)
   - [6.4. 废弃警告](#64-废弃警告)
-- [7. 🤔 使用方法装饰器时需要注意什么？](#7--使用方法装饰器时需要注意什么)
+- [7. 使用方法装饰器时需要注意什么？](#7-使用方法装饰器时需要注意什么)
   - [7.1. 保持 this 上下文](#71-保持-this-上下文)
   - [7.2. 处理异步方法](#72-处理异步方法)
   - [7.3. 类型安全](#73-类型安全)
   - [7.4. 装饰器执行顺序](#74-装饰器执行顺序)
   - [7.5. 避免修改原型](#75-避免修改原型)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 方法装饰器的定义和本质
 - 方法装饰器的基本语法
@@ -38,7 +38,7 @@
 - 方法装饰器的实际应用场景
 - 方法装饰器的使用注意事项
 
-## 2. 🫧 评价
+## 2. 评价
 
 方法装饰器是最常用的装饰器类型，主要用于对类方法进行增强和修改。
 
@@ -48,7 +48,7 @@
 - 可以通过装饰器工厂传递参数，实现更灵活的配置
 - 注意保持 `this` 上下文和原方法的返回值类型
 
-## 3. 🤔 什么是方法装饰器？
+## 3. 什么是方法装饰器？
 
 方法装饰器是应用在类方法声明上的函数，用于观察、修改或替换方法定义。
 
@@ -73,7 +73,7 @@ class Calculator {
 // 方法描述符：{ value: [Function: add], writable: true, enumerable: false, configurable: true }
 ```
 
-## 4. 🤔 方法装饰器的基本语法是什么？
+## 4. 方法装饰器的基本语法是什么？
 
 方法装饰器接收三个参数，可以返回新的属性描述符来替换原有方法。
 
@@ -84,7 +84,7 @@ class Calculator {
 function methodDecorator(
   target: any, // 静态方法是类的构造函数，实例方法是类的原型对象
   propertyKey: string | symbol, // 方法的名称
-  descriptor: PropertyDescriptor // 方法的属性描述符
+  descriptor: PropertyDescriptor, // 方法的属性描述符
 ): PropertyDescriptor | void {
   // 装饰器逻辑
 }
@@ -116,7 +116,7 @@ interface PropertyDescriptor {
 function inspectDescriptor(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   console.log({
     configurable: descriptor.configurable, // true
@@ -134,7 +134,7 @@ class User {
 }
 ```
 
-## 5. 🤔 方法装饰器如何修改方法行为？
+## 5. 方法装饰器如何修改方法行为？
 
 通过修改属性描述符可以完全控制方法的行为。
 
@@ -180,7 +180,7 @@ calc.add(2, 3)
 function measureTime(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -216,7 +216,7 @@ processor.processLargeArray(1000000)
 function validate(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -257,7 +257,7 @@ console.log(math.divide(10, 2)) // 5
 function memoize(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
   const cache = new Map<string, any>()
@@ -301,7 +301,7 @@ function catchError(errorHandler?: (error: Error) => void) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
@@ -338,7 +338,7 @@ class ApiService {
 }
 ```
 
-## 6. 🤔 方法装饰器有哪些实际应用场景？
+## 6. 方法装饰器有哪些实际应用场景？
 
 ### 6.1. 权限控制
 
@@ -352,7 +352,7 @@ function requireRole(role: string) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
@@ -401,7 +401,7 @@ function retry(times: number = 3, delay: number = 1000) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
@@ -448,7 +448,7 @@ function debounce(delay: number) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
     let timeoutId: NodeJS.Timeout
@@ -470,7 +470,7 @@ function throttle(delay: number) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
     let lastCall = 0
@@ -509,14 +509,14 @@ function deprecated(message?: string) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalMethod = descriptor.value
 
     descriptor.value = function (...args: any[]) {
       console.warn(
         `[DEPRECATED] ${target.constructor.name}.${propertyKey} 已废弃。` +
-          (message ? ` ${message}` : '')
+          (message ? ` ${message}` : ''),
       )
 
       return originalMethod.apply(this, args)
@@ -541,7 +541,7 @@ const api = new OldApi()
 api.getUserList() // 警告：[DEPRECATED] OldApi.getUserList 已废弃。请使用 getUsers() 方法
 ```
 
-## 7. 🤔 使用方法装饰器时需要注意什么？
+## 7. 使用方法装饰器时需要注意什么？
 
 ### 7.1. 保持 this 上下文
 
@@ -552,7 +552,7 @@ api.getUserList() // 警告：[DEPRECATED] OldApi.getUserList 已废弃。请使
 function badDecorator(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -569,7 +569,7 @@ function badDecorator(
 function goodDecorator(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -590,7 +590,7 @@ function goodDecorator(
 function asyncLog(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -627,7 +627,7 @@ function typedDecorator<T extends (...args: any[]) => any>() {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: TypedPropertyDescriptor<T>
+    descriptor: TypedPropertyDescriptor<T>,
   ): TypedPropertyDescriptor<T> {
     const originalMethod = descriptor.value!
 
@@ -657,7 +657,7 @@ function first() {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     console.log('first 装饰器执行')
   }
@@ -668,7 +668,7 @@ function second() {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     console.log('second 装饰器执行')
   }
@@ -696,7 +696,7 @@ class Example {
 function badModify(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   target[propertyKey] = function () {
     console.log('修改了原型')
@@ -709,7 +709,7 @@ function badModify(
 function goodModify(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -724,7 +724,7 @@ function goodModify(
 
 :::
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Handbook - Method Decorators][1]
 - [TC39 Decorator Proposal][2]

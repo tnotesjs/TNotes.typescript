@@ -2,30 +2,30 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 装饰器的基本执行顺序是什么？](#3--装饰器的基本执行顺序是什么)
-- [4. 🤔 同一目标上多个装饰器如何执行?](#4--同一目标上多个装饰器如何执行)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 装饰器的基本执行顺序是什么？](#3-装饰器的基本执行顺序是什么)
+- [4. 同一目标上多个装饰器如何执行?](#4-同一目标上多个装饰器如何执行)
   - [4.1. 方法装饰器](#41-方法装饰器)
   - [4.2. 类装饰器](#42-类装饰器)
   - [4.3. 参数装饰器](#43-参数装饰器)
-- [5. 🤔 类中不同成员的装饰器如何执行？](#5--类中不同成员的装饰器如何执行)
+- [5. 类中不同成员的装饰器如何执行？](#5-类中不同成员的装饰器如何执行)
   - [5.1. 详细执行顺序规则](#51-详细执行顺序规则)
   - [5.2. 执行顺序记忆口诀](#52-执行顺序记忆口诀)
-- [6. 🤔 装饰器工厂的执行顺序是什么？](#6--装饰器工厂的执行顺序是什么)
+- [6. 装饰器工厂的执行顺序是什么？](#6-装饰器工厂的执行顺序是什么)
   - [6.1. 工厂参数的传递](#61-工厂参数的传递)
-- [7. 🤔 继承类的装饰器如何执行？](#7--继承类的装饰器如何执行)
+- [7. 继承类的装饰器如何执行？](#7-继承类的装饰器如何执行)
   - [7.1. 继承链中的完整顺序](#71-继承链中的完整顺序)
-- [8. 🤔 为什么理解执行顺序很重要？](#8--为什么理解执行顺序很重要)
+- [8. 为什么理解执行顺序很重要？](#8-为什么理解执行顺序很重要)
   - [8.1. 依赖关系处理](#81-依赖关系处理)
   - [8.2. 装饰器链的正确组合](#82-装饰器链的正确组合)
   - [8.3. 避免循环依赖](#83-避免循环依赖)
   - [8.4. 性能优化考虑](#84-性能优化考虑)
-- [9. 🔗 引用](#9--引用)
+- [9. 引用](#9-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 装饰器的基本执行顺序
 - 同一目标上多个装饰器的执行顺序
@@ -34,7 +34,7 @@
 - 继承类的装饰器执行顺序
 - 执行顺序的实际影响
 
-## 2. 🫧 评价
+## 2. 评价
 
 装饰器的执行顺序遵循明确的规则，理解这些规则对于正确使用装饰器至关重要。
 
@@ -44,7 +44,7 @@
 - 装饰器工厂会先于装饰器本身执行，顺序为「从外到内」
 - 继承链中的装饰器会按照父类到子类的顺序执行
 
-## 3. 🤔 装饰器的基本执行顺序是什么？
+## 3. 装饰器的基本执行顺序是什么？
 
 装饰器在类定义时立即执行，执行时机早于实例化。
 
@@ -58,7 +58,7 @@ function ClassDecorator(constructor: Function) {
 function MethodDecorator(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   console.log('2. 方法装饰器执行')
 }
@@ -95,7 +95,7 @@ console.log('6. 脚本结束')
 // 6. 脚本结束
 ```
 
-## 4. 🤔 同一目标上多个装饰器如何执行?
+## 4. 同一目标上多个装饰器如何执行?
 
 同一目标上的多个装饰器按照「从内到外」（从下到上）的顺序执行。
 
@@ -105,7 +105,7 @@ console.log('6. 脚本结束')
 function First(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   console.log('First 装饰器执行')
 }
@@ -113,7 +113,7 @@ function First(
 function Second(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   console.log('Second 装饰器执行')
 }
@@ -121,7 +121,7 @@ function Second(
 function Third(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   console.log('Third 装饰器执行')
 }
@@ -174,7 +174,7 @@ class Example {}
 function First(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   console.log(`First 参数装饰器执行，索引：${parameterIndex}`)
 }
@@ -182,7 +182,7 @@ function First(
 function Second(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   console.log(`Second 参数装饰器执行，索引：${parameterIndex}`)
 }
@@ -196,7 +196,7 @@ class Example {
 // First 参数装饰器执行，索引：0
 ```
 
-## 5. 🤔 类中不同成员的装饰器如何执行？
+## 5. 类中不同成员的装饰器如何执行？
 
 类中不同成员的装饰器执行顺序固定：参数装饰器 → 成员装饰器 → 类装饰器。
 
@@ -212,7 +212,7 @@ function PropertyDecorator(target: any, propertyKey: string) {
 function MethodDecorator(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   console.log(`4. 方法装饰器：${propertyKey}`)
 }
@@ -220,7 +220,7 @@ function MethodDecorator(
 function ParameterDecorator(
   target: any,
   propertyKey: string | symbol,
-  parameterIndex: number
+  parameterIndex: number,
 ) {
   console.log(`1/3. 参数装饰器：${String(propertyKey)}[${parameterIndex}]`)
 }
@@ -228,7 +228,7 @@ function ParameterDecorator(
 function AccessorDecorator(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   console.log(`5. 访问器装饰器：${propertyKey}`)
 }
@@ -343,7 +343,7 @@ class Order {
 } // 10. 类装饰器
 ```
 
-## 6. 🤔 装饰器工厂的执行顺序是什么？
+## 6. 装饰器工厂的执行顺序是什么？
 
 装饰器工厂先执行（从外到内），然后装饰器本身执行（从内到外）。
 
@@ -354,7 +354,7 @@ function decoratorFactory(name: string) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     console.log(`${name} 装饰器执行`)
   }
@@ -385,7 +385,7 @@ function log(message: string) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     console.log(`2. 装饰器执行，消息：${message}`)
     const originalMethod = descriptor.value
@@ -422,7 +422,7 @@ example.method()
 // 4. 方法执行后，消息：外层
 ```
 
-## 7. 🤔 继承类的装饰器如何执行？
+## 7. 继承类的装饰器如何执行？
 
 继承类的装饰器按照父类到子类的顺序执行。
 
@@ -437,7 +437,7 @@ function MethodDecorator(name: string) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     console.log(`${name}.${propertyKey} 方法装饰器`)
   }
@@ -506,7 +506,7 @@ class Child extends Parent {
 // 6. 子类装饰器
 ```
 
-## 8. 🤔 为什么理解执行顺序很重要？
+## 8. 为什么理解执行顺序很重要？
 
 ### 8.1. 依赖关系处理
 
@@ -519,7 +519,7 @@ function WrongOrder() {
   function method(
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const metadata = Reflect.getMetadata('params', target, propertyKey)
     console.log('方法装饰器读取元数据：', metadata) // 可能为 undefined
@@ -528,7 +528,7 @@ function WrongOrder() {
   function param(
     target: any,
     propertyKey: string | symbol,
-    parameterIndex: number
+    parameterIndex: number,
   ) {
     console.log('参数装饰器设置元数据')
     Reflect.defineMetadata('params', [parameterIndex], target, propertyKey)
@@ -551,7 +551,7 @@ function CorrectOrder() {
   function param(
     target: any,
     propertyKey: string | symbol,
-    parameterIndex: number
+    parameterIndex: number,
   ) {
     console.log('1. 参数装饰器设置元数据')
     const params = Reflect.getMetadata('params', target, propertyKey) || []
@@ -562,7 +562,7 @@ function CorrectOrder() {
   function method(
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     console.log('2. 方法装饰器读取元数据')
     const metadata = Reflect.getMetadata('params', target, propertyKey)
@@ -587,7 +587,7 @@ class Example {
 function Validate(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -609,7 +609,7 @@ function Log(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 function Cache(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
   const cache = new Map()
@@ -686,7 +686,7 @@ class Example {
 function ExpensiveDecorator(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   // ❌ 错误：在装饰器中执行耗时操作
   for (let i = 0; i < 1000000; i++) {
@@ -709,7 +709,7 @@ class SlowClass {
 function OptimizedDecorator(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
   let initialized = false
@@ -739,7 +739,7 @@ class FastClass {
 }
 ```
 
-## 9. 🔗 引用
+## 9. 引用
 
 - [TypeScript Handbook - Decorators][1]
 - [Decorator Evaluation Order][2]

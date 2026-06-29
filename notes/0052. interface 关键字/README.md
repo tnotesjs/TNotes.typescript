@@ -2,26 +2,26 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 TypeScript 中的 `interface`？](#3--什么是-typescript-中的-interface)
-- [4. 🤔 `interface` 有哪些功能？](#4--interface-有哪些功能)
-- [5. 🤔 使用 `interface` 有哪些最佳实践？](#5--使用-interface-有哪些最佳实践)
-- [6. 🔗 引用](#6--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 TypeScript 中的 `interface`？](#3-什么是-typescript-中的-interface)
+- [4. `interface` 有哪些功能？](#4-interface-有哪些功能)
+- [5. 使用 `interface` 有哪些最佳实践？](#5-使用-interface-有哪些最佳实践)
+- [6. 引用](#6-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - interface
 - type
 - extends
 
-## 2. 🫧 评价
+## 2. 评价
 
 - interface 关键字用于定义接口（也是一种类型），跟 type 关键字非常类似。
 
-## 3. 🤔 什么是 TypeScript 中的 `interface`？
+## 3. 什么是 TypeScript 中的 `interface`？
 
 - `interface` 是 TypeScript 中最核心、最常用的类型声明机制之一，用于描述对象的结构（shape）。它不仅支持面向对象编程，还完美契合 TypeScript 的结构类型系统（Structural Typing），是构建类型安全、可维护代码的基石。
 - `interface` 是 TypeScript 中定义"对象应该长什么样"的标准方式，它让代码既灵活又安全。
@@ -66,7 +66,7 @@ const alice: User = {
 
 除了可选属性，`interface` 还有很多常见功能，下边儿会一一介绍。
 
-## 4. 🤔 `interface` 有哪些功能？
+## 4. `interface` 有哪些功能？
 
 | 功能类别 | 语法示例 | 说明 | 备注 / 易错点 |
 | --- | --- | --- | --- |
@@ -372,7 +372,7 @@ myCounter.reset() // "Reset!" - 调用方法
 
 :::
 
-## 5. 🤔 使用 `interface` 有哪些最佳实践？
+## 5. 使用 `interface` 有哪些最佳实践？
 
 - 命名规范
   - 使用 PascalCase（如 `UserProfile`, `ApiResponse`）
@@ -394,7 +394,7 @@ interface B extends C {}
 interface A extends B {}
 ```
 
-## 6. 🔗 引用
+## 6. 引用
 
 - [TypeScript-Handbook][2]
 - [Prohibition against prefixing interfaces with "I"][1]

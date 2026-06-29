@@ -2,26 +2,26 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `this 参数` 是什么？](#3--this-参数-是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `this 参数` 是什么？](#3-this-参数-是什么)
   - [3.1. 问题背景](#31-问题背景)
   - [3.2. 解决方案 1：使用箭头函数（非最优解）](#32-解决方案-1使用箭头函数非最优解)
   - [3.3. 解决方案 2：显示声明 this 参数](#33-解决方案-2显示声明-this-参数)
   - [3.4. ⚠️ 注意事项](#34-️-注意事项)
-- [4. 🤔 `this 类型` 是什么？](#4--this-类型-是什么)
-- [5. 🤔 `this is Type` 是什么？](#5--this-is-type-是什么)
-- [6. 🔗 引用](#6--引用)
+- [4. `this 类型` 是什么？](#4-this-类型-是什么)
+- [5. `this is Type` 是什么？](#5-this-is-type-是什么)
+- [6. 引用](#6-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - this 参数（用于约束方法调用时的上下文绑定）
 - this 类型（随继承自动收窄为最具体子类的自引用类型）
 - this is Type（基于 this 的类型守卫机制）
 
-## 2. 🫧 评价
+## 2. 评价
 
 `this` 参数、`this` 类型和 `this is Type` 是 TypeScript 类系统中三个独立但相关的特性，它们从不同角度解决了类型安全问题。
 
@@ -33,7 +33,7 @@
 
 三者协同工作，共同构建 TypeScript 类系统中强大而安全的 `this` 处理机制，是编写类型安全、可维护的面向对象代码的关键基础。
 
-## 3. 🤔 `this 参数` 是什么？
+## 3. `this 参数` 是什么？
 
 跟函数中的 this 参数非常像，它也是一个伪参数，编译后会被移除，主要起一个类型约束的作用。
 
@@ -215,7 +215,7 @@ function safeSetTimeout<T extends (this: This, ...args: any[]) => void, This>(
 - 必须放在参数列表第一位，且不能与其他参数混淆。
 - 在普通类方法中，TS 通常能自动推断 `this` 为当前类类型，显式声明主要用于增强安全性或库开发。
 
-## 4. 🤔 `this 类型` 是什么？
+## 4. `this 类型` 是什么？
 
 类中的 this 类型是一个特殊类型，用于表示当前类实例的类型。通常用在方法参数/返回值的类型标注位置。
 
@@ -254,7 +254,7 @@ derived.sameAs(base) // ❌
 
 如果把签名改成 `sameAs(other: Box)`，就不会报错，但也失去了“派生类自动精确化”的好处。
 
-## 5. 🤔 `this is Type` 是什么？
+## 5. `this is Type` 是什么？
 
 `this is Type` 表示 this 基于类型的守卫（this based type guards），是用于方法返回类型的类型谓词。
 
@@ -287,12 +287,18 @@ class FileSystemObject {
   }
 
   // 构造函数中定义了公共 path 属性和私有 networked 属性
-  constructor(public path: string, private networked: boolean) {}
+  constructor(
+    public path: string,
+    private networked: boolean,
+  ) {}
 }
 
 class FileRep extends FileSystemObject {
   // FileRep 特有的 content 属性
-  constructor(path: string, public content: string) {
+  constructor(
+    path: string,
+    public content: string,
+  ) {
     super(path, false) // 调用父类构造函数
   }
 }
@@ -357,7 +363,7 @@ if (box.hasValue()) {
 }
 ```
 
-## 6. 🔗 引用
+## 6. 引用
 
 - [Classes 类][1]
 

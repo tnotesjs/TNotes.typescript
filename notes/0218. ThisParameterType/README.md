@@ -2,17 +2,17 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `ThisParameterType<T>` 的源码实现是什么？](#3--thisparametertypet-的源码实现是什么)
-- [4. 🤔 如何使用 `ThisParameterType<T>` 提取 this 参数类型？](#4--如何使用-thisparametertypet-提取-this-参数类型)
-- [5. 🤔 `ThisParameterType<T>` 在方法绑定中如何应用？](#5--thisparametertypet-在方法绑定中如何应用)
-- [6. 🤔 使用 `ThisParameterType<T>` 时需要注意哪些问题？](#6--使用-thisparametertypet-时需要注意哪些问题)
-- [7. 🔗 引用](#7--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `ThisParameterType<T>` 的源码实现是什么？](#3-thisparametertypet-的源码实现是什么)
+- [4. 如何使用 `ThisParameterType<T>` 提取 this 参数类型？](#4-如何使用-thisparametertypet-提取-this-参数类型)
+- [5. `ThisParameterType<T>` 在方法绑定中如何应用？](#5-thisparametertypet-在方法绑定中如何应用)
+- [6. 使用 `ThisParameterType<T>` 时需要注意哪些问题？](#6-使用-thisparametertypet-时需要注意哪些问题)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `ThisParameterType<T>` 的源码实现
 - 显式 `this` 参数的类型提取
@@ -20,7 +20,7 @@
 - 装饰器中的 `this` 类型处理
 - 函数式混入的 `this` 约束
 
-## 2. 🫧 评价
+## 2. 评价
 
 `ThisParameterType<T>` 用于提取函数类型的 `this` 参数类型，主要用于需要明确 `this` 上下文的场景。
 
@@ -30,7 +30,7 @@
 - 常与 `OmitThisParameter<T>` 配合使用
 - 需要启用 `strictBindCallApply` 获得更好的类型检查
 
-## 3. 🤔 `ThisParameterType<T>` 的源码实现是什么？
+## 3. `ThisParameterType<T>` 的源码实现是什么？
 
 `ThisParameterType<T>` 的源码定义如下：
 
@@ -119,7 +119,7 @@ type AddSignature = MethodSignature<Calculator['add']>
 // }
 ```
 
-## 4. 🤔 如何使用 `ThisParameterType<T>` 提取 this 参数类型？
+## 4. 如何使用 `ThisParameterType<T>` 提取 this 参数类型？
 
 在需要操作或验证函数的 `this` 上下文时，`ThisParameterType<T>` 非常有用：
 
@@ -136,7 +136,7 @@ type HandlerThis = ThisParameterType<EventHandler['handleClick']>
 
 function bindEventHandler<T extends (...args: any) => any>(
   handler: T,
-  context: ThisParameterType<T>
+  context: ThisParameterType<T>,
 ): T {
   return handler.bind(context) as T
 }
@@ -246,7 +246,7 @@ function applyMixins<T extends Combined>(target: T) {
 }
 ```
 
-## 5. 🤔 `ThisParameterType<T>` 在方法绑定中如何应用？
+## 5. `ThisParameterType<T>` 在方法绑定中如何应用？
 
 在处理方法绑定、装饰器和上下文管理时，`ThisParameterType<T>` 提供类型安全保障：
 
@@ -255,7 +255,7 @@ function applyMixins<T extends Combined>(target: T) {
 function LogMethod<T extends (this: any, ...args: any) => any>(
   target: ThisParameterType<T>,
   propertyKey: string,
-  descriptor: TypedPropertyDescriptor<T>
+  descriptor: TypedPropertyDescriptor<T>,
 ) {
   const originalMethod = descriptor.value
   if (!originalMethod) return
@@ -284,7 +284,7 @@ class Service {
 function AutoBind<T extends (this: any, ...args: any) => any>(
   target: any,
   propertyKey: string,
-  descriptor: TypedPropertyDescriptor<T>
+  descriptor: TypedPropertyDescriptor<T>,
 ) {
   const originalMethod = descriptor.value
   if (!originalMethod) return
@@ -316,7 +316,7 @@ increment() // ✅ this 已自动绑定，不会报错
 // 应用 3：this 类型守卫
 function ensureThis<T extends (this: any, ...args: any) => any>(
   fn: T,
-  expectedThis: ThisParameterType<T>
+  expectedThis: ThisParameterType<T>,
 ): T {
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
     if (this !== expectedThis) {
@@ -347,7 +347,7 @@ safeIncrement.call({}) // ❌ 抛出错误
 class MethodExtractor {
   static extract<T extends Record<string, any>, K extends keyof T>(
     obj: T,
-    methodName: K
+    methodName: K,
   ): T[K] extends (this: any, ...args: any) => any
     ? {
         method: T[K]
@@ -411,7 +411,7 @@ type HandleClickAutoThis = ThisParameterType<ReactComponent['handleClickAuto']>
 // unknown，箭头函数没有 this 参数
 ```
 
-## 6. 🤔 使用 `ThisParameterType<T>` 时需要注意哪些问题？
+## 6. 使用 `ThisParameterType<T>` 时需要注意哪些问题？
 
 在使用 `ThisParameterType<T>` 时，有以下几点需要注意：
 
@@ -602,7 +602,7 @@ class Handler2 {
 }
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript Handbook - Utility Types - ThisParameterType][1]
 - [TypeScript Deep Dive - this Parameter][2]

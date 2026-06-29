@@ -2,32 +2,32 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 source map 是什么？](#3--source-map-是什么)
-- [4. 🤔 source map 的概念最先是由谁提出的？](#4--source-map-的概念最先是由谁提出的)
-- [5. 🤔 TypeScript 是如何实现 source map 功能的呢？](#5--typescript-是如何实现-source-map-功能的呢)
-- [6. 🤔 谁在读 source map？](#6--谁在读-source-map)
-- [7. 🤔 source-map-support 是什么？](#7--source-map-support-是什么)
-- [8. 🤔 为什么在介绍 TypeScript 的教程中要提到 source-map-support 呢？](#8--为什么在介绍-typescript-的教程中要提到-source-map-support-呢)
-- [9. 🤔 前面提到的 ts-node、ts-node-dev 这些工具的 source map 支持是如何实现的呢？](#9--前面提到的-ts-nodets-node-dev-这些工具的-source-map-支持是如何实现的呢)
-- [10. 💻 demos.1 - 开启、关闭 source map 的区别对比](#10--demos1---开启关闭-source-map-的区别对比)
-- [11. 🔗 引用](#11--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. source map 是什么？](#3-source-map-是什么)
+- [4. source map 的概念最先是由谁提出的？](#4-source-map-的概念最先是由谁提出的)
+- [5. TypeScript 是如何实现 source map 功能的呢？](#5-typescript-是如何实现-source-map-功能的呢)
+- [6. 谁在读 source map？](#6-谁在读-source-map)
+- [7. source-map-support 是什么？](#7-source-map-support-是什么)
+- [8. 为什么在介绍 TypeScript 的教程中要提到 source-map-support 呢？](#8-为什么在介绍-typescript-的教程中要提到-source-map-support-呢)
+- [9. 前面提到的 ts-node、ts-node-dev 这些工具的 source map 支持是如何实现的呢？](#9-前面提到的-ts-nodets-node-dev-这些工具的-source-map-支持是如何实现的呢)
+- [10. demos.1 - 开启、关闭 source map 的区别对比](#10-demos1---开启关闭-source-map-的区别对比)
+- [11. 引用](#11-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - source map
 - TypeScript 工具链中 source map 的工作原理
 - 解决调试时错误定位不准确的实际问题
 
-## 2. 🫧 评价
+## 2. 评价
 
 - 这篇笔记详细介绍了 source map 的概念、TypeScript 及其相关工具（ts-node、ts-node-dev）如何生成和使用 source map 来实现 TypeScript 源码的精准错误定位和调试支持。
 - 以 ts 项目开发为例，`source-map-support` 解决的问题是 -> `*.ts` 项目需要先编译再运行，但是运行时跑的是 `*.js`，那么如果出现了错误，如何精确定位到源码 `*.ts` 的报错位置呢？
 
-## 3. 🤔 source map 是什么？
+## 3. source map 是什么？
 
 - Source map 是一种映射文件，用于将编译、转换或压缩后的代码位置映射回原始源代码位置
 - 它是一个 JSON 格式的文件，包含了编译后代码与原始代码之间的位置对应关系
@@ -39,7 +39,7 @@
 - Source map 包含了版本信息、源文件列表、编译后文件列表以及位置映射等关键信息
 - 在开发阶段启用 source map 可以显著提升调试体验，让开发者能够直接在原始源代码上设置断点和查看错误信息
 
-## 4. 🤔 source map 的概念最先是由谁提出的？
+## 4. source map 的概念最先是由谁提出的？
 
 - Source map 的概念最初是由 Mozilla 提出的
 - Mozilla 在 2011 年左右开始开发这个概念，主要目的是为了解决调试经过压缩和混淆的 JavaScript 代码的问题
@@ -49,7 +49,7 @@
 - 随着前端开发的复杂化，source map 成为了现代 Web 开发中不可或缺的一部分
 - 不仅 JavaScript 生态系统采用了 source map，其他编译到 JavaScript 的语言（如 TypeScript、CoffeeScript）也广泛使用 source map 来改善开发体验
 
-## 5. 🤔 TypeScript 是如何实现 source map 功能的呢？
+## 5. TypeScript 是如何实现 source map 功能的呢？
 
 这个问题的回答需要分两个阶段来看。
 
@@ -76,7 +76,7 @@ TypeScript 生产环境
 - 生成的 source map 文件格式符合 Mozilla 提出的 source map 标准规范
 - 编译器会根据代码转换的复杂程度，在 source map 中记录详细的映射信息，确保准确的定位能力
 
-## 6. 🤔 谁在读 source map？
+## 6. 谁在读 source map？
 
 | 读者 | 用途 |
 | --- | --- |
@@ -89,7 +89,7 @@ TypeScript 生产环境
 | 测试框架 | Jest、Mocha 等测试框架在显示测试失败信息时会利用 source map 定位到原始源代码位置 |
 | 性能分析工具 | Chrome DevTools 的 Performance 面板等性能分析工具会使用 source map 来显示准确的函数调用栈信息 |
 
-## 7. 🤔 source-map-support 是什么？
+## 7. source-map-support 是什么？
 
 来自 [node-source-map-support][1] 官方的介绍：
 
@@ -109,7 +109,7 @@ This module provides source map support for stack traces in node via the V8 stac
 - 在开发和调试阶段非常有用，能显著提升调试体验和问题定位效率
 - 特别是在 TypeScript 项目中，能够让开发者直接看到 TypeScript 源文件中的错误位置而非编译后的 JavaScript 代码位置
 
-## 8. 🤔 为什么在介绍 TypeScript 的教程中要提到 source-map-support 呢？
+## 8. 为什么在介绍 TypeScript 的教程中要提到 source-map-support 呢？
 
 - TypeScript 代码需要编译成 JavaScript 才能在 Node.js 环境中运行，这个编译过程会产生源代码和编译后代码的差异
 - 当 TypeScript 代码出现错误时，如果没有 source map 支持，错误堆栈会指向编译后的 JavaScript 代码位置，而不是原始的 TypeScript 代码位置
@@ -121,7 +121,7 @@ This module provides source map support for stack traces in node via the V8 stac
 - 对于初学者来说，能够直接看到 TypeScript 源码中的错误位置比看到编译后的 JavaScript 代码更容易理解和排查问题
 - source-map-support 是 TypeScript 生态系统中常用的辅助工具，了解它的使用有助于构建完整的 TypeScript 开发环境
 
-## 9. 🤔 前面提到的 ts-node、ts-node-dev 这些工具的 source map 支持是如何实现的呢？
+## 9. 前面提到的 ts-node、ts-node-dev 这些工具的 source map 支持是如何实现的呢？
 
 - 如果你仔细观察过使用 `ts-node` 或者 `ts-node-dev` 运行的 TS 模块报错信息，会发现它们也是直接将错误定位到对应的 TS 模块的。
 - 那么，它们是如何实现 source map 支持的呢？
@@ -164,7 +164,7 @@ config.compilerOptions = Object.assign(
 - TS 配置的解析，那自然就是 tsc 的活儿了，后续的流程也就跟 TS 的 source map 原理一样了。
 - `ts-node-dev` 当然也支持 `source map`，那是因为它依赖 `ts-node`，处理逻辑就是上面这段强制开启 `sourceMap` 的逻辑。
 
-## 10. 💻 demos.1 - 开启、关闭 source map 的区别对比
+## 10. demos.1 - 开启、关闭 source map 的区别对比
 
 - 这个 demo 主要是用来体验 source map 的作用的。
 
@@ -195,7 +195,7 @@ config.compilerOptions = Object.assign(
 - 3 `ts-node-dev` 错误位置 `src/index.ts`
   - 因为 `ts-node-dev` 也安装了 `source-map-support` 依赖，并启用了 source map。
 
-## 11. 🔗 引用
+## 11. 引用
 
 - [node-source-map-support github][1]
 

@@ -2,25 +2,25 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `Exclude<T, U>` 是什么？](#3--excludet-u-是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `Exclude<T, U>` 是什么？](#3-excludet-u-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. 工作原理](#32-工作原理)
   - [3.3. 分布式条件类型](#33-分布式条件类型)
   - [3.4. 基本示例](#34-基本示例)
-- [4. 🤔 如何使用 `Exclude<T, U>`？](#4--如何使用-excludet-u)
+- [4. 如何使用 `Exclude<T, U>`？](#4-如何使用-excludet-u)
   - [4.1. 场景 1：事件类型过滤](#41-场景-1事件类型过滤)
   - [4.2. 场景 2：API 响应状态过滤](#42-场景-2api-响应状态过滤)
   - [4.3. 场景 3：联合类型精确控制](#43-场景-3联合类型精确控制)
   - [4.4. 场景 4：泛型约束](#44-场景-4泛型约束)
-- [5. 🤔 `Exclude<T, U>` 的实际应用场景有哪些？](#5--excludet-u-的实际应用场景有哪些)
+- [5. `Exclude<T, U>` 的实际应用场景有哪些？](#5-excludet-u-的实际应用场景有哪些)
   - [5.1. 应用 1：Redux Action 类型安全](#51-应用-1redux-action-类型安全)
   - [5.2. 应用 2：React Props 类型优化](#52-应用-2react-props-类型优化)
   - [5.3. 应用 3：数据库查询构建器](#53-应用-3数据库查询构建器)
   - [5.4. 应用 4：路由守卫类型](#54-应用-4路由守卫类型)
   - [5.5. 应用 5：表单验证规则](#55-应用-5表单验证规则)
-- [6. 🤔 使用 `Exclude<T, U>` 需要注意什么？](#6--使用-excludet-u-需要注意什么)
+- [6. 使用 `Exclude<T, U>` 需要注意什么？](#6-使用-excludet-u-需要注意什么)
   - [6.1. 注意事项 1：只对联合类型有效](#61-注意事项-1只对联合类型有效)
   - [6.2. 注意事项 2：类型兼容性判断](#62-注意事项-2类型兼容性判断)
   - [6.3. 注意事项 3：never 的处理](#63-注意事项-3never-的处理)
@@ -28,11 +28,11 @@
   - [6.5. 注意事项 5：与泛型的结合](#65-注意事项-5与泛型的结合)
   - [6.6. 注意事项 6：函数类型的排除](#66-注意事项-6函数类型的排除)
   - [6.7. 注意事项 7：性能考虑](#67-注意事项-7性能考虑)
-- [7. 🔗 引用](#7--引用)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `Exclude<T, U>` 的定义和实现原理
 - 条件类型的分布式特性
@@ -40,11 +40,11 @@
 - 实际应用场景
 - 使用注意事项
 
-## 2. 🫧 评价
+## 2. 评价
 
 `Exclude<T, U>` 从联合类型 `T` 中排除可以赋值给 `U` 的类型。
 
-## 3. 🤔 `Exclude<T, U>` 是什么？
+## 3. `Exclude<T, U>` 是什么？
 
 `Exclude<T, U>` 从联合类型 `T` 中移除可以赋值给类型 `U` 的成员。
 
@@ -116,7 +116,7 @@ type OnlyString = Exclude<Mixed, number | boolean>
 // string
 ```
 
-## 4. 🤔 如何使用 `Exclude<T, U>`？
+## 4. 如何使用 `Exclude<T, U>`？
 
 ### 4.1. 场景 1：事件类型过滤
 
@@ -135,7 +135,7 @@ type StaticMouseEvents = Exclude<MouseEvent, 'mousemove'>
 
 function addEventListener(
   event: StaticMouseEvents,
-  handler: (e: Event) => void
+  handler: (e: Event) => void,
 ): void {
   document.addEventListener(event, handler)
 }
@@ -214,7 +214,7 @@ type ForbiddenTypes = object
 
 // 创建只接受非对象类型的泛型函数
 function logPrimitive<T extends Exclude<AllowedTypes, ForbiddenTypes>>(
-  value: T
+  value: T,
 ): void {
   console.log(value)
 }
@@ -225,7 +225,7 @@ logPrimitive(true) // ✅
 logPrimitive({}) // ❌ 错误：object 被排除
 ```
 
-## 5. 🤔 `Exclude<T, U>` 的实际应用场景有哪些？
+## 5. `Exclude<T, U>` 的实际应用场景有哪些？
 
 ### 5.1. 应用 1：Redux Action 类型安全
 
@@ -397,7 +397,7 @@ class Router {
 const router = new Router()
 router.canActivate(
   { path: '/profile', component: null, type: 'protected' },
-  false
+  false,
 ) // false
 router.canActivate({ path: '/home', component: null, type: 'public' }, false) // true
 ```
@@ -441,7 +441,7 @@ const checkboxRule: ValidationRule<'checkbox'> = {
 
 function validateInput<T extends InputType>(
   value: string,
-  rule: ValidationRule<T>
+  rule: ValidationRule<T>,
 ): boolean {
   if (rule.required && !value) {
     return false
@@ -471,7 +471,7 @@ function validateInput<T extends InputType>(
 }
 ```
 
-## 6. 🤔 使用 `Exclude<T, U>` 需要注意什么？
+## 6. 使用 `Exclude<T, U>` 需要注意什么？
 
 ### 6.1. 注意事项 1：只对联合类型有效
 
@@ -587,7 +587,7 @@ type Excluded3 = Exclude<Excluded2, 'c'>
 type ExcludedOnce = Exclude<LargeUnion, 'a' | 'b' | 'c'>
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript Utility Types - Exclude][1]
 - [TypeScript Handbook - Conditional Types][2]

@@ -2,20 +2,20 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 “参数属性 Parameter Properties”是什么？](#3--参数属性-parameter-properties是什么)
-- [4. 🤔 “Parameter Properties”是必要的吗？](#4--parameter-properties是必要的吗)
-- [5. 🤔 参数属性和普通属性可以共存吗？](#5--参数属性和普通属性可以共存吗)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. “参数属性 Parameter Properties”是什么？](#3-参数属性-parameter-properties是什么)
+- [4. “Parameter Properties”是必要的吗？](#4-parameter-properties是必要的吗)
+- [5. 参数属性和普通属性可以共存吗？](#5-参数属性和普通属性可以共存吗)
   - [5.1. 💻 demos.1 - 参数属性和普通属性冲突，听谁的？](#51--demos1---参数属性和普通属性冲突听谁的)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - Parameter Properties 参数属性
 
-## 2. 🫧 评价
+## 2. 评价
 
 Parameter Properties 就是一个 TS 为我们提供的语法糖，你需要写如下代码：
 
@@ -39,7 +39,7 @@ class Point {
 
 需要注意的小细节：如果普通属性进行了初始化，同时又使用了参数属性，那么普通属性的初始化结果会覆盖参数属性的初始化结果。
 
-## 3. 🤔 “参数属性 Parameter Properties”是什么？
+## 3. “参数属性 Parameter Properties”是什么？
 
 官方描述：
 
@@ -66,7 +66,7 @@ console.log(a.z) // ❌ 报错
 // Property 'z' is private and only accessible within class 'Params'.
 ```
 
-## 4. 🤔 “Parameter Properties”是必要的吗？
+## 4. “Parameter Properties”是必要的吗？
 
 “Parameter Properties”不是必要的，它本质上是 TS 给我们提供的一个语法糖，这颗糖你吃或者不吃都 OK。
 
@@ -117,7 +117,7 @@ class Point {
 
 :::
 
-## 5. 🤔 参数属性和普通属性可以共存吗？
+## 5. 参数属性和普通属性可以共存吗？
 
 不允许共存，会报错。
 

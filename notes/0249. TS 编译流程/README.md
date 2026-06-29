@@ -2,38 +2,38 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 编译流程概览？](#3--编译流程概览)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 编译流程概览？](#3-编译流程概览)
   - [3.1. 编译流程图](#31-编译流程图)
   - [3.2. 五个阶段](#32-五个阶段)
   - [3.3. 编译器 API 示例](#33-编译器-api-示例)
-- [4. 🤔 Scanner（扫描器）？](#4--scanner扫描器)
+- [4. Scanner（扫描器）？](#4-scanner扫描器)
   - [4.1. Token 类型](#41-token-类型)
   - [4.2. 扫描过程示例](#42-扫描过程示例)
   - [4.3. 使用 Scanner API](#43-使用-scanner-api)
-- [5. 🤔 Parser（解析器）？](#5--parser解析器)
+- [5. Parser（解析器）？](#5-parser解析器)
   - [5.1. AST 节点结构](#51-ast-节点结构)
   - [5.2. 遍历 AST](#52-遍历-ast)
   - [5.3. 提取类型信息](#53-提取类型信息)
-- [6. 🤔 Binder（绑定器）？](#6--binder绑定器)
+- [6. Binder（绑定器）？](#6-binder绑定器)
   - [6.1. 符号和符号表](#61-符号和符号表)
   - [6.2. 作用域链](#62-作用域链)
   - [6.3. 符号标志](#63-符号标志)
-- [7. 🤔 Checker（检查器）？](#7--checker检查器)
+- [7. Checker（检查器）？](#7-checker检查器)
   - [7.1. 类型检查过程](#71-类型检查过程)
   - [7.2. 类型兼容性检查](#72-类型兼容性检查)
   - [7.3. 使用 Checker API](#73-使用-checker-api)
-- [8. 🤔 Emitter（生成器）？](#8--emitter生成器)
+- [8. Emitter（生成器）？](#8-emitter生成器)
   - [8.1. 代码生成过程](#81-代码生成过程)
   - [8.2. 类型擦除](#82-类型擦除)
   - [8.3. Source Map 生成](#83-source-map-生成)
   - [8.4. 声明文件生成](#84-声明文件生成)
-- [9. 🔗 引用](#9--引用)
+- [9. 引用](#9-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 编译流程概览
 - Scanner 扫描器
@@ -42,7 +42,7 @@
 - Checker 检查器
 - Emitter 生成器
 
-## 2. 🫧 评价
+## 2. 评价
 
 理解 TypeScript 编译流程有助于深入掌握类型系统的工作原理。
 
@@ -52,7 +52,7 @@
 - 类型检查机制
 - 代码生成过程
 
-## 3. 🤔 编译流程概览？
+## 3. 编译流程概览？
 
 TypeScript 编译器将源代码转换为 JavaScript 的过程分为五个主要阶段。
 
@@ -106,7 +106,7 @@ function compile(sourceCode: string) {
     'example.ts',
     sourceCode,
     ts.ScriptTarget.ES2015,
-    true
+    true,
   )
 
   // 2. 遍历 AST
@@ -121,7 +121,7 @@ function compile(sourceCode: string) {
 compile('const x: number = 42;')
 ```
 
-## 4. 🤔 Scanner（扫描器）？
+## 4. Scanner（扫描器）？
 
 Scanner 负责词法分析，将源代码转换为 Token 流。
 
@@ -230,7 +230,7 @@ function scanTokens(sourceCode: string) {
     ts.ScriptTarget.ES2015,
     false,
     ts.LanguageVariant.Standard,
-    sourceCode
+    sourceCode,
   )
 
   const tokens: ts.SyntaxKind[] = []
@@ -247,7 +247,7 @@ console.log(tokens.map((t) => ts.SyntaxKind[t]))
 // ["ConstKeyword", "Identifier", "EqualsToken", "NumericLiteral", "SemicolonToken"]
 ```
 
-## 5. 🤔 Parser（解析器）？
+## 5. Parser（解析器）？
 
 Parser 将 Token 流转换为抽象语法树（AST）。
 
@@ -288,7 +288,7 @@ function traverseAST(sourceCode: string) {
     'example.ts',
     sourceCode,
     ts.ScriptTarget.ES2015,
-    true
+    true,
   )
 
   function visit(node: ts.Node, depth = 0) {
@@ -324,7 +324,7 @@ function extractTypes(sourceCode: string) {
     'example.ts',
     sourceCode,
     ts.ScriptTarget.ES2015,
-    true
+    true,
   )
 
   const types: string[] = []
@@ -349,7 +349,7 @@ const types = extractTypes(`
 console.log(types) // ["string", "number", "{ name: string; age: number }"]
 ```
 
-## 6. 🤔 Binder（绑定器）？
+## 6. Binder（绑定器）？
 
 Binder 创建符号表，建立标识符与声明的关联。
 
@@ -430,7 +430,7 @@ enum SymbolFlags {
 }
 ```
 
-## 7. 🤔 Checker（检查器）？
+## 7. Checker（检查器）？
 
 Checker 执行类型检查，验证代码的类型正确性。
 
@@ -496,7 +496,7 @@ function checkTypes(sourceCode: string) {
     'example.ts',
     sourceCode,
     ts.ScriptTarget.ES2015,
-    true
+    true,
   )
 
   const program = ts.createProgram(
@@ -513,7 +513,7 @@ function checkTypes(sourceCode: string) {
       getCanonicalFileName: (fileName) => fileName,
       useCaseSensitiveFileNames: () => true,
       getNewLine: () => '\n',
-    }
+    },
   )
 
   const checker = program.getTypeChecker()
@@ -541,7 +541,7 @@ checkTypes(`
 // user: { name: string; age: number; }
 ```
 
-## 8. 🤔 Emitter（生成器）？
+## 8. Emitter（生成器）？
 
 Emitter 将 AST 转换为目标 JavaScript 代码。
 
@@ -555,7 +555,10 @@ interface User {
 }
 
 class Person implements User {
-  constructor(public name: string, public age: number) {}
+  constructor(
+    public name: string,
+    public age: number,
+  ) {}
 
   greet(): string {
     return `Hello, ${this.name}`
@@ -664,7 +667,7 @@ export declare class Calculator {
 */
 ```
 
-## 9. 🔗 引用
+## 9. 引用
 
 - [TypeScript Compiler Internals][1]
 - [TypeScript Compiler API][2]

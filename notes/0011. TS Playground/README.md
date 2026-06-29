@@ -2,34 +2,34 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 TS Playground 是什么？](#3--ts-playground-是什么)
-- [4. 🤔 官方 Playground 有什么用？](#4--官方-playground-有什么用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. TS Playground 是什么？](#3-ts-playground-是什么)
+- [4. 官方 Playground 有什么用？](#4-官方-playground-有什么用)
   - [4.1. 核心功能](#41-核心功能)
   - [4.2. 实用场景](#42-实用场景)
   - [4.3. 高级技巧](#43-高级技巧)
-- [5. 🤔 TS Playground 页面组成结构是？](#5--ts-playground-页面组成结构是)
+- [5. TS Playground 页面组成结构是？](#5-ts-playground-页面组成结构是)
   - [5.1. ⚙️ 头部控件区域](#51-️-头部控件区域)
   - [5.2. ⚙️ 左侧区域](#52-️-左侧区域)
   - [5.3. ⚙️ 右侧区域](#53-️-右侧区域)
-- [6. 🧠 学会举一反三](#6--学会举一反三)
-- [7. 🔗 引用](#7--引用)
+- [6. 学会举一反三](#6-学会举一反三)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - TypeScript Playground 简介
 - 知道能够使用 TypeScript 快速解决哪些问题
 
-## 2. 🫧 评价
+## 2. 评价
 
 - 学会借助 TypeScript Playground 来速学 TS。
   - `TNotes.typescript` 知识库中的所有示例也都可以直接丢到 TypeScript Playground 中，进行查看和编译。
   - 熟不熟悉 TypeScript Playground 的界面其实不是特别重要，简单了解一下即可。没必要每一个按的功能都记住，能看懂就行。建议的做法是，到 TypeScript Playground 这里边随便点点，体验一波，在线用这个工具去测试一些 TS 程序，还是非常方便的。
 
-## 3. 🤔 TS Playground 是什么？
+## 3. TS Playground 是什么？
 
 - [TS Playground][1]
   - TS Playground 是 TypeScript 官方提供的 Playground，是一个在线的、可以实时编译和运行 ts 代码的工具。
@@ -60,7 +60,7 @@
   - 如果你已经获取到了某个接口返回的数据，现在需要为它编写类型信息，用它，直接把数据丢进去，在侧边的 `.D.TS` 中拷贝类型信息即可。
   - ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-16-07-52-43.png)
 
-## 4. 🤔 官方 Playground 有什么用？
+## 4. 官方 Playground 有什么用？
 
 Playground 是 TypeScript 官方提供的在线编辑器，地址：https://www.typescriptlang.org/play
 
@@ -122,7 +122,7 @@ const config = { port: 8080 } satisfies Record<string, number>
 // Export > Download 可获得包含 package.json 的完整项目
 ```
 
-## 5. 🤔 TS Playground 页面组成结构是？
+## 5. TS Playground 页面组成结构是？
 
 ### 5.1. ⚙️ 头部控件区域
 
@@ -160,7 +160,7 @@ const config = { port: 8080 } satisfies Record<string, number>
 - 查看日志信息
 - 选用插件列表
 
-## 6. 🧠 学会举一反三
+## 6. 学会举一反三
 
 - 当你了解了 TS Playground 之后，那么对于其它前端相关技术，比如 vue、react、…… 是不是也有对应的 Playground 呢？
 - 答案是：✅ Yes
@@ -176,7 +176,7 @@ const config = { port: 8080 } satisfies Record<string, number>
 
 :::
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TS 官方提供的 playground][1]
 

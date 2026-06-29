@@ -9,13 +9,13 @@
 
 <!-- endregion:toc -->
 
-## 1. 📝 概述
+## 1.  概述
 
 - 类型和值
 - 类型声明
 - 类型推断
 
-## 2. 💻 demos.1 - 类型 vs. 值
+## 2.  demos.1 - 类型 vs. 值
 
 ::: code-group
 
@@ -35,7 +35,7 @@ addOne('hello') // ❌
 
 :::
 
-## 3. 💻 demos.2 - 类型声明
+## 3.  demos.2 - 类型声明
 
 ::: code-group
 
@@ -78,7 +78,7 @@ function toString(num: number): string {
 
 :::
 
-## 4. 💻 demos.3 - 类型推断
+## 4.  demos.3 - 类型推断
 
 ::: code-group
 

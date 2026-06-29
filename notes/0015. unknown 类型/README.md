@@ -2,31 +2,31 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 unknown 类型是什么？](#3--unknown-类型是什么)
-- [4. 🤔 unknown 类型的诞生背景是？](#4--unknown-类型的诞生背景是)
-- [5. 🤔 unknown 类型的使用场景主要是？](#5--unknown-类型的使用场景主要是)
-- [6. 🆚 unknown vs. any](#6--unknown-vs-any)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. unknown 类型是什么？](#3-unknown-类型是什么)
+- [4. unknown 类型的诞生背景是？](#4-unknown-类型的诞生背景是)
+- [5. unknown 类型的使用场景主要是？](#5-unknown-类型的使用场景主要是)
+- [6. unknown vs. any](#6-unknown-vs-any)
   - [6.1. unknown 的可赋值性（assignability）](#61-unknown-的可赋值性assignability)
   - [6.2. unknown 和 any 的相似点](#62-unknown-和-any-的相似点)
   - [6.3. unknown 和 any 的差异点](#63-unknown-和-any-的差异点)
-- [7. 🤔 “unknown 的类型缩小”是什么意思？](#7--unknown-的类型缩小是什么意思)
-- [8. 🔗 引用](#8--引用)
+- [7. “unknown 的类型缩小”是什么意思？](#7-unknown-的类型缩小是什么意思)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - unknown
 
-## 2. 🫧 评价
+## 2. 评价
 
 - unknown 和 any 是非常相似的，学习 unknown 类型的时候可以对比着 any 来学，重点关注两者之间的一些差异点。
 - 理解 unknown 类型的诞生背景，这能让我们更好地理解为什么 TS 要加入 unknown 类型，加入它是为了解决啥子问题。
 - 建议：如果你在开发时想要在某处使用 any 类型，可以优先考虑一下 unknown，因为它更安全一些。
 
-## 3. 🤔 unknown 类型是什么？
+## 3. unknown 类型是什么？
 
 官方描述如下：
 
@@ -84,12 +84,12 @@ function safeParse(s: string): unknown {
 const obj = safeParse(someRandomString)
 ```
 
-## 4. 🤔 unknown 类型的诞生背景是？
+## 4. unknown 类型的诞生背景是？
 
 - 为了解决 `any` 类型存在的一系列问题（比如“污染”其他变量的问题、类型不安全的问题），TypeScript 3.0 引入了 `unknown` 类型。
 - `unknown` 与 `any` 含义相同，表示类型不确定，可能是任意类型，但是它的使用有一些限制，不像 `any` 那样自由，可以视为严格版的 `any`。
 
-## 5. 🤔 unknown 类型的使用场景主要是？
+## 5. unknown 类型的使用场景主要是？
 
 - 【1】未知数据源：当你从不确定的数据源获取数据，例如第三方库或 API 调用，但还希望确保类型安全时，`unknown` 很有用。
 - 【2】类型变量：当你定义泛型或通用函数，要求用户提供额外的类型信息。
@@ -129,7 +129,7 @@ const numbers: unknown = [1, 2, 3, 4, 5]
 processUnknownData<number>(numbers, (num) => console.log(num * 2))
 ```
 
-## 6. 🆚 unknown vs. any
+## 6. unknown vs. any
 
 ### 6.1. unknown 的可赋值性（assignability）
 
@@ -204,7 +204,7 @@ a === 1 // ✅ 正确
   - `unknown` 类型是 TypeScript 提供的一种强大而类型安全的方式，用于处理不确定的数据。
   - 虽然 `any` 类型在某些情况下可能更加灵活，但 `unknown` 类型通常是更好的选择，因为它强制执行类型检查，从而降低运行时错误的风险。
 
-## 7. 🤔 “unknown 的类型缩小”是什么意思？
+## 7. “unknown 的类型缩小”是什么意思？
 
 ![svg](./assets/1.svg)
 
@@ -253,7 +253,7 @@ let r = (a as number) + 10 // ✅
 - 3
   - 除了使用 if 语句进行类型缩小，也可以直接通过断言来进行类型缩小。
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [unknown][1]
 - [Narrowing][2]

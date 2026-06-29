@@ -2,18 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `InstanceType<T>` 的源码实现是什么？](#3--instancetypet-的源码实现是什么)
-- [4. 🤔 如何使用 `InstanceType<T>` 提取类的实例类型？](#4--如何使用-instancetypet-提取类的实例类型)
-- [5. 🤔 `InstanceType<T>` 在工厂模式中如何应用？](#5--instancetypet-在工厂模式中如何应用)
-- [6. 🤔 `InstanceType<T>` 在依赖注入中如何使用？](#6--instancetypet-在依赖注入中如何使用)
-- [7. 🤔 使用 `InstanceType<T>` 时需要注意哪些问题？](#7--使用-instancetypet-时需要注意哪些问题)
-- [8. 🔗 引用](#8--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `InstanceType<T>` 的源码实现是什么？](#3-instancetypet-的源码实现是什么)
+- [4. 如何使用 `InstanceType<T>` 提取类的实例类型？](#4-如何使用-instancetypet-提取类的实例类型)
+- [5. `InstanceType<T>` 在工厂模式中如何应用？](#5-instancetypet-在工厂模式中如何应用)
+- [6. `InstanceType<T>` 在依赖注入中如何使用？](#6-instancetypet-在依赖注入中如何使用)
+- [7. 使用 `InstanceType<T>` 时需要注意哪些问题？](#7-使用-instancetypet-时需要注意哪些问题)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `InstanceType<T>` 的源码实现
 - 类实例类型的提取
@@ -21,11 +21,11 @@
 - 依赖注入容器的类型推断
 - 抽象类的实例类型处理
 
-## 2. 🫧 评价
+## 2. 评价
 
 `InstanceType<T>` 用于从构造函数类型中提取实例类型，与 `ConstructorParameters<T>` 配合使用可以完整描述类的类型信息。
 
-## 3. 🤔 `InstanceType<T>` 的源码实现是什么？
+## 3. `InstanceType<T>` 的源码实现是什么？
 
 - 在工厂模式中，常用于推断工厂函数的返回类型
 - 在依赖注入容器中，用于类型安全的实例解析
@@ -93,7 +93,7 @@ const product = createProduct(1, 'Laptop', 999) // ✅ 类型安全
 console.log(product.id) // ✅ 可以访问实例属性
 ```
 
-## 4. 🤔 如何使用 `InstanceType<T>` 提取类的实例类型？
+## 4. 如何使用 `InstanceType<T>` 提取类的实例类型？
 
 在需要引用类的实例类型但不直接使用类名的场景中，`InstanceType<T>` 非常有用：
 
@@ -206,7 +206,7 @@ if (animal instanceof Dog) {
 }
 ```
 
-## 5. 🤔 `InstanceType<T>` 在工厂模式中如何应用？
+## 5. `InstanceType<T>` 在工厂模式中如何应用？
 
 在工厂模式中，`InstanceType<T>` 用于类型安全的实例创建：
 
@@ -315,7 +315,7 @@ conn.query('SELECT * FROM users')
 connectionPool.release(conn)
 ```
 
-## 6. 🤔 `InstanceType<T>` 在依赖注入中如何使用？
+## 6. `InstanceType<T>` 在依赖注入中如何使用？
 
 在依赖注入容器中，`InstanceType<T>` 用于类型安全的服务解析：
 
@@ -447,7 +447,7 @@ emailService.send('user@example.com', 'Hello') // ✅ 类型安全
 notificationService.notify(1)
 ```
 
-## 7. 🤔 使用 `InstanceType<T>` 时需要注意哪些问题？
+## 7. 使用 `InstanceType<T>` 时需要注意哪些问题？
 
 在使用 `InstanceType<T>` 时，有以下几点需要注意：
 
@@ -589,7 +589,7 @@ const instance1 = new PrivateConstructor() // ❌ Error
 const instance2 = PrivateConstructor.create() // ✅ 通过静态方法创建
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Handbook - Utility Types - InstanceType][1]
 - [TypeScript 源码 - InstanceType 实现][2]

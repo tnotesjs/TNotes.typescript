@@ -2,33 +2,33 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 monorepo？](#3--什么是-monorepo)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 monorepo？](#3-什么是-monorepo)
   - [3.1. monorepo vs. polyrepo](#31-monorepo-vs-polyrepo)
   - [3.2. 常见工具](#32-常见工具)
-- [4. 🤔 如何搭建 TypeScript monorepo？](#4--如何搭建-typescript-monorepo)
+- [4. 如何搭建 TypeScript monorepo？](#4-如何搭建-typescript-monorepo)
   - [4.1. 目录结构](#41-目录结构)
   - [4.2. workspace 配置](#42-workspace-配置)
   - [4.3. 包配置](#43-包配置)
-- [5. 🤔 项目引用如何配置？](#5--项目引用如何配置)
+- [5. 项目引用如何配置？](#5-项目引用如何配置)
   - [5.1. 根 tsconfig.json](#51-根-tsconfigjson)
   - [5.2. 包的 tsconfig.json](#52-包的-tsconfigjson)
   - [5.3. 构建命令](#53-构建命令)
-- [6. 🤔 跨包类型共享？](#6--跨包类型共享)
+- [6. 跨包类型共享？](#6-跨包类型共享)
   - [6.1. 共享包导出](#61-共享包导出)
   - [6.2. 使用共享类型](#62-使用共享类型)
   - [6.3. 路径映射](#63-路径映射)
-- [7. 🤔 构建和发布？](#7--构建和发布)
+- [7. 构建和发布？](#7-构建和发布)
   - [7.1. 使用 Turborepo](#71-使用-turborepo)
   - [7.2. 版本管理](#72-版本管理)
   - [7.3. CI/CD 配置](#73-cicd-配置)
   - [7.4. 选择性发布](#74-选择性发布)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - monorepo 概念
 - TypeScript monorepo 搭建
@@ -36,7 +36,7 @@
 - 跨包类型共享
 - 构建和发布
 
-## 2. 🫧 评价
+## 2. 评价
 
 monorepo 是大型项目的有效组织方式。
 
@@ -46,7 +46,7 @@ monorepo 是大型项目的有效组织方式。
 - 类型安全的跨包依赖
 - 统一的构建和测试流程
 
-## 3. 🤔 什么是 monorepo？
+## 3. 什么是 monorepo？
 
 单一仓库管理多个项目。
 
@@ -97,7 +97,7 @@ const tools: MonorepoTool[] = [
 ]
 ```
 
-## 4. 🤔 如何搭建 TypeScript monorepo？
+## 4. 如何搭建 TypeScript monorepo？
 
 使用 pnpm workspaces 搭建。
 
@@ -187,7 +187,7 @@ packages:
 }
 ```
 
-## 5. 🤔 项目引用如何配置？
+## 5. 项目引用如何配置？
 
 使用 TypeScript 项目引用。
 
@@ -269,7 +269,7 @@ tsc --build packages/web
 tsc --build --verbose
 ```
 
-## 6. 🤔 跨包类型共享？
+## 6. 跨包类型共享？
 
 类型安全的跨包依赖。
 
@@ -347,7 +347,7 @@ import { User } from '@monorepo/shared'
 // 3. 提供完整的类型检查和跳转
 ```
 
-## 7. 🤔 构建和发布？
+## 7. 构建和发布？
 
 统一的构建和发布流程。
 
@@ -470,7 +470,7 @@ async function getChangedPackages(): Promise<Package[]> {
   const changed: Package[] = []
   for (const pkg of packages) {
     const { stdout: diff } = await execAsync(
-      `git diff HEAD^ HEAD -- ${pkg.path}`
+      `git diff HEAD^ HEAD -- ${pkg.path}`,
     )
     if (diff.trim()) {
       changed.push({
@@ -496,7 +496,7 @@ async function publishPackages() {
 publishPackages()
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Project References][1]
 - [pnpm Workspaces][2]

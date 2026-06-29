@@ -2,23 +2,23 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 @ts-nocheck 的作用是什么？](#3--ts-nocheck-的作用是什么)
-- [4. 🤔 @ts-nocheck 必须位于第一行吗？](#4--ts-nocheck-必须位于第一行吗)
-- [5. 🤔 何时应该使用 @ts-nocheck？](#5--何时应该使用-ts-nocheck)
-- [6. 🆚 @ts-nocheck vs @ts-ignore](#6--ts-nocheck-vs-ts-ignore)
-- [7. 🔗 引用](#7--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. @ts-nocheck 的作用是什么？](#3-ts-nocheck-的作用是什么)
+- [4. @ts-nocheck 必须位于第一行吗？](#4-ts-nocheck-必须位于第一行吗)
+- [5. 何时应该使用 @ts-nocheck？](#5-何时应该使用-ts-nocheck)
+- [6. @ts-nocheck vs @ts-ignore](#6-ts-nocheck-vs-ts-ignore)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `@ts-nocheck` 注释的基本用法
 - 跳过整个文件的类型检查
 - 在迁移项目中的应用
 
-## 2. 🫧 评价
+## 2. 评价
 
 `@ts-nocheck` 是文件级别的类型检查跳过指令，用于完全禁用某个文件的 TypeScript 类型检查。
 
@@ -28,7 +28,7 @@
 - 应该作为临时方案，最终目标是移除它
 - 过度使用会失去 TypeScript 的类型安全优势
 
-## 3. 🤔 @ts-nocheck 的作用是什么？
+## 3. @ts-nocheck 的作用是什么？
 
 `@ts-nocheck` 跳过整个文件的类型检查：
 
@@ -59,7 +59,7 @@ const value: string = 'hello'
 value.nonExistentMethod()
 ```
 
-## 4. 🤔 @ts-nocheck 必须位于第一行吗？
+## 4. @ts-nocheck 必须位于第一行吗？
 
 不需要
 
@@ -86,7 +86,7 @@ let foo: string = 123 // ✅ 不会报错
 let foo: string = 123 // ✅ 不会报错
 ```
 
-## 5. 🤔 何时应该使用 @ts-nocheck？
+## 5. 何时应该使用 @ts-nocheck？
 
 合理使用 `@ts-nocheck` 的场景：
 
@@ -161,7 +161,7 @@ describe('Legacy feature', () => {
 
 :::
 
-## 6. 🆚 @ts-nocheck vs @ts-ignore
+## 6. @ts-nocheck vs @ts-ignore
 
 | 特性     | @ts-nocheck              | @ts-ignore                |
 | -------- | ------------------------ | ------------------------- |
@@ -172,7 +172,7 @@ describe('Legacy feature', () => {
 | 维护性   | 难以定位问题             | 容易定位问题              |
 | 建议     | 仅用于项目的初期迁移阶段 | 优先使用 @ts-expect-error |
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript Handbook - JS Projects Utilizing TypeScript][1]
 - [TypeScript Compiler Options - checkJs][2]

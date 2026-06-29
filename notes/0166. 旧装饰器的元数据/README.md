@@ -2,26 +2,26 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是装饰器元数据？](#3--什么是装饰器元数据)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是装饰器元数据？](#3-什么是装饰器元数据)
   - [3.1. 配置元数据](#31-配置元数据)
-- [4. 🤔 如何使用设计时类型元数据？](#4--如何使用设计时类型元数据)
+- [4. 如何使用设计时类型元数据？](#4-如何使用设计时类型元数据)
   - [4.1. design:type（属性类型）](#41-designtype属性类型)
   - [4.2. design:paramtypes（参数类型）](#42-designparamtypes参数类型)
   - [4.3. design:returntype（返回类型）](#43-designreturntype返回类型)
-- [5. 🤔 如何自定义元数据？](#5--如何自定义元数据)
+- [5. 如何自定义元数据？](#5-如何自定义元数据)
   - [5.1. 基本使用](#51-基本使用)
   - [5.2. 多个元数据](#52-多个元数据)
-- [6. 🤔 元数据的实际应用场景有哪些？](#6--元数据的实际应用场景有哪些)
+- [6. 元数据的实际应用场景有哪些？](#6-元数据的实际应用场景有哪些)
   - [6.1. 依赖注入](#61-依赖注入)
   - [6.2. ORM 字段映射](#62-orm-字段映射)
   - [6.3. 验证器](#63-验证器)
-- [7. 🔗 引用](#7--引用)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 装饰器元数据的概念
 - 设计时类型元数据的使用
@@ -29,7 +29,7 @@
 - 元数据在依赖注入中的应用
 - 元数据在 ORM 中的应用
 
-## 2. 🫧 评价
+## 2. 评价
 
 装饰器元数据是旧装饰器（Stage 2）的重要特性，支持运行时反射。
 
@@ -39,7 +39,7 @@
 - 新装饰器（Stage 3）不支持元数据，需要等待新的元数据提案
 - 理解元数据机制有助于深入掌握框架的实现原理
 
-## 3. 🤔 什么是装饰器元数据？
+## 3. 什么是装饰器元数据？
 
 装饰器元数据是附加在类、方法、属性上的类型信息，可以在运行时读取。
 
@@ -79,7 +79,7 @@ class Example {
 // age 的类型：Number
 ```
 
-## 4. 🤔 如何使用设计时类型元数据？
+## 4. 如何使用设计时类型元数据？
 
 TypeScript 会自动生成三种设计时类型元数据。
 
@@ -119,7 +119,7 @@ function ShowParams(target: any) {
   const types = Reflect.getMetadata('design:paramtypes', target)
   console.log(
     '构造函数参数类型：',
-    types.map((t: any) => t.name)
+    types.map((t: any) => t.name),
   )
 }
 
@@ -131,7 +131,7 @@ class UserService {
   constructor(
     private logger: Logger,
     private db: Database,
-    private timeout: number
+    private timeout: number,
   ) {}
 }
 
@@ -147,7 +147,7 @@ function ShowReturn(target: any, propertyKey: string) {
   const returnType = Reflect.getMetadata(
     'design:returntype',
     target,
-    propertyKey
+    propertyKey,
   )
   console.log(`${propertyKey} 返回类型：${returnType.name}`)
 }
@@ -169,7 +169,7 @@ class Calculator {
 // getName 返回类型：String
 ```
 
-## 5. 🤔 如何自定义元数据？
+## 5. 如何自定义元数据？
 
 可以使用 `Reflect.defineMetadata` 和 `Reflect.getMetadata` 自定义元数据。
 
@@ -247,18 +247,18 @@ class ApiController {
 const method = Reflect.getMetadata(
   'http:method',
   ApiController.prototype,
-  'getData'
+  'getData',
 )
 const path = Reflect.getMetadata(
   'http:path',
   ApiController.prototype,
-  'getData'
+  'getData',
 )
 
 console.log(`${method} ${path}`) // GET /api/data
 ```
 
-## 6. 🤔 元数据的实际应用场景有哪些？
+## 6. 元数据的实际应用场景有哪些？
 
 元数据在框架开发中有重要应用。
 
@@ -311,7 +311,10 @@ class Database {
 }
 
 class UserService {
-  constructor(private logger: Logger, private db: Database) {}
+  constructor(
+    private logger: Logger,
+    private db: Database,
+  ) {}
 
   getUser(id: number) {
     this.logger.log(`获取用户 ${id}`)
@@ -458,7 +461,7 @@ console.log(validate(dto))
 // ]
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [Reflect Metadata][1]
 - [TypeScript Decorators][2]

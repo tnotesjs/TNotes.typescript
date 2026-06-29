@@ -2,31 +2,31 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么时候需要迁移装饰器？](#3--什么时候需要迁移装饰器)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么时候需要迁移装饰器？](#3-什么时候需要迁移装饰器)
   - [3.1. 适合迁移的场景](#31-适合迁移的场景)
   - [3.2. 不适合迁移的场景](#32-不适合迁移的场景)
   - [3.3. 迁移策略](#33-迁移策略)
-- [4. 🤔 如何迁移类装饰器？](#4--如何迁移类装饰器)
+- [4. 如何迁移类装饰器？](#4-如何迁移类装饰器)
   - [4.1. 返回新构造函数](#41-返回新构造函数)
-- [5. 🤔 如何迁移方法装饰器？](#5--如何迁移方法装饰器)
+- [5. 如何迁移方法装饰器？](#5-如何迁移方法装饰器)
   - [5.1. 异步方法装饰器](#51-异步方法装饰器)
-- [6. 🤔 如何迁移属性装饰器？](#6--如何迁移属性装饰器)
+- [6. 如何迁移属性装饰器？](#6-如何迁移属性装饰器)
   - [6.1. 只读属性](#61-只读属性)
-- [7. 🤔 如何处理元数据？](#7--如何处理元数据)
+- [7. 如何处理元数据？](#7-如何处理元数据)
   - [7.1. 使用 WeakMap 存储元数据](#71-使用-weakmap-存储元数据)
   - [7.2. 使用类静态属性](#72-使用类静态属性)
-- [8. 🤔 迁移中有哪些常见问题？](#8--迁移中有哪些常见问题)
+- [8. 迁移中有哪些常见问题？](#8-迁移中有哪些常见问题)
   - [8.1. 参数装饰器不支持](#81-参数装饰器不支持)
   - [8.2. 访问器装饰器变化](#82-访问器装饰器变化)
   - [8.3. 装饰器返回值处理](#83-装饰器返回值处理)
   - [8.4. 兼容性处理](#84-兼容性处理)
-- [9. 🔗 引用](#9--引用)
+- [9. 引用](#9-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 装饰器迁移的时机和策略
 - 不同类型装饰器的迁移方法
@@ -34,7 +34,7 @@
 - 迁移过程中的常见问题
 - 兼容性处理技巧
 
-## 2. 🫧 评价
+## 2. 评价
 
 从旧装饰器迁移到新装饰器需要仔细规划，特别是涉及元数据的场景。
 
@@ -44,7 +44,7 @@
 - 参数装饰器和访问器装饰器在新装饰器中被移除
 - 建议新项目使用新装饰器，现有项目继续使用旧装饰器
 
-## 3. 🤔 什么时候需要迁移装饰器？
+## 3. 什么时候需要迁移装饰器？
 
 迁移装饰器需要权衡多个因素。
 
@@ -99,7 +99,7 @@
 // 适合小型项目或简单装饰器
 ```
 
-## 4. 🤔 如何迁移类装饰器？
+## 4. 如何迁移类装饰器？
 
 类装饰器的迁移相对简单。
 
@@ -165,7 +165,7 @@ class OldUser {
 ```ts [新装饰器]
 function NewLogger<T extends new (...args: any[]) => any>(
   target: T,
-  context: ClassDecoratorContext
+  context: ClassDecoratorContext,
 ) {
   return class extends target {
     constructor(...args: any[]) {
@@ -186,7 +186,7 @@ class NewUser {
 
 :::
 
-## 5. 🤔 如何迁移方法装饰器？
+## 5. 如何迁移方法装饰器？
 
 方法装饰器的迁移需要调整参数结构。
 
@@ -196,7 +196,7 @@ class NewUser {
 function OldLog(
   target: Object,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -244,7 +244,7 @@ class NewService {
 function OldAsync(
   target: Object,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
 
@@ -286,7 +286,7 @@ class NewApi {
 
 :::
 
-## 6. 🤔 如何迁移属性装饰器？
+## 6. 如何迁移属性装饰器？
 
 属性装饰器在新装饰器中称为字段装饰器。
 
@@ -390,7 +390,7 @@ class NewModel {
 
 :::
 
-## 7. 🤔 如何处理元数据？
+## 7. 如何处理元数据？
 
 新装饰器不支持 reflect-metadata，需要替代方案。
 
@@ -496,7 +496,7 @@ console.log(routes.get('getUsers')) // '/api/users'
 console.log(routes.get('getPosts')) // '/api/posts'
 ```
 
-## 8. 🤔 迁移中有哪些常见问题？
+## 8. 迁移中有哪些常见问题？
 
 迁移过程中需要注意以下问题。
 
@@ -525,7 +525,7 @@ class OldController {
 function OldAccessor(
   target: Object,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalGet = descriptor.get
 
@@ -549,7 +549,7 @@ class OldModel {
 // 新装饰器：访问器被视为方法
 function NewAccessor(
   target: Function,
-  context: ClassGetterDecoratorContext | ClassSetterDecoratorContext
+  context: ClassGetterDecoratorContext | ClassSetterDecoratorContext,
 ) {
   return function (this: any) {
     console.log('getter 调用')
@@ -574,7 +574,7 @@ class NewModel {
 function OldDecorator(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   // 修改 descriptor
   const originalMethod = descriptor.value
@@ -611,7 +611,7 @@ function UniversalLog(...args: any[]): any {
     const [target, propertyKey, descriptor] = args as [
       Object,
       string,
-      PropertyDescriptor
+      PropertyDescriptor,
     ]
     const originalMethod = descriptor.value
     descriptor.value = function (...methodArgs: any[]) {
@@ -639,7 +639,7 @@ class NewService {
 }
 ```
 
-## 9. 🔗 引用
+## 9. 引用
 
 - [TypeScript 5.0 Decorators][1]
 - [Migrating to Stage 3 Decorators][2]

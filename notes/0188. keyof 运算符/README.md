@@ -2,30 +2,30 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `keyof` 是什么？](#3--keyof-是什么)
-- [4. 🤔 `keyof` 如何处理不同类型？](#4--keyof-如何处理不同类型)
-- [5. 🤔 如何利用 `keyof` 创建映射类型？](#5--如何利用-keyof-创建映射类型)
-- [6. 🤔 keyof 与索引签名如何配合？](#6--keyof-与索引签名如何配合)
-- [7. 🤔 `keyof any` 的结果是什么？](#7--keyof-any-的结果是什么)
-- [8. 🤔 keyof 的使用都有哪些需要留意的细节？](#8--keyof-的使用都有哪些需要留意的细节)
-- [9. 🔗 引用](#9--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `keyof` 是什么？](#3-keyof-是什么)
+- [4. `keyof` 如何处理不同类型？](#4-keyof-如何处理不同类型)
+- [5. 如何利用 `keyof` 创建映射类型？](#5-如何利用-keyof-创建映射类型)
+- [6. keyof 与索引签名如何配合？](#6-keyof-与索引签名如何配合)
+- [7. `keyof any` 的结果是什么？](#7-keyof-any-的结果是什么)
+- [8. keyof 的使用都有哪些需要留意的细节？](#8-keyof-的使用都有哪些需要留意的细节)
+- [9. 引用](#9-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `keyof` 运算符的基本概念和语法
 - `keyof` 对不同类型的处理
 - `keyof` 映射类型的结合
 - `keyof` 与索引签名配合使用
 
-## 2. 🫧 评价
+## 2. 评价
 
 `keyof` 能够获取对象类型的所有键组成的联合类型，是实现高级类型工具的基础，TS 中的大多内置类型，比如 `Partial<T>`、`Required<T>`、`Readonly<T>` 等，都是利用 `keyof` 创建的映射类型。
 
-## 3. 🤔 `keyof` 是什么？
+## 3. `keyof` 是什么？
 
 `keyof` 是 TypeScript 的类型运算符，用于获取对象类型的所有键（key）组成的联合类型。
 
@@ -103,7 +103,7 @@ const key3: Keys = '123' // ❌ Error
 
 :::
 
-## 4. 🤔 `keyof` 如何处理不同类型？
+## 4. `keyof` 如何处理不同类型？
 
 总的来说，`keyof` 对不同类型的处理，还是比较符合直觉的，简单推断一下，基本就能得知 `keyof` 的返回结果。
 
@@ -223,7 +223,7 @@ const key4: PersonKeys = 'email' // ❌ Error
 
 :::
 
-## 5. 🤔 如何利用 `keyof` 创建映射类型？
+## 5. 如何利用 `keyof` 创建映射类型？
 
 ```ts
 interface Person {
@@ -259,7 +259,7 @@ type ReadonlyPerson = Readonly<Person>
 
 这个示例中定义的两个工具类型 `MyPartial`、`MyReadonly` 其实就是 TS 内置的工具类型 `Partial`、`Readonly` 的实现逻辑，那些 TS 中内置的工具类型，本质上也是这样通过类型运算来实现的。
 
-## 6. 🤔 keyof 与索引签名如何配合？
+## 6. keyof 与索引签名如何配合？
 
 1. 字符串索引签名，如果只有字符串索引签名，在提取的时候会自动联合上 `| number` 类型，因为 JS 会将数字键转为字符串
 2. 数字索引签名
@@ -332,7 +332,7 @@ const key7: StrictKeys = 123 // ❌ Error
 
 :::
 
-## 7. 🤔 `keyof any` 的结果是什么？
+## 7. `keyof any` 的结果是什么？
 
 `keyof any` 等价于 `string | number | symbol`。
 
@@ -358,7 +358,7 @@ const dict: StringDict = {
 }
 ```
 
-## 8. 🤔 keyof 的使用都有哪些需要留意的细节？
+## 8. keyof 的使用都有哪些需要留意的细节？
 
 1. `keyof` 与联合类型一起使用，只保留共同的键；与交叉类型一起使用，包含所有键
 2. `keyof` 不能用于值，在提取值的 key 时，可以先使用 `typeof` 提取值的类型，然后再由 `keyof` 提取 key
@@ -445,7 +445,7 @@ type Test2 = NonEmptyKeys<{ a: 1 }> // 'a'
 
 :::
 
-## 9. 🔗 引用
+## 9. 引用
 
 - [TypeScript Handbook - Keyof Type Operator][1]
 - [TypeScript Handbook - Indexed Access Types][2]

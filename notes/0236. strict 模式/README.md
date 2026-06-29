@@ -2,12 +2,12 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 strict 模式是什么？](#3--strict-模式是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. strict 模式是什么？](#3-strict-模式是什么)
   - [3.1. 基本配置](#31-基本配置)
   - [3.2. strict 的作用](#32-strict-的作用)
-- [4. 🤔 strict 包含哪些子选项？](#4--strict-包含哪些子选项)
+- [4. strict 包含哪些子选项？](#4-strict-包含哪些子选项)
   - [4.1. 完整列表](#41-完整列表)
   - [4.2. noImplicitAny](#42-noimplicitany)
   - [4.3. strictNullChecks](#43-strictnullchecks)
@@ -17,17 +17,17 @@
   - [4.7. noImplicitThis](#47-noimplicitthis)
   - [4.8. alwaysStrict](#48-alwaysstrict)
   - [4.9. useUnknownInCatchVariables](#49-useunknownincatchvariables)
-- [5. 🤔 是否应该开启 strict？](#5--是否应该开启-strict)
+- [5. 是否应该开启 strict？](#5-是否应该开启-strict)
   - [5.1. 新项目：强烈推荐开启](#51-新项目强烈推荐开启)
   - [5.2. 老项目：渐进式启用](#52-老项目渐进式启用)
   - [5.3. 对比](#53-对比)
-- [6. 🤔 如何渐进式启用 strict？](#6--如何渐进式启用-strict)
+- [6. 如何渐进式启用 strict？](#6-如何渐进式启用-strict)
   - [6.1. 阶段 1：开启 noImplicitAny](#61-阶段-1开启-noimplicitany)
   - [6.2. 阶段 2：开启 strictNullChecks](#62-阶段-2开启-strictnullchecks)
   - [6.3. 阶段 3：开启其他选项](#63-阶段-3开启其他选项)
   - [6.4. 阶段 4：完全开启 strict](#64-阶段-4完全开启-strict)
   - [6.5. 迁移策略](#65-迁移策略)
-- [7. 🤔 使用 strict 时需要注意什么？](#7--使用-strict-时需要注意什么)
+- [7. 使用 strict 时需要注意什么？](#7-使用-strict-时需要注意什么)
   - [7.1. 显式类型注解](#71-显式类型注解)
   - [7.2. 处理 null 和 undefined](#72-处理-null-和-undefined)
   - [7.3. 函数参数类型](#73-函数参数类型)
@@ -35,11 +35,11 @@
   - [7.5. catch 错误处理](#75-catch-错误处理)
   - [7.6. 第三方库类型](#76-第三方库类型)
   - [7.7. 使用类型断言（谨慎）](#77-使用类型断言谨慎)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - strict 选项的作用
 - strict 包含的子选项
@@ -48,7 +48,7 @@
 - 渐进式启用策略
 - 新旧项目的不同处理方式
 
-## 2. 🫧 评价
+## 2. 评价
 
 `strict` 是 TypeScript 中最重要的配置选项之一，启用后可以获得最严格的类型检查，显著提升代码质量和安全性。
 
@@ -59,7 +59,7 @@
 - 对代码质量的提升是巨大的
 - 老项目可以渐进式启用
 
-## 3. 🤔 strict 模式是什么？
+## 3. strict 模式是什么？
 
 `strict` 是一个总开关，启用所有严格类型检查选项。
 
@@ -96,7 +96,7 @@ function greet(name: string) {
 }
 ```
 
-## 4. 🤔 strict 包含哪些子选项？
+## 4. strict 包含哪些子选项？
 
 `strict: true` 等同于开启以下所有选项。
 
@@ -336,7 +336,7 @@ try {
 }
 ```
 
-## 5. 🤔 是否应该开启 strict？
+## 5. 是否应该开启 strict？
 
 ### 5.1. 新项目：强烈推荐开启
 
@@ -394,7 +394,7 @@ try {
 | 快速原型 | ⭐⭐ 可选             | ⭐⭐⭐⭐ 方便 |
 | 生产项目 | ⭐⭐⭐⭐⭐ 必须       | ❌ 不推荐     |
 
-## 6. 🤔 如何渐进式启用 strict？
+## 6. 如何渐进式启用 strict？
 
 ### 6.1. 阶段 1：开启 noImplicitAny
 
@@ -495,7 +495,7 @@ function getName(user: User): string | null {
 }
 ```
 
-## 7. 🤔 使用 strict 时需要注意什么？
+## 7. 使用 strict 时需要注意什么？
 
 ### 7.1. 显式类型注解
 
@@ -630,7 +630,7 @@ if (element) {
 }
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript strict 配置][1]
 - [TypeScript Strict Mode][2]

@@ -2,24 +2,24 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `Parameters<T>` 是什么？](#3--parameterst-是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `Parameters<T>` 是什么？](#3-parameterst-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. 工作原理](#32-工作原理)
   - [3.3. 基本示例](#33-基本示例)
-- [4. 🤔 如何使用 `Parameters<T>`？](#4--如何使用-parameterst)
+- [4. 如何使用 `Parameters<T>`？](#4-如何使用-parameterst)
   - [4.1. 场景 1：函数包装器](#41-场景-1函数包装器)
   - [4.2. 场景 2：函数参数类型复用](#42-场景-2函数参数类型复用)
   - [4.3. 场景 3：高阶函数类型](#43-场景-3高阶函数类型)
   - [4.4. 场景 4：类型安全的事件处理](#44-场景-4类型安全的事件处理)
-- [5. 🤔 `Parameters<T>` 的实际应用场景有哪些？](#5--parameterst-的实际应用场景有哪些)
+- [5. `Parameters<T>` 的实际应用场景有哪些？](#5-parameterst-的实际应用场景有哪些)
   - [5.1. 应用 1：Redux 中间件](#51-应用-1redux-中间件)
   - [5.2. 应用 2：API 客户端方法重载](#52-应用-2api-客户端方法重载)
   - [5.3. 应用 3：函数组合](#53-应用-3函数组合)
   - [5.4. 应用 4：测试辅助函数](#54-应用-4测试辅助函数)
   - [5.5. 应用 5：柯里化函数](#55-应用-5柯里化函数)
-- [6. 🤔 使用 `Parameters<T>` 需要注意什么？](#6--使用-parameterst-需要注意什么)
+- [6. 使用 `Parameters<T>` 需要注意什么？](#6-使用-parameterst-需要注意什么)
   - [6.1. 注意事项 1：元组类型的结构](#61-注意事项-1元组类型的结构)
   - [6.2. 注意事项 2：剩余参数](#62-注意事项-2剩余参数)
   - [6.3. 注意事项 3：泛型函数](#63-注意事项-3泛型函数)
@@ -27,11 +27,11 @@
   - [6.5. 注意事项 5：this 参数](#65-注意事项-5this-参数)
   - [6.6. 注意事项 6：解构赋值](#66-注意事项-6解构赋值)
   - [6.7. 注意事项 7：与展开运算符配合](#67-注意事项-7与展开运算符配合)
-- [7. 🔗 引用](#7--引用)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `Parameters<T>` 的定义和实现原理
 - 元组类型的应用
@@ -39,11 +39,11 @@
 - 实际应用场景
 - 使用注意事项
 
-## 2. 🫧 评价
+## 2. 评价
 
 `Parameters<T>` 提取函数类型 `T` 的参数类型组成的元组。
 
-## 3. 🤔 `Parameters<T>` 是什么？
+## 3. `Parameters<T>` 是什么？
 
 `Parameters<T>` 从函数类型 `T` 中提取参数类型，返回一个元组类型。
 
@@ -110,7 +110,7 @@ function getCurrentTime(): Date {
 type TimeParams = Parameters<typeof getCurrentTime> // []
 ```
 
-## 4. 🤔 如何使用 `Parameters<T>`？
+## 4. 如何使用 `Parameters<T>`？
 
 ### 4.1. 场景 1：函数包装器
 
@@ -136,7 +136,7 @@ appLogger('Server started', 'info') // [APP]: Server started
 ```ts
 function fetchUser(
   id: number,
-  options?: { cache?: boolean; retry?: number }
+  options?: { cache?: boolean; retry?: number },
 ): Promise<User> {
   // 实现...
   return Promise.resolve({} as User)
@@ -195,7 +195,7 @@ type EventMap = {
 class EventEmitter {
   on<K extends keyof EventMap>(
     event: K,
-    handler: (...args: Parameters<EventMap[K]>) => void
+    handler: (...args: Parameters<EventMap[K]>) => void,
   ): void {
     // 实现...
   }
@@ -221,7 +221,7 @@ emitter.emit('click', 100, 200)
 emitter.emit('click', 'invalid', true) // 错误
 ```
 
-## 5. 🤔 `Parameters<T>` 的实际应用场景有哪些？
+## 5. `Parameters<T>` 的实际应用场景有哪些？
 
 ### 5.1. 应用 1：Redux 中间件
 
@@ -275,7 +275,7 @@ type PostParams = Parameters<
 ```ts
 function compose<T extends any[], U, V>(
   f: (x: U) => V,
-  g: (...args: T) => U
+  g: (...args: T) => U,
 ): (...args: T) => V {
   return (...args: T) => f(g(...args))
 }
@@ -348,7 +348,7 @@ curriedAdd(1, 2, 3) // 6
 type Add3Params = Parameters<typeof add3> // [number, number, number]
 ```
 
-## 6. 🤔 使用 `Parameters<T>` 需要注意什么？
+## 6. 使用 `Parameters<T>` 需要注意什么？
 
 ### 6.1. 注意事项 1：元组类型的结构
 
@@ -449,7 +449,7 @@ function partial(a: number): (...args: [string, boolean]) => void {
 }
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript Utility Types - Parameters][1]
 - [TypeScript Handbook - Conditional Types][2]

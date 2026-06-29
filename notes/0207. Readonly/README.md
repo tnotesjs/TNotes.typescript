@@ -2,30 +2,30 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `Readonly<T>` 是什么？](#3--readonlyt-是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `Readonly<T>` 是什么？](#3-readonlyt-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. 工作原理](#32-工作原理)
   - [3.3. 基本示例](#33-基本示例)
   - [3.4. readonly 关键字 vs `Readonly<T>`](#34-readonly-关键字-vs-readonlyt)
-- [4. 🤔 如何实现深度 `Readonly<T>`？](#4--如何实现深度-readonlyt)
-- [5. 🤔 如何实现运行时不可变的冻结对象？](#5--如何实现运行时不可变的冻结对象)
-- [6. 🔗 引用](#6--引用)
+- [4. 如何实现深度 `Readonly<T>`？](#4-如何实现深度-readonlyt)
+- [5. 如何实现运行时不可变的冻结对象？](#5-如何实现运行时不可变的冻结对象)
+- [6. 引用](#6-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `Readonly<T>` 的定义和实现原理
 - 基本使用方法
 - 深度 Readonly 实现
 
-## 2. 🫧 评价
+## 2. 评价
 
 `Readonly<T>` 用于将类型 `T` 的所有属性变为只读属性，如果只是想要实现部分属性只读的效果，直接使用 `readonly` 修饰符即可。
 
-## 3. 🤔 `Readonly<T>` 是什么？
+## 3. `Readonly<T>` 是什么？
 
 `Readonly<T>` 用于将类型 `T` 的所有属性变为只读属性。
 
@@ -111,7 +111,7 @@ type User2 = Readonly<User>
 // User1 和 User2 等价
 ```
 
-## 4. 🤔 如何实现深度 `Readonly<T>`？
+## 4. 如何实现深度 `Readonly<T>`？
 
 `Readonly<T>` 只能影响第一层属性，嵌套对象需要自定义工具类型实现。
 
@@ -194,7 +194,7 @@ config2.server.port = 8080 // ❌ Error
 config2.database.url = 'other' // ❌ Error
 ```
 
-## 5. 🤔 如何实现运行时不可变的冻结对象？
+## 5. 如何实现运行时不可变的冻结对象？
 
 可以使用 JS 中的 API -> `Object.freeze` 实现运行时不可变的效果。
 
@@ -242,7 +242,7 @@ try {
 }
 ```
 
-## 6. 🔗 引用
+## 6. 引用
 
 - [TypeScript Utility Types - Readonly][1]
 - [TypeScript Handbook - Readonly Properties][2]

@@ -2,12 +2,12 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 TypeScript GitHub 仓库包含哪些内容？](#3--typescript-github-仓库包含哪些内容)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. TypeScript GitHub 仓库包含哪些内容？](#3-typescript-github-仓库包含哪些内容)
   - [3.1. 核心组成部分](#31-核心组成部分)
   - [3.2. 重要文件和目录](#32-重要文件和目录)
-- [4. 🤔 如何利用 Issues 模块？](#4--如何利用-issues-模块)
+- [4. 如何利用 Issues 模块？](#4-如何利用-issues-模块)
   - [4.1. Issue 标签分类](#41-issue-标签分类)
   - [4.2. 搜索 Issue 的技巧](#42-搜索-issue-的技巧)
     - [查看已知的 Bug](#查看已知的-bug)
@@ -16,14 +16,14 @@
     - [查看社区投票最多的提议](#查看社区投票最多的提议)
     - [更多查询技巧](#更多查询技巧)
   - [4.3. 提交 Issue 的最佳实践](#43-提交-issue-的最佳实践)
-- [5. 🤔 给 TS 项目贡献代码流程是？](#5--给-ts-项目贡献代码流程是)
-- [6. 🤔 如何查看、撰写 TypeScript 设计提案（Design Proposals）？](#6--如何查看撰写-typescript-设计提案design-proposals)
-- [7. 🤔 如何查看 TS 新版的开发进度？](#7--如何查看-ts-新版的开发进度)
-- [8. 🔗 引用](#8--引用)
+- [5. 给 TS 项目贡献代码流程是？](#5-给-ts-项目贡献代码流程是)
+- [6. 如何查看、撰写 TypeScript 设计提案（Design Proposals）？](#6-如何查看撰写-typescript-设计提案design-proposals)
+- [7. 如何查看 TS 新版的开发进度？](#7-如何查看-ts-新版的开发进度)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - TypeScript GitHub 仓库结构
 - Issues 的使用简介
@@ -31,7 +31,7 @@
 - 设计提案（Design Proposals）
 - 里程碑（Milestones）
 
-## 2. 🫧 评价
+## 2. 评价
 
 TypeScript 的 GitHub 仓库（[microsoft/TypeScript][16]）是了解 TypeScript 发展动态、报告问题、参与社区的核心平台。
 
@@ -44,7 +44,7 @@ TypeScript 的 GitHub 仓库（[microsoft/TypeScript][16]）是了解 TypeScript
 
 虽然仓库内容偏技术性，但它是解决疑难问题、了解设计理念的最佳资源。建议进阶开发者定期关注 Issues 和 Discussions。
 
-## 3. 🤔 TypeScript GitHub 仓库包含哪些内容？
+## 3. TypeScript GitHub 仓库包含哪些内容？
 
 ### 3.1. 核心组成部分
 
@@ -118,7 +118,7 @@ TypeScript/
 └── README.md                       # 项目说明
 ```
 
-## 4. 🤔 如何利用 Issues 模块？
+## 4. 如何利用 Issues 模块？
 
 ### 4.1. Issue 标签分类
 
@@ -187,7 +187,7 @@ TypeScript/
 
 其实，如果你确实有问题需要反馈，只需要点击【New Issue】按钮，然后按照官方提供的 Issues 模板填写信息就行了，不需要刻意去记怎么写才更加规范。
 
-## 5. 🤔 给 TS 项目贡献代码流程是？
+## 5. 给 TS 项目贡献代码流程是？
 
 通用的 PR 流程：
 
@@ -217,7 +217,7 @@ npm run build
 npm test
 ```
 
-## 6. 🤔 如何查看、撰写 TypeScript 设计提案（Design Proposals）？
+## 6. 如何查看、撰写 TypeScript 设计提案（Design Proposals）？
 
 重要提案通常以 Issue 形式存在，标签为 `Suggestion` + `Committed`，你可以在 Issue 中查看社区成员的交流讨论。一定程度上可以帮你更好地了解 TS 某个新特性具体是如何被提出、讨论、并落地实现的。
 
@@ -232,7 +232,7 @@ npm test
 
 如果你也有好的提案，想要让 TS 提供支持的话，可以参考官方的这篇文档：[Writing Good Design Proposals][19]，可以帮你了解撰写提案的一些规范。
 
-## 7. 🤔 如何查看 TS 新版的开发进度？
+## 7. 如何查看 TS 新版的开发进度？
 
 每个 TypeScript 版本都有对应的 Milestones（里程碑），可以查看：
 
@@ -244,7 +244,7 @@ npm test
 
 ![Milestones](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-31-13-47-12.png)
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript GitHub 仓库][16]
 - [Issues][1]

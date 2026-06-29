@@ -2,25 +2,25 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `NonNullable<T>` 是什么？](#3--nonnullablet-是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `NonNullable<T>` 是什么？](#3-nonnullablet-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. 工作原理](#32-工作原理)
   - [3.3. 基本示例](#33-基本示例)
   - [3.4. 与 strictNullChecks 的关系](#34-与-strictnullchecks-的关系)
-- [4. 🤔 如何使用 `NonNullable<T>`？](#4--如何使用-nonnullablet)
+- [4. 如何使用 `NonNullable<T>`？](#4-如何使用-nonnullablet)
   - [4.1. 场景 1：函数参数类型收窄](#41-场景-1函数参数类型收窄)
   - [4.2. 场景 2：数组过滤空值](#42-场景-2数组过滤空值)
   - [4.3. 场景 3：可选链结果处理](#43-场景-3可选链结果处理)
   - [4.4. 场景 4：Promise 结果处理](#44-场景-4promise-结果处理)
-- [5. 🤔 `NonNullable<T>` 的实际应用场景有哪些？](#5--nonnullablet-的实际应用场景有哪些)
+- [5. `NonNullable<T>` 的实际应用场景有哪些？](#5-nonnullablet-的实际应用场景有哪些)
   - [5.1. 应用 1：表单验证](#51-应用-1表单验证)
   - [5.2. 应用 2：数据库查询结果](#52-应用-2数据库查询结果)
   - [5.3. 应用 3：配置对象合并](#53-应用-3配置对象合并)
   - [5.4. 应用 4：React 组件 Props](#54-应用-4react-组件-props)
   - [5.5. 应用 5：API 响应处理](#55-应用-5api-响应处理)
-- [6. 🤔 使用 `NonNullable<T>` 需要注意什么？](#6--使用-nonnullablet-需要注意什么)
+- [6. 使用 `NonNullable<T>` 需要注意什么？](#6-使用-nonnullablet-需要注意什么)
   - [6.1. 注意事项 1：仅编译时检查](#61-注意事项-1仅编译时检查)
   - [6.2. 注意事项 2：不移除 void 类型](#62-注意事项-2不移除-void-类型)
   - [6.3. 注意事项 3：对象属性的处理](#63-注意事项-3对象属性的处理)
@@ -28,11 +28,11 @@
   - [6.5. 注意事项 5：泛型约束](#65-注意事项-5泛型约束)
   - [6.6. 注意事项 6：与其他工具类型结合](#66-注意事项-6与其他工具类型结合)
   - [6.7. 注意事项 7：类型守卫的必要性](#67-注意事项-7类型守卫的必要性)
-- [7. 🔗 引用](#7--引用)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `NonNullable<T>` 的定义和实现原理
 - 与 `null` 和 `undefined` 的关系
@@ -40,11 +40,11 @@
 - 实际应用场景
 - 使用注意事项
 
-## 2. 🫧 评价
+## 2. 评价
 
 `NonNullable<T>` 从类型 `T` 中排除 `null` 和 `undefined`。
 
-## 3. 🤔 `NonNullable<T>` 是什么？
+## 3. `NonNullable<T>` 是什么？
 
 `NonNullable<T>` 从类型 `T` 中移除 `null` 和 `undefined`，构造一个新类型。
 
@@ -119,7 +119,7 @@ if (value !== null) {
 }
 ```
 
-## 4. 🤔 如何使用 `NonNullable<T>`？
+## 4. 如何使用 `NonNullable<T>`？
 
 ### 4.1. 场景 1：函数参数类型收窄
 
@@ -238,7 +238,7 @@ function handleValidUser(user: NonNullable<User | null>): void {
 }
 ```
 
-## 5. 🤔 `NonNullable<T>` 的实际应用场景有哪些？
+## 5. `NonNullable<T>` 的实际应用场景有哪些？
 
 ### 5.1. 应用 1：表单验证
 
@@ -521,7 +521,7 @@ if (api.isError(response)) {
 }
 ```
 
-## 6. 🤔 使用 `NonNullable<T>` 需要注意什么？
+## 6. 使用 `NonNullable<T>` 需要注意什么？
 
 ### 6.1. 注意事项 1：仅编译时检查
 
@@ -676,7 +676,7 @@ function processResult(result: Result): void {
 }
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript Utility Types - NonNullable][1]
 - [TypeScript Handbook - Null and Undefined][2]

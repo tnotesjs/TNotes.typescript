@@ -2,28 +2,28 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `Partial<T>` 是什么？](#3--partialt-是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `Partial<T>` 是什么？](#3-partialt-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. 工作原理](#32-工作原理)
   - [3.3. 基本示例](#33-基本示例)
-- [4. 🤔 如何实现深度 `Partial<T>`？](#4--如何实现深度-partialt)
-- [5. 🔗 引用](#5--引用)
+- [4. 如何实现深度 `Partial<T>`？](#4-如何实现深度-partialt)
+- [5. 引用](#5-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `Partial<T>` 的定义和实现原理
 - 基本使用方法
 - 深度 Partial 实现
 
-## 2. 🫧 评价
+## 2. 评价
 
 `Partial<T>` 是 TS 中最常用的工具类型之一，它将类型的所有属性变为可选，在表单、配置、API 更新等场景中广泛使用。
 
-## 3. 🤔 `Partial<T>` 是什么？
+## 3. `Partial<T>` 是什么？
 
 `Partial<T>` 将类型 `T` 的所有属性变为可选属性。
 
@@ -86,7 +86,7 @@ const product4: PartialProduct = {
 }
 ```
 
-## 4. 🤔 如何实现深度 `Partial<T>`？
+## 4. 如何实现深度 `Partial<T>`？
 
 `Partial<T>` 本身只支持一层属性的转换，如果需要实现深度转换，需要自定义类型工具来实现。
 
@@ -196,7 +196,7 @@ type Decrement<N extends number> = N extends 5
   : 0
 ```
 
-## 5. 🔗 引用
+## 5. 引用
 
 - [TypeScript Utility Types - Partial][1]
 - [TypeScript Handbook - Mapped Types][2]

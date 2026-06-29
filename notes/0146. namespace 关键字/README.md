@@ -2,25 +2,25 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 namespace？](#3--什么是-namespace)
-- [4. 🤔 为什么需要 namespace？](#4--为什么需要-namespace)
-- [5. 🤔 如何定义和使用 namespace？](#5--如何定义和使用-namespace)
-- [6. 🤔 namespace 如何导出成员？](#6--namespace-如何导出成员)
-- [7. 🤔 如何嵌套 namespace？](#7--如何嵌套-namespace)
-- [8. 🤔 namespace 和模块有什么区别？](#8--namespace-和模块有什么区别)
-- [9. 🤔 如何合并多个 namespace？](#9--如何合并多个-namespace)
-- [10. 🤔 namespace 如何与类和函数配合使用？](#10--namespace-如何与类和函数配合使用)
-- [11. 🤔 什么时候应该使用 namespace？](#11--什么时候应该使用-namespace)
-- [12. 🤔 如何将 namespace 编译为 JavaScript？](#12--如何将-namespace-编译为-javascript)
-- [13. 🤔 常见问题有哪些？](#13--常见问题有哪些)
-- [14. 🤔 最佳实践是什么？](#14--最佳实践是什么)
-- [15. 🔗 引用](#15--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 namespace？](#3-什么是-namespace)
+- [4. 为什么需要 namespace？](#4-为什么需要-namespace)
+- [5. 如何定义和使用 namespace？](#5-如何定义和使用-namespace)
+- [6. namespace 如何导出成员？](#6-namespace-如何导出成员)
+- [7. 如何嵌套 namespace？](#7-如何嵌套-namespace)
+- [8. namespace 和模块有什么区别？](#8-namespace-和模块有什么区别)
+- [9. 如何合并多个 namespace？](#9-如何合并多个-namespace)
+- [10. namespace 如何与类和函数配合使用？](#10-namespace-如何与类和函数配合使用)
+- [11. 什么时候应该使用 namespace？](#11-什么时候应该使用-namespace)
+- [12. 如何将 namespace 编译为 JavaScript？](#12-如何将-namespace-编译为-javascript)
+- [13. 常见问题有哪些？](#13-常见问题有哪些)
+- [14. 最佳实践是什么？](#14-最佳实践是什么)
+- [15. 引用](#15-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - namespace 关键字的基本概念
 - namespace 的定义和使用
@@ -29,7 +29,7 @@
 - 声明合并
 - 实际应用场景
 
-## 2. 🫧 评价
+## 2. 评价
 
 - `namespace` 是 TypeScript 早期用于组织代码的机制，在 ES6 模块出现之前非常流行。
 - 在现代 TypeScript 开发中，`namespace` 的使用场景已经很少，主要原因：
@@ -43,7 +43,7 @@
   - 编写声明文件时组织命名空间
 - 建议：新项目使用 ES6 模块，只在必要时使用 namespace（如类型声明文件）。
 
-## 3. 🤔 什么是 namespace？
+## 3. 什么是 namespace？
 
 namespace（命名空间）是 TypeScript 提供的一种将代码组织在逻辑分组中的方式，用于避免全局命名冲突。
 
@@ -75,7 +75,7 @@ namespace 的特点：
 - 支持嵌套
 - 可以包含类型、接口、类、函数等
 
-## 4. 🤔 为什么需要 namespace？
+## 4. 为什么需要 namespace？
 
 在 ES6 模块出现之前，JavaScript 没有内置的模块系统，namespace 解决了以下问题：
 
@@ -169,7 +169,7 @@ MyLibrary.Utils.helper()
 const button = new MyLibrary.Components.Button()
 ```
 
-## 5. 🤔 如何定义和使用 namespace？
+## 5. 如何定义和使用 namespace？
 
 基本定义
 
@@ -281,7 +281,7 @@ import Triangle = Shapes.Polygons.Triangle
 const tri = new Triangle()
 ```
 
-## 6. 🤔 namespace 如何导出成员？
+## 6. namespace 如何导出成员？
 
 使用 export 关键字
 
@@ -348,7 +348,7 @@ namespace Utils {
 }
 ```
 
-## 7. 🤔 如何嵌套 namespace？
+## 7. 如何嵌套 namespace？
 
 基本嵌套
 
@@ -366,7 +366,10 @@ namespace Company {
 
   export namespace IT {
     export class Developer {
-      constructor(public name: string, public skills: string[]) {}
+      constructor(
+        public name: string,
+        public skills: string[],
+      ) {}
     }
 
     export function recruit(name: string, skills: string[]): Developer {
@@ -455,7 +458,7 @@ import SubNS = LongNamespace.VeryLongSubNamespace.AnotherLevel
 const instance3 = new SubNS.MyClass()
 ```
 
-## 8. 🤔 namespace 和模块有什么区别？
+## 8. namespace 和模块有什么区别？
 
 主要区别对比
 
@@ -545,7 +548,7 @@ import { User } from './user'
 // 无法访问 SECRET_KEY
 ```
 
-## 9. 🤔 如何合并多个 namespace？
+## 9. 如何合并多个 namespace？
 
 同名 namespace 自动合并
 
@@ -665,7 +668,10 @@ class Album {
 
 namespace Album {
   export class Track {
-    constructor(public name: string, public duration: number) {}
+    constructor(
+      public name: string,
+      public duration: number,
+    ) {}
   }
 
   export function createEmpty(title: string): Album {
@@ -702,7 +708,7 @@ buildLabel.suffix = '>>'
 console.log(buildLabel('test')) // <<test>>
 ```
 
-## 10. 🤔 namespace 如何与类和函数配合使用？
+## 10. namespace 如何与类和函数配合使用？
 
 为类添加静态成员
 
@@ -816,7 +822,7 @@ $.ajax('/api/data')
 console.log($.version)
 ```
 
-## 11. 🤔 什么时候应该使用 namespace？
+## 11. 什么时候应该使用 namespace？
 
 推荐使用场景
 
@@ -964,7 +970,7 @@ export const MathUtils = {
 }
 ```
 
-## 12. 🤔 如何将 namespace 编译为 JavaScript？
+## 12. 如何将 namespace 编译为 JavaScript？
 
 编译输出
 
@@ -1076,7 +1082,7 @@ var MyLib
 
 :::
 
-## 13. 🤔 常见问题有哪些？
+## 13. 常见问题有哪些？
 
 问题 1：namespace 和模块混用
 
@@ -1197,7 +1203,7 @@ namespace MyWindow {
 }
 ```
 
-## 14. 🤔 最佳实践是什么？
+## 14. 最佳实践是什么？
 
 优先使用 ES6 模块
 
@@ -1334,7 +1340,7 @@ export namespace Utils {
 export function helper() {}
 ```
 
-## 15. 🔗 引用
+## 15. 引用
 
 - [TypeScript 官方文档 - Namespaces][1]
 - [TypeScript 官方文档 - Namespaces and Modules][2]

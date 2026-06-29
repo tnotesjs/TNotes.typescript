@@ -32,23 +32,20 @@
       "26.02": 146,
       "26.03": 146,
       "26.04": 146,
+      "26.05": 146,
       "26.06": 146
     },
     "details": "TS 笔记",
     "link": "https://tnotesjs.github.io/TNotes.typescript/",
     "created_at": 1727046787000,
-    "updated_at": 1780377283000,
-    "days_since_birth": 9836
+    "updated_at": 1782718787000,
+    "days_since_birth": 9863
   },
   "port": 9219,
   "menuItems": [
     {
       "text": "🏠 Home",
       "link": "/"
-    },
-    {
-      "text": "⚙️ Settings",
-      "link": "/Settings"
     },
     {
       "text": "📒 TNotes",

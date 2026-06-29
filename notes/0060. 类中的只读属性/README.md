@@ -2,29 +2,29 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 “只读属性”如何声明？](#3--只读属性如何声明)
-- [4. 🤔 readonly 修饰符是 TS 中特有的吗？JS 中是否有 readonly 修饰符呢？](#4--readonly-修饰符是-ts-中特有的吗js-中是否有-readonly-修饰符呢)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. “只读属性”如何声明？](#3-只读属性如何声明)
+- [4. readonly 修饰符是 TS 中特有的吗？JS 中是否有 readonly 修饰符呢？](#4-readonly-修饰符是-ts-中特有的吗js-中是否有-readonly-修饰符呢)
   - [4.1. 核心区别](#41-核心区别)
   - [4.2. 示例对比](#42-示例对比)
   - [4.3. 运行时约束方案](#43-运行时约束方案)
-- [5. 🤔 readonly 可以与其他修饰符一起使用吗？](#5--readonly-可以与其他修饰符一起使用吗)
+- [5. readonly 可以与其他修饰符一起使用吗？](#5-readonly-可以与其他修饰符一起使用吗)
   - [5.1. 注意顺序](#51-注意顺序)
   - [5.2. 正确示例](#52-正确示例)
-- [6. 🤔 如何完成“readonly 属性的初始化”？](#6--如何完成readonly-属性的初始化)
-- [7. 🤔 类可以实现带有 readonly 属性的接口吗？](#7--类可以实现带有-readonly-属性的接口吗)
-- [8. 🤔 如果属性是一个对象，readonly 能防止对象内部属性被修改吗？](#8--如果属性是一个对象readonly-能防止对象内部属性被修改吗)
-- [9. 🤔 如果属性是一个对象，要如何让整个对象（包括对象内层属性）是只读的？](#9--如果属性是一个对象要如何让整个对象包括对象内层属性是只读的)
+- [6. 如何完成“readonly 属性的初始化”？](#6-如何完成readonly-属性的初始化)
+- [7. 类可以实现带有 readonly 属性的接口吗？](#7-类可以实现带有-readonly-属性的接口吗)
+- [8. 如果属性是一个对象，readonly 能防止对象内部属性被修改吗？](#8-如果属性是一个对象readonly-能防止对象内部属性被修改吗)
+- [9. 如果属性是一个对象，要如何让整个对象（包括对象内层属性）是只读的？](#9-如果属性是一个对象要如何让整个对象包括对象内层属性是只读的)
   - [9.1. 使用 `Readonly` 类型工具](#91-使用-readonly-类型工具)
   - [9.2. 使用递归的 `Readonly` 类型](#92-使用递归的-readonly-类型)
   - [9.3. 使用 `Object.freeze()`](#93-使用-objectfreeze)
   - [9.4. 使用 `as const` 断言](#94-使用-as-const-断言)
-- [10. 🤔 readonly 属性和只有 getter 的存取器属性有什么区别？](#10--readonly-属性和只有-getter-的存取器属性有什么区别)
+- [10. readonly 属性和只有 getter 的存取器属性有什么区别？](#10-readonly-属性和只有-getter-的存取器属性有什么区别)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - readonly
 - public
@@ -34,7 +34,7 @@
 - Object.freeze()
 - 只有 getter 的存取器属性
 
-## 2. 🫧 评价
+## 2. 评价
 
 在实际使用中，掌握基本用法就足够了：
 
@@ -53,7 +53,7 @@
 - 对象的深层次冻结应该怎么写？不同的写法之间的差异是什么？
 - 使用只带有 `getter` 的 `accessor` 属性和 `readonly` 修饰的只读属性有什么区别？只读约束是仅限于 TS 层面还是包括运行时的 JS 层面？
 
-## 3. 🤔 “只读属性”如何声明？
+## 3. “只读属性”如何声明？
 
 属性名前面加上 readonly 修饰符，就表示该属性是只读的，实例对象不能修改这个属性。
 
@@ -67,7 +67,7 @@ a.id = 'bar' // ❌ 报错
 // Cannot assign to 'id' because it is a read-only property.(2540)
 ```
 
-## 4. 🤔 readonly 修饰符是 TS 中特有的吗？JS 中是否有 readonly 修饰符呢？
+## 4. readonly 修饰符是 TS 中特有的吗？JS 中是否有 readonly 修饰符呢？
 
 先说答案：
 
@@ -128,7 +128,7 @@ console.log(eIns.prop) // "new value"
 - `Object.defineProperty()`
 - Getter-only 的 accessor
 
-## 5. 🤔 readonly 可以与其他修饰符一起使用吗？
+## 5. readonly 可以与其他修饰符一起使用吗？
 
 readonly 修饰符可以与以下 TypeScript 修饰符联用：
 
@@ -225,7 +225,7 @@ console.log(Example.staticProp) // ✅ 可以访问静态只读属性
 // Example.staticProp = 'new value'  // ❌ Cannot assign to 'staticProp' because it is a read-only property
 ```
 
-## 6. 🤔 如何完成“readonly 属性的初始化”？
+## 6. 如何完成“readonly 属性的初始化”？
 
 1. 在声明时完成初始化
 2. 在构造函数中完成初始化
@@ -300,7 +300,7 @@ class Person {
 
 :::
 
-## 7. 🤔 类可以实现带有 readonly 属性的接口吗？
+## 7. 类可以实现带有 readonly 属性的接口吗？
 
 可以。
 
@@ -365,7 +365,7 @@ class UserImpl5 implements User {
 // Type 'UserImpl5' is missing the following properties from type 'User': id, name(2420)
 ```
 
-## 8. 🤔 如果属性是一个对象，readonly 能防止对象内部属性被修改吗？
+## 8. 如果属性是一个对象，readonly 能防止对象内部属性被修改吗？
 
 不能，readonly 只能防止属性本身的重新赋值，不能防止对象内部属性的修改：
 
@@ -390,7 +390,7 @@ class Container {
 // 如果要完全禁止修改，应该使用 Object.freeze 或其他不可变方案
 ```
 
-## 9. 🤔 如果属性是一个对象，要如何让整个对象（包括对象内层属性）是只读的？
+## 9. 如果属性是一个对象，要如何让整个对象（包括对象内层属性）是只读的？
 
 要让整个对象（包括内层属性）都是只读的，可以使用以下几种方法：
 
@@ -568,7 +568,7 @@ class Container {
 }
 ```
 
-## 10. 🤔 readonly 属性和只有 getter 的存取器属性有什么区别？
+## 10. readonly 属性和只有 getter 的存取器属性有什么区别？
 
 两者都是用来创建只读属性的，核心区别在于 readonly 是 TS 带有的特性，JS 中是不存在的，而 getter、setter 这些是 JS 也带有的特性。
 

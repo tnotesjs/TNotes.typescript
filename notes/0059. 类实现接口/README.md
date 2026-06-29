@@ -2,11 +2,11 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 implements 是什么？](#3--implements-是什么)
-- [4. 🤔 类（class）实现（implements）的接口必须是使用 interface 来定义的吗？](#4--类class实现implements的接口必须是使用-interface-来定义的吗)
-- [5. 🤔 一个类（class）实现多个接口的语法规则是？](#5--一个类class实现多个接口的语法规则是)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. implements 是什么？](#3-implements-是什么)
+- [4. 类（class）实现（implements）的接口必须是使用 interface 来定义的吗？](#4-类class实现implements的接口必须是使用-interface-来定义的吗)
+- [5. 一个类（class）实现多个接口的语法规则是？](#5-一个类class实现多个接口的语法规则是)
   - [5.1. 基本语法](#51-基本语法)
   - [5.2. 示例：常见用法](#52-示例常见用法)
   - [5.3. 示例：特殊情况 - 多个接口中有同名但类型不兼容的成员](#53-示例特殊情况---多个接口中有同名但类型不兼容的成员)
@@ -14,17 +14,17 @@
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - implements 关键字
 - 实现多个接口时同名字段冲突的处理方案
 
-## 2. 🫧 评价
+## 2. 评价
 
 - 掌握 implements 的基本用法即可。
 - implements 的基本用法很简单，但是在特殊情况下，也就是在实现多个接口时，可能会存在相同字段类型不兼容的特殊情况，此时需要对这些冲突的字段做特殊处理才行。
 
-## 3. 🤔 implements 是什么？
+## 3. implements 是什么？
 
 `implements` 是 TypeScript 中的一个关键字，用于表示一个类遵循或实现了一个或多个接口的契约。它的主要含义包括：
 
@@ -47,7 +47,7 @@ class MyCountry implements Country {
 
 在这个例子中，`MyCountry` 类通过 `implements Country` 声明它将实现 `Country` 接口中定义的所有属性（`name` 和 `capital`）。如果类没有正确实现接口的所有成员，TypeScript 会在编译时报错。
 
-## 4. 🤔 类（class）实现（implements）的接口必须是使用 interface 来定义的吗？
+## 4. 类（class）实现（implements）的接口必须是使用 interface 来定义的吗？
 
 不是的，class 实现的接口不仅可以是使用 `interface` 定义的，也可以是使用 `type` 关键字定义的类型别名。
 
@@ -87,7 +87,7 @@ class MyName implements Name {} // ❌ 错误！
 // A class can only implement an object type or intersection of object types with statically known members.(2422)
 ```
 
-## 5. 🤔 一个类（class）实现多个接口的语法规则是？
+## 5. 一个类（class）实现多个接口的语法规则是？
 
 一个类实现多个接口的语法规则如下：
 

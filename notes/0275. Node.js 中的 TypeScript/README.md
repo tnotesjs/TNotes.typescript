@@ -2,36 +2,36 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 Node.js 项目配置？](#3--nodejs-项目配置)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. Node.js 项目配置？](#3-nodejs-项目配置)
   - [3.1. 基本 tsconfig.json](#31-基本-tsconfigjson)
   - [3.2. ESM 项目配置](#32-esm-项目配置)
   - [3.3. 安装类型定义](#33-安装类型定义)
-- [4. 🤔 模块系统类型？](#4--模块系统类型)
+- [4. 模块系统类型？](#4-模块系统类型)
   - [4.1. CommonJS 模块](#41-commonjs-模块)
   - [4.2. ES 模块](#42-es-模块)
   - [4.3. require 类型](#43-require-类型)
   - [4.4. 动态导入](#44-动态导入)
-- [5. 🤔 异步操作类型？](#5--异步操作类型)
+- [5. 异步操作类型？](#5-异步操作类型)
   - [5.1. Promise 类型](#51-promise-类型)
   - [5.2. 回调函数类型](#52-回调函数类型)
   - [5.3. Promise 化](#53-promise-化)
   - [5.4. EventEmitter 类型](#54-eventemitter-类型)
-- [6. 🤔 文件系统类型？](#6--文件系统类型)
+- [6. 文件系统类型？](#6-文件系统类型)
   - [6.1. fs 模块](#61-fs-模块)
   - [6.2. 文件操作类型](#62-文件操作类型)
   - [6.3. Stream 类型](#63-stream-类型)
-- [7. 🤔 HTTP 服务类型？](#7--http-服务类型)
+- [7. HTTP 服务类型？](#7-http-服务类型)
   - [7.1. 原生 http 模块](#71-原生-http-模块)
   - [7.2. Express 类型](#72-express-类型)
   - [7.3. 自定义类型扩展](#73-自定义类型扩展)
   - [7.4. 错误处理](#74-错误处理)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - Node.js 项目配置
 - 模块系统类型
@@ -39,7 +39,7 @@
 - 文件系统类型
 - HTTP 服务类型
 
-## 2. 🫧 评价
+## 2. 评价
 
 TypeScript 在 Node.js 开发中提供了完善的类型支持，提升后端开发体验。
 
@@ -49,7 +49,7 @@ TypeScript 在 Node.js 开发中提供了完善的类型支持，提升后端开
 - 减少运行时错误
 - 生产环境广泛应用
 
-## 3. 🤔 Node.js 项目配置？
+## 3. Node.js 项目配置？
 
 ### 3.1. 基本 tsconfig.json
 
@@ -120,7 +120,7 @@ npm install --save-dev @types/express
 npm install --save-dev @types/node
 ```
 
-## 4. 🤔 模块系统类型？
+## 4. 模块系统类型？
 
 ### 4.1. CommonJS 模块
 
@@ -196,7 +196,7 @@ interface Utils {
 const utils = (await import('./utils.js')) as Utils
 ```
 
-## 5. 🤔 异步操作类型？
+## 5. 异步操作类型？
 
 ### 5.1. Promise 类型
 
@@ -283,7 +283,7 @@ emitter.emit('data', 42)
 // emitter.emit("data", "invalid");  // Error
 ```
 
-## 6. 🤔 文件系统类型？
+## 6. 文件系统类型？
 
 ### 6.1. fs 模块
 
@@ -360,7 +360,7 @@ class UpperCaseTransform extends Transform {
   _transform(
     chunk: Buffer,
     encoding: string,
-    callback: (error?: Error | null, data?: Buffer) => void
+    callback: (error?: Error | null, data?: Buffer) => void,
   ): void {
     const upperChunk = Buffer.from(chunk.toString().toUpperCase())
     callback(null, upperChunk)
@@ -373,7 +373,7 @@ createReadStream('input.txt')
   .pipe(createWriteStream('output.txt'))
 ```
 
-## 7. 🤔 HTTP 服务类型？
+## 7. HTTP 服务类型？
 
 ### 7.1. 原生 http 模块
 
@@ -385,7 +385,7 @@ const server = http.createServer(
   (req: http.IncomingMessage, res: http.ServerResponse) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' })
     res.end('Hello World')
-  }
+  },
 )
 
 server.listen(3000, () => {
@@ -490,7 +490,7 @@ app.use((err: ApiError, req: Request, res: Response, next: NextFunction) => {
 })
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [Node.js TypeScript][1]
 - [@types/node][2]

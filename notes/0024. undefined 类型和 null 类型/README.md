@@ -2,31 +2,31 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 undefined 和 null 类型？](#3--什么是-undefined-和-null-类型)
-- [4. 🤔 undefined 和 null 在 TypeScript 中是类型还是值？](#4--undefined-和-null-在-typescript-中是类型还是值)
-- [5. 🤔 strictNullChecks 选项对 null 和 undefined 有什么影响？](#5--strictnullchecks-选项对-null-和-undefined-有什么影响)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 undefined 和 null 类型？](#3-什么是-undefined-和-null-类型)
+- [4. undefined 和 null 在 TypeScript 中是类型还是值？](#4-undefined-和-null-在-typescript-中是类型还是值)
+- [5. strictNullChecks 选项对 null 和 undefined 有什么影响？](#5-strictnullchecks-选项对-null-和-undefined-有什么影响)
   - [5.1. 未启用 strictNullChecks](#51-未启用-strictnullchecks)
   - [5.2. 启用 strictNullChecks（推荐！）](#52-启用-strictnullchecks推荐)
-- [6. 🤔 在实际开发中如何使用 null 和 undefined？](#6--在实际开发中如何使用-null-和-undefined)
-- [7. 🤔 如何处理嵌套对象中的 null 和 undefined 值？](#7--如何处理嵌套对象中的-null-和-undefined-值)
+- [6. 在实际开发中如何使用 null 和 undefined？](#6-在实际开发中如何使用-null-和-undefined)
+- [7. 如何处理嵌套对象中的 null 和 undefined 值？](#7-如何处理嵌套对象中的-null-和-undefined-值)
   - [7.1. 方案 1：使用可选链操作符（Optional Chaining）](#71-方案-1使用可选链操作符optional-chaining)
   - [7.2. 方案 2：空值合并操作符（Nullish Coalescing）](#72-方案-2空值合并操作符nullish-coalescing)
-- [8. 🤔 什么是非空断言操作符 `!`？](#8--什么是非空断言操作符-)
-- [9. 🤔 使用非空断言操作符 `!` 有什么风险？](#9--使用非空断言操作符--有什么风险)
-- [10. 🔗 引用](#10--引用)
+- [8. 什么是非空断言操作符 `!`？](#8-什么是非空断言操作符-)
+- [9. 使用非空断言操作符 `!` 有什么风险？](#9-使用非空断言操作符--有什么风险)
+- [10. 引用](#10-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `undefined`
 - `null`
 - 非空断言操作符 `!`
 - 明确赋值断言（definite assignment assertion）
 
-## 2. 🫧 评价
+## 2. 评价
 
 - undefined 和 null 是两个比较特殊的类型，从某种程度上说，这是 JS 设计上的缺陷，因此在 TS 中，对它们俩的处理，会涉及到比较多的细节。
 
@@ -45,7 +45,7 @@
 | 非空断言 `!` | 你 100% 确定值存在（如 DOM 查询、初始化后） | ⭐ | ⚠️ 谨慎使用 |
 | 明确赋值断言 `!: T` | 类属性延迟初始化 | ⭐⭐ | ⚠️ 仅在框架中使用 |
 
-## 3. 🤔 什么是 undefined 和 null 类型？
+## 3. 什么是 undefined 和 null 类型？
 
 在 TypeScript 中，`null` 和 `undefined` 是两个特殊的原始类型，它们在 JavaScript 中也存在，但在 TypeScript 中有更严格的类型检查机制。
 
@@ -74,7 +74,7 @@ console.log(a) // undefined
 let b: string | null = null
 ```
 
-## 4. 🤔 undefined 和 null 在 TypeScript 中是类型还是值？
+## 4. undefined 和 null 在 TypeScript 中是类型还是值？
 
 在 TypeScript 中，`null` 和 `undefined` 是独立的类型，但 `null` 和 `undefined` 也可以表示独立的值。
 
@@ -110,7 +110,7 @@ age = undefined // 正确
 
 JavaScript 的行为是，变量如果等于 `undefined` 就表示还没有赋值，如果等于 `null` 就表示值为空。所以，TypeScript 就允许了任何类型的变量都可以赋值为这两个值。
 
-## 5. 🤔 strictNullChecks 选项对 null 和 undefined 有什么影响？
+## 5. strictNullChecks 选项对 null 和 undefined 有什么影响？
 
 TypeScript 对 `null` 和 `undefined` 的处理，在是否启用 `strictNullChecks` 编译选项时完全不同。
 
@@ -140,7 +140,7 @@ let bar: string | null = null // ✅ 正确
 - 建议始终启用 `strict: true`（它包含 `strictNullChecks`），这是现代 TypeScript 项目的最佳实践。
 - 打开 `strictNullChecks` 以后，`undefined` 和 `null` 只能赋值给自身，或者 `any` 类型和 `unknown` 类型的变量。
 
-## 6. 🤔 在实际开发中如何使用 null 和 undefined？
+## 6. 在实际开发中如何使用 null 和 undefined？
 
 如果某个值可能会是空值，那么就可能需要用到 null 和 undefined。
 
@@ -222,7 +222,7 @@ function setupEventListeners() {
 
 :::
 
-## 7. 🤔 如何处理嵌套对象中的 null 和 undefined 值？
+## 7. 如何处理嵌套对象中的 null 和 undefined 值？
 
 假设你有一个嵌套对象：
 
@@ -276,7 +276,7 @@ const theme = user.profile?.settings?.theme ?? 'light'
 console.log(theme) // "light"（如果 theme 不存在）
 ```
 
-## 8. 🤔 什么是非空断言操作符 `!`？
+## 8. 什么是非空断言操作符 `!`？
 
 - `!` 是 TypeScript 的非空断言操作符（Non-null Assertion Operator）。
 - 它告诉编译器："我确定这个值不是 `null` 或 `undefined`，请跳过检查！"
@@ -341,7 +341,7 @@ class MyComponent {
 
 :::
 
-## 9. 🤔 使用非空断言操作符 `!` 有什么风险？
+## 9. 使用非空断言操作符 `!` 有什么风险？
 
 | 优点                     | 风险           |
 | ------------------------ | -------------- |
@@ -375,7 +375,7 @@ function getTheme(user: User): string {
 
 :::
 
-## 10. 🔗 引用
+## 10. 引用
 
 - [null and undefined][1]
 - [Type Manipulation - Classes --strictPropertyInitialization][2]

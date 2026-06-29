@@ -2,18 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 如何创建基本的自定义工具类型？](#3--如何创建基本的自定义工具类型)
-- [4. 🤔 如何使用条件类型创建高级工具类型？](#4--如何使用条件类型创建高级工具类型)
-- [5. 🤔 如何创建递归工具类型？](#5--如何创建递归工具类型)
-- [6. 🤔 如何创建实用的业务工具类型？](#6--如何创建实用的业务工具类型)
-- [7. 🤔 自定义工具类型的最佳实践是什么？](#7--自定义工具类型的最佳实践是什么)
-- [8. 🔗 引用](#8--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 如何创建基本的自定义工具类型？](#3-如何创建基本的自定义工具类型)
+- [4. 如何使用条件类型创建高级工具类型？](#4-如何使用条件类型创建高级工具类型)
+- [5. 如何创建递归工具类型？](#5-如何创建递归工具类型)
+- [6. 如何创建实用的业务工具类型？](#6-如何创建实用的业务工具类型)
+- [7. 自定义工具类型的最佳实践是什么？](#7-自定义工具类型的最佳实践是什么)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 基本工具类型的创建方法
 - 条件类型和映射类型的组合使用
@@ -21,7 +21,7 @@
 - 常用业务场景的工具类型
 - 工具类型的命名和组织规范
 
-## 2. 🫧 评价
+## 2. 评价
 
 自定义工具类型是 TypeScript 高级类型编程的核心技能，通过组合内置类型和高级特性可以创建强大的类型工具。
 
@@ -31,7 +31,7 @@
 - 建议将常用工具类型集中管理，便于复用
 - 注意递归深度限制，避免编译器错误
 
-## 3. 🤔 如何创建基本的自定义工具类型？
+## 3. 如何创建基本的自定义工具类型？
 
 基本的工具类型通常基于映射类型和条件类型：
 
@@ -120,8 +120,8 @@ type Merge<T, U> = {
   [K in keyof T | keyof U]: K extends keyof U
     ? U[K]
     : K extends keyof T
-    ? T[K]
-    : never
+      ? T[K]
+      : never
 }
 
 interface Base {
@@ -175,7 +175,7 @@ config.server.port = 8080
 config.server.ssl.enabled = false
 ```
 
-## 4. 🤔 如何使用条件类型创建高级工具类型？
+## 4. 如何使用条件类型创建高级工具类型？
 
 条件类型配合 `infer` 关键字可以创建强大的工具类型：
 
@@ -268,7 +268,7 @@ type ColorValue = ValueOf<Colors>
 
 // 工具 9：创建联合类型到交叉类型的转换
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
-  k: infer I
+  k: infer I,
 ) => void
   ? I
   : never
@@ -299,7 +299,7 @@ type LoginForm = RequiredKeys<FormData, 'username' | 'password'>
 // }
 ```
 
-## 5. 🤔 如何创建递归工具类型？
+## 5. 如何创建递归工具类型？
 
 递归工具类型可以处理嵌套结构：
 
@@ -384,8 +384,8 @@ type FlattenObject<T, Prefix extends string = ''> = {
     ? T[K] extends object
       ? never
       : Prefix extends ''
-      ? K
-      : `${Prefix}.${K}`
+        ? K
+        : `${Prefix}.${K}`
     : never]: T[K]
 } & {
   [K in keyof T as K extends string
@@ -418,8 +418,8 @@ type ArrayDepth<T> = T extends (infer U)[]
     ? ArrayDepth<U> extends 0
       ? 1
       : ArrayDepth<U> extends 1
-      ? 2
-      : 3 // 限制深度
+        ? 2
+        : 3 // 限制深度
     : 1
   : 0
 
@@ -434,8 +434,8 @@ type DeepModify<T, From, To> = {
   [K in keyof T]: T[K] extends From
     ? To
     : T[K] extends object
-    ? DeepModify<T[K], From, To>
-    : T[K]
+      ? DeepModify<T[K], From, To>
+      : T[K]
 }
 
 interface Original {
@@ -460,7 +460,7 @@ type StringToNumber = DeepModify<Original, string, number>
 // }
 ```
 
-## 6. 🤔 如何创建实用的业务工具类型？
+## 6. 如何创建实用的业务工具类型？
 
 针对常见业务场景的工具类型：
 
@@ -676,7 +676,7 @@ const userCrud: UserCrud = {
 }
 ```
 
-## 7. 🤔 自定义工具类型的最佳实践是什么？
+## 7. 自定义工具类型的最佳实践是什么？
 
 在创建和使用自定义工具类型时需要注意以下实践：
 
@@ -845,7 +845,7 @@ export * from './utils/object'
 export * from './business/user'
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Handbook - Advanced Types][1]
 - [TypeScript Deep Dive - Type System][2]

@@ -2,33 +2,33 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是访问器装饰器？](#3--什么是访问器装饰器)
-- [4. 🤔 访问器装饰器的基本语法是什么？](#4--访问器装饰器的基本语法是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是访问器装饰器？](#3-什么是访问器装饰器)
+- [4. 访问器装饰器的基本语法是什么？](#4-访问器装饰器的基本语法是什么)
   - [4.1. 参数说明](#41-参数说明)
   - [4.2. 属性描述符详解](#42-属性描述符详解)
-- [5. 🤔 访问器装饰器如何修改访问器行为？](#5--访问器装饰器如何修改访问器行为)
+- [5. 访问器装饰器如何修改访问器行为？](#5-访问器装饰器如何修改访问器行为)
   - [5.1. 添加日志记录](#51-添加日志记录)
   - [5.2. 数据验证](#52-数据验证)
   - [5.3. 属性缓存](#53-属性缓存)
   - [5.4. 只读属性](#54-只读属性)
-- [6. 🤔 访问器装饰器有哪些实际应用场景？](#6--访问器装饰器有哪些实际应用场景)
+- [6. 访问器装饰器有哪些实际应用场景？](#6-访问器装饰器有哪些实际应用场景)
   - [6.1. 自动通知变化](#61-自动通知变化)
   - [6.2. 延迟计算](#62-延迟计算)
   - [6.3. 访问控制](#63-访问控制)
   - [6.4. 格式化输出](#64-格式化输出)
-- [7. 🤔 使用访问器装饰器时需要注意什么？](#7--使用访问器装饰器时需要注意什么)
+- [7. 使用访问器装饰器时需要注意什么？](#7-使用访问器装饰器时需要注意什么)
   - [7.1. 不能同时装饰 getter 和 setter](#71-不能同时装饰-getter-和-setter)
   - [7.2. 装饰器应用顺序](#72-装饰器应用顺序)
   - [7.3. 保持 this 上下文](#73-保持-this-上下文)
   - [7.4. 处理缺失的访问器](#74-处理缺失的访问器)
   - [7.5. 访问器与属性的区别](#75-访问器与属性的区别)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 访问器装饰器的定义和本质
 - 访问器装饰器的基本语法
@@ -37,7 +37,7 @@
 - 访问器装饰器的实际应用场景
 - 访问器装饰器的使用注意事项
 
-## 2. 🫧 评价
+## 2. 评价
 
 访问器装饰器应用于类的 getter 或 setter 访问器，用于监控、修改或替换访问器定义。
 
@@ -47,7 +47,7 @@
 - 通过修改属性描述符可以完全控制属性的读写行为
 - 访问器装饰器的语法和方法装饰器完全相同
 
-## 3. 🤔 什么是访问器装饰器？
+## 3. 什么是访问器装饰器？
 
 访问器装饰器是应用在类访问器声明上的函数，用于观察、修改或替换访问器定义。
 
@@ -57,7 +57,7 @@ function enumerable(value: boolean) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     descriptor.enumerable = value
   }
@@ -81,7 +81,7 @@ person.name = 'Alice'
 console.log(Object.keys(person)) // ['_name', 'name']
 ```
 
-## 4. 🤔 访问器装饰器的基本语法是什么？
+## 4. 访问器装饰器的基本语法是什么？
 
 访问器装饰器接收三个参数，与方法装饰器的参数完全相同。
 
@@ -92,7 +92,7 @@ console.log(Object.keys(person)) // ['_name', 'name']
 function accessorDecorator(
   target: any, // 静态访问器是类的构造函数，实例访问器是类的原型对象
   propertyKey: string | symbol, // 访问器的名称
-  descriptor: PropertyDescriptor // 访问器的属性描述符
+  descriptor: PropertyDescriptor, // 访问器的属性描述符
 ): PropertyDescriptor | void {
   // 装饰器逻辑
 }
@@ -121,7 +121,7 @@ class Example {
 function logAccessor(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   console.log({
     get: descriptor.get, // getter 函数
@@ -145,7 +145,7 @@ class User {
 }
 ```
 
-## 5. 🤔 访问器装饰器如何修改访问器行为？
+## 5. 访问器装饰器如何修改访问器行为？
 
 通过修改属性描述符可以完全控制访问器的行为。
 
@@ -156,7 +156,7 @@ class User {
 function logAccess(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalGet = descriptor.get
   const originalSet = descriptor.set
@@ -205,7 +205,7 @@ function validate(min: number, max: number) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalSet = descriptor.set
 
@@ -253,7 +253,7 @@ score.value = 95 // 正常
 function memoize(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalGet = descriptor.get
 
@@ -302,7 +302,7 @@ console.log(circle.area) // 直接返回缓存
 function readonly(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   descriptor.writable = false
 
@@ -333,7 +333,7 @@ console.log(config.apiUrl)
 // config.apiUrl = 'new-url';  // ❌ Error: apiUrl 是只读属性
 ```
 
-## 6. 🤔 访问器装饰器有哪些实际应用场景？
+## 6. 访问器装饰器有哪些实际应用场景？
 
 ### 6.1. 自动通知变化
 
@@ -342,7 +342,7 @@ console.log(config.apiUrl)
 function observable(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalSet = descriptor.set
 
@@ -394,7 +394,7 @@ store.count = 2 // count 从 1 变为 2
 function lazy(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalGet = descriptor.get
 
@@ -450,7 +450,7 @@ console.log(comp.average) // 使用缓存的 sum
 function requireAuth(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalGet = descriptor.get
 
@@ -494,7 +494,7 @@ function format(formatter: (value: any) => any) {
   return function (
     target: any,
     propertyKey: string,
-    descriptor: PropertyDescriptor
+    descriptor: PropertyDescriptor,
   ) {
     const originalGet = descriptor.get
 
@@ -512,7 +512,10 @@ function format(formatter: (value: any) => any) {
 }
 
 class User {
-  constructor(private firstName: string, private lastName: string) {}
+  constructor(
+    private firstName: string,
+    private lastName: string,
+  ) {}
 
   @format((name: string) => name.toUpperCase())
   get fullName() {
@@ -524,7 +527,7 @@ const user = new User('john', 'doe')
 console.log(user.fullName) // 'JOHN DOE'
 ```
 
-## 7. 🤔 使用访问器装饰器时需要注意什么？
+## 7. 使用访问器装饰器时需要注意什么？
 
 ### 7.1. 不能同时装饰 getter 和 setter
 
@@ -592,7 +595,7 @@ class Example {
 function decorator(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalGet = descriptor.get
 
@@ -612,7 +615,7 @@ function decorator(
 function safeDecorator(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   if (!descriptor.get && !descriptor.set) {
     console.warn(`${propertyKey} 没有 getter 或 setter`)
@@ -664,7 +667,7 @@ class Example {
 
 :::
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Handbook - Accessor Decorators][1]
 - [TC39 Decorator Proposal][2]

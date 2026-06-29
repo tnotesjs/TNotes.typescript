@@ -2,22 +2,22 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 微软官方推出的 TypeScript 博客链接是？](#3--微软官方推出的-typescript-博客链接是)
-- [4. 🔗 引用](#4--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 微软官方推出的 TypeScript 博客链接是？](#3-微软官方推出的-typescript-博客链接是)
+- [4. 引用](#4-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 记录一些 TS 相关的博客链接
 
-## 2. 🫧 评价
+## 2. 评价
 
 在官方团队维护的博客中，可以帮你快速了解有关 TypeScript 的一些重大事件。
 
-## 3. 🤔 微软官方推出的 TypeScript 博客链接是？
+## 3. 微软官方推出的 TypeScript 博客链接是？
 
 https://devblogs.microsoft.com/typescript/
 
@@ -36,7 +36,7 @@ https://devblogs.microsoft.com/typescript/
 | 内存占用 | 较高 | 约为旧版的一半左右 |
 | 发布路线 | TypeScript 6 系列持续维护 | TypeScript 7 将基于 Native Port 发布 |
 
-## 4. 🔗 引用
+## 4. 引用
 
 - [微软官方推出的 TypeScript 博客][1]
 - [A 10x Faster TypeScript][2]

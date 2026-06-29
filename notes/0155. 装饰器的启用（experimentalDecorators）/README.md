@@ -2,29 +2,29 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 为什么需要配置才能使用装饰器？](#3--为什么需要配置才能使用装饰器)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 为什么需要配置才能使用装饰器？](#3-为什么需要配置才能使用装饰器)
   - [3.1. 装饰器标准化历程](#31-装饰器标准化历程)
   - [3.2. 为什么有两个版本](#32-为什么有两个版本)
-- [4. 🤔 如何在 TypeScript 5.0+ 中使用装饰器？](#4--如何在-typescript-50-中使用装饰器)
+- [4. 如何在 TypeScript 5.0+ 中使用装饰器？](#4-如何在-typescript-50-中使用装饰器)
   - [4.1. 默认配置（推荐）](#41-默认配置推荐)
   - [4.2. 显式禁用旧装饰器](#42-显式禁用旧装饰器)
   - [4.3. 新版装饰器示例](#43-新版装饰器示例)
-- [5. 🤔 如何在 TypeScript 5.0 之前使用装饰器？](#5--如何在-typescript-50-之前使用装饰器)
+- [5. 如何在 TypeScript 5.0 之前使用装饰器？](#5-如何在-typescript-50-之前使用装饰器)
   - [5.1. 基本配置](#51-基本配置)
   - [5.2. 完整配置（包含元数据）](#52-完整配置包含元数据)
   - [5.3. 旧版装饰器示例](#53-旧版装饰器示例)
-- [6. 🤔 experimentalDecorators 和 emitDecoratorMetadata 有什么区别？](#6--experimentaldecorators-和-emitdecoratormetadata-有什么区别)
+- [6. experimentalDecorators 和 emitDecoratorMetadata 有什么区别？](#6-experimentaldecorators-和-emitdecoratormetadata-有什么区别)
   - [6.1. 对比表格](#61-对比表格)
   - [6.2. experimentalDecorators 示例](#62-experimentaldecorators-示例)
   - [6.3. emitDecoratorMetadata 示例](#63-emitdecoratormetadata-示例)
   - [6.4. 元数据的实际应用](#64-元数据的实际应用)
-- [7. 🤔 如何选择装饰器版本？](#7--如何选择装饰器版本)
+- [7. 如何选择装饰器版本？](#7-如何选择装饰器版本)
   - [7.1. 选择新版装饰器的场景](#71-选择新版装饰器的场景)
   - [7.2. 选择旧版装饰器的场景](#72-选择旧版装饰器的场景)
   - [7.3. 实际案例对比](#73-实际案例对比)
-- [8. 🤔 装饰器配置的常见问题有哪些？](#8--装饰器配置的常见问题有哪些)
+- [8. 装饰器配置的常见问题有哪些？](#8-装饰器配置的常见问题有哪些)
   - [8.1. 问题 1：装饰器语法报错](#81-问题-1装饰器语法报错)
   - [8.2. 问题 2：元数据未生成](#82-问题-2元数据未生成)
   - [8.3. 问题 3：reflect-metadata 未安装](#83-问题-3reflect-metadata-未安装)
@@ -32,11 +32,11 @@
   - [8.5. 问题 5：target 版本不兼容](#85-问题-5target-版本不兼容)
   - [8.6. 问题 6：VSCode 报错但能编译](#86-问题-6vscode-报错但能编译)
   - [8.7. 配置检查清单](#87-配置检查清单)
-- [9. 🔗 引用](#9--引用)
+- [9. 引用](#9-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 装饰器需要配置的原因
 - TypeScript 5.0+ 的装饰器配置
@@ -45,7 +45,7 @@
 - 装饰器版本的选择策略
 - 装饰器配置的常见问题
 
-## 2. 🫧 评价
+## 2. 评价
 
 本笔记详细介绍了 TypeScript 装饰器的启用配置，涵盖新旧两个版本的装饰器及其配置方式。
 
@@ -55,7 +55,7 @@
 - 新旧装饰器 API 不兼容，迁移需谨慎测试所有装饰器功能
 - 配置错误会导致编译失败或运行时异常，建议使用配置检查清单验证
 
-## 3. 🤔 为什么需要配置才能使用装饰器？
+## 3. 为什么需要配置才能使用装饰器？
 
 装饰器功能经历了多个标准化阶段，TypeScript 需要通过配置来明确使用哪个版本的装饰器规范。
 
@@ -82,7 +82,7 @@ graph LR
 function logged(
   target: any,
   propertyKey: string,
-  descriptor: PropertyDescriptor
+  descriptor: PropertyDescriptor,
 ) {
   const originalMethod = descriptor.value
   descriptor.value = function (...args: any[]) {
@@ -121,7 +121,7 @@ class Calculator {
 
 :::
 
-## 4. 🤔 如何在 TypeScript 5.0+ 中使用装饰器？
+## 4. 如何在 TypeScript 5.0+ 中使用装饰器？
 
 TypeScript 5.0+ 默认支持 Stage 3 标准装饰器，无需额外配置。
 
@@ -156,7 +156,7 @@ TypeScript 5.0+ 默认支持 Stage 3 标准装饰器，无需额外配置。
 // ✅ 使用新版装饰器 API
 function withLogging<T extends { new (...args: any[]): {} }>(
   target: T,
-  context: ClassDecoratorContext
+  context: ClassDecoratorContext,
 ) {
   return class extends target {
     constructor(...args: any[]) {
@@ -175,7 +175,7 @@ const user = new User('Alice')
 // 输出：创建 User 实例
 ```
 
-## 5. 🤔 如何在 TypeScript 5.0 之前使用装饰器？
+## 5. 如何在 TypeScript 5.0 之前使用装饰器？
 
 TypeScript 5.0 之前需要显式启用 `experimentalDecorators` 配置。
 
@@ -226,7 +226,7 @@ console.log(AppComponent.prototype.__component__)
 // 输出：{ selector: 'app-root' }
 ```
 
-## 6. 🤔 experimentalDecorators 和 emitDecoratorMetadata 有什么区别？
+## 6. experimentalDecorators 和 emitDecoratorMetadata 有什么区别？
 
 这两个配置项服务于不同的目的，但通常配合使用。
 
@@ -312,7 +312,7 @@ UserService = __decorate(
     // ✅ 自动生成的类型元数据
     __metadata('design:paramtypes', [Logger]),
   ],
-  UserService
+  UserService,
 )
 ```
 
@@ -351,7 +351,7 @@ class UserService {
 }
 ```
 
-## 7. 🤔 如何选择装饰器版本？
+## 7. 如何选择装饰器版本？
 
 根据项目情况选择合适的装饰器版本。
 
@@ -450,7 +450,7 @@ class UserController {
 
 :::
 
-## 8. 🤔 装饰器配置的常见问题有哪些？
+## 8. 装饰器配置的常见问题有哪些？
 
 ### 8.1. 问题 1：装饰器语法报错
 
@@ -623,7 +623,7 @@ function checkDecoratorConfig() {
 }
 ```
 
-## 9. 🔗 引用
+## 9. 引用
 
 - [TypeScript 5.0 Release Notes - Decorators][1]
 - [TC39 Decorator Proposal][2]

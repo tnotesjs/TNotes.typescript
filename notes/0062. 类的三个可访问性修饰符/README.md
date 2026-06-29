@@ -2,29 +2,29 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 TypeScript 类中的 public、private 和 protected 修饰符有什么作用？](#3--typescript-类中的-publicprivate-和-protected-修饰符有什么作用)
-- [4. 🤔 访问性修饰符书写在什么位置？](#4--访问性修饰符书写在什么位置)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. TypeScript 类中的 public、private 和 protected 修饰符有什么作用？](#3-typescript-类中的-publicprivate-和-protected-修饰符有什么作用)
+- [4. 访问性修饰符书写在什么位置？](#4-访问性修饰符书写在什么位置)
   - [4.1. 写在声明前面](#41-写在声明前面)
   - [4.2. 在类的构造函数参数中直接使用 public/private/protected](#42-在类的构造函数参数中直接使用-publicprivateprotected)
-- [5. 🤔 public 是不是必须显式写出？不写访问修饰符默认是什么？](#5--public-是不是必须显式写出不写访问修饰符默认是什么)
-- [6. 🤔 private 修饰的成员真的完全无法从外部访问吗？](#6--private-修饰的成员真的完全无法从外部访问吗)
-- [7. 🆚 “TS 的 private” vs. “ES 的 `#私有字段`”](#7--ts-的-private-vs-es-的-私有字段)
+- [5. public 是不是必须显式写出？不写访问修饰符默认是什么？](#5-public-是不是必须显式写出不写访问修饰符默认是什么)
+- [6. private 修饰的成员真的完全无法从外部访问吗？](#6-private-修饰的成员真的完全无法从外部访问吗)
+- [7. “TS 的 private” vs. “ES 的 `#私有字段`”](#7-ts-的-private-vs-es-的-私有字段)
   - [7.1. 对比](#71-对比)
   - [7.2. ES `#私有字段` 对 `target` 编译目标的要求](#72-es-私有字段-对-target-编译目标的要求)
-- [8. 🤖 社区目前（2025）更推荐使用 `#私有字段` 还是 TypeScript 的 `private` 修饰符？](#8--社区目前2025更推荐使用-私有字段-还是-typescript-的-private-修饰符)
+- [8. 社区目前（2025）更推荐使用 `#私有字段` 还是 TypeScript 的 `private` 修饰符？](#8-社区目前2025更推荐使用-私有字段-还是-typescript-的-private-修饰符)
   - [8.1. 决策指南](#81-决策指南)
   - [8.2. 实践趋势](#82-实践趋势)
   - [8.3. 最佳实践](#83-最佳实践)
-- [9. 🤔 protected 和 private 有什么区别？什么时候用 protected？](#9--protected-和-private-有什么区别什么时候用-protected)
-- [10. 🤔 构造函数也可以用 private 或 protected 吗？有什么用？](#10--构造函数也可以用-private-或-protected-吗有什么用)
-- [11. 🤔 接口或类型定义中能使用 private/protected 吗？](#11--接口或类型定义中能使用-privateprotected-吗)
-- [12. 🔗 引用](#12--引用)
+- [9. protected 和 private 有什么区别？什么时候用 protected？](#9-protected-和-private-有什么区别什么时候用-protected)
+- [10. 构造函数也可以用 private 或 protected 吗？有什么用？](#10-构造函数也可以用-private-或-protected-吗有什么用)
+- [11. 接口或类型定义中能使用 private/protected 吗？](#11-接口或类型定义中能使用-privateprotected-吗)
+- [12. 引用](#12-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - access modifiers
 - public
@@ -32,7 +32,7 @@
 - protected
 - 参数属性 - parameter property
 
-## 2. 🫧 评价
+## 2. 评价
 
 public、private 和 protected 是访问修饰符（access modifiers），它们是 TS 中特有的，编译产物 JS 中会自动移除。
 
@@ -40,7 +40,7 @@ public、private 和 protected 是访问修饰符（access modifiers），它们
 
 当你在开发 TS 项目时，书写类的时候可以利用这些修饰符来约束相关成员的访问权限。
 
-## 3. 🤔 TypeScript 类中的 public、private 和 protected 修饰符有什么作用？
+## 3. TypeScript 类中的 public、private 和 protected 修饰符有什么作用？
 
 在 TypeScript 中，public、private 和 protected 是访问修饰符（access modifiers），用于控制类成员（属性和方法）的可见性和可访问性。它们帮助开发者封装数据、隐藏实现细节，并明确类的使用契约。
 
@@ -50,7 +50,7 @@ public、private 和 protected 是访问修饰符（access modifiers），它们
 
 这些修饰符只在 TypeScript 编译期起作用，编译成 JavaScript 后不会保留访问限制（因为 JavaScript 本身在较新标准前没有原生私有成员支持，不过现代 JS 有 #private 语法，但 TS 的 private 与之不同）。
 
-## 4. 🤔 访问性修饰符书写在什么位置？
+## 4. 访问性修饰符书写在什么位置？
 
 1. 写在声明前面（常见）
 2. 在类的构造函数参数中直接使用 public/private/protected（TS 提供的语法糖，可根据团队开发规范选择是否在项目中使用）
@@ -104,7 +104,7 @@ TypeScript 支持在构造函数参数上直接添加访问修饰符，这称为
 class User {
   constructor(
     public name: string, // 等价于 this.name = name; 且声明 public name: string
-    private email: string // 等价于 this.email = email; 且声明 private email: string
+    private email: string, // 等价于 this.email = email; 且声明 private email: string
   ) {}
 }
 ```
@@ -124,7 +124,7 @@ class User {
 
 这种写法简洁高效，常用于依赖注入或初始化大量属性的场景。是 TS 给我们提供的语法糖。
 
-## 5. 🤔 public 是不是必须显式写出？不写访问修饰符默认是什么？
+## 5. public 是不是必须显式写出？不写访问修饰符默认是什么？
 
 public 必显式写出，写或者不写 public 效果都是一样的。
 
@@ -146,7 +146,7 @@ class Person {
 - 如果确定要给所有的成员都加上显式的访问修饰符声明，那跟着规范走，统一将 public 都写出来就行了；
 - 如果认为写 public 有些冗余，那就统一都不写 public；
 
-## 6. 🤔 private 修饰的成员真的完全无法从外部访问吗？
+## 6. private 修饰的成员真的完全无法从外部访问吗？
 
 在 TypeScript 编译期，private 成员确实无法从类外部访问，编译器会报错：
 
@@ -179,7 +179,7 @@ console.log(s.code)
 
 很显然，在运行时通过 `s.code` 是可以访问的。因此，private 主要用于开发时的类型安全和设计意图表达，而非安全隔离。
 
-## 7. 🆚 “TS 的 private” vs. “ES 的 `#私有字段`”
+## 7. “TS 的 private” vs. “ES 的 `#私有字段`”
 
 ### 7.1. 对比
 
@@ -251,7 +251,7 @@ class Dog {
 _Dog_barkAmount = new WeakMap()
 ```
 
-## 8. 🤖 社区目前（2025）更推荐使用 `#私有字段` 还是 TypeScript 的 `private` 修饰符？
+## 8. 社区目前（2025）更推荐使用 `#私有字段` 还是 TypeScript 的 `private` 修饰符？
 
 截至 2025 年，社区已形成明确的实践共识：根据私有性需求的严格程度选择适当的机制。
 
@@ -282,7 +282,7 @@ _Dog_barkAmount = new WeakMap()
 
 关键区别：`private` 是类型系统契约（编译期检查），`#字段` 是语言运行时特性（不可绕过的私有性）。选择应基于实际需求，而非单纯追求"更私有"。
 
-## 9. 🤔 protected 和 private 有什么区别？什么时候用 protected？
+## 9. protected 和 private 有什么区别？什么时候用 protected？
 
 区别在于继承时的可访问性：
 
@@ -312,7 +312,7 @@ console.log(dog.name) // ❌ 错误：外部不能访问 protected 成员
 // Property 'name' is protected and only accessible within class 'Animal' and its subclasses.(2445)
 ```
 
-## 10. 🤔 构造函数也可以用 private 或 protected 吗？有什么用？
+## 10. 构造函数也可以用 private 或 protected 吗？有什么用？
 
 可以。将构造函数标记为 private 或 protected 是一种控制类实例化方式的设计模式。
 
@@ -357,7 +357,7 @@ class Derived extends Base {
 new Derived() // ✅ 正确
 ```
 
-## 11. 🤔 接口或类型定义中能使用 private/protected 吗？
+## 11. 接口或类型定义中能使用 private/protected 吗？
 
 不能。
 
@@ -383,7 +383,7 @@ class Person implements HasName {
 
 这也体现了 TypeScript 的设计哲学：接口用于描述“外部如何看待一个对象”，而访问修饰符用于控制“内部如何组织实现”。
 
-## 12. 🔗 引用
+## 12. 引用
 
 - [Classes 类][1]
 - [JavaScript’s private fields (#)][2]

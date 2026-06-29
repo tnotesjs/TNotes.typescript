@@ -2,37 +2,37 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 typescript-go 项目？](#3--什么是-typescript-go-项目)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 typescript-go 项目？](#3-什么是-typescript-go-项目)
   - [3.1. 项目目标](#31-项目目标)
   - [3.2. 项目背景](#32-项目背景)
-- [4. 🤔 为什么要用 Go 重写 TypeScript 编译器？](#4--为什么要用-go-重写-typescript-编译器)
+- [4. 为什么要用 Go 重写 TypeScript 编译器？](#4-为什么要用-go-重写-typescript-编译器)
   - [4.1. 技术优势](#41-技术优势)
   - [4.2. 性能对比](#42-性能对比)
   - [4.3. 架构优势](#43-架构优势)
-- [5. 🤔 typescript-go 的性能提升有多大？](#5--typescript-go-的性能提升有多大)
+- [5. typescript-go 的性能提升有多大？](#5-typescript-go-的性能提升有多大)
   - [5.1. 基准测试数据](#51-基准测试数据)
   - [5.2. 性能提升的关键因素](#52-性能提升的关键因素)
   - [5.3. 实际应用场景](#53-实际应用场景)
-- [6. 🤔 typescript-go 的架构设计是怎样的？](#6--typescript-go-的架构设计是怎样的)
+- [6. typescript-go 的架构设计是怎样的？](#6-typescript-go-的架构设计是怎样的)
   - [6.1. 核心架构](#61-核心架构)
   - [6.2. 并发模型](#62-并发模型)
   - [6.3. 缓存策略](#63-缓存策略)
-- [7. 🤔 如何参与 typescript-go 项目？](#7--如何参与-typescript-go-项目)
+- [7. 如何参与 typescript-go 项目？](#7-如何参与-typescript-go-项目)
   - [7.1. 查看项目状态](#71-查看项目状态)
   - [7.2. 构建和测试](#72-构建和测试)
   - [7.3. 贡献代码](#73-贡献代码)
   - [7.4. 问题反馈](#74-问题反馈)
-- [8. 🤔 typescript-go 何时可以在生产环境使用？](#8--typescript-go-何时可以在生产环境使用)
+- [8. typescript-go 何时可以在生产环境使用？](#8-typescript-go-何时可以在生产环境使用)
   - [8.1. 当前状态](#81-当前状态)
   - [8.2. 发布计划](#82-发布计划)
   - [8.3. 使用建议](#83-使用建议)
-- [9. 🔗 引用](#9--引用)
+- [9. 引用](#9-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - typescript-go 项目简介
 - 使用 Go 语言重写的原因
@@ -41,7 +41,7 @@
 - 参与贡献的方式
 - 项目路线图和里程碑
 
-## 2. 🫧 评价
+## 2. 评价
 
 typescript-go 是 Microsoft 使用 Go 语言重写的 TypeScript 编译器，目标是实现 10 倍的编译性能提升。
 
@@ -51,7 +51,7 @@ typescript-go 是 Microsoft 使用 Go 语言重写的 TypeScript 编译器，目
 - 关注该项目可以了解编译器优化的前沿技术
 - Go 语言的并发特性是实现性能提升的关键
 
-## 3. 🤔 什么是 typescript-go 项目？
+## 3. 什么是 typescript-go 项目？
 
 typescript-go 是 TypeScript 编译器的原生实现版本，使用 Go 语言从零开始重写。
 
@@ -104,7 +104,7 @@ const projectGoals = {
 //    - 智能依赖追踪
 ```
 
-## 4. 🤔 为什么要用 Go 重写 TypeScript 编译器？
+## 4. 为什么要用 Go 重写 TypeScript 编译器？
 
 ### 4.1. 技术优势
 
@@ -184,7 +184,7 @@ async function compileFiles(files: string[]) {
 // - Linux: ELF
 ```
 
-## 5. 🤔 typescript-go 的性能提升有多大？
+## 5. typescript-go 的性能提升有多大？
 
 ### 5.1. 基准测试数据
 
@@ -258,7 +258,7 @@ const largeProject = {
 // 小型项目可能感知不明显
 ```
 
-## 6. 🤔 typescript-go 的架构设计是怎样的？
+## 6. typescript-go 的架构设计是怎样的？
 
 ### 6.1. 核心架构
 
@@ -359,7 +359,7 @@ const sharedCache = {
 }
 ```
 
-## 7. 🤔 如何参与 typescript-go 项目？
+## 7. 如何参与 typescript-go 项目？
 
 ### 7.1. 查看项目状态
 
@@ -454,7 +454,7 @@ go test -cover ./...
 // - 对性能的影响
 ```
 
-## 8. 🤔 typescript-go 何时可以在生产环境使用？
+## 8. typescript-go 何时可以在生产环境使用？
 
 ### 8.1. 当前状态
 
@@ -540,7 +540,7 @@ const projectStatus = {
 }
 ```
 
-## 9. 🔗 引用
+## 9. 引用
 
 - [typescript-go GitHub 仓库][1]
 - [A 10x Faster TypeScript - 官方博客][2]

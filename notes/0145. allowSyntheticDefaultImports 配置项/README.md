@@ -2,28 +2,28 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 allowSyntheticDefaultImports？](#3--什么是-allowsyntheticdefaultimports)
-- [4. 🤔 为什么需要 allowSyntheticDefaultImports？](#4--为什么需要-allowsyntheticdefaultimports)
-- [5. 🤔 allowSyntheticDefaultImports 和 esModuleInterop 有什么区别？](#5--allowsyntheticdefaultimports-和-esmoduleinterop-有什么区别)
-- [6. 🤔 如何配置 allowSyntheticDefaultImports？](#6--如何配置-allowsyntheticdefaultimports)
-- [7. 🤔 什么时候应该启用 allowSyntheticDefaultImports？](#7--什么时候应该启用-allowsyntheticdefaultimports)
-- [8. 🤔 启用后会有什么影响？](#8--启用后会有什么影响)
-- [9. 🤔 常见问题有哪些？](#9--常见问题有哪些)
-- [10. 🤔 最佳实践是什么？](#10--最佳实践是什么)
-- [11. 🔗 引用](#11--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 allowSyntheticDefaultImports？](#3-什么是-allowsyntheticdefaultimports)
+- [4. 为什么需要 allowSyntheticDefaultImports？](#4-为什么需要-allowsyntheticdefaultimports)
+- [5. allowSyntheticDefaultImports 和 esModuleInterop 有什么区别？](#5-allowsyntheticdefaultimports-和-esmoduleinterop-有什么区别)
+- [6. 如何配置 allowSyntheticDefaultImports？](#6-如何配置-allowsyntheticdefaultimports)
+- [7. 什么时候应该启用 allowSyntheticDefaultImports？](#7-什么时候应该启用-allowsyntheticdefaultimports)
+- [8. 启用后会有什么影响？](#8-启用后会有什么影响)
+- [9. 常见问题有哪些？](#9-常见问题有哪些)
+- [10. 最佳实践是什么？](#10-最佳实践是什么)
+- [11. 引用](#11-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - allowSyntheticDefaultImports 配置项
 - 与 esModuleInterop 的区别
 - 类型检查和代码生成的关系
 - 使用场景和最佳实践
 
-## 2. 🫧 评价
+## 2. 评价
 
 - `allowSyntheticDefaultImports` 是一个纯类型检查配置项，只影响类型系统，不影响生成的 JavaScript 代码。
 - 这个配置项在实际开发中的重要性取决于你的构建工具：
@@ -35,7 +35,7 @@
   - 解决模块导入的类型错误
   - 优化构建配置
 
-## 3. 🤔 什么是 allowSyntheticDefaultImports？
+## 3. 什么是 allowSyntheticDefaultImports？
 
 `allowSyntheticDefaultImports` 是 TypeScript 编译器选项，允许从没有默认导出的模块中进行默认导入，但仅用于类型检查。
 
@@ -76,7 +76,7 @@ import React from 'react'
 
 :::
 
-## 4. 🤔 为什么需要 allowSyntheticDefaultImports？
+## 4. 为什么需要 allowSyntheticDefaultImports？
 
 解决 Babel 等工具的兼容性问题
 
@@ -133,7 +133,7 @@ import React from 'react'
 }
 ```
 
-## 5. 🤔 allowSyntheticDefaultImports 和 esModuleInterop 有什么区别？
+## 5. allowSyntheticDefaultImports 和 esModuleInterop 有什么区别？
 
 两者的作用范围不同：
 
@@ -218,7 +218,7 @@ const React = _interopRequireDefault(require('react'))
 
 :::
 
-## 6. 🤔 如何配置 allowSyntheticDefaultImports？
+## 6. 如何配置 allowSyntheticDefaultImports？
 
 基本配置
 
@@ -302,7 +302,7 @@ tsc --allowSyntheticDefaultImports file.ts
 tsc --allowSyntheticDefaultImports --esModuleInterop false file.ts
 ```
 
-## 7. 🤔 什么时候应该启用 allowSyntheticDefaultImports？
+## 7. 什么时候应该启用 allowSyntheticDefaultImports？
 
 使用 Babel 编译
 
@@ -390,7 +390,7 @@ import * as moment from 'moment'
 import * as _ from 'lodash'
 ```
 
-## 8. 🤔 启用后会有什么影响？
+## 8. 启用后会有什么影响？
 
 类型检查变化
 
@@ -469,7 +469,7 @@ graph TD
     E -->|运行| G[依赖工具配置]
 ```
 
-## 9. 🤔 常见问题有哪些？
+## 9. 常见问题有哪些？
 
 问题 1：类型检查通过但运行时报错
 
@@ -602,7 +602,7 @@ module.default // ✅ 类型检查认为存在
 module.someFunction() // 可能才是正确的
 ```
 
-## 10. 🤔 最佳实践是什么？
+## 10. 最佳实践是什么？
 
 根据构建工具选择配置
 
@@ -746,7 +746,7 @@ npm update @types/react @types/node
 npm outdated @types/*
 ```
 
-## 11. 🔗 引用
+## 11. 引用
 
 - [TypeScript 官方文档 - allowSyntheticDefaultImports][1]
 - [TypeScript 官方文档 - esModuleInterop][2]

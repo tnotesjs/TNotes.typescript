@@ -2,22 +2,22 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 bigint 类型是什么？](#3--bigint-类型是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. bigint 类型是什么？](#3-bigint-类型是什么)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - bigint
 
-## 2. 🫧 评价
+## 2. 评价
 
 - bigint 类型了解即可，不常用。
 - 虽然 bigint 也是数字，但是 bigint 与 number 类型是不兼容的。
 
-## 3. 🤔 bigint 类型是什么？
+## 3. bigint 类型是什么？
 
 - bigint 类型包含所有的大整数。
 - bigint 类型是 ES2020 标准引入的。如果使用这个类型，TypeScript 编译的目标 JavaScript 版本不能低于 ES2020（即编译参数 target 不低于 es2020）。

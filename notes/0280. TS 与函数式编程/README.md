@@ -2,26 +2,26 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 纯函数的类型表达？](#3--纯函数的类型表达)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 纯函数的类型表达？](#3-纯函数的类型表达)
   - [3.1. 纯函数定义](#31-纯函数定义)
   - [3.2. 柯里化](#32-柯里化)
-- [4. 🤔 函数组合？](#4--函数组合)
+- [4. 函数组合？](#4-函数组合)
   - [4.1. Compose 和 Pipe](#41-compose-和-pipe)
-- [5. 🤔 Functor 和 Monad？](#5--functor-和-monad)
+- [5. Functor 和 Monad？](#5-functor-和-monad)
   - [5.1. Functor](#51-functor)
   - [5.2. Monad](#52-monad)
-- [6. 🤔 Option/Maybe 类型？](#6--optionmaybe-类型)
+- [6. Option/Maybe 类型？](#6-optionmaybe-类型)
   - [6.1. Option 实现](#61-option-实现)
-- [7. 🤔 Result/Either 类型？](#7--resulteither-类型)
+- [7. Result/Either 类型？](#7-resulteither-类型)
   - [7.1. Result 实现](#71-result-实现)
   - [7.2. 实际应用](#72-实际应用)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 纯函数的类型表达
 - 函数组合
@@ -29,7 +29,7 @@
 - Option/Maybe 类型
 - Result/Either 类型
 
-## 2. 🫧 评价
+## 2. 评价
 
 TypeScript 的类型系统非常适合函数式编程。
 
@@ -39,7 +39,7 @@ TypeScript 的类型系统非常适合函数式编程。
 - 可以实现类型安全的 Monad
 - 泛型提供抽象能力
 
-## 3. 🤔 纯函数的类型表达？
+## 3. 纯函数的类型表达？
 
 纯函数通过类型签名表达其行为。
 
@@ -97,7 +97,7 @@ const curriedAdd3 = autoCurry(add3)
 console.log(curriedAdd3(1)(2)(3)) // 6
 ```
 
-## 4. 🤔 函数组合？
+## 4. 函数组合？
 
 将多个函数组合成一个新函数。
 
@@ -139,7 +139,7 @@ const multiComposed = composeMany(
 console.log(multiComposed(10)) // 15 (((10 - 3) * 2) + 1)
 ```
 
-## 5. 🤔 Functor 和 Monad？
+## 5. Functor 和 Monad？
 
 Functor 和 Monad 是函数式编程的核心概念。
 
@@ -208,7 +208,7 @@ const result2 = new Identity(10)
 console.log(result2) // 1
 ```
 
-## 6. 🤔 Option/Maybe 类型？
+## 6. Option/Maybe 类型？
 
 处理可能不存在的值。
 
@@ -260,7 +260,7 @@ const noUserName = map(noUser, (u) => u.name)
 console.log(getOrElse(noUserName, 'Unknown')) // "Unknown"
 ```
 
-## 7. 🤔 Result/Either 类型？
+## 7. Result/Either 类型？
 
 处理可能失败的操作。
 
@@ -372,7 +372,7 @@ async function displayUser(id: number) {
 }
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [Functional Programming in TypeScript][1]
 - [fp-ts Library][2]

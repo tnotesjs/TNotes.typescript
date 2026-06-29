@@ -2,26 +2,26 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 内置字符串操作类型有哪些？](#3--内置字符串操作类型有哪些)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 内置字符串操作类型有哪些？](#3-内置字符串操作类型有哪些)
   - [3.1. Uppercase](#31-uppercase)
   - [3.2. Lowercase](#32-lowercase)
   - [3.3. Capitalize](#33-capitalize)
   - [3.4. Uncapitalize](#34-uncapitalize)
-- [4. 🔗 引用](#4--引用)
+- [4. 引用](#4-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - todo
 
-## 2. 🫧 评价
+## 2. 评价
 
 - todo
 
-## 3. 🤔 内置字符串操作类型有哪些？
+## 3. 内置字符串操作类型有哪些？
 
 ### 3.1. Uppercase
 
@@ -84,7 +84,7 @@ type InstanceName<T extends string> = Uncapitalize<T>
 type UserVar = InstanceName<'User'> // 'user'
 ```
 
-## 4. 🔗 引用
+## 4. 引用
 
 - [TypeScript Handbook - Template Literal Types][1]
 

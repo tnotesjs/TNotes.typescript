@@ -2,23 +2,23 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 TypeScript 的发展简史是？](#3--typescript-的发展简史是)
-- [4. 🤔 在哪可以查看到 TypeScript 的发版历史？](#4--在哪可以查看到-typescript-的发版历史)
-- [5. 🔗 引用](#5--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. TypeScript 的发展简史是？](#3-typescript-的发展简史是)
+- [4. 在哪可以查看到 TypeScript 的发版历史？](#4-在哪可以查看到-typescript-的发版历史)
+- [5. 引用](#5-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - TS 的发展简史
 
-## 2. 🫧 评价
+## 2. 评价
 
 对 TS 的发展简史有个初步了解即可
 
-## 3. 🤔 TypeScript 的发展简史是？
+## 3. TypeScript 的发展简史是？
 
 下面根据 TS 主要版本发布的时间线，简要介绍 TypeScript 的发展历史。
 
@@ -34,7 +34,7 @@
 - 2020 年，TypeScript 4.0 版本发布。
 - 2023 年，TypeScript 5.0 版本发布。
 
-## 4. 🤔 在哪可以查看到 TypeScript 的发版历史？
+## 4. 在哪可以查看到 TypeScript 的发版历史？
 
 可以在 TypeScript Github 的 Releases 页 -> [TypeScript/releases][1] 查看所有 TS 官方的发版历史信息。你可以在这里查看一些重大版本更新的内容都有哪些。
 
@@ -42,7 +42,7 @@
 
 ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-07-21-27-22.png)
 
-## 5. 🔗 引用
+## 5. 引用
 
 - [TypeScript/releases][1]
 

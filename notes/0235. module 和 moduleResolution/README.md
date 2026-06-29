@@ -2,30 +2,30 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 module 选项是什么？](#3--module-选项是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. module 选项是什么？](#3-module-选项是什么)
   - [3.1. 可选值](#31-可选值)
   - [3.2. CommonJS 格式](#32-commonjs-格式)
   - [3.3. ES2015/ES6 格式](#33-es2015es6-格式)
   - [3.4. AMD 格式](#34-amd-格式)
   - [3.5. UMD 格式](#35-umd-格式)
-- [4. 🤔 moduleResolution 选项是什么？](#4--moduleresolution-选项是什么)
+- [4. moduleResolution 选项是什么？](#4-moduleresolution-选项是什么)
   - [4.1. 可选值](#41-可选值)
   - [4.2. Node 解析策略](#42-node-解析策略)
   - [4.3. Classic 解析策略](#43-classic-解析策略)
   - [4.4. Node16/NodeNext 解析](#44-node16nodenext-解析)
   - [4.5. Bundler 解析策略](#45-bundler-解析策略)
-- [5. 🆚 module vs. moduleResolution](#5--module-vs-moduleresolution)
+- [5. module vs. moduleResolution](#5-module-vs-moduleresolution)
   - [5.1. 关系说明](#51-关系说明)
   - [5.2. 推荐的配置组合](#52-推荐的配置组合)
-- [6. 🤔 如何选择合适的配置？](#6--如何选择合适的配置)
+- [6. 如何选择合适的配置？](#6-如何选择合适的配置)
   - [6.1. Node.js 项目（CommonJS）](#61-nodejs-项目commonjs)
   - [6.2. Node.js 项目（ES 模块）](#62-nodejs-项目es-模块)
   - [6.3. React/Vue 项目](#63-reactvue-项目)
   - [6.4. 库项目](#64-库项目)
   - [6.5. 纯类型项目](#65-纯类型项目)
-- [7. 🤔 使用时需要注意什么？](#7--使用时需要注意什么)
+- [7. 使用时需要注意什么？](#7-使用时需要注意什么)
   - [7.1. 模块格式必须匹配运行环境](#71-模块格式必须匹配运行环境)
   - [7.2. Node16/NodeNext 必须包含扩展名](#72-node16nodenext-必须包含扩展名)
   - [7.3. esModuleInterop 建议开启](#73-esmoduleinterop-建议开启)
@@ -37,11 +37,11 @@
   - [7.9. 类型声明文件的位置](#79-类型声明文件的位置)
   - [7.10. 解析非 TypeScript 文件](#710-解析非-typescript-文件)
   - [7.11. 检查模块解析](#711-检查模块解析)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - module 模块系统格式
 - moduleResolution 模块解析策略
@@ -50,7 +50,7 @@
 - 模块配置的最佳实践
 - 常见问题和解决方案
 
-## 2. 🫧 评价
+## 2. 评价
 
 `module` 和 `moduleResolution` 决定了 TypeScript 如何处理模块的输出格式和导入解析，是项目配置的关键选项。
 
@@ -61,7 +61,7 @@
 - Node.js 和浏览器项目配置差异较大
 - 现代项目通常使用 ES 模块格式
 
-## 3. 🤔 module 选项是什么？
+## 3. module 选项是什么？
 
 `module` 指定编译后输出的模块格式。
 
@@ -183,7 +183,7 @@ define(['require', 'exports'], function (require, exports) {
 })
 ```
 
-## 4. 🤔 moduleResolution 选项是什么？
+## 4. moduleResolution 选项是什么？
 
 `moduleResolution` 指定 TypeScript 如何查找模块文件。
 
@@ -274,7 +274,7 @@ import styles from './styles.css' // ✅ 可以导入非 TS 文件
 import data from './data.json' // ✅ 支持 JSON 导入
 ```
 
-## 5. 🆚 module vs. moduleResolution
+## 5. module vs. moduleResolution
 
 | 对比项       | module             | moduleResolution |
 | ------------ | ------------------ | ---------------- |
@@ -349,7 +349,7 @@ const lodash = require('lodash')
 }
 ```
 
-## 6. 🤔 如何选择合适的配置？
+## 6. 如何选择合适的配置？
 
 ### 6.1. Node.js 项目（CommonJS）
 
@@ -451,7 +451,7 @@ export type { AppOptions } from './types'
 }
 ```
 
-## 7. 🤔 使用时需要注意什么？
+## 7. 使用时需要注意什么？
 
 ### 7.1. 模块格式必须匹配运行环境
 
@@ -660,7 +660,7 @@ tsc --traceResolution
 # 输出详细的模块查找信息
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Module Resolution][1]
 - [TypeScript Modules Documentation][2]

@@ -2,42 +2,42 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 CommonJS？](#3--什么是-commonjs)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 CommonJS？](#3-什么是-commonjs)
   - [3.1. 基本概念](#31-基本概念)
   - [3.2. 模块特性](#32-模块特性)
   - [3.3. 模块对象](#33-模块对象)
-- [4. 🤔 如何使用 require 导入模块？](#4--如何使用-require-导入模块)
+- [4. 如何使用 require 导入模块？](#4-如何使用-require-导入模块)
   - [4.1. 基本导入](#41-基本导入)
   - [4.2. 解构导入](#42-解构导入)
   - [4.3. 动态导入](#43-动态导入)
   - [4.4. 模块解析](#44-模块解析)
-- [5. 🤔 如何使用 exports 导出模块？](#5--如何使用-exports-导出模块)
+- [5. 如何使用 exports 导出模块？](#5-如何使用-exports-导出模块)
   - [5.1. 使用 exports](#51-使用-exports)
   - [5.2. 使用 module.exports](#52-使用-moduleexports)
   - [5.3. 混合导出](#53-混合导出)
-- [6. 🤔 module.exports 和 exports 有什么区别？](#6--moduleexports-和-exports-有什么区别)
+- [6. module.exports 和 exports 有什么区别？](#6-moduleexports-和-exports-有什么区别)
   - [6.1. 核心区别](#61-核心区别)
   - [6.2. 常见错误](#62-常见错误)
   - [6.3. 使用建议](#63-使用建议)
-- [7. 🤔 CommonJS 和 ES 模块有什么区别？](#7--commonjs-和-es-模块有什么区别)
+- [7. CommonJS 和 ES 模块有什么区别？](#7-commonjs-和-es-模块有什么区别)
   - [7.1. 语法差异](#71-语法差异)
   - [7.2. 加载差异](#72-加载差异)
   - [7.3. 值差异](#73-值差异)
   - [7.4. this 差异](#74-this-差异)
   - [7.5. 对比总结](#75-对比总结)
-- [8. 🤔 如何在 TypeScript 中使用 CommonJS？](#8--如何在-typescript-中使用-commonjs)
+- [8. 如何在 TypeScript 中使用 CommonJS？](#8-如何在-typescript-中使用-commonjs)
   - [8.1. TypeScript 配置](#81-typescript-配置)
   - [8.2. 类型定义](#82-类型定义)
   - [8.3. 互操作](#83-互操作)
   - [8.4. 编译输出](#84-编译输出)
-- [9. 🤔 如何处理循环依赖？](#9--如何处理循环依赖)
+- [9. 如何处理循环依赖？](#9-如何处理循环依赖)
   - [9.1. 循环依赖问题](#91-循环依赖问题)
   - [9.2. 循环依赖的原因](#92-循环依赖的原因)
   - [9.3. 解决方案](#93-解决方案)
   - [9.4. TypeScript 中的处理](#94-typescript-中的处理)
-- [10. 🤔 CommonJS 的常见模式有哪些？](#10--commonjs-的常见模式有哪些)
+- [10. CommonJS 的常见模式有哪些？](#10-commonjs-的常见模式有哪些)
   - [10.1. 模式 1：单例模式](#101-模式-1单例模式)
   - [10.2. 模式 2：工厂模式](#102-模式-2工厂模式)
   - [10.3. 模式 3：命名空间模式](#103-模式-3命名空间模式)
@@ -47,11 +47,11 @@
   - [10.7. 模式 7：中间件模式](#107-模式-7中间件模式)
   - [10.8. 模式 8：缓存模式](#108-模式-8缓存模式)
   - [10.9. 最佳实践](#109-最佳实践)
-- [11. 🔗 引用](#11--引用)
+- [11. 引用](#11-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - CommonJS 模块系统的基本概念
 - require 和 exports 的使用方法
@@ -61,7 +61,7 @@
 - 循环依赖的处理
 - 常见模式和最佳实践
 
-## 2. 🫧 评价
+## 2. 评价
 
 CommonJS 是 **Node.js 采用的传统模块系统**。
 
@@ -106,7 +106,7 @@ CommonJS 的劣势：
 
 虽然 ES 模块是未来，但 CommonJS 在 Node.js 生态中仍然广泛使用。
 
-## 3. 🤔 什么是 CommonJS？
+## 3. 什么是 CommonJS？
 
 ### 3.1. 基本概念
 
@@ -168,7 +168,7 @@ console.log(m1 === m2)(
     // 模块代码
     const PI = 3.14159
     module.exports = { PI }
-  }
+  },
 )
 ```
 
@@ -189,7 +189,7 @@ console.log(require.cache) // 模块缓存
 console.log(require.resolve('./module')) // 解析模块路径
 ```
 
-## 4. 🤔 如何使用 require 导入模块？
+## 4. 如何使用 require 导入模块？
 
 ### 4.1. 基本导入
 
@@ -274,7 +274,7 @@ require('./config.json')
 require('./models') // 查找 index.js 或 package.json 的 main
 ```
 
-## 5. 🤔 如何使用 exports 导出模块？
+## 5. 如何使用 exports 导出模块？
 
 ### 5.1. 使用 exports
 
@@ -352,7 +352,7 @@ module.exports = {
 }
 ```
 
-## 6. 🤔 module.exports 和 exports 有什么区别？
+## 6. module.exports 和 exports 有什么区别？
 
 ### 6.1. 核心区别
 
@@ -427,7 +427,7 @@ module.exports = {
 // 在一个模块中只使用一种方式
 ```
 
-## 7. 🤔 CommonJS 和 ES 模块有什么区别？
+## 7. CommonJS 和 ES 模块有什么区别？
 
 ### 7.1. 语法差异
 
@@ -525,7 +525,7 @@ console.log(this) // undefined
 | **浏览器**       | 不支持         | 原生支持              |
 | **严格模式**     | 可选           | 自动                  |
 
-## 8. 🤔 如何在 TypeScript 中使用 CommonJS？
+## 8. 如何在 TypeScript 中使用 CommonJS？
 
 ### 8.1. TypeScript 配置
 
@@ -633,7 +633,7 @@ function greet(user) {
 exports.greet = greet
 ```
 
-## 9. 🤔 如何处理循环依赖？
+## 9. 如何处理循环依赖？
 
 ### 9.1. 循环依赖问题
 
@@ -769,7 +769,7 @@ export const moduleB: ModuleB = {
 }
 ```
 
-## 10. 🤔 CommonJS 的常见模式有哪些？
+## 10. CommonJS 的常见模式有哪些？
 
 ### 10.1. 模式 1：单例模式
 
@@ -1055,7 +1055,7 @@ delete require.cache[require.resolve('./module')]
 const freshModule = require('./module')
 ```
 
-## 11. 🔗 引用
+## 11. 引用
 
 - [Node.js Documentation - Modules][1]
 - [CommonJS Specification][2]

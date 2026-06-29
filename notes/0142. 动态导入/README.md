@@ -2,25 +2,25 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是动态导入？](#3--什么是动态导入)
-- [4. 🤔 动态导入的语法是什么？](#4--动态导入的语法是什么)
-- [5. 🤔 动态导入和静态导入有什么区别？](#5--动态导入和静态导入有什么区别)
-- [6. 🤔 动态导入返回的是什么？](#6--动态导入返回的是什么)
-- [7. 🤔 如何在 TypeScript 中使用动态导入？](#7--如何在-typescript-中使用动态导入)
-- [8. 🤔 动态导入的类型推断是怎样的？](#8--动态导入的类型推断是怎样的)
-- [9. 🤔 动态导入的使用场景有哪些？](#9--动态导入的使用场景有哪些)
-- [10. 🤔 动态导入在打包时会发生什么？](#10--动态导入在打包时会发生什么)
-- [11. 🤔 如何处理动态导入的错误？](#11--如何处理动态导入的错误)
-- [12. 🤔 动态导入可以导入类型吗？](#12--动态导入可以导入类型吗)
-- [13. 🤔 动态导入有什么限制？](#13--动态导入有什么限制)
-- [14. 🤔 最佳实践是什么？](#14--最佳实践是什么)
-- [15. 🔗 引用](#15--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是动态导入？](#3-什么是动态导入)
+- [4. 动态导入的语法是什么？](#4-动态导入的语法是什么)
+- [5. 动态导入和静态导入有什么区别？](#5-动态导入和静态导入有什么区别)
+- [6. 动态导入返回的是什么？](#6-动态导入返回的是什么)
+- [7. 如何在 TypeScript 中使用动态导入？](#7-如何在-typescript-中使用动态导入)
+- [8. 动态导入的类型推断是怎样的？](#8-动态导入的类型推断是怎样的)
+- [9. 动态导入的使用场景有哪些？](#9-动态导入的使用场景有哪些)
+- [10. 动态导入在打包时会发生什么？](#10-动态导入在打包时会发生什么)
+- [11. 如何处理动态导入的错误？](#11-如何处理动态导入的错误)
+- [12. 动态导入可以导入类型吗？](#12-动态导入可以导入类型吗)
+- [13. 动态导入有什么限制？](#13-动态导入有什么限制)
+- [14. 最佳实践是什么？](#14-最佳实践是什么)
+- [15. 引用](#15-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 动态导入（Dynamic Import）
 - import() 表达式
@@ -28,7 +28,7 @@
 - 懒加载（Lazy Loading）
 - 类型推断和错误处理
 
-## 2. 🫧 评价
+## 2. 评价
 
 - 动态导入是 ES2020 引入的特性，TypeScript 从 2.4 版本开始支持。
 - 动态导入允许我们在运行时按需加载模块，而不是在编译时静态导入所有模块。
@@ -39,7 +39,7 @@
   - 提升用户体验
 - 在现代前端开发中，动态导入是实现高性能应用的重要手段，特别是在 React、Vue 等框架中广泛使用。
 
-## 3. 🤔 什么是动态导入？
+## 3. 什么是动态导入？
 
 动态导入是一种在运行时加载模块的机制，使用 `import()` 函数实现。与静态导入（`import` 语句）不同，动态导入可以在代码的任何位置调用，并返回一个 Promise。
 
@@ -70,7 +70,7 @@ if (condition) {
 }
 ```
 
-## 4. 🤔 动态导入的语法是什么？
+## 4. 动态导入的语法是什么？
 
 动态导入使用 `import()` 函数，它返回一个 Promise。
 
@@ -131,7 +131,7 @@ async function loadUtils() {
 }
 ```
 
-## 5. 🤔 动态导入和静态导入有什么区别？
+## 5. 动态导入和静态导入有什么区别？
 
 | 特性         | 静态导入              | 动态导入                       |
 | ------------ | --------------------- | ------------------------------ |
@@ -171,7 +171,7 @@ if (condition) {
 }
 ```
 
-## 6. 🤔 动态导入返回的是什么？
+## 6. 动态导入返回的是什么？
 
 `import()` 返回一个 Promise，该 Promise 解析为模块对象。
 
@@ -220,7 +220,7 @@ const { default: createUser } = await import('./user')
 const user = createUser()
 ```
 
-## 7. 🤔 如何在 TypeScript 中使用动态导入？
+## 7. 如何在 TypeScript 中使用动态导入？
 
 TypeScript 完全支持动态导入，并能提供类型推断。
 
@@ -275,7 +275,7 @@ async function loadUtils() {
 }
 ```
 
-## 8. 🤔 动态导入的类型推断是怎样的？
+## 8. 动态导入的类型推断是怎样的？
 
 TypeScript 能够自动推断动态导入的类型，但在某些情况下需要手动指定类型。
 
@@ -320,7 +320,7 @@ async function loadUser(): Promise<UserModule> {
 }
 
 // 获取模块中特定导出的类型
-type CreateUserFn = typeof import('./user')['createUser']
+type CreateUserFn = (typeof import('./user'))['createUser']
 ```
 
 条件类型推断：
@@ -338,7 +338,7 @@ async function loadModule(type: 'a' | 'b') {
 }
 ```
 
-## 9. 🤔 动态导入的使用场景有哪些？
+## 9. 动态导入的使用场景有哪些？
 
 按需加载功能模块
 
@@ -441,7 +441,7 @@ async function loadFeature(experimentGroup: 'A' | 'B') {
 }
 ```
 
-## 10. 🤔 动态导入在打包时会发生什么？
+## 10. 动态导入在打包时会发生什么？
 
 现代打包工具（如 Webpack、Vite、Rollup）会将动态导入的模块分离成独立的代码块（chunk）。
 
@@ -502,7 +502,7 @@ const module = await import('./feature')
 import moduleUrl from './module?url'
 ```
 
-## 11. 🤔 如何处理动态导入的错误？
+## 11. 如何处理动态导入的错误？
 
 动态导入返回 Promise，因此可以使用 Promise 的错误处理机制。
 
@@ -565,7 +565,7 @@ async function loadModuleWithRetry(modulePath: string, maxRetries = 3) {
 }
 ```
 
-## 12. 🤔 动态导入可以导入类型吗？
+## 12. 动态导入可以导入类型吗？
 
 动态导入主要用于导入值（运行时代码），但可以配合 `typeof import()` 来获取类型信息。
 
@@ -587,8 +587,8 @@ export function createUser(name: string): User {
 type UserModule = typeof import('./user')
 
 // 获取模块中特定成员的类型
-type User = typeof import('./user')['User']
-type CreateUserFn = typeof import('./user')['createUser']
+type User = (typeof import('./user'))['User']
+type CreateUserFn = (typeof import('./user'))['createUser']
 ```
 
 在函数中使用：
@@ -620,7 +620,7 @@ type MyType = import('./module').User // 语法错误
 type MyType = typeof import('./module')['User']
 ```
 
-## 13. 🤔 动态导入有什么限制？
+## 13. 动态导入有什么限制？
 
 路径必须是字符串字面量或模板字符串
 
@@ -666,7 +666,7 @@ for (let i = 0; i < 100; i++) {
 
 // ✅ 批量加载
 const modules = await Promise.all(
-  Array.from({ length: 100 }, (_, i) => import(`./module${i}`))
+  Array.from({ length: 100 }, (_, i) => import(`./module${i}`)),
 )
 ```
 
@@ -684,7 +684,7 @@ const modules = await Promise.all(
 }
 ```
 
-## 14. 🤔 最佳实践是什么？
+## 14. 最佳实践是什么？
 
 合理使用代码分割
 
@@ -783,7 +783,7 @@ import('./utils/multiply')
 import('./utils/math') // 包含所有数学工具
 ```
 
-## 15. 🔗 引用
+## 15. 引用
 
 - [MDN - import()][1]
 - [TypeScript 官方文档 - Dynamic Import Expressions][2]

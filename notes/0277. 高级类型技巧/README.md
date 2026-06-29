@@ -2,29 +2,29 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 品牌类型（Branded Types）？](#3--品牌类型branded-types)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 品牌类型（Branded Types）？](#3-品牌类型branded-types)
   - [3.1. 基本实现](#31-基本实现)
   - [3.2. 实际应用](#32-实际应用)
-- [4. 🤔 幻影类型（Phantom Types）？](#4--幻影类型phantom-types)
+- [4. 幻影类型（Phantom Types）？](#4-幻影类型phantom-types)
   - [4.1. 基本实现](#41-基本实现)
   - [4.2. 已解析 vs. 未解析](#42-已解析-vs-未解析)
-- [5. 🤔 Builder 模式的类型安全实现？](#5--builder-模式的类型安全实现)
+- [5. Builder 模式的类型安全实现？](#5-builder-模式的类型安全实现)
   - [5.1. 类型安全 Builder](#51-类型安全-builder)
   - [5.2. 可选和必需属性](#52-可选和必需属性)
-- [6. 🤔 状态机的类型建模？](#6--状态机的类型建模)
+- [6. 状态机的类型建模？](#6-状态机的类型建模)
   - [6.1. 基本状态机](#61-基本状态机)
   - [6.2. 带上下文的状态机](#62-带上下文的状态机)
-- [7. 🤔 高阶类型操作？](#7--高阶类型操作)
+- [7. 高阶类型操作？](#7-高阶类型操作)
   - [7.1. 递归类型](#71-递归类型)
   - [7.2. 类型级函数](#72-类型级函数)
   - [7.3. 类型级计算](#73-类型级计算)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 品牌类型
 - 幻影类型
@@ -32,7 +32,7 @@
 - 状态机建模
 - 高阶类型操作
 
-## 2. 🫧 评价
+## 2. 评价
 
 高级类型技巧可以实现更强的类型安全和更好的 API 设计。
 
@@ -42,7 +42,7 @@
 - 状态机确保状态转换合法
 - 高阶类型提升类型系统表达力
 
-## 3. 🤔 品牌类型（Branded Types）？
+## 3. 品牌类型（Branded Types）？
 
 品牌类型为原始类型添加标记，防止误用。
 
@@ -140,7 +140,7 @@ fetchFromURL(url) // ✅
 // fetchFromURL(path);  // ❌ FilePath 不能赋值给 URL
 ```
 
-## 4. 🤔 幻影类型（Phantom Types）？
+## 4. 幻影类型（Phantom Types）？
 
 幻影类型携带编译时信息但不影响运行时。
 
@@ -213,7 +213,7 @@ const data = parseJSON<{ name: string }>(rawJSON)
 processData(data, rawJSON as JSONString<Parsed>) // ✅
 ```
 
-## 5. 🤔 Builder 模式的类型安全实现？
+## 5. Builder 模式的类型安全实现？
 
 Builder 模式可以确保必需属性被设置。
 
@@ -310,7 +310,7 @@ const fullConfig = createConfigBuilder()
   .build() // ✅
 ```
 
-## 6. 🤔 状态机的类型建模？
+## 6. 状态机的类型建模？
 
 类型系统可以确保状态转换的合法性。
 
@@ -340,7 +340,7 @@ class StateMachine<S extends State> {
 
   // 类型安全的转换
   send<E extends Event>(
-    event: E
+    event: E,
   ): E['type'] extends keyof Transitions[S]
     ? StateMachine<Transitions[S][E['type']]>
     : never {
@@ -369,11 +369,14 @@ const success = loading.send({ type: 'RESOLVE', data: 'result' }) // ✅
 type Context<S extends State> = S extends 'success'
   ? { data: string }
   : S extends 'error'
-  ? { error: Error }
-  : {}
+    ? { error: Error }
+    : {}
 
 class ContextualStateMachine<S extends State> {
-  constructor(private state: S, private context: Context<S>) {}
+  constructor(
+    private state: S,
+    private context: Context<S>,
+  ) {}
 
   getContext(): Context<S> {
     return this.context
@@ -396,7 +399,7 @@ const successMachine = machine2.send({ type: 'FETCH' }).send({
 // successMachine.getContext() 的类型是 { data: string }
 ```
 
-## 7. 🤔 高阶类型操作？
+## 7. 高阶类型操作？
 
 高级的类型级编程技巧。
 
@@ -407,10 +410,10 @@ const successMachine = machine2.send({ type: 'FETCH' }).send({
 type DeepReadonly<T> = T extends (infer R)[]
   ? DeepReadonlyArray<R>
   : T extends Function
-  ? T
-  : T extends object
-  ? DeepReadonlyObject<T>
-  : T
+    ? T
+    : T extends object
+      ? DeepReadonlyObject<T>
+      : T
 
 type DeepReadonlyArray<T> = readonly DeepReadonly<T>[]
 
@@ -455,7 +458,7 @@ type CurriedAdd = Curry<Parameters<Add>, ReturnType<Add>>
 // ✅ Pipe 类型
 type Pipe<Fns extends Function[], Acc = never> = Fns extends [
   infer First,
-  ...infer Rest
+  ...infer Rest,
 ]
   ? First extends (arg: infer A) => infer B
     ? Rest extends Function[]
@@ -497,7 +500,7 @@ type Test1 = IsEqual<number, number> // true
 type Test2 = IsEqual<number, string> // false
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [Advanced Types][1]
 - [Branded Types][2]

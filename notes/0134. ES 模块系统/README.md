@@ -2,52 +2,52 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 ES 模块是什么？](#3--es-模块是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. ES 模块是什么？](#3-es-模块是什么)
   - [3.1. ES 模块基础](#31-es-模块基础)
     - [模块的概念](#模块的概念)
     - [模块的特性](#模块的特性)
   - [3.2. ES 模块 vs 其他模块系统](#32-es-模块-vs-其他模块系统)
   - [3.3. ES 模块的优势](#33-es-模块的优势)
-- [4. 🤔 导出（Export）](#4--导出export)
+- [4. 导出（Export）](#4-导出export)
   - [4.1. 命名导出](#41-命名导出)
   - [4.2. 默认导出](#42-默认导出)
   - [4.3. 重新导出](#43-重新导出)
-- [5. 🤔 导入（Import）](#5--导入import)
+- [5. 导入（Import）](#5-导入import)
   - [5.1. 命名导入](#51-命名导入)
   - [5.2. 默认导入](#52-默认导入)
   - [5.3. 副作用导入](#53-副作用导入)
   - [5.4. 动态导入](#54-动态导入)
-- [6. 🤔 默认导出 vs 命名导出](#6--默认导出-vs-命名导出)
+- [6. 默认导出 vs 命名导出](#6-默认导出-vs-命名导出)
   - [6.1. 对比分析](#61-对比分析)
   - [6.2. 优缺点对比](#62-优缺点对比)
   - [6.3. 使用建议](#63-使用建议)
-- [7. 🤔 动态导入](#7--动态导入)
+- [7. 动态导入](#7-动态导入)
   - [7.1. 基本用法](#71-基本用法)
   - [7.2. 代码分割](#72-代码分割)
   - [7.3. 条件加载](#73-条件加载)
   - [7.4. 预加载](#74-预加载)
-- [8. 🤔 模块解析](#8--模块解析)
+- [8. 模块解析](#8-模块解析)
   - [8.1. 解析策略](#81-解析策略)
   - [8.2. 模块解析配置](#82-模块解析配置)
   - [8.3. 文件扩展名](#83-文件扩展名)
-- [9. 🤔 TypeScript 模块配置](#9--typescript-模块配置)
+- [9. TypeScript 模块配置](#9-typescript-模块配置)
   - [9.1. tsconfig.json 模块选项](#91-tsconfigjson-模块选项)
   - [9.2. 模块类型](#92-模块类型)
   - [9.3. package.json 配置](#93-packagejson-配置)
-- [10. 🤔 常见模式和最佳实践](#10--常见模式和最佳实践)
+- [10. 常见模式和最佳实践](#10-常见模式和最佳实践)
   - [10.1. 模式 1：桶文件（Barrel）](#101-模式-1桶文件barrel)
   - [10.2. 模式 2：命名空间模式](#102-模式-2命名空间模式)
   - [10.3. 模式 3：类型与实现分离](#103-模式-3类型与实现分离)
   - [10.4. 模式 4：插件模式](#104-模式-4插件模式)
   - [10.5. 模式 5：懒加载工厂](#105-模式-5懒加载工厂)
   - [10.6. 最佳实践](#106-最佳实践)
-- [11. 🔗 引用](#11--引用)
+- [11. 引用](#11-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - ES 模块的基本语法
 - 导出和导入的各种方式
@@ -57,11 +57,11 @@
 - TypeScript 中的模块配置
 - 模块系统最佳实践
 
-## 2. 🫧 评价
+## 2. 评价
 
 ES 模块（ES Modules，ESM）是 JavaScript 官方的模块系统标准。
 
-## 3. 🤔 ES 模块是什么？
+## 3. ES 模块是什么？
 
 ES 模块（ES Modules，ESM）是 JavaScript 官方的模块系统标准。
 
@@ -149,7 +149,7 @@ getCount() // 2（同一个 count）
 
 ES 模块是现代 JavaScript 开发的基础，TypeScript 完全支持 ES 模块语法。
 
-## 4. 🤔 导出（Export）
+## 4. 导出（Export）
 
 ### 4.1. 命名导出
 
@@ -213,7 +213,10 @@ export default function formatDate(date: Date): string {
 // 2. 默认导出类
 // User.ts
 export default class User {
-  constructor(public name: string, public age: number) {}
+  constructor(
+    public name: string,
+    public age: number,
+  ) {}
 }
 
 // 3. 默认导出对象
@@ -265,7 +268,7 @@ export { Order } from './Order'
 export type { UserProps, ProductProps, OrderProps } from './types'
 ```
 
-## 5. 🤔 导入（Import）
+## 5. 导入（Import）
 
 ### 5.1. 命名导入
 
@@ -349,7 +352,7 @@ async function loadLocale(lang: string) {
 }
 ```
 
-## 6. 🤔 默认导出 vs 命名导出
+## 6. 默认导出 vs 命名导出
 
 ### 6.1. 对比分析
 
@@ -418,7 +421,7 @@ export class User {}
 export const helper = () => {}
 ```
 
-## 7. 🤔 动态导入
+## 7. 动态导入
 
 ### 7.1. 基本用法
 
@@ -537,7 +540,7 @@ const module = await import(
 )
 ```
 
-## 8. 🤔 模块解析
+## 8. 模块解析
 
 ### 8.1. 解析策略
 
@@ -598,7 +601,7 @@ import packageInfo from '../package.json'
 import type { CustomType } from './types.d.ts'
 ```
 
-## 9. 🤔 TypeScript 模块配置
+## 9. TypeScript 模块配置
 
 ### 9.1. tsconfig.json 模块选项
 
@@ -695,7 +698,7 @@ import type { CustomType } from './types.d.ts'
 }
 ```
 
-## 10. 🤔 常见模式和最佳实践
+## 10. 常见模式和最佳实践
 
 ### 10.1. 模式 1：桶文件（Barrel）
 
@@ -952,7 +955,7 @@ import logo from './logo.svg'
 import styles from './App.module.css'
 ````
 
-## 11. 🔗 引用
+## 11. 引用
 
 - [MDN - JavaScript modules][1]
 - [TypeScript Handbook - Modules][2]

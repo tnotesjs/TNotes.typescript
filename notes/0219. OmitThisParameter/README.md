@@ -2,18 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `OmitThisParameter<T>` 的源码实现是什么？](#3--omitthisparametert-的源码实现是什么)
-- [4. 🤔 如何使用 `OmitThisParameter<T>` 移除 this 参数？](#4--如何使用-omitthisparametert-移除-this-参数)
-- [5. 🆚 ThisParameterType vs. OmitThisParameter](#5--thisparametertype-vs-omitthisparameter)
-- [6. 🤔 `OmitThisParameter<T>` 在函数绑定中如何应用？](#6--omitthisparametert-在函数绑定中如何应用)
-- [7. 🤔 使用 `OmitThisParameter<T>` 时需要注意哪些问题？](#7--使用-omitthisparametert-时需要注意哪些问题)
-- [8. 🔗 引用](#8--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `OmitThisParameter<T>` 的源码实现是什么？](#3-omitthisparametert-的源码实现是什么)
+- [4. 如何使用 `OmitThisParameter<T>` 移除 this 参数？](#4-如何使用-omitthisparametert-移除-this-参数)
+- [5. ThisParameterType vs. OmitThisParameter](#5-thisparametertype-vs-omitthisparameter)
+- [6. `OmitThisParameter<T>` 在函数绑定中如何应用？](#6-omitthisparametert-在函数绑定中如何应用)
+- [7. 使用 `OmitThisParameter<T>` 时需要注意哪些问题？](#7-使用-omitthisparametert-时需要注意哪些问题)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `OmitThisParameter<T>` 的源码实现
 - 移除函数的 `this` 参数
@@ -21,7 +21,7 @@
 - 函数绑定后的类型表示
 - 回调函数的类型转换
 
-## 2. 🫧 评价
+## 2. 评价
 
 `OmitThisParameter<T>` 用于从函数类型中移除 `this` 参数，返回只包含其他参数的函数类型。
 
@@ -31,16 +31,17 @@
 - 与 `ThisParameterType<T>` 是互补的工具类型
 - 如果原函数没有 `this` 参数，则返回原类型
 
-## 3. 🤔 `OmitThisParameter<T>` 的源码实现是什么？
+## 3. `OmitThisParameter<T>` 的源码实现是什么？
 
 `OmitThisParameter<T>` 的源码定义如下：
 
 ```ts
-type OmitThisParameter<T> = unknown extends ThisParameterType<T>
-  ? T
-  : T extends (...args: infer A) => infer R
-  ? (...args: A) => R
-  : T
+type OmitThisParameter<T> =
+  unknown extends ThisParameterType<T>
+    ? T
+    : T extends (...args: infer A) => infer R
+      ? (...args: A) => R
+      : T
 ```
 
 实现原理：
@@ -144,7 +145,7 @@ type ReconstructedMethod = (
 // (this: Service, input: string) => Promise<string>
 ```
 
-## 4. 🤔 如何使用 `OmitThisParameter<T>` 移除 this 参数？
+## 4. 如何使用 `OmitThisParameter<T>` 移除 this 参数？
 
 在需要将方法转换为独立函数或处理绑定后的方法时，`OmitThisParameter<T>` 很有用：
 
@@ -207,7 +208,7 @@ executeCallback(emitter.emit.bind(emitter))
 // 场景 3：高阶函数
 function bindMethod<T extends (this: any, ...args: any) => any>(
   method: T,
-  context: ThisParameterType<T>
+  context: ThisParameterType<T>,
 ): OmitThisParameter<T> {
   return method.bind(context) as OmitThisParameter<T>
 }
@@ -277,7 +278,7 @@ boundMethods.addTask('Task 2')
 console.log(boundMethods.getTasks()) // ['Task 1', 'Task 2']
 ```
 
-## 5. 🆚 ThisParameterType vs. OmitThisParameter
+## 5. ThisParameterType vs. OmitThisParameter
 
 这两个工具类型是互补的，用于不同的场景：
 
@@ -315,7 +316,7 @@ type ProcessWithoutThis = OmitThisParameter<ProcessMethod>
 // 配合使用示例
 function safeBindMethod<T extends (this: any, ...args: any) => any>(
   method: T,
-  context: ThisParameterType<T>
+  context: ThisParameterType<T>,
 ): OmitThisParameter<T> {
   // 1. 提取 this 类型
   const thisType: ThisParameterType<T> = context
@@ -337,7 +338,7 @@ console.log(boundProcess('hello')) // "HELLO"
 
 // 完整的类型转换流程
 function analyzeMethod<T extends (this: any, ...args: any) => any>(
-  method: T
+  method: T,
 ): {
   withThis: T
   thisType: ThisParameterType<T>
@@ -364,7 +365,7 @@ const analysis = analyzeMethod(processor.process)
 // }
 ```
 
-## 6. 🤔 `OmitThisParameter<T>` 在函数绑定中如何应用？
+## 6. `OmitThisParameter<T>` 在函数绑定中如何应用？
 
 在处理函数绑定、回调和方法提取时，`OmitThisParameter<T>` 提供精确的类型表示：
 
@@ -398,7 +399,7 @@ class EventManager {
   addEventListener<T extends (this: any, ...args: any) => any>(
     event: string,
     handler: T,
-    context: ThisParameterType<T>
+    context: ThisParameterType<T>,
   ): OmitThisParameter<T> {
     const boundHandler = handler.bind(context) as OmitThisParameter<T>
 
@@ -433,14 +434,14 @@ const button = new Button()
 const boundClick = eventManager.addEventListener(
   'click',
   button.onClick,
-  button
+  button,
 )
 // boundClick: (event: MouseEvent) => void
 
 // 应用 3：方法柯里化
 function curry<T extends (this: any, ...args: any) => any>(
   method: T,
-  context: ThisParameterType<T>
+  context: ThisParameterType<T>,
 ): (...args: Parameters<OmitThisParameter<T>>) => ReturnType<T> {
   return (...args: Parameters<OmitThisParameter<T>>) => {
     return method.apply(context, args)
@@ -464,7 +465,7 @@ console.log(curriedAdd(5, 3)) // 18
 // 应用 4：装饰器模式
 function memoize<T extends (this: any, ...args: any) => any>(
   method: T,
-  context: ThisParameterType<T>
+  context: ThisParameterType<T>,
 ): OmitThisParameter<T> {
   const cache = new Map<string, ReturnType<T>>()
 
@@ -498,7 +499,7 @@ console.log(memoizedCompute(5)) // 直接返回 25，不打印
 // 应用 5：Promise 化方法
 function promisify<T extends (this: any, ...args: any) => any>(
   method: T,
-  context: ThisParameterType<T>
+  context: ThisParameterType<T>,
 ): (...args: Parameters<OmitThisParameter<T>>) => Promise<ReturnType<T>> {
   return (...args: Parameters<OmitThisParameter<T>>) => {
     return Promise.resolve(method.apply(context, args))
@@ -520,7 +521,7 @@ readFileAsync('file.txt').then((content) => {
 })
 ```
 
-## 7. 🤔 使用 `OmitThisParameter<T>` 时需要注意哪些问题？
+## 7. 使用 `OmitThisParameter<T>` 时需要注意哪些问题？
 
 在使用 `OmitThisParameter<T>` 时，有以下几点需要注意：
 
@@ -703,7 +704,7 @@ type CtorParams = ConstructorParameters<typeof MyClass>
 // [value: number]
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Handbook - Utility Types - OmitThisParameter][1]
 - [TypeScript Deep Dive - this Types][2]

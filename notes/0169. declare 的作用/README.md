@@ -2,30 +2,30 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 declare 关键字？](#3--什么是-declare-关键字)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 declare 关键字？](#3-什么是-declare-关键字)
   - [3.1. 环境声明](#31-环境声明)
-- [4. 🤔 declare 的主要作用是什么？](#4--declare-的主要作用是什么)
+- [4. declare 的主要作用是什么？](#4-declare-的主要作用是什么)
   - [4.1. 为全局变量提供类型](#41-为全局变量提供类型)
   - [4.2. 为第三方库提供类型](#42-为第三方库提供类型)
   - [4.3. 为已有的 JavaScript 文件提供类型](#43-为已有的-javascript-文件提供类型)
   - [4.4. 扩展全局作用域](#44-扩展全局作用域)
-- [5. 🤔 declare 与普通声明有什么区别？](#5--declare-与普通声明有什么区别)
+- [5. declare 与普通声明有什么区别？](#5-declare-与普通声明有什么区别)
   - [5.1. 实现 vs 声明](#51-实现-vs-声明)
   - [5.2. 使用场景对比](#52-使用场景对比)
-- [6. 🤔 什么时候需要使用 declare？](#6--什么时候需要使用-declare)
+- [6. 什么时候需要使用 declare？](#6-什么时候需要使用-declare)
   - [6.1. 使用全局库](#61-使用全局库)
   - [6.2. 使用 UMD 模块](#62-使用-umd-模块)
   - [6.3. 为 JavaScript 项目提供类型](#63-为-javascript-项目提供类型)
   - [6.4. 声明模块路径](#64-声明模块路径)
   - [6.5. 扩展现有类型](#65-扩展现有类型)
   - [6.6. 声明命名空间](#66-声明命名空间)
-- [7. 🔗 引用](#7--引用)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - declare 关键字的基本概念
 - declare 的主要作用和用途
@@ -33,7 +33,7 @@
 - declare 的使用场景
 - 环境声明的概念
 
-## 2. 🫧 评价
+## 2. 评价
 
 declare 关键字用于告诉 TypeScript 某个变量、函数、类等已经在其他地方定义，提供类型信息而不生成实际代码。
 
@@ -43,7 +43,7 @@ declare 关键字用于告诉 TypeScript 某个变量、函数、类等已经在
 - 通常在 `.d.ts` 类型声明文件中使用
 - 理解 declare 是使用第三方库和编写类型声明的基础
 
-## 3. 🤔 什么是 declare 关键字？
+## 3. 什么是 declare 关键字？
 
 declare 关键字用于声明已经存在但 TypeScript 不知道的变量、函数、类等的类型。
 
@@ -78,7 +78,7 @@ declare module 'lodash' {
 }
 ```
 
-## 4. 🤔 declare 的主要作用是什么？
+## 4. declare 的主要作用是什么？
 
 declare 主要用于为 JavaScript 代码提供类型信息。
 
@@ -152,7 +152,7 @@ window.myCustomMethod()
 console.log(window.myConfig.apiUrl)
 ```
 
-## 5. 🤔 declare 与普通声明有什么区别？
+## 5. declare 与普通声明有什么区别？
 
 declare 声明与普通声明在编译行为上完全不同。
 
@@ -225,7 +225,7 @@ export function multiply(a: number, b: number): number {
 declare function multiply(a: number, b: number): number
 ```
 
-## 6. 🤔 什么时候需要使用 declare？
+## 6. 什么时候需要使用 declare？
 
 在以下场景中需要使用 declare。
 
@@ -362,7 +362,7 @@ console.log(process.env.NODE_ENV)
 console.log(process.env.API_URL)
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript Handbook - Declaration Files][1]
 - [TypeScript Deep Dive - Declaration Spaces][2]

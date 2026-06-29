@@ -2,31 +2,31 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是元组可选元素？](#3--什么是元组可选元素)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是元组可选元素？](#3-什么是元组可选元素)
   - [3.1. 基本语法](#31-基本语法)
   - [3.2. 与 undefined 的对比](#32-与-undefined-的对比)
   - [3.3. 多个可选元素](#33-多个可选元素)
-- [4. 🤔 可选元素的位置有什么要求？](#4--可选元素的位置有什么要求)
-- [5. 🤔 可选元素对 length 有什么影响？](#5--可选元素对-length-有什么影响)
-- [6. 🤔 关于可选元素的实践建议都有哪些？](#6--关于可选元素的实践建议都有哪些)
-- [7. 🔗 引用](#7--引用)
+- [4. 可选元素的位置有什么要求？](#4-可选元素的位置有什么要求)
+- [5. 可选元素对 length 有什么影响？](#5-可选元素对-length-有什么影响)
+- [6. 关于可选元素的实践建议都有哪些？](#6-关于可选元素的实践建议都有哪些)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 元组可选元素的定义
 - 可选元素的声明语法
 - 与 `| undefined` 联合类型的区别
 - 最佳实践建议
 
-## 2. 🫧 评价
+## 2. 评价
 
 元组可选元素（Optional Tuple Elements）是 TypeScript 3.0 引入的特性，允许元组的某些位置可以存在或不存在。通过在类型后添加 `?`，可以标记元组元素为可选的。
 
-## 3. 🤔 什么是元组可选元素？
+## 3. 什么是元组可选元素？
 
 元组可选元素允许元组的某些位置可以不存在（而不是必须为 `undefined`）。
 
@@ -134,7 +134,7 @@ const debug: boolean | undefined = c1[2] // boolean | undefined
 const env: string | undefined = c1[3] // string | undefined
 ```
 
-## 4. 🤔 可选元素的位置有什么要求？
+## 4. 可选元素的位置有什么要求？
 
 可选元素必须在必需元素之后
 
@@ -152,7 +152,7 @@ type Bad2 = [string?, number] // ❌ Error
 // A required element cannot follow an optional element.(1257)
 ```
 
-## 5. 🤔 可选元素对 length 有什么影响？
+## 5. 可选元素对 length 有什么影响？
 
 可选元素影响 length 类型的推断。
 
@@ -171,7 +171,7 @@ const t3: Tuple3 = ['a', 1]
 t3.length // 类型：1 | 2 | 3
 ```
 
-## 6. 🤔 关于可选元素的实践建议都有哪些？
+## 6. 关于可选元素的实践建议都有哪些？
 
 ```ts
 // ✅ 1. 使用可选元素而不是 undefined 联合表示可变长度
@@ -207,13 +207,13 @@ function createPoint(x: number, y: number, z: number): [number, number, number]
 function createPoint(
   x: number,
   y: number,
-  z?: number
+  z?: number,
 ): [number, number, number?] {
   return z !== undefined ? [x, y, z] : [x, y]
 }
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [TypeScript 3.0 Release Notes - Optional Elements in Tuple Types][1]
 - [TypeScript Handbook - Tuple Types][2]

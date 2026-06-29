@@ -2,24 +2,24 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 esModuleInterop？](#3--什么是-esmoduleinterop)
-- [4. 🤔 为什么需要 esModuleInterop？](#4--为什么需要-esmoduleinterop)
-- [5. 🤔 ES 模块和 CommonJS 模块有什么区别？](#5--es-模块和-commonjs-模块有什么区别)
-- [6. 🤔 esModuleInterop 解决了什么问题？](#6--esmoduleinterop-解决了什么问题)
-- [7. 🤔 esModuleInterop 的工作原理是什么？](#7--esmoduleinterop-的工作原理是什么)
-- [8. 🤔 如何配置 esModuleInterop？](#8--如何配置-esmoduleinterop)
-- [9. 🤔 esModuleInterop 和 allowSyntheticDefaultImports 有什么关系？](#9--esmoduleinterop-和-allowsyntheticdefaultimports-有什么关系)
-- [10. 🤔 启用 esModuleInterop 会有什么影响？](#10--启用-esmoduleinterop-会有什么影响)
-- [11. 🤔 什么时候应该启用 esModuleInterop？](#11--什么时候应该启用-esmoduleinterop)
-- [12. 🤔 常见的兼容性问题有哪些？](#12--常见的兼容性问题有哪些)
-- [13. 🤔 最佳实践是什么？](#13--最佳实践是什么)
-- [14. 🔗 引用](#14--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 esModuleInterop？](#3-什么是-esmoduleinterop)
+- [4. 为什么需要 esModuleInterop？](#4-为什么需要-esmoduleinterop)
+- [5. ES 模块和 CommonJS 模块有什么区别？](#5-es-模块和-commonjs-模块有什么区别)
+- [6. esModuleInterop 解决了什么问题？](#6-esmoduleinterop-解决了什么问题)
+- [7. esModuleInterop 的工作原理是什么？](#7-esmoduleinterop-的工作原理是什么)
+- [8. 如何配置 esModuleInterop？](#8-如何配置-esmoduleinterop)
+- [9. esModuleInterop 和 allowSyntheticDefaultImports 有什么关系？](#9-esmoduleinterop-和-allowsyntheticdefaultimports-有什么关系)
+- [10. 启用 esModuleInterop 会有什么影响？](#10-启用-esmoduleinterop-会有什么影响)
+- [11. 什么时候应该启用 esModuleInterop？](#11-什么时候应该启用-esmoduleinterop)
+- [12. 常见的兼容性问题有哪些？](#12-常见的兼容性问题有哪些)
+- [13. 最佳实践是什么？](#13-最佳实践是什么)
+- [14. 引用](#14-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - esModuleInterop 配置项
 - ES 模块和 CommonJS 模块的互操作性
@@ -27,7 +27,7 @@
 - allowSyntheticDefaultImports 配置
 - 模块兼容性问题
 
-## 2. 🫧 评价
+## 2. 评价
 
 - `esModuleInterop` 是 TypeScript 中一个重要但容易被忽视的配置项，它解决了 ES 模块和 CommonJS 模块之间的互操作性问题。
 - 理解这个配置项有助于：
@@ -37,7 +37,7 @@
   - 避免运行时错误
 - 在现代 TypeScript 项目中，强烈推荐启用 `esModuleInterop: true`，它能让代码更符合直觉，减少模块导入的困扰。
 
-## 3. 🤔 什么是 esModuleInterop？
+## 3. 什么是 esModuleInterop？
 
 `esModuleInterop` 是 TypeScript 编译器选项，用于改善 ES 模块和 CommonJS 模块之间的互操作性。
 
@@ -56,7 +56,7 @@
 }
 ```
 
-## 4. 🤔 为什么需要 esModuleInterop？
+## 4. 为什么需要 esModuleInterop？
 
 ES 模块和 CommonJS 模块在导入导出机制上有本质区别，直接混用会导致问题。
 
@@ -90,7 +90,7 @@ import _ from 'lodash'
 
 :::
 
-## 5. 🤔 ES 模块和 CommonJS 模块有什么区别？
+## 5. ES 模块和 CommonJS 模块有什么区别？
 
 ES 模块（ESM）
 
@@ -139,7 +139,7 @@ const { name, greet } = require('./user')
 | 异步加载     | 支持               | 同步加载                 |
 | 环境         | 浏览器和 Node.js   | 主要是 Node.js           |
 
-## 6. 🤔 esModuleInterop 解决了什么问题？
+## 6. esModuleInterop 解决了什么问题？
 
 问题 1：无法使用默认导入 CommonJS 模块
 
@@ -199,7 +199,7 @@ fs.readFileSync('./file.txt') // 运行时正常
 
 :::
 
-## 7. 🤔 esModuleInterop 的工作原理是什么？
+## 7. esModuleInterop 的工作原理是什么？
 
 启用 `esModuleInterop` 后，TypeScript 会插入辅助函数来处理模块互操作。
 
@@ -260,7 +260,7 @@ function __importStar(mod) {
 
 :::
 
-## 8. 🤔 如何配置 esModuleInterop？
+## 8. 如何配置 esModuleInterop？
 
 在 tsconfig.json 中启用：
 
@@ -308,7 +308,7 @@ const result = _.map([1, 2, 3], (n) => n * 2)
 
 :::
 
-## 9. 🤔 esModuleInterop 和 allowSyntheticDefaultImports 有什么关系？
+## 9. esModuleInterop 和 allowSyntheticDefaultImports 有什么关系？
 
 这两个配置项经常一起使用，但作用不同：
 
@@ -364,7 +364,7 @@ const result = _.map([1, 2, 3], (n) => n * 2)
 
 :::
 
-## 10. 🤔 启用 esModuleInterop 会有什么影响？
+## 10. 启用 esModuleInterop 会有什么影响？
 
 代码体积增加
 
@@ -424,7 +424,7 @@ moment() // ❌ 错误：'moment' refers to a UMD global
 moment.default() // ✅ 正确
 ```
 
-## 11. 🤔 什么时候应该启用 esModuleInterop？
+## 11. 什么时候应该启用 esModuleInterop？
 
 推荐启用的场景
 
@@ -482,7 +482,7 @@ import * as express from 'express'
 
 如果使用自定义的模块转换工具，可能不需要 TypeScript 生成辅助代码。
 
-## 12. 🤔 常见的兼容性问题有哪些？
+## 12. 常见的兼容性问题有哪些？
 
 问题 1：混用默认导入和命名空间导入
 
@@ -545,7 +545,7 @@ export * from 'lodash'
 // 启用 esModuleInterop 后，需要注意导出的结构
 ```
 
-## 13. 🤔 最佳实践是什么？
+## 13. 最佳实践是什么？
 
 始终启用 esModuleInterop
 
@@ -648,7 +648,7 @@ import React from 'react' // React 推荐默认导入
 }
 ```
 
-## 14. 🔗 引用
+## 14. 引用
 
 - [TypeScript 官方文档 - esModuleInterop][1]
 - [TypeScript 官方文档 - Module Resolution][2]

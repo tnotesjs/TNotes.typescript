@@ -2,27 +2,27 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 infer 关键字是什么？](#3--infer-关键字是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. infer 关键字是什么？](#3-infer-关键字是什么)
   - [3.1. `ReturnType` 工具类型的实现原理](#31-returntype-工具类型的实现原理)
   - [3.2. `infer` 可以出现在“条件类型模式 Pattern”匹配的任何位置](#32-infer-可以出现在条件类型模式-pattern匹配的任何位置)
-- [4. 🤔 多个 infer 嵌套的类型推断优先级是？](#4--多个-infer-嵌套的类型推断优先级是)
-- [5. 🔗 引用](#5--引用)
+- [4. 多个 infer 嵌套的类型推断优先级是？](#4-多个-infer-嵌套的类型推断优先级是)
+- [5. 引用](#5-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `infer` 关键字的基本概念和语法
 - 使用 `infer` 推断各种类型
 - 多个 `infer` 嵌套的类型推断优先级
 
-## 2. 🫧 评价
+## 2. 评价
 
 TS 中的 `infer` 关键字是 TS 4.7 中新增的关键字，主要在在条件模式匹配过程中提取类型，你可以通过修改模式匹配的写法，提取特定位置的类型信息（比如数组/元组的第一个/最后一个成员类型，指定位置的函数参数类型，等等）。
 
-## 3. 🤔 infer 关键字是什么？
+## 3. infer 关键字是什么？
 
 TS 中的 `infer` 关键字主要在条件类型中用于类型推断。
 
@@ -132,7 +132,7 @@ type T3 = PropertyType<{ name: string }> // never
 
 :::
 
-## 4. 🤔 多个 infer 嵌套的类型推断优先级是？
+## 4. 多个 infer 嵌套的类型推断优先级是？
 
 ```ts
 type NestedArray<T> = T extends (infer U)[]
@@ -154,7 +154,7 @@ type T2 = NestedArray<string[]> // string
 type T3 = NestedArray<string> // string
 ```
 
-## 5. 🔗 引用
+## 5. 引用
 
 - [TypeScript Handbook - Type Inference in Conditional Types][1]
 - [TypeScript Handbook - Conditional Types][2]

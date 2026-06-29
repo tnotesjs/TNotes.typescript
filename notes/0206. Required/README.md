@@ -2,30 +2,30 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `Required<T>` 是什么？](#3--requiredt-是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `Required<T>` 是什么？](#3-requiredt-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. 工作原理](#32-工作原理)
   - [3.3. 基本示例](#33-基本示例)
   - [3.4. Required 与 Partial 的对比](#34-required-与-partial-的对比)
-- [4. 🤔 如何实现深度 `Required<T>`？](#4--如何实现深度-requiredt)
-- [5. 🤔 如何实现选择性必填属性的工具类型？](#5--如何实现选择性必填属性的工具类型)
-- [6. 🔗 引用](#6--引用)
+- [4. 如何实现深度 `Required<T>`？](#4-如何实现深度-requiredt)
+- [5. 如何实现选择性必填属性的工具类型？](#5-如何实现选择性必填属性的工具类型)
+- [6. 引用](#6-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `Required<T>` 的定义和实现原理
 - 基本使用方法
 - 深度 Required 实现
 
-## 2. 🫧 评价
+## 2. 评价
 
 `Required<T>` 是 `Partial<T>` 的反向操作，用于将类型的所有可选属性变为必需。
 
-## 3. 🤔 `Required<T>` 是什么？
+## 3. `Required<T>` 是什么？
 
 `Required<T>` 将类型 `T` 的所有可选属性变为必需属性。
 
@@ -133,7 +133,7 @@ type AllRequired = Required<PartialUser>
 // }
 ```
 
-## 4. 🤔 如何实现深度 `Required<T>`？
+## 4. 如何实现深度 `Required<T>`？
 
 `Required<T>` 将类型 `T` 的所有可选属性变为必需属性，但是它只能影响第一层属性，对于嵌套对象的深层属性无效。
 
@@ -215,7 +215,7 @@ const user2: DeepRequiredUser = {
 }
 ```
 
-## 5. 🤔 如何实现选择性必填属性的工具类型？
+## 5. 如何实现选择性必填属性的工具类型？
 
 ```ts
 // 只让指定的属性变为必需
@@ -251,7 +251,7 @@ const user: UserWithRequiredIdName = {
 
 上面示例中用到的 `Pick` 和 `Omit` 工具类型，也是 TS 的内置工具类型，它们的作用分别是提取和删除指定的属性，会在对应的笔记中介绍其他的具体用法。
 
-## 6. 🔗 引用
+## 6. 引用
 
 - [TypeScript Utility Types - Required][1]
 - [TypeScript Handbook - Mapped Types][2]

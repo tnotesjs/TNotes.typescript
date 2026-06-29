@@ -2,21 +2,21 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 TypeScript 中的类型作用域？](#3--什么是-typescript-中的类型作用域)
-- [4. 🤔 TypeScript 中类型作用域遵循什么规则？](#4--typescript-中类型作用域遵循什么规则)
-- [5. 🤔 TypeScript 中模块作用域是如何工作的？](#5--typescript-中模块作用域是如何工作的)
-- [6. 🤔 TypeScript 中全局作用域有什么特点？](#6--typescript-中全局作用域有什么特点)
-- [7. 🤔 如何安全地扩展全局作用域？](#7--如何安全地扩展全局作用域)
-- [8. 💻 demos.1 - TypeScript 是如何识别文件是一个模块还是全局脚本的呢？](#8--demos1---typescript-是如何识别文件是一个模块还是全局脚本的呢)
-- [9. 🤔 TypeScript 中 `namespace` 命名空间的作用域是什么样的？](#9--typescript-中-namespace-命名空间的作用域是什么样的)
-- [10. 🤔 TypeScript 中如何处理同一个作用域下的同名的 `interface`、`class`、`type` 呢？](#10--typescript-中如何处理同一个作用域下的同名的-interfaceclasstype-呢)
-- [11. 🔗 引用](#11--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 TypeScript 中的类型作用域？](#3-什么是-typescript-中的类型作用域)
+- [4. TypeScript 中类型作用域遵循什么规则？](#4-typescript-中类型作用域遵循什么规则)
+- [5. TypeScript 中模块作用域是如何工作的？](#5-typescript-中模块作用域是如何工作的)
+- [6. TypeScript 中全局作用域有什么特点？](#6-typescript-中全局作用域有什么特点)
+- [7. 如何安全地扩展全局作用域？](#7-如何安全地扩展全局作用域)
+- [8. demos.1 - TypeScript 是如何识别文件是一个模块还是全局脚本的呢？](#8-demos1---typescript-是如何识别文件是一个模块还是全局脚本的呢)
+- [9. TypeScript 中 `namespace` 命名空间的作用域是什么样的？](#9-typescript-中-namespace-命名空间的作用域是什么样的)
+- [10. TypeScript 中如何处理同一个作用域下的同名的 `interface`、`class`、`type` 呢？](#10-typescript-中如何处理同一个作用域下的同名的-interfaceclasstype-呢)
+- [11. 引用](#11-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 类型作用域
 - module
@@ -27,14 +27,14 @@
 - type
 - declare global
 
-## 2. 🫧 评价
+## 2. 评价
 
 - 涉及到的关键术语蛮多的，它们大多都跟 TS 的类型作用范围相关，其中很多内容会在后续学习中接触到。
 - TS 中类型作用域遵循的规则和 JS 中的 let、const 变量很相似，都具备块级作用域的特性。
 - 但是在 TS 中，同一个作用域下的同名成员，有时候会合并（比如 `interface` 跟同名的 `interface`、`class`），有时候会直接报错（比如同名的 `type` 跟 `interface`、`class`）。
 - module 和 script 的区别是一个不易发现的细节，需要知道 TS 的模块检测策略是可以通过 `moduleDetection` 进行配置的。
 
-## 3. 🤔 什么是 TypeScript 中的类型作用域？
+## 3. 什么是 TypeScript 中的类型作用域？
 
 - 本节介绍的类型作用域，主要是指“类型的作用范围”。
 - 类型作用域是一个社区概念。
@@ -42,7 +42,7 @@
   - 在 TypeScript 中，并没有一个官方术语叫“类型作用域”（Type Scope），但这个说法通常被开发者用来描述类型声明的可见性范围，即：在哪些地方可以访问某个类型（如 `interface`、`type`、`class`、`enum` 等）。
 - 虽然 TypeScript 本身没有独立的“类型作用域”机制（类型最终会被编译器擦除，不参与运行时），但类型的作用域规则完全遵循 JavaScript/TypeScript 的词法作用域（Lexical Scope）和模块系统。
 
-## 4. 🤔 TypeScript 中类型作用域遵循什么规则？
+## 4. TypeScript 中类型作用域遵循什么规则？
 
 TypeScript 中的类型（`type`、`interface`、`class`、`enum` 等）遵循与变量相同的块级作用域或函数作用域规则。
 
@@ -79,7 +79,7 @@ p({ timeout: 1000 }) // ✅ 调用没问题，但不能显式标注类型
 // p(config: Config) ❌ Config 未定义
 ```
 
-## 5. 🤔 TypeScript 中模块作用域是如何工作的？
+## 5. TypeScript 中模块作用域是如何工作的？
 
 TypeScript 默认采用 ES 模块系统（每个文件是一个模块，只要包含 `import`/`export`）。
 
@@ -126,7 +126,7 @@ import { User, UserId } from './user'
 const u: User = { id: '1', name: 'Alice' } // ✅
 ```
 
-## 6. 🤔 TypeScript 中全局作用域有什么特点？
+## 6. TypeScript 中全局作用域有什么特点？
 
 特点：没有 `import` / `export` 的模块
 
@@ -154,7 +154,7 @@ interface Config {
 // 这容易导致意外冲突，现代项目应始终使用模块（即每个文件至少有一个 export）。
 ```
 
-## 7. 🤔 如何安全地扩展全局作用域？
+## 7. 如何安全地扩展全局作用域？
 
 TypeScript 允许通过 `declare global` 安全扩展全局作用域：
 
@@ -177,7 +177,7 @@ declare global {
 window.myApp.version // ✅ 类型安全
 ```
 
-## 8. 💻 demos.1 - TypeScript 是如何识别文件是一个模块还是全局脚本的呢？
+## 8. demos.1 - TypeScript 是如何识别文件是一个模块还是全局脚本的呢？
 
 在回答这个问题之前，需要先明确一下，TypeScript 中有两种类型的模块：
 
@@ -223,7 +223,7 @@ let a = 1
 
 ![图 0](https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/2025-10-21-19-44-53.png)
 
-## 9. 🤔 TypeScript 中 `namespace` 命名空间的作用域是什么样的？
+## 9. TypeScript 中 `namespace` 命名空间的作用域是什么样的？
 
 - `namespace` 是一种将相关代码组织在一起的方式，中文译为“命名空间”。
 - `namespace` 出现在 ES 模块诞生之前，作为 TypeScript 自己的模块格式而发明的。但是，自从有了 ES 模块，官方已经不推荐使用 `namespace` 了。
@@ -248,7 +248,7 @@ const u: API.User = ...;
 - 打包工具（如 Webpack）支持差
 - 官方文档建议“仅用于描述现有 JS 库的类型”
 
-## 10. 🤔 TypeScript 中如何处理同一个作用域下的同名的 `interface`、`class`、`type` 呢？
+## 10. TypeScript 中如何处理同一个作用域下的同名的 `interface`、`class`、`type` 呢？
 
 - `interface` 可以与 `interface`、`class` 合并
 - `type` 别名不能与任何类型同名
@@ -326,7 +326,7 @@ const User = 'admin'
 type User = string // ✅ ok
 ```
 
-## 11. 🔗 引用
+## 11. 引用
 
 - [tsconfig 配置项 moduleDetection][1]
 

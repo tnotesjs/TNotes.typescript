@@ -2,25 +2,25 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `Extract<T, U>` 是什么？](#3--extractt-u-是什么)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `Extract<T, U>` 是什么？](#3-extractt-u-是什么)
   - [3.1. 源码定义](#31-源码定义)
   - [3.2. 工作原理](#32-工作原理)
   - [3.3. 与 Exclude 的对比](#33-与-exclude-的对比)
   - [3.4. 基本示例](#34-基本示例)
-- [4. 🤔 如何使用 `Extract<T, U>`？](#4--如何使用-extractt-u)
+- [4. 如何使用 `Extract<T, U>`？](#4-如何使用-extractt-u)
   - [4.1. 场景 1：事件处理器类型提取](#41-场景-1事件处理器类型提取)
   - [4.2. 场景 2：Redux Action 类型过滤](#42-场景-2redux-action-类型过滤)
   - [4.3. 场景 3：API 响应类型提取](#43-场景-3api-响应类型提取)
   - [4.4. 场景 4：路由参数类型提取](#44-场景-4路由参数类型提取)
-- [5. 🤔 `Extract<T, U>` 的实际应用场景有哪些？](#5--extractt-u-的实际应用场景有哪些)
+- [5. `Extract<T, U>` 的实际应用场景有哪些？](#5-extractt-u-的实际应用场景有哪些)
   - [5.1. 应用 1：表单字段类型提取](#51-应用-1表单字段类型提取)
   - [5.2. 应用 2：数据库查询结果类型](#52-应用-2数据库查询结果类型)
   - [5.3. 应用 3：WebSocket 消息类型](#53-应用-3websocket-消息类型)
   - [5.4. 应用 4：状态机类型提取](#54-应用-4状态机类型提取)
   - [5.5. 应用 5：日志级别过滤](#55-应用-5日志级别过滤)
-- [6. 🤔 使用 `Extract<T, U>` 需要注意什么？](#6--使用-extractt-u-需要注意什么)
+- [6. 使用 `Extract<T, U>` 需要注意什么？](#6-使用-extractt-u-需要注意什么)
   - [6.1. 注意事项 1：类型兼容性判断](#61-注意事项-1类型兼容性判断)
   - [6.2. 注意事项 2：对象类型的提取](#62-注意事项-2对象类型的提取)
   - [6.3. 注意事项 3：never 的处理](#63-注意事项-3never-的处理)
@@ -28,16 +28,16 @@
   - [6.5. 注意事项 5：与泛型的结合](#65-注意事项-5与泛型的结合)
   - [6.6. 注意事项 6：模板字面量类型](#66-注意事项-6模板字面量类型)
   - [6.7. 注意事项 7：分布式条件类型的限制](#67-注意事项-7分布式条件类型的限制)
-- [7. 🆚 Exclude vs. Extract](#7--exclude-vs-extract)
+- [7. Exclude vs. Extract](#7-exclude-vs-extract)
   - [7.1. 对比表格](#71-对比表格)
   - [7.2. 互补关系](#72-互补关系)
   - [7.3. 使用场景选择](#73-使用场景选择)
   - [7.4. 性能对比](#74-性能对比)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `Extract<T, U>` 的定义和实现原理
 - 条件类型的应用
@@ -45,11 +45,11 @@
 - 实际应用场景
 - `Exclude` 与 `Extract` 的对比
 
-## 2. 🫧 评价
+## 2. 评价
 
 `Extract<T, U>` 从联合类型 `T` 中提取可以赋值给 `U` 的类型。
 
-## 3. 🤔 `Extract<T, U>` 是什么？
+## 3. `Extract<T, U>` 是什么？
 
 `Extract<T, U>` 从联合类型 `T` 中提取可以赋值给类型 `U` 的成员。
 
@@ -121,7 +121,7 @@ type WithValue = Extract<Objects, { value: any }>
 // { type: 'a'; value: number; } | { type: 'b'; value: string; }
 ```
 
-## 4. 🤔 如何使用 `Extract<T, U>`？
+## 4. 如何使用 `Extract<T, U>`？
 
 ### 4.1. 场景 1：事件处理器类型提取
 
@@ -145,7 +145,7 @@ type KeyboardEventNames = Extract<keyof EventMap, `key${string}`>
 
 function addMouseListener(
   event: MouseEventNames,
-  handler: (e: MouseEvent) => void
+  handler: (e: MouseEvent) => void,
 ): void {
   document.addEventListener(event, handler as any)
 }
@@ -261,7 +261,7 @@ navigateWithParams({
 })
 ```
 
-## 5. 🤔 `Extract<T, U>` 的实际应用场景有哪些？
+## 5. `Extract<T, U>` 的实际应用场景有哪些？
 
 ### 5.1. 应用 1：表单字段类型提取
 
@@ -483,7 +483,8 @@ class Logger {
 
   filterSerious(): SeriousLogs[] {
     return this.logs.filter(
-      (log): log is SeriousLogs => log.level === 'warn' || log.level === 'error'
+      (log): log is SeriousLogs =>
+        log.level === 'warn' || log.level === 'error',
     )
   }
 
@@ -514,7 +515,7 @@ logger.log({
 })
 ```
 
-## 6. 🤔 使用 `Extract<T, U>` 需要注意什么？
+## 6. 使用 `Extract<T, U>` 需要注意什么？
 
 ### 6.1. 注意事项 1：类型兼容性判断
 
@@ -585,7 +586,7 @@ type NumberFunc = Extract<Funcs, (x: number) => any>
 // ⚠️ 泛型约束可能影响结果
 function extract<T extends string, U extends string>(
   value: T,
-  match: U
+  match: U,
 ): Extract<T, U> {
   // 编译通过但运行时无法保证
   return value as Extract<T, U>
@@ -627,7 +628,7 @@ type Tuples = [1, 2] | [3, 4]
 type ExtractTuple = Extract<Tuples, [1, 2]> // [1, 2]
 ```
 
-## 7. 🆚 Exclude vs. Extract
+## 7. Exclude vs. Extract
 
 ### 7.1. 对比表格
 
@@ -703,7 +704,7 @@ type ExcludeTwo = Exclude<Large, 'a' | 'b'> // 其余98个
 type ExtractMany = Extract<Large /* 98个成员 */>
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Utility Types - Extract][1]
 - [TypeScript Handbook - Conditional Types][2]

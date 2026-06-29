@@ -2,29 +2,29 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是 tsconfig.json？](#3--什么是-tsconfigjson)
-- [4. 🤔 如何创建 tsconfig.json？](#4--如何创建-tsconfigjson)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是 tsconfig.json？](#3-什么是-tsconfigjson)
+- [4. 如何创建 tsconfig.json？](#4-如何创建-tsconfigjson)
   - [4.1. 方法 1：使用命令 `tsc --init` 自动生成](#41-方法-1使用命令-tsc---init-自动生成)
   - [4.2. 方法 2：继承社区模板](#42-方法-2继承社区模板)
   - [4.3. 方法 3：手动创建 `tsconfig.json` 文件](#43-方法-3手动创建-tsconfigjson-文件)
-- [5. 🤔 tsconfig.json 配置文件的基本结构是什么样的？](#5--tsconfigjson-配置文件的基本结构是什么样的)
-- [6. 🤔 常用编译选项有哪些？](#6--常用编译选项有哪些)
+- [5. tsconfig.json 配置文件的基本结构是什么样的？](#5-tsconfigjson-配置文件的基本结构是什么样的)
+- [6. 常用编译选项有哪些？](#6-常用编译选项有哪些)
   - [6.1. 必知选项（按重要性排序）](#61-必知选项按重要性排序)
   - [6.2. strict 包含的选项](#62-strict-包含的选项)
   - [6.3. 不同开发场景下的一些常见配置示例](#63-不同开发场景下的一些常见配置示例)
-- [7. 🤔 如何调试 tsconfig.json 配置？](#7--如何调试-tsconfigjson-配置)
+- [7. 如何调试 tsconfig.json 配置？](#7-如何调试-tsconfigjson-配置)
   - [7.1. 查看实际生效的配置](#71-查看实际生效的配置)
   - [7.2. 检查哪些文件会被编译](#72-检查哪些文件会被编译)
   - [7.3. 查看模块解析过程](#73-查看模块解析过程)
   - [7.4. 常见问题排查](#74-常见问题排查)
   - [7.5. 配置验证工具](#75-配置验证工具)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - tsconfig.json 的作用
 - 基本配置项说明
@@ -32,7 +32,7 @@
 - 配置调试技巧
 - 最佳实践建议
 
-## 2. 🫧 评价
+## 2. 评价
 
 `tsconfig.json` 是 TypeScript 项目的配置文件，它决定了编译器的行为、类型检查的严格程度以及输出文件的结构。虽然 TypeScript 可以在没有配置文件的情况下工作，但在实际项目中，合理的 `tsconfig.json` 配置是必不可少的。
 
@@ -44,7 +44,7 @@
 
 本节将从实用角度出发，介绍最常用的配置选项，并提供不同场景的配置模板。掌握这些内容后，你就能根据项目需求定制合适的 TypeScript 简单配置了。
 
-## 3. 🤔 什么是 tsconfig.json？
+## 3. 什么是 tsconfig.json？
 
 `tsconfig.json` 是 TypeScript 项目的配置文件，用于指定：
 
@@ -66,7 +66,7 @@
   tsc file.ts --target ES2020  # 需要手动指定所有选项
 ```
 
-## 4. 🤔 如何创建 tsconfig.json？
+## 4. 如何创建 tsconfig.json？
 
 ### 4.1. 方法 1：使用命令 `tsc --init` 自动生成
 
@@ -111,7 +111,7 @@ npm install --save-dev @tsconfig/node18
 }
 ```
 
-## 5. 🤔 tsconfig.json 配置文件的基本结构是什么样的？
+## 5. tsconfig.json 配置文件的基本结构是什么样的？
 
 ::: code-group
 
@@ -173,7 +173,7 @@ npm install --save-dev @tsconfig/node18
 
 :::
 
-## 6. 🤔 常用编译选项有哪些？
+## 6. 常用编译选项有哪些？
 
 ### 6.1. 必知选项（按重要性排序）
 
@@ -260,7 +260,7 @@ npm install --save-dev @tsconfig/node18
 
 :::
 
-## 7. 🤔 如何调试 tsconfig.json 配置？
+## 7. 如何调试 tsconfig.json 配置？
 
 ### 7.1. 查看实际生效的配置
 
@@ -356,7 +356,7 @@ tsc --traceResolution > resolution.log
 }
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TSConfig Reference][1]
 - [TypeScript 编译选项][2]

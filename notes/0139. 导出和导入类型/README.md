@@ -2,20 +2,20 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是类型导出？](#3--什么是类型导出)
-- [4. 🤔 什么是类型导入？](#4--什么是类型导入)
-- [5. 🤔 类型导入有哪两种语法形式？](#5--类型导入有哪两种语法形式)
-- [6. 🤔 类型导入与值导入有什么区别？](#6--类型导入与值导入有什么区别)
-- [7. 🤔 为什么要使用类型导入？](#7--为什么要使用类型导入)
-- [8. 🤔 如何在实际项目中使用类型导入？](#8--如何在实际项目中使用类型导入)
-- [9. 🤔 常见问题和注意事项](#9--常见问题和注意事项)
-- [10. 🔗 引用](#10--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是类型导出？](#3-什么是类型导出)
+- [4. 什么是类型导入？](#4-什么是类型导入)
+- [5. 类型导入有哪两种语法形式？](#5-类型导入有哪两种语法形式)
+- [6. 类型导入与值导入有什么区别？](#6-类型导入与值导入有什么区别)
+- [7. 为什么要使用类型导入？](#7-为什么要使用类型导入)
+- [8. 如何在实际项目中使用类型导入？](#8-如何在实际项目中使用类型导入)
+- [9. 常见问题和注意事项](#9-常见问题和注意事项)
+- [10. 引用](#10-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 本节介绍 TypeScript 中类型的导出和导入机制：
 
@@ -24,7 +24,7 @@
 - 类型导入的两种语法形式
 - 类型导入的实际应用场景
 
-## 2. 🫧 评价
+## 2. 评价
 
 TypeScript 提供了专门的类型导出和导入语法，用于在模块间共享类型定义。
 
@@ -60,7 +60,7 @@ TypeScript 类型导入的优势：
 
 掌握类型导入是编写高质量 TypeScript 代码的重要技能。
 
-## 3. 🤔 什么是类型导出？
+## 3. 什么是类型导出？
 
 TypeScript 中，类型可以像值一样被导出，供其他模块使用。
 
@@ -136,7 +136,7 @@ export type { Product as ProductType, Category as CategoryType }
 - 重命名导出：使用 `as` 关键字在导出时重命名类型
 - 类型与值：可以同时导出同名的类型和值
 
-## 4. 🤔 什么是类型导入？
+## 4. 什么是类型导入？
 
 TypeScript 提供了专门的语法来导入类型，与导入值的语法有所区别。
 
@@ -202,7 +202,7 @@ import { type User as UserType, DEFAULT_STATUS } from './types'
 - `import { type }` 语法：在导入列表中使用 `type` 标记单个类型
 - 混合导入：可以在同一语句中同时导入类型和值
 
-## 5. 🤔 类型导入有哪两种语法形式？
+## 5. 类型导入有哪两种语法形式？
 
 TypeScript 3.8 引入了两种类型导入语法，各有适用场景。
 
@@ -287,7 +287,7 @@ import { type User, type Product, API_URL } from './types'
 - 混合导入：使用 `import { type }` 可以在同一语句中导入类型和值
 - 选择建议：只导入类型时使用 `import type`，需要混合导入时使用 `import { type }`
 
-## 6. 🤔 类型导入与值导入有什么区别？
+## 6. 类型导入与值导入有什么区别？
 
 类型导入和值导入在语法、编译行为和使用方式上都有显著差异。
 
@@ -316,7 +316,10 @@ const user = DEFAULT_USER
 // types.ts
 export type User = { id: number; name: string }
 export class UserClass {
-  constructor(public id: number, public name: string) {}
+  constructor(
+    public id: number,
+    public name: string,
+  ) {}
 }
 
 // user.ts
@@ -381,7 +384,7 @@ const origin: PointType = Point.origin()
 - 使用限制：类型导入只能在类型注解、类型断言等类型位置使用
 - 命名空间：类型和值是独立的命名空间，可以有同名的类型和值
 
-## 7. 🤔 为什么要使用类型导入？
+## 7. 为什么要使用类型导入？
 
 类型导入提供了多个实际好处，特别是在大型项目中。
 
@@ -483,7 +486,7 @@ export type Post = {
 - 构建优化：某些构建工具（如 esbuild）依赖 `import type` 来正确处理类型
 - 循环依赖：类型导入可以安全地在循环依赖的模块中使用
 
-## 8. 🤔 如何在实际项目中使用类型导入？
+## 8. 如何在实际项目中使用类型导入？
 
 在实际项目中，合理使用类型导入可以提高代码质量和可维护性。
 
@@ -651,7 +654,7 @@ export function Input({ value, onChange, placeholder }: InputProps) {
 - 编译选项：使用 TypeScript 配置强制类型导入规范
 - 工具链：配合构建工具和 linter 确保代码质量
 
-## 9. 🤔 常见问题和注意事项
+## 9. 常见问题和注意事项
 
 使用类型导入时需要注意一些常见问题和限制。
 
@@ -660,7 +663,10 @@ export function Input({ value, onChange, placeholder }: InputProps) {
 ```ts [类不能用 import type]
 // models/user.ts
 export class User {
-  constructor(public id: number, public name: string) {}
+  constructor(
+    public id: number,
+    public name: string,
+  ) {}
 
   greet(): string {
     return `Hello, ${this.name}`
@@ -785,7 +791,7 @@ import type { User, Product, ApiResponse } from '@/types'
 - 重导出：可以使用 `export type` 重导出类型
 - 配置选项：使用 `verbatimModuleSyntax` 获得更严格的检查
 
-## 10. 🔗 引用
+## 10. 引用
 
 - [TypeScript Handbook - Modules - Import Type][1]
 - [TypeScript 3.8 Release Notes - Type-Only Imports and Exports][2]

@@ -2,17 +2,17 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 “包装对象”（wrapper object）是什么？【回顾 JS】](#3--包装对象wrapper-object是什么回顾-js)
-- [4. 🤔 “包装对象类型”（Wrapper Object Types）是什么？](#4--包装对象类型wrapper-object-types是什么)
-- [5. 🤔 “原始类型”和“包装对象类型”是相同的类型吗？是否可以互相赋值呢？](#5--原始类型和包装对象类型是相同的类型吗是否可以互相赋值呢)
-- [6. 🤔 处理包装对象类型的最佳实践是什么？](#6--处理包装对象类型的最佳实践是什么)
-- [7. 🔗 引用](#7--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. “包装对象”（wrapper object）是什么？【回顾 JS】](#3-包装对象wrapper-object是什么回顾-js)
+- [4. “包装对象类型”（Wrapper Object Types）是什么？](#4-包装对象类型wrapper-object-types是什么)
+- [5. “原始类型”和“包装对象类型”是相同的类型吗？是否可以互相赋值呢？](#5-原始类型和包装对象类型是相同的类型吗是否可以互相赋值呢)
+- [6. 处理包装对象类型的最佳实践是什么？](#6-处理包装对象类型的最佳实践是什么)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - Boolean
 - String
@@ -20,13 +20,13 @@
 - Symbol
 - BigInt
 
-## 2. 🫧 评价
+## 2. 评价
 
 - 本节介绍的包装对象类型不重要，简单了解即可。
 - 了解这些内容的唯一目的可能就是帮你建立更完整的 TS 类型体系。
 - 记住一句话：在 TypeScript 中，永远使用小写的 `string`、`number`、`boolean`，非必要就别用大写的 `String`、`Number`、`Boolean` 作为类型注解。
 
-## 3. 🤔 “包装对象”（wrapper object）是什么？【回顾 JS】
+## 3. “包装对象”（wrapper object）是什么？【回顾 JS】
 
 JavaScript 的 8 种类型之中，`undefined` 和 `null` 其实是两个特殊值，`object` 属于复合类型，剩下的五种属于原始类型（primitive value），代表最基本的、不可再分的值。
 
@@ -64,7 +64,7 @@ s.charAt(1) // 'e'
 
 注意，`String()` 只有当作构造函数使用时（即带有 `new` 命令调用），才会返回包装对象。如果当作普通函数使用（不带有 `new` 命令），返回就是一个普通字符串。其他两个构造函数 `Number()` 和 `Boolean()` 也是如此。
 
-## 4. 🤔 “包装对象类型”（Wrapper Object Types）是什么？
+## 4. “包装对象类型”（Wrapper Object Types）是什么？
 
 在 JavaScript 中，原始类型（primitive types） 本身没有方法或属性。但当我们对一个字符串调用 `.length` 或 `.toUpperCase()` 时，JavaScript 会临时将原始值包装成一个对象，以便调用方法，用完后立即销毁。这个临时创建的对象，就是包装对象（wrapper object），与之对应的类型，就是包装对象类型（wrapper object types）。
 
@@ -117,7 +117,7 @@ if (b) {
 
 :::
 
-## 5. 🤔 “原始类型”和“包装对象类型”是相同的类型吗？是否可以互相赋值呢？
+## 5. “原始类型”和“包装对象类型”是相同的类型吗？是否可以互相赋值呢？
 
 - TypeScript 对原始类型和包装对象类型做了严格区分，比如 `String` 和 `string` 是不同的两个类型。
 - TypeScript 允许原始类型赋值给对应的包装对象类型（因为这是一种"向上"的赋值，相对安全），但不允许包装对象类型赋值给原始类型（因为这可能丢失对象的特性）。
@@ -146,7 +146,7 @@ let s4: string = s3 // ❌ 错误！Type 'String' is not assignable to type 'str
 | 类型安全 | 高 | 低（易出错） |
 | TypeScript 推荐 | ✅ 是 | ❌ 否 |
 
-## 6. 🤔 处理包装对象类型的最佳实践是什么？
+## 6. 处理包装对象类型的最佳实践是什么？
 
 下面是官方对 [Number, String, Boolean, Symbol and Object][1] 的描述：
 
@@ -171,7 +171,7 @@ let age: Number = new Number(30)
 // 不要用 new String()、new Number() 等
 ```
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [Number, String, Boolean, Symbol and Object][1]
   - typescript - declaration files - do's and don'ts

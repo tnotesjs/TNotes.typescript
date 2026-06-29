@@ -2,28 +2,28 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `extends` 是什么？](#3--extends-是什么)
-- [4. 🤔 条件类型是什么？](#4--条件类型是什么)
-- [5. 🤔 分布式条件类型是什么？](#5--分布式条件类型是什么)
-- [6. 🔗 引用](#6--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `extends` 是什么？](#3-extends-是什么)
+- [4. 条件类型是什么？](#4-条件类型是什么)
+- [5. 分布式条件类型是什么？](#5-分布式条件类型是什么)
+- [6. 引用](#6-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `extends` 关键字
 - 条件类型的基本语法
 - 分布式条件类型
 
-## 2. 🫧 评价
+## 2. 评价
 
 TS 条件类型是通过 `extends` 检查一个类型是否满足约束，然后根据结果为 `true` 或 `false` 选择不同类型分支的类型运算技术。
 
 `extends` 并非 TS 特有的，在 JS 中也存在这个关键字，主要用于表示类之间的继承关系，在 TS 中，对 `extends` 关键字进行了扩展，除了表达类的继承关系之外，它可以用于类型约束。
 
-## 3. 🤔 `extends` 是什么？
+## 3. `extends` 是什么？
 
 `extends` 关键字在 TS 中有两层含义：
 
@@ -75,7 +75,7 @@ logLength({ length: 5 }) // ✅ 对象有 length 属性
 
 :::
 
-## 4. 🤔 条件类型是什么？
+## 4. 条件类型是什么？
 
 条件类型允许根据类型之间的关系选择不同的类型，类似于 JavaScript 中的三元运算符。
 
@@ -106,7 +106,7 @@ type R1 = IsNumber<42> // type R1 = "yes"
 type R2 = IsNumber<string> // type R2 = "no"
 ```
 
-## 5. 🤔 分布式条件类型是什么？
+## 5. 分布式条件类型是什么？
 
 分布式条件类型（Distributive Conditional Types）是 TypeScript 中条件类型的一个重要特性，它会在联合类型上自动“分布”执行。
 
@@ -145,7 +145,7 @@ type T2 = TestFixed<never> // true
 // never 是空集，它是所有类型的子类型，因此这里返回的 T2 是 true
 ```
 
-## 6. 🔗 引用
+## 6. 引用
 
 - [TypeScript Handbook - Conditional Types][1]
 - [TypeScript Handbook - Type Inference in Conditional Types][2]

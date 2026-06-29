@@ -2,25 +2,25 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 Vue 3 组合式 API？](#3--vue-3-组合式-api)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. Vue 3 组合式 API？](#3-vue-3-组合式-api)
   - [3.1. 基本组件结构](#31-基本组件结构)
   - [3.2. 响应式数据类型](#32-响应式数据类型)
-- [4. 🤔 defineComponent 的使用？](#4--definecomponent-的使用)
+- [4. defineComponent 的使用？](#4-definecomponent-的使用)
   - [4.1. 基本使用](#41-基本使用)
   - [4.2. 使用 setup 语法糖](#42-使用-setup-语法糖)
   - [4.3. 组件选项类型](#43-组件选项类型)
-- [5. 🤔 Props 类型定义？](#5--props-类型定义)
+- [5. Props 类型定义？](#5-props-类型定义)
   - [5.1. 使用 script setup](#51-使用-script-setup)
   - [5.2. 运行时 Props 声明](#52-运行时-props-声明)
   - [5.3. Props 验证](#53-props-验证)
-- [6. 🤔 响应式 API 类型？](#6--响应式-api-类型)
+- [6. 响应式 API 类型？](#6-响应式-api-类型)
   - [6.1. ref](#61-ref)
   - [6.2. reactive](#62-reactive)
   - [6.3. computed](#63-computed)
   - [6.4. watch 和 watchEffect](#64-watch-和-watcheffect)
-- [7. 🤔 模板引用类型？](#7--模板引用类型)
+- [7. 模板引用类型？](#7-模板引用类型)
   - [7.1. DOM 元素引用](#71-dom-元素引用)
   - [7.2. 组件引用](#72-组件引用)
   - [7.3. 暴露组件方法](#73-暴露组件方法)
@@ -28,11 +28,11 @@
   - [7.5. 组合式函数（Composables）](#75-组合式函数composables)
   - [7.6. 事件类型](#76-事件类型)
   - [7.7. Provide/Inject](#77-provideinject)
-- [8. 🔗 引用](#8--引用)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - Vue 3 组合式 API
 - defineComponent 使用
@@ -40,7 +40,7 @@
 - 响应式 API 类型
 - 模板引用类型
 
-## 2. 🫧 评价
+## 2. 评价
 
 Vue 3 对 TypeScript 的支持显著改进，组合式 API 提供了更好的类型推断。
 
@@ -50,7 +50,7 @@ Vue 3 对 TypeScript 的支持显著改进，组合式 API 提供了更好的类
 - 提升开发体验
 - Vue 3 核心特性
 
-## 3. 🤔 Vue 3 组合式 API？
+## 3. Vue 3 组合式 API？
 
 ### 3.1. 基本组件结构
 
@@ -113,7 +113,7 @@ const state = reactive<State>({
 </script>
 ```
 
-## 4. 🤔 defineComponent 的使用？
+## 4. defineComponent 的使用？
 
 ### 4.1. 基本使用
 
@@ -192,7 +192,7 @@ export default defineComponent({
 })
 ```
 
-## 5. 🤔 Props 类型定义？
+## 5. Props 类型定义？
 
 ### 5.1. 使用 script setup
 
@@ -261,7 +261,7 @@ const props = defineProps({
 </script>
 ```
 
-## 6. 🤔 响应式 API 类型？
+## 6. 响应式 API 类型？
 
 ### 6.1. ref
 
@@ -354,7 +354,7 @@ watch(
   () => count.value + 1,
   (newVal) => {
     console.log(newVal) // 类型：number
-  }
+  },
 )
 
 // ✅ watchEffect
@@ -363,7 +363,7 @@ watchEffect(() => {
 })
 ```
 
-## 7. 🤔 模板引用类型？
+## 7. 模板引用类型？
 
 ### 7.1. DOM 元素引用
 
@@ -563,7 +563,7 @@ const user = inject(userKey, ref({ id: 0, name: "Guest" }));
 </script>
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [Vue 3 TypeScript Guide][1]
 - [Vue 3 Composition API][2]

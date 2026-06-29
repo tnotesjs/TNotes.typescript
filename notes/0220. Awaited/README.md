@@ -2,18 +2,18 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 `Awaited<T>` 的源码实现是什么？](#3--awaitedt-的源码实现是什么)
-- [4. 🤔 如何使用 `Awaited<T>` 解包 Promise 类型？](#4--如何使用-awaitedt-解包-promise-类型)
-- [5. 🤔 `Awaited<T>` 在异步编程中如何应用？](#5--awaitedt-在异步编程中如何应用)
-- [6. 🤔 `Awaited<T>` 如何处理嵌套 Promise？](#6--awaitedt-如何处理嵌套-promise)
-- [7. 🤔 使用 `Awaited<T>` 时需要注意哪些问题？](#7--使用-awaitedt-时需要注意哪些问题)
-- [8. 🔗 引用](#8--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `Awaited<T>` 的源码实现是什么？](#3-awaitedt-的源码实现是什么)
+- [4. 如何使用 `Awaited<T>` 解包 Promise 类型？](#4-如何使用-awaitedt-解包-promise-类型)
+- [5. `Awaited<T>` 在异步编程中如何应用？](#5-awaitedt-在异步编程中如何应用)
+- [6. `Awaited<T>` 如何处理嵌套 Promise？](#6-awaitedt-如何处理嵌套-promise)
+- [7. 使用 `Awaited<T>` 时需要注意哪些问题？](#7-使用-awaitedt-时需要注意哪些问题)
+- [8. 引用](#8-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `Awaited<T>` 的源码实现
 - `Promise` 类型的递归解包
@@ -21,7 +21,7 @@
 - `Promise.all` 和 `Promise.race` 的类型处理
 - `thenable` 对象的支持
 
-## 2. 🫧 评价
+## 2. 评价
 
 `Awaited<T>` 是 TypeScript 4.5 引入的工具类型，用于递归解包 `Promise` 类型，模拟 `await` 关键字的类型行为。
 
@@ -31,7 +31,7 @@
 - 与 `ReturnType<T>` 配合可以获取异步函数的实际返回值类型
 - 在 `Promise.all`、`Promise.race` 等场景中自动应用
 
-## 3. 🤔 `Awaited<T>` 的源码实现是什么？
+## 3. `Awaited<T>` 的源码实现是什么？
 
 `Awaited<T>` 的源码定义如下：
 
@@ -39,10 +39,10 @@
 type Awaited<T> = T extends null | undefined
   ? T
   : T extends object & { then(onfulfilled: infer F, ...args: infer _): any }
-  ? F extends (value: infer V, ...args: infer _) => any
-    ? Awaited<V>
-    : never
-  : T
+    ? F extends (value: infer V, ...args: infer _) => any
+      ? Awaited<V>
+      : never
+    : T
 ```
 
 实现原理：
@@ -107,7 +107,7 @@ type Result2 = Awaited<Step2>
 interface CustomThenable {
   then(
     onfulfilled: (value: boolean) => void,
-    onrejected?: (reason: any) => void
+    onrejected?: (reason: any) => void,
   ): void
 }
 
@@ -144,7 +144,7 @@ type NestedData = Awaited<ReturnType<typeof getNestedData>>
 // string，自动解包多层 Promise
 ```
 
-## 4. 🤔 如何使用 `Awaited<T>` 解包 Promise 类型？
+## 4. 如何使用 `Awaited<T>` 解包 Promise 类型？
 
 在处理异步操作和 `Promise` 类型时，`Awaited<T>` 提供了类型安全的解包：
 
@@ -214,7 +214,7 @@ type UnwrappedTuple = UnwrapArray<PromiseTuple>
 // [string, number, boolean]
 ```
 
-## 5. 🤔 `Awaited<T>` 在异步编程中如何应用？
+## 5. `Awaited<T>` 在异步编程中如何应用？
 
 在实际异步编程场景中，`Awaited<T>` 确保类型安全：
 
@@ -265,7 +265,7 @@ async function raceRequests() {
     fetch('/api/fast').then(() => 'fast'),
     fetch('/api/slow').then(() => 'slow'),
     new Promise<'timeout'>((_, reject) =>
-      setTimeout(() => reject('timeout'), 5000)
+      setTimeout(() => reject('timeout'), 5000),
     ),
   ])
 }
@@ -290,7 +290,7 @@ type YieldedType = Awaited<
 
 // 应用 4：缓存装饰器
 function memoizeAsync<T extends (...args: any[]) => Promise<any>>(
-  fn: T
+  fn: T,
 ): (...args: Parameters<T>) => Promise<Awaited<ReturnType<T>>> {
   const cache = new Map<string, Awaited<ReturnType<T>>>()
 
@@ -318,7 +318,7 @@ const memoized = memoizeAsync(expensiveOperation)
 // 应用 5：重试逻辑
 async function retry<T>(
   fn: () => Promise<T>,
-  maxRetries: number = 3
+  maxRetries: number = 3,
 ): Promise<Awaited<T>> {
   let lastError: Error
 
@@ -348,7 +348,7 @@ const result = await retry(unreliableApi)
 async function mapAsync<T, R>(
   items: T[],
   mapper: (item: T) => Promise<R>,
-  concurrency: number = 5
+  concurrency: number = 5,
 ): Promise<Awaited<R>[]> {
   const results: Awaited<R>[] = []
   const executing: Promise<void>[] = []
@@ -364,7 +364,7 @@ async function mapAsync<T, R>(
       await Promise.race(executing)
       executing.splice(
         executing.findIndex((p) => p === promise),
-        1
+        1,
       )
     }
   }
@@ -378,7 +378,7 @@ const squared = await mapAsync(numbers, async (n) => n * n)
 // squared: number[]
 ```
 
-## 6. 🤔 `Awaited<T>` 如何处理嵌套 Promise？
+## 6. `Awaited<T>` 如何处理嵌套 Promise？
 
 `Awaited<T>` 的递归特性使其能够处理任意深度的 `Promise` 嵌套：
 
@@ -418,11 +418,12 @@ type FirstLevel = Awaited<MixedNested>
 // }
 
 // 需要递归处理每个属性
-type DeepUnwrap<T> = T extends Promise<infer U>
-  ? DeepUnwrap<U>
-  : T extends object
-  ? { [K in keyof T]: DeepUnwrap<T[K]> }
-  : T
+type DeepUnwrap<T> =
+  T extends Promise<infer U>
+    ? DeepUnwrap<U>
+    : T extends object
+      ? { [K in keyof T]: DeepUnwrap<T[K]> }
+      : T
 
 type FullyUnwrapped = DeepUnwrap<MixedNested>
 // {
@@ -474,13 +475,14 @@ type Step2 = Awaited<Step1['data']>
 // }
 
 // 完全展开的工具类型
-type AwaitedDeep<T> = T extends Promise<infer U>
-  ? AwaitedDeep<U>
-  : T extends (...args: any[]) => Promise<infer U>
-  ? AwaitedDeep<U>
-  : T extends object
-  ? { [K in keyof T]: AwaitedDeep<T[K]> }
-  : T
+type AwaitedDeep<T> =
+  T extends Promise<infer U>
+    ? AwaitedDeep<U>
+    : T extends (...args: any[]) => Promise<infer U>
+      ? AwaitedDeep<U>
+      : T extends object
+        ? { [K in keyof T]: AwaitedDeep<T[K]> }
+        : T
 
 type FullData = AwaitedDeep<ReturnType<typeof fetchComplexData>>
 // {
@@ -517,7 +519,7 @@ const fullyAwaited = await awaitDeep(complexData)
 // fullyAwaited 的所有嵌套 Promise 都已解包
 ```
 
-## 7. 🤔 使用 `Awaited<T>` 时需要注意哪些问题？
+## 7. 使用 `Awaited<T>` 时需要注意哪些问题？
 
 在使用 `Awaited<T>` 时，有以下几点需要注意：
 
@@ -598,7 +600,7 @@ type VeryDeep = Promise<Promise<Promise<Promise<Promise<
 ```ts
 // 陷阱 1：泛型约束丢失
 function processAsync<T extends string>(
-  value: Promise<T>
+  value: Promise<T>,
 ): Awaited<Promise<T>> {
   return value as any
 }
@@ -686,7 +688,7 @@ type UnwrappedNested = Awaited<NestedAlias<number>>
 // { data: number } ✅，递归解包
 ```
 
-## 8. 🔗 引用
+## 8. 引用
 
 - [TypeScript Handbook - Utility Types - Awaited][1]
 - [TypeScript 4.5 Release Notes - Awaited Type][2]

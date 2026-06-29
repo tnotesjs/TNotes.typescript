@@ -2,28 +2,28 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 如何配置 TS 中类属性的严格初始化检查？](#3--如何配置-ts-中类属性的严格初始化检查)
-- [4. 🤔 如何绕过严格初始化检查的报错？](#4--如何绕过严格初始化检查的报错)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 如何配置 TS 中类属性的严格初始化检查？](#3-如何配置-ts-中类属性的严格初始化检查)
+- [4. 如何绕过严格初始化检查的报错？](#4-如何绕过严格初始化检查的报错)
   - [4.1. 在构造函数中初始化](#41-在构造函数中初始化)
   - [4.2. 在顶层声明时直接完成初始化](#42-在顶层声明时直接完成初始化)
   - [4.3. 使用非空断言](#43-使用非空断言)
   - [4.4. 使用可选属性](#44-使用可选属性)
   - [4.5. 使用 `| undefined`](#45-使用--undefined)
-- [5. 🤔 `strictPropertyInitialization` 和 `strictNullChecks` 有什么关系？](#5--strictpropertyinitialization-和-strictnullchecks-有什么关系)
-- [6. 🤔 抽象类中的抽象属性也会被严格初始化检查吗？](#6--抽象类中的抽象属性也会被严格初始化检查吗)
-- [7. 🔗 引用](#7--引用)
+- [5. `strictPropertyInitialization` 和 `strictNullChecks` 有什么关系？](#5-strictpropertyinitialization-和-strictnullchecks-有什么关系)
+- [6. 抽象类中的抽象属性也会被严格初始化检查吗？](#6-抽象类中的抽象属性也会被严格初始化检查吗)
+- [7. 引用](#7-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - strictPropertyInitialization
 - strictNullChecks
 - 抽象属性的特殊性
 
-## 2. 🫧 评价
+## 2. 评价
 
 `strictPropertyInitialization` 是 TypeScript 中一个非常有用的严格模式选项，建议在实际开发中保持开启。
 
@@ -36,7 +36,7 @@
 
 这样既能享受类型安全的好处，又能避免运行时的未定义错误。
 
-## 3. 🤔 如何配置 TS 中类属性的严格初始化检查？
+## 3. 如何配置 TS 中类属性的严格初始化检查？
 
 `strictPropertyInitialization` 配置决定了 TypeScript 如何处理未初始化的类属性。
 
@@ -51,7 +51,7 @@ class Point {
 }
 ```
 
-## 4. 🤔 如何绕过严格初始化检查的报错？
+## 4. 如何绕过严格初始化检查的报错？
 
 做法有很多，两种做法思路：
 
@@ -76,7 +76,10 @@ class Point {
 
 ```ts
 class Point {
-  constructor(public x: number, public y: number) {}
+  constructor(
+    public x: number,
+    public y: number,
+  ) {}
 }
 ```
 
@@ -146,7 +149,7 @@ class Point {
 }
 ```
 
-## 5. 🤔 `strictPropertyInitialization` 和 `strictNullChecks` 有什么关系？
+## 5. `strictPropertyInitialization` 和 `strictNullChecks` 有什么关系？
 
 `strictPropertyInitialization` 依赖于 `strictNullChecks`，当 `strictNullChecks` 关闭时，`strictPropertyInitialization` 也会失效。
 
@@ -160,7 +163,7 @@ class Point {
 }
 ```
 
-## 6. 🤔 抽象类中的抽象属性也会被严格初始化检查吗？
+## 6. 抽象类中的抽象属性也会被严格初始化检查吗？
 
 抽象属性不受严格初始化检查，但非抽象属性仍然需要遵循初始化规则。
 
@@ -181,7 +184,7 @@ abstract class Base {
 
 上述规则跟是否启用类属性的严格初始化检查没有关系。
 
-## 7. 🔗 引用
+## 7. 引用
 
 - [strictPropertyInitialization][1]
 

@@ -2,28 +2,28 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🆚 `@ts-ignore` vs `@ts-expect-error`](#3--ts-ignore-vs-ts-expect-error)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. `@ts-ignore` vs `@ts-expect-error`](#3-ts-ignore-vs-ts-expect-error)
   - [3.1. 对比表格](#31-对比表格)
   - [3.2. 语义对比](#32-语义对比)
   - [3.3. 应用场景对比](#33-应用场景对比)
-- [4. 🔍 官方文档 - `ts-ignore` or `ts-expect-error`?](#4--官方文档---ts-ignore-or-ts-expect-error)
-- [5. 🔗 引用](#5--引用)
+- [4. 官方文档 - `ts-ignore` or `ts-expect-error`?](#4-官方文档---ts-ignore-or-ts-expect-error)
+- [5. 引用](#5-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - @ts-ignore vs @ts-expect-error
 
-## 2. 🫧 评价
+## 2. 评价
 
 `@ts-expect-error` 和 `@ts-ignore` 都是 TypeScript 提供的指令注释（directive comments），用于在特定情况下抑制类型检查错误，但它们的语义和使用场景有本质区别，主要体现在意图表达和错误行为上。
 
 如果你想要忽略某一行的类型错误，并且这个错误你无法立刻修复（比如是第三方库自身的类型声明错误），当你不知道应该选择 `@ts-ignore` 还是 `@ts-expect-error`，应该优先考虑使用 `@ts-expect-error`。（⚠️ 这只是个人建议，你也可以参考笔记中记录的官方建议来决策）
 
-## 3. 🆚 `@ts-ignore` vs `@ts-expect-error`
+## 3. `@ts-ignore` vs `@ts-expect-error`
 
 ### 3.1. 对比表格
 
@@ -134,7 +134,7 @@ externalLib.buggyMethod()
 
 :::
 
-## 4. 🔍 官方文档 - `ts-ignore` or `ts-expect-error`?
+## 4. 官方文档 - `ts-ignore` or `ts-expect-error`?
 
 In some ways `// @ts-expect-error` can act as a suppression comment, similar to `// @ts-ignore`. The difference is that `// @ts-ignore` will do nothing if the following line is error-free.
 
@@ -161,7 +161,7 @@ You might be tempted to switch existing `// @ts-ignore` comments over to `// @ts
   - you honestly don’t have the time to decide which of these options is better.
   - 你确实没时间来决定哪个选项更好。
 
-## 5. 🔗 引用
+## 5. 引用
 
 - [官方文档 - 使用 ts-ignore 还是 ts-expect-error][1]
 

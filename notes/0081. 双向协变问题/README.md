@@ -2,37 +2,37 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 什么是双向协变问题？](#3--什么是双向协变问题)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 什么是双向协变问题？](#3-什么是双向协变问题)
   - [3.1. 定义](#31-定义)
   - [3.2. 问题核心](#32-问题核心)
-- [4. 🤔 双向协变会导致什么问题？](#4--双向协变会导致什么问题)
+- [4. 双向协变会导致什么问题？](#4-双向协变会导致什么问题)
   - [4.1. 问题 1：数组操作不安全](#41-问题-1数组操作不安全)
   - [4.2. 问题 2：事件处理器不安全](#42-问题-2事件处理器不安全)
   - [4.3. 问题 3：泛型函数不安全](#43-问题-3泛型函数不安全)
-- [5. 🤔 为什么 TypeScript 默认允许双向协变？](#5--为什么-typescript-默认允许双向协变)
+- [5. 为什么 TypeScript 默认允许双向协变？](#5-为什么-typescript-默认允许双向协变)
   - [5.1. 历史原因](#51-历史原因)
   - [5.2. 常见场景：事件监听](#52-常见场景事件监听)
   - [5.3. 方法的特殊处理](#53-方法的特殊处理)
-- [6. 🤔 如何解决双向协变问题？](#6--如何解决双向协变问题)
+- [6. 如何解决双向协变问题？](#6-如何解决双向协变问题)
   - [6.1. 解决方案 1：启用 strictFunctionTypes](#61-解决方案-1启用-strictfunctiontypes)
   - [6.2. 解决方案 2：使用函数声明而非方法](#62-解决方案-2使用函数声明而非方法)
   - [6.3. 解决方案 3：类型断言（谨慎使用）](#63-解决方案-3类型断言谨慎使用)
   - [6.4. 解决方案 4：泛型约束](#64-解决方案-4泛型约束)
-- [7. 🤔 strictFunctionTypes 的影响范围](#7--strictfunctiontypes-的影响范围)
+- [7. strictFunctionTypes 的影响范围](#7-strictfunctiontypes-的影响范围)
   - [7.1. 受影响的代码](#71-受影响的代码)
   - [7.2. 不受影响的代码](#72-不受影响的代码)
   - [7.3. 对比表](#73-对比表)
-- [8. 🤔 实际案例分析](#8--实际案例分析)
+- [8. 实际案例分析](#8-实际案例分析)
   - [8.1. 案例 1：数组方法](#81-案例-1数组方法)
   - [8.2. 案例 2：React 事件处理](#82-案例-2react-事件处理)
   - [8.3. 案例 3：高阶函数](#83-案例-3高阶函数)
-- [9. 🔗 引用](#9--引用)
+- [9. 引用](#9-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 双向协变的定义和问题
 - TypeScript 的历史设计决策
@@ -40,7 +40,7 @@
 - 类型安全的最佳实践
 - 实际应用场景分析
 
-## 2. 🫧 评价
+## 2. 评价
 
 双向协变（Bivariance）是 TypeScript 类型系统中一个有意为之的妥协设计。在 `strictFunctionTypes: false`（默认行为）时，函数参数既可以协变也可以逆变，这虽然提供了灵活性，但也牺牲了类型安全。
 
@@ -53,7 +53,7 @@
 3. 避免常见的类型安全陷阱
 4. 编写更健壮的类型声明
 
-## 3. 🤔 什么是双向协变问题？
+## 3. 什么是双向协变问题？
 
 ### 3.1. 定义
 
@@ -104,7 +104,7 @@ handleAnimal({ name: 'Cat' }) // Cat 没有 bark 方法
 // TypeError: dog.bark is not a function
 ```
 
-## 4. 🤔 双向协变会导致什么问题？
+## 4. 双向协变会导致什么问题？
 
 ### 4.1. 问题 1：数组操作不安全
 
@@ -215,7 +215,7 @@ dogBox.value = { name: 'Generic Animal' } as any
 processBox(dogBox, handleAnimal) // 💥 运行时错误
 ```
 
-## 5. 🤔 为什么 TypeScript 默认允许双向协变？
+## 5. 为什么 TypeScript 默认允许双向协变？
 
 ### 5.1. 历史原因
 
@@ -245,7 +245,7 @@ function handleMouseClick(event: MouseEvent) {
 // addEventListener 的类型签名
 declare function addEventListener(
   type: string,
-  listener: (event: Event) => void
+  listener: (event: Event) => void,
 ): void
 
 // ❌ 严格逆变会禁止这个赋值
@@ -288,7 +288,7 @@ class DogShelter extends AnimalShelter {
 const shelter: AnimalShelter = new DogShelter()
 ```
 
-## 6. 🤔 如何解决双向协变问题？
+## 6. 如何解决双向协变问题？
 
 ### 6.1. 解决方案 1：启用 strictFunctionTypes
 
@@ -367,7 +367,7 @@ interface Dog extends Animal {
 
 // ✅ 使用泛型保持类型安全
 function createHandler<T extends Animal>(
-  handler: (item: T) => void
+  handler: (item: T) => void,
 ): (item: T) => void {
   return handler
 }
@@ -387,7 +387,7 @@ typedHandler({ name: 'Generic Animal' })
 // Error: Property 'bark' is missing
 ```
 
-## 7. 🤔 strictFunctionTypes 的影响范围
+## 7. strictFunctionTypes 的影响范围
 
 ### 7.1. 受影响的代码
 
@@ -445,7 +445,7 @@ class Animal {
 | 方法签名     | ❌ 不影响           | `interface I { fn(x: T): void }` |
 | 构造函数     | ❌ 不影响           | `constructor(x: T)`              |
 
-## 8. 🤔 实际案例分析
+## 8. 实际案例分析
 
 ### 8.1. 案例 1：数组方法
 
@@ -552,7 +552,7 @@ logAnimal({ name: 'Cat' })
 
 // ✅ 安全的高阶函数
 function createLogger<T extends Animal>(
-  handler: (item: T) => void
+  handler: (item: T) => void,
 ): (item: T) => void {
   return (item: T) => {
     console.log('Logging...')
@@ -571,7 +571,7 @@ logDog2({ name: 'Buddy', bark: () => {} })
 logDog2({ name: 'Cat' })
 ```
 
-## 9. 🔗 引用
+## 9. 引用
 
 - [TypeScript 2.6 Release Notes][1]
 - [strictFunctionTypes 文档][2]

@@ -2,20 +2,20 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 🤔 如何创建和导出命名空间成员？](#3--如何创建和导出命名空间成员)
-- [4. 🤔 如何在多个文件中组织命名空间？](#4--如何在多个文件中组织命名空间)
-- [5. 🤔 如何使用别名简化命名空间访问？](#5--如何使用别名简化命名空间访问)
-- [6. 🤔 如何在命名空间中组织类型？](#6--如何在命名空间中组织类型)
-- [7. 🤔 如何结合类和命名空间使用？](#7--如何结合类和命名空间使用)
-- [8. 🤔 实际项目中的应用场景有哪些？](#8--实际项目中的应用场景有哪些)
-- [9. 🤔 常见错误和解决方案是什么？](#9--常见错误和解决方案是什么)
-- [10. 🔗 引用](#10--引用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. 如何创建和导出命名空间成员？](#3-如何创建和导出命名空间成员)
+- [4. 如何在多个文件中组织命名空间？](#4-如何在多个文件中组织命名空间)
+- [5. 如何使用别名简化命名空间访问？](#5-如何使用别名简化命名空间访问)
+- [6. 如何在命名空间中组织类型？](#6-如何在命名空间中组织类型)
+- [7. 如何结合类和命名空间使用？](#7-如何结合类和命名空间使用)
+- [8. 实际项目中的应用场景有哪些？](#8-实际项目中的应用场景有哪些)
+- [9. 常见错误和解决方案是什么？](#9-常见错误和解决方案是什么)
+- [10. 引用](#10-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - 命名空间的基本语法和导出规则
 - 多文件命名空间的组织方式
@@ -23,7 +23,7 @@
 - 类型组织和管理
 - 实际项目应用案例
 
-## 2. 🫧 评价
+## 2. 评价
 
 - 这篇笔记是对 namespace 关键字的实战补充，重点关注实际使用中的技巧和模式。
 - 在现代 TypeScript 开发中：
@@ -37,7 +37,7 @@
   - 为第三方库添加类型定义
   - 扩展全局类型
 
-## 3. 🤔 如何创建和导出命名空间成员？
+## 3. 如何创建和导出命名空间成员？
 
 基本导出语法
 
@@ -210,7 +210,7 @@ container.add(2)
 const arr = DataTypes.createArray(3, 'hello')
 ```
 
-## 4. 🤔 如何在多个文件中组织命名空间？
+## 4. 如何在多个文件中组织命名空间？
 
 使用三斜线指令引用
 
@@ -405,7 +405,7 @@ console.log(found)
 
 :::
 
-## 5. 🤔 如何使用别名简化命名空间访问？
+## 5. 如何使用别名简化命名空间访问？
 
 创建命名空间别名
 
@@ -422,7 +422,10 @@ namespace Company {
       }
 
       export class Developer {
-        constructor(public name: string, public level: number) {}
+        constructor(
+          public name: string,
+          public level: number,
+        ) {}
 
         code(): void {
           console.log(`${this.name} 正在编码`)
@@ -634,7 +637,7 @@ if (isDev) {
 
 :::
 
-## 6. 🤔 如何在命名空间中组织类型？
+## 6. 如何在命名空间中组织类型？
 
 按功能分组类型
 
@@ -709,7 +712,7 @@ function createUser(dto: Models.User.CreateUserDTO): Models.User.User {
 
 function createPost(
   dto: Models.Post.CreatePostDTO,
-  author: Models.User.User
+  author: Models.User.User,
 ): Models.Post.Post {
   return {
     id: Math.random().toString(36),
@@ -786,13 +789,13 @@ namespace API {
   export interface UserAPI {
     getUser(req: Request.GetUser): Promise<Response.Success<Response.User>>
     createUser(
-      req: Request.CreateUser
+      req: Request.CreateUser,
     ): Promise<Response.Success<Response.User>>
     updateUser(
-      req: Request.UpdateUser
+      req: Request.UpdateUser,
     ): Promise<Response.Success<Response.User>>
     listUsers(
-      req: Request.ListUsers
+      req: Request.ListUsers,
     ): Promise<Response.Success<Response.UserList>>
   }
 }
@@ -800,7 +803,7 @@ namespace API {
 // 使用 API 类型
 class UserAPIImpl implements API.UserAPI {
   async getUser(
-    req: API.Request.GetUser
+    req: API.Request.GetUser,
   ): Promise<API.Response.Success<API.Response.User>> {
     // 实现
     return {
@@ -816,7 +819,7 @@ class UserAPIImpl implements API.UserAPI {
   }
 
   async createUser(
-    req: API.Request.CreateUser
+    req: API.Request.CreateUser,
   ): Promise<API.Response.Success<API.Response.User>> {
     // 实现
     return {
@@ -832,7 +835,7 @@ class UserAPIImpl implements API.UserAPI {
   }
 
   async updateUser(
-    req: API.Request.UpdateUser
+    req: API.Request.UpdateUser,
   ): Promise<API.Response.Success<API.Response.User>> {
     // 实现
     return {
@@ -848,7 +851,7 @@ class UserAPIImpl implements API.UserAPI {
   }
 
   async listUsers(
-    req: API.Request.ListUsers
+    req: API.Request.ListUsers,
   ): Promise<API.Response.Success<API.Response.UserList>> {
     // 实现
     return {
@@ -905,12 +908,12 @@ namespace Store {
   // ✅ Reducer 类型
   export type UserReducer = (
     state: State.User,
-    action: Action.UserAction
+    action: Action.UserAction,
   ) => State.User
 
   export type PostReducer = (
     state: State.Post,
-    action: Action.PostAction
+    action: Action.PostAction,
   ) => State.Post
 }
 
@@ -942,7 +945,7 @@ const userReducer: Store.UserReducer = (state, action) => {
 }
 ```
 
-## 7. 🤔 如何结合类和命名空间使用？
+## 7. 如何结合类和命名空间使用？
 
 为类添加静态成员命名空间
 
@@ -1082,7 +1085,7 @@ class HTTP {
   post<T>(
     url: string,
     data?: any,
-    config?: HTTP.PostConfig
+    config?: HTTP.PostConfig,
   ): Promise<HTTP.Response<T>> {
     return this.request<T>({ ...config, method: 'POST', url, data })
   }
@@ -1126,7 +1129,7 @@ namespace HTTP {
     constructor(
       message: string,
       public status: number,
-      public response?: Response<any>
+      public response?: Response<any>,
     ) {
       super(message)
       this.name = 'HTTPError'
@@ -1189,7 +1192,7 @@ HTTP.defaultInstance.get<User[]>('/users')
 
 :::
 
-## 8. 🤔 实际项目中的应用场景有哪些？
+## 8. 实际项目中的应用场景有哪些？
 
 类型声明文件
 
@@ -1232,7 +1235,7 @@ import { Request, Response, NextFunction } from 'express'
 export function authMiddleware(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   // ✅ 可以访问扩展的属性
   req.user = {
@@ -1420,7 +1423,7 @@ namespace Ecommerce {
     export class OrderService {
       async createOrder(
         customerId: string,
-        items: OrderItem[]
+        items: OrderItem[],
       ): Promise<Order> {
         // 实现
         throw new Error('Not implemented')
@@ -1458,7 +1461,7 @@ namespace Ecommerce {
 
       async addAddress(
         customerId: string,
-        address: Omit<Address, 'id'>
+        address: Omit<Address, 'id'>,
       ): Promise<Address> {
         // 实现
         throw new Error('Not implemented')
@@ -1491,7 +1494,7 @@ async function checkoutProcess() {
 }
 ```
 
-## 9. 🤔 常见错误和解决方案是什么？
+## 9. 常见错误和解决方案是什么？
 
 错误 1：忘记导出成员
 
@@ -1763,7 +1766,7 @@ namespace App {
 
 :::
 
-## 10. 🔗 引用
+## 10. 引用
 
 - [TypeScript 官方文档 - Namespaces][1]
 - [TypeScript 官方文档 - Namespaces and Modules][2]

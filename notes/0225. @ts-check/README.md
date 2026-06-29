@@ -2,24 +2,24 @@
 
 <!-- region:toc -->
 
-- [1. 🎯 本节内容](#1--本节内容)
-- [2. 🫧 评价](#2--评价)
-- [3. 💻 demos.1 - 体验 `@ts-check` 的作用](#3--demos1---体验-ts-check-的作用)
-- [4. 🤔 @ts-check 如何与 tsconfig.json 配合使用？](#4--ts-check-如何与-tsconfigjson-配合使用)
+- [1. 本节内容](#1-本节内容)
+- [2. 评价](#2-评价)
+- [3. demos.1 - 体验 `@ts-check` 的作用](#3-demos1---体验-ts-check-的作用)
+- [4. @ts-check 如何与 tsconfig.json 配合使用？](#4-ts-check-如何与-tsconfigjson-配合使用)
   - [4.1. 单个 JS 文件启用检查](#41-单个-js-文件启用检查)
   - [4.2. 全局 JS 文件启用检查](#42-全局-js-文件启用检查)
-- [5. 🤔 `checkJs` 配置的作用是？](#5--checkjs-配置的作用是)
-- [6. 🔗 引用](#6--引用)
+- [5. `checkJs` 配置的作用是？](#5-checkjs-配置的作用是)
+- [6. 引用](#6-引用)
 
 <!-- endregion:toc -->
 
-## 1. 🎯 本节内容
+## 1. 本节内容
 
 - `@ts-check` 注释的基本用法
 - 在 JS 文件中启用类型检查
 - 与 JSDoc 的配合使用
 
-## 2. 🫧 评价
+## 2. 评价
 
 `@ts-check` 允许在 JS 文件中启用 TS 类型检查，无需将文件改为 `.ts` 扩展名。
 
@@ -28,7 +28,7 @@
 - JS 项目可以配合 JSDoc 注释提供类型信息
 - 将项目从 JS 迁移到 TS 初期常用，比直接迁移到 TS 风险更低，更好地完成渐进式迁移
 
-## 3. 💻 demos.1 - 体验 `@ts-check` 的作用
+## 3. demos.1 - 体验 `@ts-check` 的作用
 
 `@ts-check` 在 JS 文件中启用 TS 类型检查。
 
@@ -56,7 +56,7 @@
 
 :::
 
-## 4. 🤔 @ts-check 如何与 tsconfig.json 配合使用？
+## 4. @ts-check 如何与 tsconfig.json 配合使用？
 
 常见有两种模式：
 
@@ -130,12 +130,12 @@ function newFunction(x) {
 
 :::
 
-## 5. 🤔 `checkJs` 配置的作用是？
+## 5. `checkJs` 配置的作用是？
 
 - 当启用 `checkJs` 时，JS 文件中的错误将被报告。
 - 这相当于在所有项目包含的 JS 文件顶部添加 `// @ts-check` 。
 
-## 6. 🔗 引用
+## 6. 引用
 
 - [TS Handbook - Type Checking JS Files][1]
 - [JSDoc Reference][2]
