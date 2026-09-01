@@ -51,7 +51,7 @@
 
 ## 1.  概述
 
-<BilibiliOutsidePlayer id="BV1aqQdY2E1c" />
+<BilibiliVideo id="BV1aqQdY2E1c" />
 
 - 通过这个视频，首次了解到了有关 typescript v7 的相关信息。
 
