@@ -1,9 +1,0 @@
-{
-  "bilibili": [],
-  "tnotes": [],
-  "yuque": [],
-  "done": true,
-  "enableDiscussions": true,
-  "description": "JSDoc 是 JS 的文档注释标准，TS 扩展了 JSDoc 以支持类型注释，让 JS 项目也能享受类型检查的好处。",
-  "id": "33d76230-533f-4d7b-8b36-ce52cb99de69"
-}

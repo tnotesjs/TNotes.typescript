@@ -1,0 +1,43 @@
+{
+  "title": "typescript",
+  "name": "TNotes.typescript",
+  "description": "TS 笔记",
+  "icon": {
+    "src": "https://cdn.jsdelivr.net/gh/tnotesjs/imgs@main/assets/icon--typescript.svg"
+  },
+  "repositoryUrl": "https://github.com/tnotesjs/TNotes.typescript",
+  "port": 9219,
+  "pageUrl": "https://tnotesjs.github.io/TNotes.typescript/",
+  "base": "/TNotes.typescript/",
+  "stats": {
+    "enabled": true,
+    "completedNotesCount": {
+      "24.09": 0,
+      "24.10": 0,
+      "24.11": 0,
+      "24.12": 0,
+      "25.01": 0,
+      "25.02": 0,
+      "25.03": 0,
+      "25.04": 0,
+      "25.05": 0,
+      "25.06": 0,
+      "25.07": 0,
+      "25.08": 0,
+      "25.09": 0,
+      "25.10": 60,
+      "25.11": 62,
+      "25.12": 62,
+      "26.01": 62,
+      "26.02": 62,
+      "26.03": 62,
+      "26.04": 62,
+      "26.05": 62,
+      "26.06": 146,
+      "26.07": 146,
+      "26.08": 146,
+      "26.09": 146
+    }
+  },
+  "discussions": true
+}
