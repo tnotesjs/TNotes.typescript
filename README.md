@@ -1,3 +1,1 @@
-# TNotes.typescript
-
-- TS 笔记。
+TypeScript 知识库。
